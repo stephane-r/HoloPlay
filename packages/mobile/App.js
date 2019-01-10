@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Image, StyleSheet, Text, View, Button } from "react-native";
 import Video from "react-native-video";
 import YTSearch from "youtube-search";
-import test from "core";
+import test from "@youtube-audio-player/core";
 
 test();
 

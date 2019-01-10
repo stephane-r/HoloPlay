@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "@youtube-audio-player/core",
   "version": "0.0.1",
   "main": "index.js"
 }
