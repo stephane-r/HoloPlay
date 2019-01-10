@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "youtube-audio-player",
   "version": "0.0.1",
   "private": true,
   "workspaces": {
@@ -8,7 +8,7 @@
     ]
   },
   "scripts": {
-    "web:start": "yarn workspace web start",
-    "mobile:android:run": "yarn workspace mobile android:run"
+    "web:start": "yarn workspace @youtube-audio-player/web start",
+    "mobile:android:run": "yarn workspace @youtube-audio-player/mobile android:run"
   }
 }

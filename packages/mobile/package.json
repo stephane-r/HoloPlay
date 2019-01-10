@@ -1,5 +1,5 @@
 {
-  "name": "mobile",
+  "name": "@youtube-audio-player/mobile",
   "version": "0.0.1",
   "private": false,
   "scripts": {
@@ -8,9 +8,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "core": "0.0.1",
+    "@youtube-audio-player/core": "0.0.1",
+    "querystring": "^0.2.0",
     "react": "16.6.3",
-    "react-native": "0.57.8"
+    "react-native": "0.57.8",
+    "react-native-video": "^4.3.1",
+    "youtube-search": "^1.1.4"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
