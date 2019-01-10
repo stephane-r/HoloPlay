@@ -2,3 +2,4 @@ node_modules
 .bash_history
 .env
 /.android
+*.log
