@@ -1,4 +1,4 @@
-package com.mobile;
+package com.youtubeaudioplayer;
 
 import android.app.Application;
 
