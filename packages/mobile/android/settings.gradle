@@ -1,4 +1,4 @@
-rootProject.name = 'mobile'
+rootProject.name = 'YoutubeAudioPlayer'
 
 include ':app'
 include ':react-native-video'

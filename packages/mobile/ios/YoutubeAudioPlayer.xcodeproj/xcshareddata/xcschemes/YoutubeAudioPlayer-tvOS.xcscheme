@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "mobile-tvOS.app"
-               BlueprintName = "mobile-tvOS"
-               ReferencedContainer = "container:mobile.xcodeproj">
+               BuildableName = "YoutubeAudioPlayer-tvOS.app"
+               BlueprintName = "YoutubeAudioPlayer-tvOS"
+               ReferencedContainer = "container:YoutubeAudioPlayer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "mobile-tvOSTests.xctest"
-               BlueprintName = "mobile-tvOSTests"
-               ReferencedContainer = "container:mobile.xcodeproj">
+               BuildableName = "YoutubeAudioPlayer-tvOSTests.xctest"
+               BlueprintName = "YoutubeAudioPlayer-tvOSTests"
+               ReferencedContainer = "container:YoutubeAudioPlayer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "mobile-tvOSTests.xctest"
-               BlueprintName = "mobile-tvOSTests"
-               ReferencedContainer = "container:mobile.xcodeproj">
+               BuildableName = "YoutubeAudioPlayer-tvOSTests.xctest"
+               BlueprintName = "YoutubeAudioPlayer-tvOSTests"
+               ReferencedContainer = "container:YoutubeAudioPlayer.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "mobile-tvOS.app"
-            BlueprintName = "mobile-tvOS"
-            ReferencedContainer = "container:mobile.xcodeproj">
+            BuildableName = "YoutubeAudioPlayer-tvOS.app"
+            BlueprintName = "YoutubeAudioPlayer-tvOS"
+            ReferencedContainer = "container:YoutubeAudioPlayer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "mobile-tvOS.app"
-            BlueprintName = "mobile-tvOS"
-            ReferencedContainer = "container:mobile.xcodeproj">
+            BuildableName = "YoutubeAudioPlayer-tvOS.app"
+            BlueprintName = "YoutubeAudioPlayer-tvOS"
+            ReferencedContainer = "container:YoutubeAudioPlayer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "mobile-tvOS.app"
-            BlueprintName = "mobile-tvOS"
-            ReferencedContainer = "container:mobile.xcodeproj">
+            BuildableName = "YoutubeAudioPlayer-tvOS.app"
+            BlueprintName = "YoutubeAudioPlayer-tvOS"
+            ReferencedContainer = "container:YoutubeAudioPlayer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
