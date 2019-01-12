@@ -1,5 +1,10 @@
 {
   "name": "@youtube-audio-player/core",
   "version": "0.0.1",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "react": "16.6.3",
+    "react-waterfall": "^4.0.1",
+    "youtube-search": "^1.1.4"
+  }
 }
