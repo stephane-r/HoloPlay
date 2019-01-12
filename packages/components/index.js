@@ -1,3 +1,3 @@
-const test = () => alert("HELLO f !");
+import Result from './Result';
 
-export default test;
+export { Result };

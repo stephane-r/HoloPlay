@@ -1,3 +1,3 @@
-const test = () => alert('HELLO WORLD !');
+import { Provider, connect, actions } from './store';
 
-export default test;
+export { Provider, connect, actions };
