@@ -25,14 +25,8 @@ export default class App extends Component {
             />
             <SearchResultContainer />
             <AudioContainer />
-            {/*
-        {sound && (
-          <Video
-            source={{ uri: `http://192.168.10.21:8080/${sound.id}` }}
-            audioOnly={true}
-            playInBackground={true}
-          />
-        )} */}
+            <Button title="Pause" onPress={actions.paused} />
+            <Button title="Repeat" onPress={actions.repeat} />
           </View>
         </ScrollView>
       </Provider>

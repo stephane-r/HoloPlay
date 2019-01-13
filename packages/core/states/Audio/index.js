@@ -1,5 +1,7 @@
 const state = {
-  source: null
+  source: null,
+  repeat: false,
+  paused: false
 };
 
 export default state;
