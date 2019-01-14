@@ -9,6 +9,7 @@
   },
   "scripts": {
     "web:start": "yarn workspace @youtube-audio-player/web start",
-    "mobile:android:run": "yarn workspace @youtube-audio-player/mobile android:run"
+    "mobile:android:run": "yarn workspace @youtube-audio-player/mobile android:run",
+    "clean:all": "sudo rm -rf node_modules packages/*/node_modules"
   }
 }
