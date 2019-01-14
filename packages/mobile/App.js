@@ -4,14 +4,14 @@ import Input from './components/Forms/Input';
 import {
   Provider,
   actions,
-  SearchResultContainer,
-  AudioContainer
+  SearchResultContainer
 } from '@youtube-audio-player/core';
+import AudioContainer from './containers/Audio';
 
 export default class App extends Component {
-  state = {
-    text: 'Eminem'
-  };
+  componentDidMount() {
+    actions.search();
+  }
 
   render() {
     return (
@@ -19,17 +19,12 @@ export default class App extends Component {
         <ScrollView>
           <View style={styles.container}>
             <Input
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
+              onChangeText={text => actions.setSearchValue(text)}
+              placeholder="Rechercher..."
             />
-            <Button
-              title="Search"
-              onPress={() => actions.search(this.state.text)}
-            />
+            <Button title="Search" onPress={actions.search} />
             <SearchResultContainer />
             <AudioContainer />
-            <Button title="Pause" onPress={actions.paused} />
-            <Button title="Repeat" onPress={actions.repeat} />
           </View>
         </ScrollView>
       </Provider>

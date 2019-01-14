@@ -1,7 +1,7 @@
 import React from 'react';
 import Video from 'react-native-video';
-import { View, Text } from 'react-native';
-import { API_URL } from '@youtube-audio-player/core';
+import { View, Text, Button } from 'react-native';
+import { API_URL, actions } from '@youtube-audio-player/core';
 
 class Audio extends React.Component {
   state = {
@@ -34,6 +34,8 @@ class Audio extends React.Component {
           <Text>{this.state.currentTime}</Text>
           <Text>{this.state.playableDuration}</Text>
           <Text>{this.state.seekableDuration}</Text>
+          <Button title="Pause" onPress={actions.paused} />
+          <Button title="Repeat" onPress={actions.repeat} />
         </View>
       );
     }

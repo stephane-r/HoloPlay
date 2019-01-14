@@ -1,4 +1,10 @@
-const actions = {
+const audioState = {
+  source: null,
+  repeat: false,
+  paused: false
+};
+
+const audioActions = {
   addAudio: async (state, actions, source) => {
     return {
       ...state,
@@ -19,4 +25,4 @@ const actions = {
   }
 };
 
-export default actions;
+export { audioActions, audioState };

@@ -1,4 +1,3 @@
-import Result from './Result';
-import Audio from './Audio';
+import ResultList from './Result/List';
 
-export { Result, Audio };
+export { ResultList };
