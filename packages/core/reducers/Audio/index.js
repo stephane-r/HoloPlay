@@ -1,4 +1,3 @@
-import { actions } from '../../store';
 import getYoutubeContentDetail from '../../utils/youtubeContentDetail';
 
 const audioState = {
