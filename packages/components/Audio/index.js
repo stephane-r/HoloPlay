@@ -1,6 +1,7 @@
 import React from 'react';
 import Video from 'react-native-video';
 import { View, Text } from 'react-native';
+import { API_URL } from '@youtube-audio-player/core';
 
 class Audio extends React.Component {
   state = {
@@ -16,7 +17,7 @@ class Audio extends React.Component {
       return (
         <View>
           <Video
-            source={{ uri: `http://192.168.1.102:8080/${source.id}` }}
+            source={{ uri: `http://${API_URL}/${source.id}` }}
             audioOnly={true}
             playInBackground={true}
             paused={paused}
