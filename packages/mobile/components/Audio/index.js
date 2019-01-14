@@ -8,6 +8,7 @@ import {
   youtubeDurationToSeconds
 } from '@youtube-audio-player/core';
 import { Progress } from '@youtube-audio-player/components';
+import MusicControl from 'react-native-music-control';
 
 class Audio extends React.Component {
   state = {
@@ -17,11 +18,30 @@ class Audio extends React.Component {
   constructor(props) {
     super(props);
     this.onProgress = this.onProgress.bind(this);
+    this.onLoadStart = this.onLoadStart.bind(this);
   }
 
   onProgress({ currentTime }) {
     this.setState({
       currentTime: Math.round(currentTime)
+    });
+  }
+
+  onLoadStart() {
+    const {
+      title,
+      channelTitle,
+      duration,
+      description,
+      thumbnails
+    } = this.props.source;
+
+    MusicControl.setNowPlaying({
+      title,
+      artwork: thumbnails.medium.url,
+      artist: channelTitle,
+      duration: youtubeDurationToSeconds(duration),
+      description
     });
   }
 
@@ -44,6 +64,7 @@ class Audio extends React.Component {
             poster="https://baconmockup.com/300/200/"
             repeat={repeat}
             onProgress={this.onProgress}
+            onLoadStart={this.onLoadStart}
           />
           <Text>{this.state.currentTime}</Text>
           <Text>{ISO8601toDuration(source.duration)}</Text>
