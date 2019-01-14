@@ -1,13 +1,15 @@
 import React from 'react';
 import Video from 'react-native-video';
 import { View, Text, Button } from 'react-native';
-import { API_URL, actions } from '@youtube-audio-player/core';
+import {
+  API_URL,
+  actions,
+  ISO8601toDuration
+} from '@youtube-audio-player/core';
 
 class Audio extends React.Component {
   state = {
-    currentTime: 0,
-    playableDuration: 0,
-    seekableDuration: 0
+    currentTime: null
   };
 
   render() {
@@ -31,9 +33,8 @@ class Audio extends React.Component {
               })
             }
           />
-          <Text>{this.state.currentTime}</Text>
-          <Text>{this.state.playableDuration}</Text>
-          <Text>{this.state.seekableDuration}</Text>
+          {this.state.currentTime && <Text>{this.state.currentTime}</Text>}
+          <Text>{ISO8601toDuration(source.duration)}</Text>
           <Button title="Pause" onPress={actions.paused} />
           <Button title="Repeat" onPress={actions.repeat} />
         </View>

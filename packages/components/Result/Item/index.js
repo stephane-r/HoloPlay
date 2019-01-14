@@ -3,7 +3,7 @@ import { actions } from '@youtube-audio-player/core';
 import { Text, Image } from 'react-native';
 
 const ResultItem = ({ item }) => (
-  <Text onPress={() => actions.addAudio(item)}>
+  <Text onPress={() => actions.addSource(item)}>
     <Image
       source={{ uri: item.thumbnails.default.url }}
       style={{
