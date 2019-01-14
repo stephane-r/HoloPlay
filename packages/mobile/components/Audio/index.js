@@ -21,6 +21,32 @@ class Audio extends React.Component {
     this.onLoadStart = this.onLoadStart.bind(this);
   }
 
+  componentDidMount() {
+    MusicControl.enableControl('play', true);
+    MusicControl.enableControl('pause', true);
+    MusicControl.enableControl('stop', true);
+    MusicControl.enableControl('nextTrack', true);
+    MusicControl.enableControl('previousTrack', true);
+
+    MusicControl.enableBackgroundMode(true);
+
+    MusicControl.handleAudioInterruptions(true);
+
+    MusicControl.on('play', () => actions.paused());
+    MusicControl.on('pause', () => actions.paused());
+
+    // MusicControl.on('stop', ()=> {
+    // this.props.dispatch(stopRemoteControl());
+    // })
+
+    MusicControl.on('nextTrack', () =>
+      actions.loadSource(this.props.previousSourceIndex)
+    );
+    MusicControl.on('previousTrack', () =>
+      actions.loadSource(this.props.previousSourceIndex)
+    );
+  }
+
   onProgress({ currentTime }) {
     this.setState({
       currentTime: Math.round(currentTime)
@@ -46,10 +72,7 @@ class Audio extends React.Component {
   }
 
   render() {
-    const { source, sourceIndex, paused, repeat } = this.props;
-
-    const nextSourceIndex = sourceIndex + 1;
-    const previousSourceIndex = sourceIndex - 1;
+    const { source, paused, repeat } = this.props;
 
     if (source) {
       const percentage = Math.floor(
@@ -74,11 +97,11 @@ class Audio extends React.Component {
           <Progress percentage={percentage} />
           <Button
             title="Next"
-            onPress={() => actions.loadSource(nextSourceIndex)}
+            onPress={() => actions.loadSource(this.props.nextSourceIndex)}
           />
           <Button
             title="Previous"
-            onPress={() => actions.loadSource(previousSourceIndex)}
+            onPress={() => actions.loadSource(this.props.previousSourceIndex)}
           />
           <Button title="Pause" onPress={actions.paused} />
           <Button title="Repeat" onPress={actions.repeat} />
