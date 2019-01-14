@@ -46,7 +46,10 @@ class Audio extends React.Component {
   }
 
   render() {
-    const { source, paused, repeat } = this.props;
+    const { source, sourceIndex, paused, repeat } = this.props;
+
+    const nextSourceIndex = sourceIndex + 1;
+    const previousSourceIndex = sourceIndex - 1;
 
     if (source) {
       const percentage = Math.floor(
@@ -69,6 +72,14 @@ class Audio extends React.Component {
           <Text>{this.state.currentTime}</Text>
           <Text>{ISO8601toDuration(source.duration)}</Text>
           <Progress percentage={percentage} />
+          <Button
+            title="Next"
+            onPress={() => actions.loadSource(nextSourceIndex)}
+          />
+          <Button
+            title="Previous"
+            onPress={() => actions.loadSource(previousSourceIndex)}
+          />
           <Button title="Pause" onPress={actions.paused} />
           <Button title="Repeat" onPress={actions.repeat} />
         </View>

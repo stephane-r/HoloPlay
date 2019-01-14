@@ -7,9 +7,9 @@ const getYoutubeContentDetail = async id => {
     const request = await fetch(
       `${baseURL}?part=contentDetails&id=${id}&key=${YOUTUBE_API_KEY}`
     );
-    const response = request.json();
+    const response = await request.json();
 
-    return response;
+    return response.items[0].contentDetails;
   } catch (error) {
     return error;
   }

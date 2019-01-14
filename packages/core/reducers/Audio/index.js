@@ -1,16 +1,18 @@
+import { actions } from '../../store';
 import getYoutubeContentDetail from '../../utils/youtubeContentDetail';
 
 const audioState = {
   source: null,
+  sourceIndex: null,
   repeat: false,
   paused: false,
   duration: 0
 };
 
 const audioActions = {
-  addSource: async (state, actions, source) => {
-    const request = await getYoutubeContentDetail(source.id);
-    const duration = request.items[0].contentDetails.duration;
+  loadSource: async (state, actions, sourceIndex) => {
+    const source = state.results[sourceIndex];
+    const { duration } = await getYoutubeContentDetail(source.id);
     const audio = {
       ...source,
       duration
@@ -18,7 +20,8 @@ const audioActions = {
 
     return {
       ...state,
-      source: audio
+      source: audio,
+      sourceIndex
     };
   },
   paused: async (state, actions, value) => {
