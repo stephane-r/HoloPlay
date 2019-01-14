@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Button } from 'react-native';
 import Input from './components/Forms/Input';
-import { Provider, actions } from '@youtube-audio-player/core';
-import SearchResultContainer from './containers/SearchResults';
-import AudioContainer from '@youtube-audio-player/core/containers/Audio';
+import {
+  Provider,
+  actions,
+  SearchResultContainer,
+  AudioContainer
+} from '@youtube-audio-player/core';
 
 export default class App extends Component {
   state = {
