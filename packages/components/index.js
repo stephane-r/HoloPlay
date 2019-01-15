@@ -1,3 +1,4 @@
-const test = () => alert("HELLO f !");
+import ResultList from './Result/List';
+import Progress from './Progress';
 
-export default test;
+export { ResultList, Progress };
