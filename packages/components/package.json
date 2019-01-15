@@ -1,0 +1,9 @@
+{
+  "name": "@youtube-audio-player/components",
+  "version": "0.0.1",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "@youtube-audio-player/core": "0.0.1"
+  }
+}
