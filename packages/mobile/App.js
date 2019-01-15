@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Button } from 'react-native';
-import Video from 'react-native-video';
 import Input from './components/Forms/Input';
-import { Provider, actions } from '../core';
-import SearchResultContainer from './containers/SearchResults';
+import {
+  Provider,
+  actions,
+  SearchResultContainer
+} from '@youtube-audio-player/core';
+import AudioContainer from './containers/Audio';
 
 export default class App extends Component {
-  state = {
-    text: 'Eminem'
-  };
+  componentDidMount() {
+    actions.search();
+  }
 
   render() {
     return (
@@ -16,22 +19,12 @@ export default class App extends Component {
         <ScrollView>
           <View style={styles.container}>
             <Input
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
+              onChangeText={text => actions.setSearchValue(text)}
+              placeholder="Rechercher..."
             />
-            <Button
-              title="Search"
-              onPress={() => actions.search(this.state.text)}
-            />
+            <Button title="Search" onPress={actions.search} />
             <SearchResultContainer />
-            {/*
-        {sound && (
-          <Video
-            source={{ uri: `http://192.168.10.21:8080/${sound.id}` }}
-            audioOnly={true}
-            playInBackground={true}
-          />
-        )} */}
+            <AudioContainer />
           </View>
         </ScrollView>
       </Provider>

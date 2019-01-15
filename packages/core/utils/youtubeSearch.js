@@ -1,9 +1,9 @@
 import YTSearch from 'youtube-search';
-import { YOUTUBE_KEY } from '../config/env';
+import { YOUTUBE_API_KEY } from '../config/env';
 
 const options = {
   maxResults: 10,
-  key: YOUTUBE_KEY
+  key: YOUTUBE_API_KEY
 };
 
 const YoutubeSearch = value => {

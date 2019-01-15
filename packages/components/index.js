@@ -1,3 +1,4 @@
-import Result from './Result';
+import ResultList from './Result/List';
+import Progress from './Progress';
 
-export { Result };
+export { ResultList, Progress };

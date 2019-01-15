@@ -1,13 +1,15 @@
 import createStore from 'react-waterfall';
-import searchActions from '../actions/Search';
-import searchState from '../states/Search';
+import { searchState, searchActions } from '../reducers/Search';
+import { audioState, audioActions } from '../reducers/Audio';
 
 const config = {
   initialState: {
-    ...searchState
+    ...searchState,
+    ...audioState
   },
   actionsCreators: {
-    ...searchActions
+    ...searchActions,
+    ...audioActions
   }
 };
 

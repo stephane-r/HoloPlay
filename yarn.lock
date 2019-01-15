@@ -8884,6 +8884,11 @@ react-is@^16.6.3:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
   integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
 
+react-native-music-control@^0.9.7:
+  version "0.9.7"
+  resolved "https://registry.yarnpkg.com/react-native-music-control/-/react-native-music-control-0.9.7.tgz#c5478d40a5e6b810f2c75ce5307ae2b1775c00fd"
+  integrity sha512-Nn7vg4NiDurn/Qp6t028RFmYxqSzDHuEFSka3BHodogav2cCUvc1BAIo0gTZ953tFv1aHdsE9+o8hcaciNpQtw==
+
 react-native-video@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-4.3.1.tgz#dd5cd7feeba1068dffb36ca0406214fe6ffc01aa"
