@@ -4,15 +4,24 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/components",
+      "packages/core",
+      "packages/mobile",
+      "packages/web"
     ]
   },
   "scripts": {
-    "web:start": "yarn workspace @youtube-audio-player/web start",
+    "components:start": "yarn workspace @youtube-audio-player/components start",
+    "components:build": "yarn workspace @youtube-audio-player/components build",
+    "web:run": "yarn workspace @youtube-audio-player/web start",
+    "web:start": "./node_modules/.bin/concurrently --kill-others \"yarn components:start\" \"yarn web:run\"",
+    "web:build": "yarn yarn workspace @youtube-audio-player/web build",
     "mobile:android:run": "yarn workspace @youtube-audio-player/mobile android:run",
-    "clean:all": "sudo rm -rf node_modules packages/*/node_modules"
+    "mobile:android:start": "./node_modules/.bin/concurrently --kill-others \"yarn components:start\" \"yarn mobile:android:run\"",
+    "clean:all": "sudo rm -rf node_modules packages/*/node_modules",
+    "clean:log": "rm **/*/*.log"
   },
-  "dependencies": {
-    "react-native-music-control": "^0.9.7"
+  "devDependencies": {
+    "concurrently": "^4.1.0"
   }
 }
