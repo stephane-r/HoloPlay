@@ -1,9 +1,29 @@
 {
   "name": "@youtube-audio-player/components",
   "version": "0.0.1",
-  "main": "index.js",
-  "private": true,
+  "description": "Components for Youtube Audio Player App",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack --config webpack.config.babel.js --watch",
+    "build": "./node_modules/.bin/webpack --config webpack.config.babel.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "8.0.4",
+    "clean-webpack-plugin": "^0.1.16",
+    "prop-types": "^15.6.0",
+    "webpack": "^4.9.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.4"
+  },
   "dependencies": {
-    "@youtube-audio-player/core": "0.0.1"
+    "@youtube-audio-player/core": "0.0.1",
+    "react-art": "^16.7.0",
+    "react-native-web": "^0.10.0-alpha.2"
   }
 }

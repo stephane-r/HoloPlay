@@ -7,3 +7,5 @@ node_modules
 
 # Core
 env.js
+dist
+!packages/web/.env
