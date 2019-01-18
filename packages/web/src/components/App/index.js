@@ -6,9 +6,9 @@ import {
   actions,
   SearchResultContainer
 } from '@youtube-audio-player/core';
-import AudioContainer from './containers/Audio';
+import AudioContainer from '../../containers/Audio';
 
-export default class App extends Component {
+class App extends Component {
   componentDidMount() {
     actions.search();
   }
@@ -52,3 +52,5 @@ const styles = StyleSheet.create({
     marginBottom: 5
   }
 });
+
+export default App;
