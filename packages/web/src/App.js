@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Button } from 'react-native';
-// import Input from './components/Forms/Input';
+import { Input } from '@youtube-audio-player/components';
 import {
   Provider,
   actions,
   SearchResultContainer
 } from '@youtube-audio-player/core';
+import AudioContainer from './containers/Audio';
 
 export default class App extends Component {
   componentDidMount() {
@@ -17,14 +18,15 @@ export default class App extends Component {
       <Provider>
         <ScrollView>
           <View style={styles.container}>
-            {/* <Input
+            <Input
               onChangeText={text => actions.setSearchValue(text)}
               placeholder="Rechercher..."
-            /> */}
+            />
             <Button title="Search" onPress={actions.search} />
             <SearchResultContainer
               onPress={index => actions.loadSource(index)}
             />
+            <AudioContainer />
           </View>
         </ScrollView>
       </Provider>
