@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@youtube-audio-player/core": "0.0.1",
     "@youtube-audio-player/components": "0.0.1",
+    "@youtube-audio-player/core": "0.0.1",
     "react": "16.6.3",
-    "react-dom": "16.6.3",
-    "react-scripts": "2.1.1",
     "react-art": "^16.7.0",
-    "react-native-web": "0.9.9"
+    "react-dom": "16.6.3",
+    "react-native-web": "0.9.9",
+    "react-player": "^1.8.0",
+    "react-scripts": "2.1.1"
   },
   "devDependencies": {
     "babel-plugin-react-native-web": "^0.9.13",

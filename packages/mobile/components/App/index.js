@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Button } from 'react-native';
-import Input from './components/Forms/Input';
 import {
   Provider,
   actions,
   SearchResultContainer
 } from '@youtube-audio-player/core';
-import AudioContainer from './containers/Audio';
+import { Input } from '@youtube-audio-player/components';
+import AudioContainer from '../../containers/Audio';
 
-export default class App extends Component {
+class App extends Component {
   componentDidMount() {
     actions.search();
   }
@@ -52,3 +52,5 @@ const styles = StyleSheet.create({
     marginBottom: 5
   }
 });
+
+export default App;
