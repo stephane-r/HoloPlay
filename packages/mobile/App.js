@@ -23,7 +23,9 @@ export default class App extends Component {
               placeholder="Rechercher..."
             />
             <Button title="Search" onPress={actions.search} />
-            <SearchResultContainer />
+            <SearchResultContainer
+              onPress={index => actions.loadSource(index)}
+            />
             <AudioContainer />
           </View>
         </ScrollView>

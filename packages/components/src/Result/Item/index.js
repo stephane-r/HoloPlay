@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Image } from 'react-native-web';
+import { Text, Image } from 'react-native';
 
 const ResultItem = ({ item, index, onPress }) => (
   <Text onPress={() => onPress(index)}>

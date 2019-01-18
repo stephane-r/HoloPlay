@@ -1,6 +1,5 @@
 import React from 'react';
-
-const { View, StyleSheet } = require('react-native-web');
+import { View, StyleSheet } from 'react-native';
 
 const Progress = ({ percentage }) => (
   <View style={{ ...styles.progress, width: `${percentage}%` }} />

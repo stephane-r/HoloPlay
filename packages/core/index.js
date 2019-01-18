@@ -1,8 +1,8 @@
-import { Provider, connect, actions } from './store';
-import SearchResultContainer from './containers/SearchResults';
-import { API_URL } from './config/env';
-import ISO8601toDuration from './utils/ISO8601toDuration';
-import youtubeDurationToSeconds from './utils/youtubeDurationToSeconds';
+import { Provider, connect, actions } from './src/store';
+import SearchResultContainer from './src/containers/SearchResults';
+import { API_URL } from './src/config/env';
+import ISO8601toDuration from './src/utils/ISO8601toDuration';
+import youtubeDurationToSeconds from './src/utils/youtubeDurationToSeconds';
 
 export {
   Provider,
