@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import {
-  API_URL,
+  YOUTUBE_API_STREAM_URL,
   actions,
   ISO8601toDuration,
   youtubeDurationToSeconds
@@ -51,7 +51,7 @@ class Audio extends React.Component {
       return (
         <View style={styles.container}>
           <ReactPlayer
-            url={`http://${API_URL}/${source.id}`}
+            url={`http://${YOUTUBE_API_STREAM_URL}/${source.id}`}
             playing={this.state.playing}
           />
           <Text>{this.state.currentTime}</Text>
