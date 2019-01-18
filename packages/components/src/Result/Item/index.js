@@ -1,9 +1,8 @@
 import React from 'react';
-import { actions } from '@youtube-audio-player/core';
 import { Text, Image } from 'react-native';
 
-const ResultItem = ({ item, index }) => (
-  <Text onPress={() => actions.loadSource(index)}>
+const ResultItem = ({ item, index, onPress }) => (
+  <Text onPress={() => onPress(index)}>
     <Image
       source={{ uri: item.thumbnails.default.url }}
       style={{

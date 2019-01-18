@@ -1,4 +1,5 @@
-import ResultList from './Result/List';
-import Progress from './Progress';
+import Progress from './src/Progress';
+import ResultList from './src/Result/List';
+import Input from './src/Forms/Input';
 
-export { ResultList, Progress };
+export { Progress, ResultList, Input };

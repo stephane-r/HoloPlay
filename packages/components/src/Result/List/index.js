@@ -2,10 +2,10 @@ import React from 'react';
 import { Text } from 'react-native';
 import ResultITem from '../Item';
 
-const ResultList = ({ results }) => {
+const ResultList = ({ results, onPress }) => {
   if (results.length > 0) {
     return results.map((item, index) => (
-      <ResultITem key={index} item={item} index={index} />
+      <ResultITem key={index} item={item} index={index} onPress={onPress} />
     ));
   }
 

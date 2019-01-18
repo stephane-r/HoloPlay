@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Button } from 'react-native';
-import Input from './components/Forms/Input';
+import { Input } from '@youtube-audio-player/components';
 import {
   Provider,
   actions,
   SearchResultContainer
 } from '@youtube-audio-player/core';
-import AudioContainer from './containers/Audio';
+import AudioContainer from '../../containers/Audio';
 
-export default class App extends Component {
+class App extends Component {
   componentDidMount() {
     actions.search();
   }
@@ -23,7 +23,9 @@ export default class App extends Component {
               placeholder="Rechercher..."
             />
             <Button title="Search" onPress={actions.search} />
-            <SearchResultContainer />
+            <SearchResultContainer
+              onPress={index => actions.loadSource(index)}
+            />
             <AudioContainer />
           </View>
         </ScrollView>
@@ -50,3 +52,5 @@ const styles = StyleSheet.create({
     marginBottom: 5
   }
 });
+
+export default App;

@@ -3,17 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@youtube-audio-player/core": "0.0.1",
     "@youtube-audio-player/components": "0.0.1",
+    "@youtube-audio-player/core": "0.0.1",
     "react": "16.6.3",
+    "react-art": "^16.7.0",
     "react-dom": "16.6.3",
-    "react-scripts": "2.1.3"
+    "react-native-web": "0.9.9",
+    "react-player": "^1.8.0",
+    "react-scripts": "2.1.1"
+  },
+  "devDependencies": {
+    "babel-plugin-react-native-web": "^0.9.13",
+    "react-app-rewired": "^1.6.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "./node_modules/.bin/react-app-rewired start",
+    "build": "./node_modules/.bin/react-app-rewired build",
+    "test": "./node_modules/.bin/react-app-rewired test",
+    "eject": "./node_modules/.bin/react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": "react-app"
