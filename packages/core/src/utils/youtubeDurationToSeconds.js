@@ -2,6 +2,8 @@ const youtubeDurationToSeconds = duration => {
   let hours = 0;
   let minutes = 0;
   let seconds = 0;
+  let minutes_split = null;
+  let seconds_split = null;
 
   // Remove PT from string ref: https://developers.google.com/youtube/v3/docs/videos#contentDetails.duration
   duration = duration.replace('PT', '');
