@@ -1,6 +1,6 @@
 import { Provider, connect, actions } from './src/store';
 import SearchResultContainer from './src/containers/SearchResults';
-import { API_URL } from './src/config/env';
+import { API_URL, YOUTUBE_API_STREAM_URL } from './src/config/env';
 import ISO8601toDuration from './src/utils/ISO8601toDuration';
 import youtubeDurationToSeconds from './src/utils/youtubeDurationToSeconds';
 
@@ -10,6 +10,7 @@ export {
   actions,
   SearchResultContainer,
   API_URL,
+  YOUTUBE_API_STREAM_URL,
   ISO8601toDuration,
   youtubeDurationToSeconds
 };
