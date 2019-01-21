@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-navigation/core": "^3.0.2",
+    "@react-navigation/web": "^1.0.0-alpha.7",
     "@youtube-audio-player/components": "0.0.1",
     "@youtube-audio-player/core": "0.0.1",
     "react": "16.6.3",

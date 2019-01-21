@@ -17,3 +17,5 @@ Run React web app :
 Run React-Native app :
 
 `yarn mobile:android:run`
+
+TODO: Fix Docker container : `/usr/local/android-sdk/tools/android update sdk --no-ui --all --filter build-tools-27.0.1`
