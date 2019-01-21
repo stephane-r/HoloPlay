@@ -1,5 +1,10 @@
-import Progress from './src/Progress';
-import ResultList from './src/Result/List';
-import Input from './src/Forms/Input';
+// COMPONENTS
+import Progress from './src/components/Progress';
+import ResultList from './src/components/Result/List';
+import Input from './src/components/Forms/Input';
 
-export { Progress, ResultList, Input };
+// SCREENS
+import LoginScreen from './src/screens/Login';
+import DashboardScreen from './src/screens/Dashboard';
+
+export { Progress, ResultList, Input, LoginScreen, DashboardScreen };

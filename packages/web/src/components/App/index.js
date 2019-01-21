@@ -7,10 +7,9 @@ import {
 } from '@react-navigation/core';
 import { createBrowserApp, Link } from '@react-navigation/web';
 import { Provider } from '@youtube-audio-player/core';
-import DashboardScreen from '../../screens/Dashboard';
-import LoginScreen from '../../screens/Login';
+import { LoginScreen, DashboardScreen } from '@youtube-audio-player/components';
 
-class Layout extends React.Component {
+class App extends React.Component {
   render() {
     const { descriptors, navigation } = this.props;
     const activeKey = navigation.state.routes[navigation.state.index].key;
@@ -32,7 +31,7 @@ class Layout extends React.Component {
 }
 
 const AppNavigator = createNavigator(
-  Layout,
+  App,
   SwitchRouter({
     LoginScreen,
     DashboardScreen
@@ -40,6 +39,4 @@ const AppNavigator = createNavigator(
   {}
 );
 
-const App = createBrowserApp(AppNavigator);
-
-export default App;
+export default createBrowserApp(AppNavigator);

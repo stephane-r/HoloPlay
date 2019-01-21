@@ -2,12 +2,10 @@ import {
   createStackNavigator,
   createMaterialTopTabNavigator
 } from 'react-navigation';
-
-import Login from '../screens/Login';
-import Dashboard from '../screens/Dashboard';
+import { LoginScreen, DashboardScreen } from '@youtube-audio-player/components';
 
 const LoginStack = createStackNavigator({
-  Login
+  Login: LoginScreen
 });
 
 LoginStack.navigationOptions = {
@@ -15,7 +13,7 @@ LoginStack.navigationOptions = {
 };
 
 const DashboardStack = createStackNavigator({
-  Dashboard
+  Dashboard: DashboardScreen
 });
 
 DashboardStack.navigationOptions = {

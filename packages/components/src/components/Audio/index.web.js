@@ -21,8 +21,6 @@ class Audio extends React.Component {
     this.onLoadStart = this.onLoadStart.bind(this);
   }
 
-  componentDidMount() {}
-
   onProgress({ currentTime }) {
     this.setState({
       currentTime: Math.round(currentTime)
