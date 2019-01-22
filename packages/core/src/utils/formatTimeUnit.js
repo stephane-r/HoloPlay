@@ -1,4 +1,5 @@
-const formatTimeUnit = (input, unit) => {
+// @flow
+const formatTimeUnit = (input: string, unit: string) => {
   const index = input.indexOf(unit);
   const output = '00';
 

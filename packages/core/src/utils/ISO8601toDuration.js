@@ -1,6 +1,7 @@
+// @flow
 import formatTimeUnit from './formatTimeUnit';
 
-const ISO8601toDuration = input => {
+const ISO8601toDuration = (input: string): string => {
   const M = formatTimeUnit(input, 'M');
   const S = formatTimeUnit(input, 'S');
   let H = formatTimeUnit(input, 'H');
