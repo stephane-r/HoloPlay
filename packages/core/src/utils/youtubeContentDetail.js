@@ -1,8 +1,9 @@
+// @flow
 import { YOUTUBE_API_KEY } from '../config/env';
 
-const baseURL = 'https://www.googleapis.com/youtube/v3/videos';
+const baseURL: string = 'https://www.googleapis.com/youtube/v3/videos';
 
-const getYoutubeContentDetail = async id => {
+const getYoutubeContentDetail = async (id: string): Object => {
   try {
     const request = await fetch(
       `${baseURL}?part=contentDetails&id=${id}&key=${YOUTUBE_API_KEY}`

@@ -15,9 +15,22 @@
     "web:build": "yarn yarn workspace @youtube-audio-player/web build",
     "mobile:android:run": "yarn workspace @youtube-audio-player/mobile android:run",
     "clean:all": "sudo rm -rf node_modules packages/*/node_modules",
-    "clean:log": "rm **/*/*.log"
+    "clean:log": "rm **/*/*.log",
+    "flow": "./node_modules/.bin/flow"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:flowtype/recommended"
+    ],
+    "plugins": [
+      "flowtype"
+    ]
   },
   "devDependencies": {
-    "concurrently": "^4.1.0"
+    "babel-preset-flow": "^6.23.0",
+    "concurrently": "^4.1.0",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "flow-bin": "^0.91.0"
   }
 }
