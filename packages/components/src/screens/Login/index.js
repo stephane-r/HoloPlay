@@ -18,7 +18,7 @@ class Login extends React.Component {
 
   state = {
     identifier: 'contact@stephane-richin.fr',
-    password: 'steph0407'
+    password: 'azerty'
   };
 
   async handleChange(key, value) {
