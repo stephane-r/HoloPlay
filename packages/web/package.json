@@ -24,9 +24,6 @@
     "test": "./node_modules/.bin/react-app-rewired test",
     "eject": "./node_modules/.bin/react-app-rewired eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
