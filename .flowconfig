@@ -1,0 +1,23 @@
+[ignore]
+.*/node_modules/.*
+.*/build/.*
+
+[include]
+
+[libs]
+./flow-typed/
+
+[lints]
+
+[options]
+emoji=true
+
+# Ignore flow warnings about the usage of decorators
+include_warnings=true
+esproposal.decorators=ignore
+esproposal.export_star_as=enable
+esproposal.class_instance_fields=enable
+esproposal.class_static_fields=enable
+experimental.const_params=true
+
+[strict]
