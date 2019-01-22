@@ -1,11 +1,17 @@
+// @flow
 import { API_URL } from '../config/env';
 
-const defaultHeaders = {
+const defaultHeaders: Object = {
   Accept: 'application/json',
   'Content-Type': 'application/json'
 };
 
-const callApi = async (slug, method, body = null, headers = defaultHeaders) => {
+const callApi = async (
+  slug: string,
+  method: string,
+  body?: Object = null,
+  headers?: Object = defaultHeaders
+) => {
   let params = {
     method,
     headers
