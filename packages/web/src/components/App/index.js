@@ -1,15 +1,26 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, AsyncStorage } from 'react-native';
 import {
   createNavigator,
   SwitchRouter,
   SceneView
 } from '@react-navigation/core';
-import { createBrowserApp, Link } from '@react-navigation/web';
-import { Provider } from '@youtube-audio-player/core';
+import { createBrowserApp } from '@react-navigation/web';
+import { Provider, actions } from '@youtube-audio-player/core';
 import { LoginScreen, DashboardScreen } from '@youtube-audio-player/components';
 
 class App extends React.Component {
+  async componentDidMount() {
+    const token = await AsyncStorage.getItem('userToken');
+
+    if (token) {
+      await actions.setConnected();
+      return this.props.navigation.navigate('DashboardScreen');
+    }
+
+    return this.props.navigation.navigate('LoginScreen');
+  }
+
   render() {
     const { descriptors, navigation } = this.props;
     const activeKey = navigation.state.routes[navigation.state.index].key;
@@ -18,8 +29,6 @@ class App extends React.Component {
     return (
       <Provider>
         <ScrollView>
-          <Link routeName="LoginScreen">Login</Link>
-          <Link routeName="DashboardScreen">Dashboard</Link>
           <SceneView
             component={descriptor.getComponent()}
             navigation={descriptor.navigation}

@@ -14,6 +14,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.login = this.login.bind(this);
   }
 
   state = {
@@ -25,8 +26,12 @@ class Login extends React.Component {
     await this.setState({
       [key]: value
     });
+  }
 
-    console.log(this.state);
+  async login() {
+    await actions.loginThroughApi(this.state);
+    await actions.setConnected();
+    return this.props.navigation.navigate('DashboardScreen');
   }
 
   render() {
@@ -42,10 +47,7 @@ class Login extends React.Component {
           placeholder="Password"
           value={this.state.password}
         />
-        <Button
-          title="Login"
-          onPress={() => actions.loginThroughApi(this.state)}
-        />
+        <Button title="Login" onPress={this.login} />
       </View>
     );
   }
