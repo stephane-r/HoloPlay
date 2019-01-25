@@ -7,7 +7,10 @@ import {
 } from '@react-navigation/core';
 import { createBrowserApp } from '@react-navigation/web';
 import { Provider, actions } from '@youtube-audio-player/core';
-import { LoginScreen, DashboardScreen } from '@youtube-audio-player/components';
+import {
+  LoginScreen,
+  DashboardContainer
+} from '@youtube-audio-player/components';
 
 class App extends React.Component {
   async componentDidMount() {
@@ -16,8 +19,9 @@ class App extends React.Component {
     if (token) {
       await actions.addUserToken(token);
       await actions.getUserInformations();
-      // await actions.setConnected();
-      return this.props.navigation.navigate('DashboardScreen');
+      await actions.setConnected();
+
+      return this.props.navigation.navigate('DashboardContainer');
     }
 
     return this.props.navigation.navigate('LoginScreen');
@@ -45,7 +49,7 @@ const AppNavigator = createNavigator(
   App,
   SwitchRouter({
     LoginScreen,
-    DashboardScreen
+    DashboardContainer
   }),
   {}
 );
