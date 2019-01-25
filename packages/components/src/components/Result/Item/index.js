@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Image } from 'react-native';
+import { Text, Image, Button } from 'react-native';
+import { actions } from '@youtube-audio-player/core';
 
 const ResultItem = ({ item, index, onPress }) => (
   <Text onPress={() => onPress(index)}>
@@ -11,6 +12,10 @@ const ResultItem = ({ item, index, onPress }) => (
       }}
     />
     <Text>{item.title}</Text>
+    <Button
+      title="Add to my favoris"
+      onPress={() => actions.addSourceToFavoris(item)}
+    />
   </Text>
 );
 

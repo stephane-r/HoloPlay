@@ -38,6 +38,26 @@ const apiActions = {
       Authorization: `Bearer ${state.jwt}`
     });
 
+    console.log(user);
+
+    return {
+      ...state,
+      user
+    };
+  },
+  addSourceToFavoris: async (state, action, source) => {
+    const { _id, favoris } = state.user;
+    const favorisUpdated = {
+      favoris: [...favoris, source]
+    };
+    const user = {
+      ...state.user,
+      ...favorisUpdated
+    };
+    const headers = { Authorization: `Bearer ${state.jwt}` };
+
+    await callApi(api.update(_id), 'put', favorisUpdated, headers);
+
     return {
       ...state,
       user

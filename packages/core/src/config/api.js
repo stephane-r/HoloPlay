@@ -3,7 +3,8 @@ const api = {
   login: '/auth/local',
   forgottenPassword: '/auth/forgot-password',
   resetPassword: '/auth/reset-password',
-  me: '/users/me'
+  me: '/users/me',
+  update: _id => `/users/${_id}`
 };
 
 export default api;
