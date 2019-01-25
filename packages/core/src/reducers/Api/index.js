@@ -46,17 +46,39 @@ const apiActions = {
     };
   },
   addSourceToFavoris: async (state, action, source) => {
-    const { _id, favoris } = state.user;
-    const favorisUpdated = {
-      favoris: [...favoris, source]
+    const { _id, favoris, favorisIds } = state.user;
+    const userUpdated = {
+      favoris: [...favoris, source],
+      favorisIds: [...favorisIds, source.id]
     };
     const user = {
       ...state.user,
-      ...favorisUpdated
+      ...userUpdated
     };
-    const headers = { Authorization: `Bearer ${state.jwt}` };
 
-    await callApi(api.update(_id), 'put', favorisUpdated, headers);
+    const headers = { Authorization: `Bearer ${state.jwt}` };
+    await callApi(api.update(_id), 'put', userUpdated, headers);
+
+    return {
+      ...state,
+      user
+    };
+  },
+  removeSourceFromFavoris: async (state, action, source) => {
+    const { _id, favoris, favorisIds } = state.user;
+    const favorisFiltered = favoris.filter(item => item.id !== source.id);
+    const favorisIdsFiltered = favorisIds.filter(id => id !== source.id);
+    const userUpdated = {
+      favoris: favorisFiltered,
+      favorisIds: favorisIdsFiltered
+    };
+    const user = {
+      ...state.user,
+      ...userUpdated
+    };
+
+    const headers = { Authorization: `Bearer ${state.jwt}` };
+    await callApi(api.update(_id), 'put', userUpdated, headers);
 
     return {
       ...state,
