@@ -7,7 +7,7 @@ const apiState = {
 };
 
 const apiActions = {
-  registerThroughApi: async (state, actions, formData) => {
+  registerThroughApi: async state => {
     return state;
   },
   loginThroughApi: async (state, actions, formData) => {

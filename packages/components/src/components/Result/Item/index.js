@@ -1,7 +1,14 @@
+// @flow
 import React from 'react';
 import { Text, Image } from 'react-native';
 
-const ResultItem = ({ item, index, onPress }) => (
+type Props = {
+  item: Object,
+  index: number,
+  onPress: Function
+};
+
+const ResultItem = ({ item, index, onPress }: Props) => (
   <Text onPress={() => onPress(index)}>
     <Image
       source={{ uri: item.thumbnails.default.url }}

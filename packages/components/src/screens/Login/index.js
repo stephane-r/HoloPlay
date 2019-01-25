@@ -25,8 +25,6 @@ class Login extends React.Component {
     await this.setState({
       [key]: value
     });
-
-    console.log(this.state);
   }
 
   render() {
