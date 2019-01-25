@@ -24,6 +24,13 @@ const callApi = async (
     };
   }
 
+  if (headers) {
+    params = {
+      ...params,
+      headers: { ...defaultHeaders, ...headers }
+    };
+  }
+
   if (__DEV__) {
     console.log(`${method} - ${API_URL}${slug}`);
   }

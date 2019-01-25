@@ -26,6 +26,22 @@ const apiActions = {
 
       return state;
     }
+  },
+  addUserToken: (state, actions, jwt) => {
+    return {
+      ...state,
+      jwt
+    };
+  },
+  getUserInformations: async state => {
+    const user = await callApi(api.me, 'get', null, {
+      Authorization: `Bearer ${state.jwt}`
+    });
+
+    return {
+      ...state,
+      user
+    };
   }
 };
 
