@@ -18,10 +18,9 @@ class Dashboard extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
-  UNSAFE_componentWillReceiveProps({ isConnected }) {
-    if (isConnected) {
-      actions.search();
-    }
+  componentDidMount() {
+    // TODO: remove timeout and wait load user informations before run this action
+    setTimeout(() => actions.search(), 500);
   }
 
   async logout() {

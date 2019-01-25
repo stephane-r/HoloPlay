@@ -5,6 +5,6 @@ import Input from './src/components/Forms/Input';
 
 // SCREENS
 import LoginScreen from './src/screens/Login';
-import DashboardContainer from './src/containers/Dashboard';
+import DashboardScreen from './src/screens/Dashboard';
 
-export { Progress, ResultList, Input, LoginScreen, DashboardContainer };
+export { Progress, ResultList, Input, LoginScreen, DashboardScreen };

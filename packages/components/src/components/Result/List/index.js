@@ -10,7 +10,7 @@ const ResultList = ({ results, user, onPress }) => {
         item={item}
         index={index}
         onPress={onPress}
-        isFavoris={user.favorisIds.includes(item.id)}
+        isFavoris={user && user.favorisIds.includes(item.id)}
       />
     ));
   }
