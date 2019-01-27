@@ -15,7 +15,8 @@ import {
 } from '@youtube-audio-player/components';
 
 type Props = {
-  navigation: Object
+  navigation: Object,
+  descriptors: Object
 };
 
 class App extends React.Component<Props> {
@@ -43,8 +44,6 @@ class App extends React.Component<Props> {
     const { descriptors, navigation } = this.props;
     const activeKey = navigation.state.routes[navigation.state.index].key;
     const descriptor = descriptors[activeKey];
-
-    console.log(activeKey);
 
     return (
       <Provider>
