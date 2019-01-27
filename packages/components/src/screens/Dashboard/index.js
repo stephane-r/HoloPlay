@@ -39,7 +39,9 @@ class Dashboard extends React.Component {
           onChangeText={text => actions.setSearchValue(text)}
           placeholder="Rechercher..."
         />
-        <Button title="Search" onPress={actions.search} />
+        <Button
+          title="Search"
+          onPress={actions.search} />
         <SearchResultContainer onPress={index => actions.loadSource(index)} />
         <AudioContainer />
       </View>

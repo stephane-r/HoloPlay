@@ -1,8 +1,16 @@
+// @flow
 import React from 'react';
 import { Text, Image, Button, View } from 'react-native';
 import { actions } from '@youtube-audio-player/core';
 
-const ResultItem = ({ item, index, onPress, isFavoris }) => (
+type Props = {
+  item: Object,
+  index: number,
+  onPress: Function,
+  isFavoris: boolean
+};
+
+const ResultItem = ({ item, index, onPress, isFavoris }: Props) => (
   <View
     style={{
       flexDirection: 'row',

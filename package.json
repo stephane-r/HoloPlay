@@ -16,21 +16,28 @@
     "mobile:android:run": "yarn workspace @youtube-audio-player/mobile android:run",
     "clean:all": "sudo rm -rf node_modules packages/*/node_modules",
     "clean:log": "rm **/*/*.log",
+    "prettify": "prettier --write ./packages/**/**/*.js",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
+    "lint": "eslint ./packages/**/src",
     "flow": "./node_modules/.bin/flow"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "plugin:flowtype/recommended"
-    ],
-    "plugins": [
-      "flowtype"
-    ]
-  },
+  "pre-commit": [
+    "precommit-msg",
+    "lint",
+    "flow"
+  ],
   "devDependencies": {
     "babel-preset-flow": "^6.23.0",
     "concurrently": "^4.1.0",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.6.0",
     "eslint-plugin-flowtype": "^3.2.1",
-    "flow-bin": "^0.91.0"
+    "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "flow-bin": "^0.91.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.16.1"
   }
 }
