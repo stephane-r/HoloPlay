@@ -53,7 +53,7 @@ class Audio extends React.Component {
       );
     }
 
-    return <Text>Test</Text>;
+    return null;
   }
 }
 

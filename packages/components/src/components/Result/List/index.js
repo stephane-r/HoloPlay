@@ -1,15 +1,16 @@
 // @flow
 import React from 'react';
-import { Text } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import ResultITem from '../Item';
 
 type Props = {
   results: Array<Object>,
   user: Object,
+  isFavoris?: boolean,
   onPress: Function
 };
 
-const ResultList = ({ results, user, onPress }: Props) => {
+const ResultList = ({ results, user, isFavoris, onPress }: Props): Function => {
   if (results.length > 0) {
     return results.map((item, index) => (
       <ResultITem
@@ -17,11 +18,16 @@ const ResultList = ({ results, user, onPress }: Props) => {
         item={item}
         index={index}
         onPress={onPress}
-        isFavoris={user && user.favorisIds.includes(item.id)}
+        isFavoris={isFavoris || (user && user.favorisIds.includes(item.id))}
+      />
     ));
   }
 
-  return <Text>Aucun résultat</Text>;
+  return <ActivityIndicator />;
+};
+
+ResultList.defaultProps = {
+  isFavoris: false
 };
 
 export default ResultList;

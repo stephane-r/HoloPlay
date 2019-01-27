@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { ScrollView, AsyncStorage } from 'react-native';
 import {
@@ -7,21 +8,36 @@ import {
 } from '@react-navigation/core';
 import { createBrowserApp } from '@react-navigation/web';
 import { Provider, actions } from '@youtube-audio-player/core';
-import { LoginScreen, DashboardScreen } from '@youtube-audio-player/components';
+import {
+  LoginScreen,
+  DashboardScreen,
+  FavorisScreen
+} from '@youtube-audio-player/components';
 
-class App extends React.Component {
+type Props = {
+  navigation: Object,
+  descriptors: Object
+};
+
+class App extends React.Component<Props> {
   async componentDidMount() {
     const token = await AsyncStorage.getItem('userToken');
+    const { navigation } = this.props;
+    const activeKey = navigation.state.routes[navigation.state.index].key;
 
     if (token) {
       await actions.addUserToken(token);
       await actions.getUserInformations();
       await actions.setConnected();
+    }
 
+    if (token && activeKey === 'LoginScreen') {
       return this.props.navigation.navigate('DashboardScreen');
     }
 
-    return this.props.navigation.navigate('LoginScreen');
+    if (!token) {
+      return this.props.navigation.navigate('LoginScreen');
+    }
   }
 
   render() {
@@ -46,7 +62,8 @@ const AppNavigator = createNavigator(
   App,
   SwitchRouter({
     LoginScreen,
-    DashboardScreen
+    DashboardScreen,
+    FavorisScreen
   }),
   {}
 );

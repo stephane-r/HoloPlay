@@ -1,9 +1,19 @@
+// @flow
 import React from 'react';
 import { View, Button } from 'react-native';
 import { Input } from '@youtube-audio-player/components';
 import { actions } from '@youtube-audio-player/core';
 
-class Login extends React.Component {
+type Props = {
+  navigation: Object
+};
+
+type State = {
+  identifier: string,
+  password: string
+};
+
+class Login extends React.Component<Props, State> {
   static path = '';
 
   static navigationOptions = () => ({
@@ -11,7 +21,7 @@ class Login extends React.Component {
     linkName: 'Login'
   });
 
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
@@ -22,12 +32,14 @@ class Login extends React.Component {
     password: 'azerty'
   };
 
-  async handleChange(key, value) {
+  handleChange: Function;
+  async handleChange(key: string, value: string) {
     await this.setState({
       [key]: value
     });
   }
 
+  login: Function;
   async login() {
     await actions.loginThroughApi(this.state);
     await actions.setConnected();
@@ -47,7 +59,9 @@ class Login extends React.Component {
           placeholder="Password"
           value={this.state.password}
         />
-        <Button title="Login" onPress={this.login} />
+        <Button
+          title="Login"
+          onPress={this.login} />
       </View>
     );
   }

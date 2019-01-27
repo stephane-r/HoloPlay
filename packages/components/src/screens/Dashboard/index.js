@@ -1,11 +1,16 @@
+// @flow
 import React from 'react';
 import { View, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Input } from '@youtube-audio-player/components';
-// import { Link } from '@react-navigation/core';
+import { Link } from '@react-navigation/web';
 import { actions, SearchResultContainer } from '@youtube-audio-player/core';
 import AudioContainer from '../../containers/Audio';
 
-class Dashboard extends React.Component {
+type Props = {
+  navigation: Object
+};
+
+class Dashboard extends React.Component<Props> {
   static path = 'dashboard';
 
   static navigationOptions = () => ({
@@ -13,16 +18,17 @@ class Dashboard extends React.Component {
     linkName: 'Dashboard'
   });
 
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
     this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
     // TODO: remove timeout and wait load user informations before run this action
-    setTimeout(() => actions.search(), 500);
+    setTimeout(() => actions.search(), 1000);
   }
 
+  logout: Function;
   async logout() {
     await actions.logout();
     return this.props.navigation.navigate('LoginScreen');
@@ -34,7 +40,7 @@ class Dashboard extends React.Component {
         <TouchableOpacity onPress={this.logout}>
           <Text>Logout</Text>
         </TouchableOpacity>
-        {/* <Link routeName="DashboardScreen">Dashboard</Link> */}
+        <Link routeName="FavorisScreen">Favoris</Link>
         <Input
           onChangeText={text => actions.setSearchValue(text)}
           placeholder="Rechercher..."
