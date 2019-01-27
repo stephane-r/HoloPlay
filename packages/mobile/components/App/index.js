@@ -1,7 +1,8 @@
 import React from 'react';
-import { AsyncStorage, ActivityIndicator } from 'react-native';
-import { Provider, actions } from '@youtube-audio-player/core';
+import { View, AsyncStorage, ActivityIndicator } from 'react-native';
+import { actions } from '@youtube-audio-player/core';
 import { createRootNavigator } from '../../navigation/TabNavigator';
+import { AudioContainer } from '../../containers';
 
 class App extends React.Component {
   state = {
@@ -36,7 +37,12 @@ class App extends React.Component {
       return <ActivityIndicator />;
     }
 
-    return <Layout />;
+    return (
+      <View>
+        <Layout />
+        <AudioContainer />
+      </View>
+    );
   }
 }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { actions, FavorisContainer } from '@youtube-audio-player/core';
-import { AudioContainer } from '../../containers';
 
 class Favoris extends React.Component {
   static path = 'favoris';
@@ -24,7 +23,6 @@ class Favoris extends React.Component {
           <Text>Logout</Text>
         </TouchableOpacity>
         <FavorisContainer onPress={index => actions.loadSource(index)} />
-        <AudioContainer />
       </View>
     );
   }
