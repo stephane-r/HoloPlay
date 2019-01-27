@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import React from 'react';
 import Video from 'react-native-video';
 import { View, Text, Button, StyleSheet } from 'react-native';
@@ -103,8 +104,12 @@ class Audio extends React.Component {
             title="Previous"
             onPress={() => actions.loadSource(this.props.previousSourceIndex)}
           />
-          <Button title="Pause" onPress={actions.paused} />
-          <Button title="Repeat" onPress={actions.repeat} />
+          <Button
+            title="Pause"
+            onPress={actions.paused} />
+          <Button
+            title="Repeat"
+            onPress={actions.repeat} />
         </View>
       );
     }

@@ -1,11 +1,21 @@
+// @flow
 import React from 'react';
 import { Text } from 'react-native';
 import ResultITem from '../Item';
 
-const ResultList = ({ results, onPress }) => {
+type Props = {
+  results: Array<Object>,
+  onPress: Function
+};
+
+const ResultList = ({ results, onPress }: Props): Function => {
   if (results.length > 0) {
     return results.map((item, index) => (
-      <ResultITem key={index} item={item} index={index} onPress={onPress} />
+      <ResultITem
+        key={index}
+        item={item}
+        index={index}
+        onPress={onPress} />
     ));
   }
 

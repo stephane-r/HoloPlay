@@ -1,3 +1,5 @@
+/* eslint react/prop-types: 0 */
+/* eslint no-unused-vars: 0 */
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import {
@@ -14,28 +16,6 @@ class Audio extends React.Component {
     currentTime: null,
     playing: true
   };
-
-  constructor(props) {
-    super(props);
-    this.onProgress = this.onProgress.bind(this);
-    this.onLoadStart = this.onLoadStart.bind(this);
-  }
-
-  onProgress({ currentTime }) {
-    this.setState({
-      currentTime: Math.round(currentTime)
-    });
-  }
-
-  onLoadStart() {
-    const {
-      title,
-      channelTitle,
-      duration,
-      description,
-      thumbnails
-    } = this.props.source;
-  }
 
   render() {
     const { source, paused, repeat } = this.props;
@@ -63,8 +43,12 @@ class Audio extends React.Component {
             title="Previous"
             onPress={() => actions.loadSource(this.props.previousSourceIndex)}
           />
-          <Button title="Pause" onPress={actions.paused} />
-          <Button title="Repeat" onPress={actions.repeat} />
+          <Button
+            title="Pause"
+            onPress={actions.paused} />
+          <Button
+            title="Repeat"
+            onPress={actions.repeat} />
         </View>
       );
     }

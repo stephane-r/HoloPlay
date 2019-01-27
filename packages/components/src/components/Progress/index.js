@@ -1,7 +1,12 @@
+// @flow
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-const Progress = ({ percentage }) => (
+type Props = {
+  percentage: number
+};
+
+const Progress = ({ percentage }: Props) => (
   <View style={{ ...styles.progress, width: `${percentage}%` }} />
 );
 

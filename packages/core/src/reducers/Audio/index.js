@@ -23,13 +23,13 @@ const audioActions = {
       sourceIndex
     };
   },
-  paused: async (state, actions, value) => {
+  paused: async state => {
     return {
       ...state,
       paused: !state.paused
     };
   },
-  repeat: async (state, actions, value) => {
+  repeat: async state => {
     return {
       ...state,
       repeat: !state.repeat
