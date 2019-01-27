@@ -5,17 +5,19 @@ import ResultITem from '../Item';
 
 type Props = {
   results: Array<Object>,
+  user: Object,
   onPress: Function
 };
 
-const ResultList = ({ results, onPress }: Props): Function => {
+const ResultList = ({ results, user, onPress }: Props) => {
   if (results.length > 0) {
     return results.map((item, index) => (
       <ResultITem
         key={index}
         item={item}
         index={index}
-        onPress={onPress} />
+        onPress={onPress}
+        isFavoris={user && user.favorisIds.includes(item.id)}
     ));
   }
 
