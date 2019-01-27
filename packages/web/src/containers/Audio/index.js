@@ -1,5 +1,5 @@
 import { connect } from '@youtube-audio-player/core';
-import Audio from '../../components/Audio/index.web';
+import Audio from '../../components/Audio';
 
 const AudioContainer = connect(({ source, sourceIndex, paused, repeat }) => {
   const nextSourceIndex = sourceIndex + 1;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AsyncStorage, ActivityIndicator } from 'react-native';
-import { Provider } from '@youtube-audio-player/core';
+import { Provider, actions } from '@youtube-audio-player/core';
 import { createRootNavigator } from '../../navigation/TabNavigator';
 
 class App extends React.Component {
@@ -13,6 +13,10 @@ class App extends React.Component {
     const token = await AsyncStorage.getItem('userToken');
 
     if (token) {
+      await actions.addUserToken(token);
+      await actions.getUserInformations();
+      await actions.setConnected();
+
       return this.setState({
         isLogged: true,
         checkedLogged: true
@@ -32,11 +36,7 @@ class App extends React.Component {
       return <ActivityIndicator />;
     }
 
-    return (
-      <Provider>
-        <Layout />
-      </Provider>
-    );
+    return <Layout />;
   }
 }
 

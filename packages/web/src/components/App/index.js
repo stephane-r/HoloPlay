@@ -8,11 +8,7 @@ import {
 } from '@react-navigation/core';
 import { createBrowserApp } from '@react-navigation/web';
 import { Provider, actions } from '@youtube-audio-player/core';
-import {
-  LoginScreen,
-  DashboardScreen,
-  FavorisScreen
-} from '@youtube-audio-player/components';
+import { LoginScreen, DashboardScreen, FavorisScreen } from '../../screens';
 
 type Props = {
   navigation: Object,
