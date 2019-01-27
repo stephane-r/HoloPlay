@@ -16,7 +16,8 @@ class App extends React.Component {
     if (token) {
       await actions.addUserToken(token);
       await actions.getUserInformations();
-      // await actions.setConnected();
+      await actions.setConnected();
+
       return this.props.navigation.navigate('DashboardScreen');
     }
 
