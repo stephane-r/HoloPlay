@@ -14,7 +14,10 @@ class App extends React.Component {
     const token = await AsyncStorage.getItem('userToken');
 
     if (token) {
+      await actions.addUserToken(token);
+      await actions.getUserInformations();
       await actions.setConnected();
+
       return this.props.navigation.navigate('DashboardScreen');
     }
 

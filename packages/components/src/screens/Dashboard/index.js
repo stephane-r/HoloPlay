@@ -19,7 +19,8 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    actions.search();
+    // TODO: remove timeout and wait load user informations before run this action
+    setTimeout(() => actions.search(), 500);
   }
 
   async logout() {
