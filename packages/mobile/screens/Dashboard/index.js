@@ -1,6 +1,13 @@
 // @flow
 import React from 'react';
-import { View, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Text
+} from 'react-native';
 import { Input } from '@youtube-audio-player/components';
 import { actions, SearchResultContainer } from '@youtube-audio-player/core';
 
@@ -22,25 +29,27 @@ class Dashboard extends React.Component<Props> {
   logout: Function;
   async logout() {
     await actions.logout();
-    return this.props.navigation.navigate('LoginScreen');
+    return this.props.navigation.navigate('Login');
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableOpacity onPress={this.logout}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
-        <Input
-          onChangeText={text => actions.setSearchValue(text)}
-          placeholder="Rechercher..."
-        />
-        <Button
-          title="Search"
-          onPress={actions.search} />
-        <SearchResultContainer onPress={index => actions.loadSource(index)} />
-        {/* <AudioContainer /> */}
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <TouchableOpacity onPress={this.logout}>
+            <Text>Logout</Text>
+          </TouchableOpacity>
+          <Input
+            onChangeText={text => actions.setSearchValue(text)}
+            placeholder="Rechercher..."
+          />
+          <Button
+            title="Search"
+            onPress={actions.search} />
+          <SearchResultContainer onPress={index => actions.loadSource(index)} />
+          {/* <AudioContainer /> */}
+        </View>
+      </ScrollView>
     );
   }
 }

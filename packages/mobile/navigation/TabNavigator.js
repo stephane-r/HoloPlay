@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator
 } from 'react-navigation';
 
-import { LoginScreen } from '@youtube-audio-player/components';
+import LoginScreen from '../screens/Login';
 import DashboardScreen from '../screens/Dashboard';
 import FavorisScreen from '../screens/Favoris';
 

@@ -13,11 +13,15 @@ class App extends React.Component {
     const token = await AsyncStorage.getItem('userToken');
 
     if (token) {
-      this.setState({
+      return this.setState({
         isLogged: true,
         checkedLogged: true
       });
     }
+
+    return this.setState({
+      checkedLogged: true
+    });
   }
 
   render() {
