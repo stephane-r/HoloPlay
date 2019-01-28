@@ -26,6 +26,7 @@ class App extends React.Component<Props> {
       await actions.addUserToken(token);
       await actions.getUserInformations();
       await actions.setConnected();
+      await actions.search();
     }
 
     if (token && activeKey === 'LoginScreen') {

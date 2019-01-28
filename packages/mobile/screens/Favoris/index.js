@@ -10,11 +10,11 @@ class Favoris extends React.Component {
     linkName: 'Favoris'
   });
 
-  constructor(props) {
-    super(props);
+  loadSource: Function;
+  async loadSource(index: number) {
+    await actions.setSourceOrigin('results');
+    return actions.loadSource(index);
   }
-
-  componentDidMount() {}
 
   render() {
     return (
@@ -22,7 +22,7 @@ class Favoris extends React.Component {
         <TouchableOpacity onPress={this.logout}>
           <Text>Logout</Text>
         </TouchableOpacity>
-        <FavorisContainer onPress={index => actions.loadSource(index)} />
+        <FavorisContainer onPress={this.loadSource} />
       </View>
     );
   }
