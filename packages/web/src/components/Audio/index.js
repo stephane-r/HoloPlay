@@ -29,7 +29,7 @@ class Audio extends React.Component {
       return (
         <View style={styles.container}>
           <ReactPlayer
-            url={`http://${YOUTUBE_API_STREAM_URL}/${source.id}`}
+            url={`https://${YOUTUBE_API_STREAM_URL}/${source.id}`}
             playing={this.state.playing}
           />
           <Text>{this.state.currentTime}</Text>

@@ -36,7 +36,7 @@ const callApi = async (
   }
 
   try {
-    const request = await fetch(`http://${API_URL}${slug}`, params);
+    const request = await fetch(`https://${API_URL}${slug}`, params);
     const response = await request.json();
 
     return response;

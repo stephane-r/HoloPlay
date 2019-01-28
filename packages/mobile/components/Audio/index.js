@@ -84,7 +84,7 @@ class Audio extends React.Component {
       return (
         <View style={styles.container}>
           <Video
-            source={{ uri: `http://${YOUTUBE_API_STREAM_URL}/${source.id}` }}
+            source={{ uri: `https://${YOUTUBE_API_STREAM_URL}/${source.id}` }}
             audioOnly={true}
             playInBackground={true}
             paused={paused}
@@ -114,7 +114,7 @@ class Audio extends React.Component {
       );
     }
 
-    return <Text>Test</Text>;
+    return null;
   }
 }
 

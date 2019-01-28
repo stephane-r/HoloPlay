@@ -1,40 +1,58 @@
 import {
   createStackNavigator,
-  createMaterialTopTabNavigator
+  createSwitchNavigator,
+  createBottomTabNavigator
 } from 'react-navigation';
-import { LoginScreen, DashboardScreen } from '@youtube-audio-player/components';
 
-const LoginStack = createStackNavigator({
-  Login: LoginScreen
+import LoginScreen from '../screens/Login';
+import DashboardScreen from '../screens/Dashboard';
+import FavorisScreen from '../screens/Favoris';
+
+export const LoginStack = createStackNavigator({
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: {
+      title: 'Loading'
+    }
+  }
 });
 
-LoginStack.navigationOptions = {
-  tabBarLabel: 'Login'
-};
-
-const DashboardStack = createStackNavigator({
-  Dashboard: DashboardScreen
-});
-
-DashboardStack.navigationOptions = {
-  tabBarLabel: 'Dashboard'
-};
-
-export default createMaterialTopTabNavigator(
+export const AppStack = createBottomTabNavigator(
   {
-    LoginStack,
-    DashboardStack
+    Dashboard: {
+      screen: DashboardScreen,
+      navigationOptions: {
+        tabBarLabel: 'Dashboard'
+      }
+    },
+    Favoris: {
+      screen: FavorisScreen,
+      navigationOptions: {
+        tabBarLabel: 'Favoris'
+      }
+    }
   },
   {
     tabBarOptions: {
-      activeTintColor: '#000',
-      inactiveTintColor: 'gray',
       style: {
-        backgroundColor: '#fff'
-      },
-      indicatorStyle: {
-        backgroundColor: '#000'
+        paddingTop: 0
       }
     }
   }
 );
+
+export const createRootNavigator = (isLogged = false) => {
+  return createSwitchNavigator(
+    {
+      SignedIn: {
+        screen: AppStack
+      },
+      SignedOut: {
+        screen: LoginStack
+      }
+    },
+    {
+      initialRouteName: isLogged ? 'SignedIn' : 'SignedOut'
+    }
+  );
+};

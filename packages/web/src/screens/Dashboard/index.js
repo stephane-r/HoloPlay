@@ -4,7 +4,6 @@ import { View, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Input } from '@youtube-audio-player/components';
 import { Link } from '@react-navigation/web';
 import { actions, SearchResultContainer } from '@youtube-audio-player/core';
-import AudioContainer from '../../containers/Audio';
 
 type Props = {
   navigation: Object
@@ -49,7 +48,6 @@ class Dashboard extends React.Component<Props> {
           title="Search"
           onPress={actions.search} />
         <SearchResultContainer onPress={index => actions.loadSource(index)} />
-        <AudioContainer />
       </View>
     );
   }

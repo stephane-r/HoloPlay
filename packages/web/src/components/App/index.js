@@ -8,11 +8,8 @@ import {
 } from '@react-navigation/core';
 import { createBrowserApp } from '@react-navigation/web';
 import { Provider, actions } from '@youtube-audio-player/core';
-import {
-  LoginScreen,
-  DashboardScreen,
-  FavorisScreen
-} from '@youtube-audio-player/components';
+import { LoginScreen, DashboardScreen, FavorisScreen } from '../../screens';
+import { AudioContainer } from '../../containers';
 
 type Props = {
   navigation: Object,
@@ -52,6 +49,7 @@ class App extends React.Component<Props> {
             component={descriptor.getComponent()}
             navigation={descriptor.navigation}
           />
+          <AudioContainer />
         </ScrollView>
       </Provider>
     );
