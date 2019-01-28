@@ -11,8 +11,7 @@ class Favoris extends React.Component {
     linkName: 'Favoris'
   });
 
-  loadSource: Function;
-  async loadSource(index: number) {
+  async loadSource(index) {
     await actions.setSourceOrigin('favoris');
     return actions.loadSource(index);
   }

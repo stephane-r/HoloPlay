@@ -7,7 +7,7 @@ type Props = {
 };
 
 const Progress = ({ percentage }: Props) => (
-  <View style={{ ...styles.progress, width: `${percentage}%` }} />
+  <View style={[styles.progress, { width: `${percentage}%` }]} />
 );
 
 const styles = StyleSheet.create({
