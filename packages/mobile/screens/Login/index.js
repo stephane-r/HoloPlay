@@ -43,6 +43,7 @@ class Login extends React.Component<Props, State> {
   async login() {
     await actions.loginThroughApi(this.state);
     await actions.setConnected();
+    await actions.search();
     return this.props.navigation.navigate('Dashboard');
   }
 

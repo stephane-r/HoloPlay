@@ -11,6 +11,11 @@ class Favoris extends React.Component {
     linkName: 'Favoris'
   });
 
+  async loadSource(index) {
+    await actions.setSourceOrigin('favoris');
+    return actions.loadSource(index);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -18,7 +23,7 @@ class Favoris extends React.Component {
           <Text>Logout</Text>
         </TouchableOpacity>
         <Link routeName="DashboardScreen">Dashboard</Link>
-        <FavorisContainer onPress={index => actions.loadSource(index)} />
+        <FavorisContainer onPress={this.loadSource} />
       </View>
     );
   }

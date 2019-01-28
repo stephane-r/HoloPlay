@@ -21,15 +21,16 @@ class Dashboard extends React.Component<Props> {
     this.logout = this.logout.bind(this);
   }
 
-  componentDidMount() {
-    // TODO: remove timeout and wait load user informations before run this action
-    setTimeout(() => actions.search(), 1000);
-  }
-
   logout: Function;
   async logout() {
     await actions.logout();
     return this.props.navigation.navigate('Login');
+  }
+
+  loadSource: Function;
+  async loadSource(index: number) {
+    await actions.setSourceOrigin('results');
+    return actions.loadSource(index);
   }
 
   render() {
@@ -46,7 +47,7 @@ class Dashboard extends React.Component<Props> {
           <Button
             title="Search"
             onPress={actions.search} />
-          <SearchResultContainer onPress={index => actions.loadSource(index)} />
+          <SearchResultContainer onPress={this.loadSource} />
         </View>
       </ScrollView>
     );
