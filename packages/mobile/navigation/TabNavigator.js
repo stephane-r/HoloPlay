@@ -10,10 +10,7 @@ import FavorisScreen from '../screens/Favoris';
 
 export const LoginStack = createStackNavigator({
   Login: {
-    screen: LoginScreen,
-    navigationOptions: {
-      title: 'Loading'
-    }
+    screen: LoginScreen
   }
 });
 
