@@ -7,9 +7,8 @@ export $(shell sed 's/=.*//' .env)
 
 DOCKERCOMPO = USER_ID=$(USER_ID) docker-compose -p $(COMPOSE_PROJECT_NAME)
 DOCKERCOMPORUN = $(DOCKERCOMPO) run
-DOCKERRN = $(DOCKERCOMPORUN) --user="$(USER_ID):$(USER_ID)" react-native
-DOCKERSPRN = $(DOCKERCOMPORUN) --service-ports react-native
-DOCKERRNRM = $(DOCKERCOMPORUN) --rm react-native
+DOCKERRN = $(DOCKERCOMPORUN) --service-ports yap
+DOCKERYARN = $(DOCKERCOMPORUN) --service-ports --user="$(USER_ID):$(USER_ID)" yap yarn
 
 # Help
 .SILENT:
@@ -30,10 +29,42 @@ docker-run:
 		-v $(PWD):/app \
 		-p 8081:8081 react-native-android bash
 
-docker-run-android:
-	@echo "--> Run app on android devices"
-	$(DOCKERSPRN) react-native run-android
-
 docker-down:
 	@echo "--> Stopping docker services"
 	docker-compose -p $(COMPOSE_PROJECT_NAME) down
+
+
+########
+# Yarn #
+########
+yarn-install:
+	@echo "--> Install project dependencies"
+	$(DOCKERYARN)
+
+yarn-add:
+	@echo "--> Add dependency"
+	$(DOCKERYARN) add ${DEP} # Example : make web-add DEP="lodash"
+
+yarn-add-dev:
+	@echo "--> Add dev dependency"
+	$(DOCKERYARN) add -D ${DEP}
+
+yarn-remove:
+	@echo "--> Remove dependency"
+	$(DOCKERYARN) remove ${DEP}
+
+
+###########
+# Web App #
+###########
+web-start:
+	@echo "--> Run app on android devices"
+	$(DOCKERYARN) web:start
+
+
+##############
+# Native App #
+##############
+run-android:
+	@echo "--> Run app on android devices"
+	$(DOCKERSPRN) yarn mobile:android:run
