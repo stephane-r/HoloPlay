@@ -50,7 +50,9 @@ RUN export PATH=$PATH:$ANDROID_HOME/emulator\
     && export PATH=$PATH:/opt/maven/apache-maven-${MAVEN_VERSION}/bin\
     && echo PATH=$PATH:$ANDROID_HOME/platform-tools>>/etc/bash.bashrc
 
-RUN npm install -g yarn && yarn global add react-native-cli
+# YARN
+RUN npm install -g yarn
+RUN yarn global add react-native-cli flow-typed
 
 # CHANGE WORKDIR
 WORKDIR $HOME
@@ -58,11 +60,8 @@ WORKDIR $HOME
 # VOLUMES
 VOLUME ["/app","/root/.gradle"]
 
-# REAT NATIVE PORT
-EXPOSE 8081
-
-# REACT WEB PORT
-EXPOSE 3000
+# REAT NATIVE AND REACT WEB PORTS
+EXPOSE 8081 3000
 
 # DEFAULT COMMAND
-CMD ["react-native", "yarn"]
+CMD ["react-native", "yarn", "flow-typed"]
