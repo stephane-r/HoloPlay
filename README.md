@@ -1,21 +1,103 @@
-# Create React-Native apps monorepo with Yarn Workspaces
+# Youtube Audio Player :notes: :musical_note:
 
-## Introduction
+Youtube Audio Player (YAP) is an open source multi platform app, can stream Youtube audio with an open source [external API](https://github.com/stephane-r/Youtube-Audio-Player-Api). You can create your free account, save music to favoris and create your playlist.
+
+Every music can be downloaded for offline listening with your favorite Android player.
+
+External API is build with Strapi, an Headless CMS, and YouTube Audio Serve for audio stream.
+
+## Getting Started :ok_hand:
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Architecture :star2:
+
+_components_ : every shared components between web and native app
+_core_ : store, reducers and logic
+_mobile_ : react-native app
+_web_ : react web app
+
+### Prerequisites :sunglasses:
+
+YAP has Docker image with all software and dependencies. Just run native or web platform with the commands below :rocket:
+
+### Installing :package:
+
+First, copy environment file :
+
+`cp .env.dist .env`
+
+Then, install project dependencies :
+
+```
+make yarn-install
+```
+
+Running React Native App on your device :
+
+```
+make docker-run
+```
+
+```
+yarn mobile:android:run
+```
+
+Run web app :
+
+```
+make web-start
+```
+
+Add new dependency :
+
+```
+make add $DEP
+```
+
+Add new dependency for web app :
+
+```
+make web-add $DEP
+```
+
+Add new dependency for native app :
+
+```
+make mobile-add $DEP
+```
+
+TODO: Fix Docker container build-tools : `/usr/local/android-sdk/tools/android update sdk --no-ui --all --filter build-tools-27.0.1` :whale:
+
+## Deployment :tada:
+
+Native app is deployed with Code-Push and web with Travis.
 
 TODO
 
-## Instalation
+## Built With :muscle:
 
-Install all `packages` dependencies :
+- [React]() - React
+- [React Native]() - React Native
+- [React Native Web]() - React Native Web
 
-`yarn`
+## Contributing :+1:
 
-Run React web app :
+Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
 
-`yarn web:start`
+## Authors :construction_worker_man:
 
-Run React-Native app :
+- **Stéphane Richin** - _Initial work_
+- **Pierre Mazieres** - _Initial work_
 
-`yarn mobile:android:run`
+See also the list of [contributors]() who participated in this project.
 
-TODO: Fix Docker container : `/usr/local/android-sdk/tools/android update sdk --no-ui --all --filter build-tools-27.0.1`
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc
