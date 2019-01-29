@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  yap:
+    build: ./config/docker/nodejs
+    container_name: youtube_audio_player
+    ports:
+      - 8081:8081
+      - 3000:3000
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - $HOME/.docker-gradle:/root/.gradle
+      - $HOME/.docker-android:/root/.android
+      - $PWD:/app
+    privileged: true
