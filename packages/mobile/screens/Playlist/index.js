@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native';
-import { actions } from '@youtube-audio-player/core';
+import { actions, PlaylistContainer } from '@youtube-audio-player/core';
 import { Input } from '@youtube-audio-player/components';
+
+const uuidv4 = require('uuid/v4');
 
 class PlaylistScreen extends React.Component {
   state = {
@@ -27,26 +29,26 @@ class PlaylistScreen extends React.Component {
     });
   }
 
-  handleChange(name) {
+  async handleChange(name) {
     const playlist = { ...this.state.playlist, name };
 
-    this.setState({
+    await this.setState({
       playlist
     });
   }
 
   async createNewPlaylist() {
-    const playlist = { ...this.state.playlist, id: 'TODO' };
+    const playlist = { ...this.state.playlist, id: uuidv4(), sources: [] };
 
-    await this.setState({
-      playlist
+    await actions.createNewPlaylist(playlist);
+
+    this.setState({
+      playlist: {}
     });
-
-    return actions.createNewPlaylist(this.state.playlist);
   }
 
   render() {
-    const { toggleModal, playlist } = this.state;
+    const { toggleModal } = this.state;
 
     return (
       <View style={styles.container}>
@@ -56,13 +58,14 @@ class PlaylistScreen extends React.Component {
         <Button
           title="Create playlist"
           onPress={this.toggleModal} />
+        <PlaylistContainer />
         {toggleModal && (
           <View>
             <Text>Playlist name</Text>
             <Input
-              onTextChange={this.handleChange}
+              onChangeText={this.handleChange}
               placeholder="Playlist name"
-              value={playlist.name}
+              value={this.state.playlist.name}
             />
             <Button
               title="Create"
