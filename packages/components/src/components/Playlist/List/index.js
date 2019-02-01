@@ -1,10 +1,15 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import Item from '../Item';
 
 const Playlist = ({ user: { playlist } }) => (
   <View>
     {playlist && playlist.length > 0 ? (
-      playlist.map(({ id, name }) => <Text key={id}>{name}</Text>)
+      playlist.map((playlist, index) => (
+        <Item
+          key={index}
+          playlist={playlist} />
+      ))
     ) : (
       <Text>Aucune playlist</Text>
     )}
