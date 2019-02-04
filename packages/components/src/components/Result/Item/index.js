@@ -26,18 +26,25 @@ const ResultItem = ({ item, index, onPress, isFavoris }: Props) => (
       />
       <Text>{item.title}</Text>
     </Text>
-    {!isFavoris ? (
+    <View>
+      {!isFavoris ? (
+        <Button
+          title="Add to my favoris"
+          onPress={() => actions.addSourceToFavoris(item)}
+        />
+      ) : (
+        <Button
+          title="Remove to my favoris"
+          color="#841584"
+          onPress={() => actions.removeSourceFromFavoris(item)}
+        />
+      )}
       <Button
-        title="Add to my favoris"
-        onPress={() => actions.addSourceToFavoris(item)}
-      />
-    ) : (
-      <Button
-        title="Remove to my favoris"
+        title="Add to playlist"
         color="#841584"
-        onPress={() => actions.removeSourceFromFavoris(item)}
+        onPress={() => actions.addSourceToPlaylist({ source: item })}
       />
-    )}
+    </View>
   </View>
 );
 

@@ -5,6 +5,9 @@ import { actions } from '@youtube-audio-player/core';
 const PlaylistItem = ({ playlist, toggleModal }) => (
   <View>
     <Text>{playlist.name}</Text>
+    {playlist.sources.map(item => (
+      <Text key={item.id}>{item.title}</Text>
+    ))}
     <Button
       title="Remove"
       onPress={() => actions.removePlaylist(playlist.id)}

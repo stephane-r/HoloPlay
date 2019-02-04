@@ -60,6 +60,37 @@ const playlistActions = {
       ...state,
       user
     };
+  },
+  addSourceToPlaylist: async (state, actions, { source }) => {
+    const currentPlaylist = state.user.playlist;
+    const playlistUpdated = {
+      playlist: currentPlaylist.map(item => {
+        // TODO: Add playlist id to action parameters
+        if (item.id === currentPlaylist[0].id) {
+          const playlist = {
+            sources: [...item.sources, source]
+          };
+
+          return {
+            ...item,
+            ...playlist
+          };
+        }
+
+        return item;
+      })
+    };
+    const user = {
+      ...state.user,
+      ...playlistUpdated
+    };
+
+    await actions.updateUser(playlistUpdated);
+
+    return {
+      ...state,
+      user
+    };
   }
 };
 
