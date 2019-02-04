@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import { actions } from '@youtube-audio-player/core';
 
-const PlaylistItem = ({ id, name }) => (
+const PlaylistItem = ({ playlist: { id, name } }) => (
   <View>
     <Text>{name}</Text>
     <Button
