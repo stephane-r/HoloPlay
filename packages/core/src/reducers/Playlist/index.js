@@ -34,6 +34,32 @@ const playlistActions = {
       ...state,
       user
     };
+  },
+  updatePlaylist: async (state, actions, playlist) => {
+    const currentPlaylist = state.user.playlist;
+    const playlistUpdated = {
+      playlist: currentPlaylist.map(item => {
+        if (item.id === playlist.id) {
+          return {
+            ...item,
+            ...playlist
+          };
+        }
+
+        return item;
+      })
+    };
+    const user = {
+      ...state.user,
+      ...playlistUpdated
+    };
+
+    await actions.updateUser(playlistUpdated);
+
+    return {
+      ...state,
+      user
+    };
   }
 };
 

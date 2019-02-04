@@ -21,10 +21,17 @@ class PlaylistScreen extends React.Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
+    this.loadPlaylist = this.loadPlaylist.bind(this);
+    this.updatePlaylist = this.updatePlaylist.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
-  toggleModal() {
-    this.setState({
+  async toggleModal(playlist) {
+    if (playlist) {
+      await this.loadPlaylist(playlist);
+    }
+
+    await this.setState({
       toggleModal: !this.state.toggleModal
     });
   }
@@ -47,6 +54,33 @@ class PlaylistScreen extends React.Component {
     });
   }
 
+  async loadPlaylist(playlist) {
+    await this.setState({
+      playlist
+    });
+  }
+
+  async updatePlaylist() {
+    const playlist = {
+      ...this.state.playlist,
+      updatedAt: new Date()
+    };
+
+    await actions.updatePlaylist(playlist);
+
+    this.setState({
+      playlist: {}
+    });
+  }
+
+  submit() {
+    if (this.state.playlist.id === null) {
+      return this.createNewPlaylist();
+    }
+
+    return this.updatePlaylist();
+  }
+
   render() {
     const { toggleModal } = this.state;
 
@@ -58,7 +92,9 @@ class PlaylistScreen extends React.Component {
         <Button
           title="Create playlist"
           onPress={this.toggleModal} />
-        <PlaylistContainer />
+        <PlaylistContainer
+          toggleModal={playlist => this.toggleModal(playlist)}
+        />
         {toggleModal && (
           <View>
             <Text>Playlist name</Text>
@@ -68,8 +104,8 @@ class PlaylistScreen extends React.Component {
               value={this.state.playlist.name}
             />
             <Button
-              title="Create"
-              onPress={this.createNewPlaylist} />
+              title="Create/update"
+              onPress={this.submit} />
             <Button
               title="Cancel"
               onPress={this.toggleModal} />

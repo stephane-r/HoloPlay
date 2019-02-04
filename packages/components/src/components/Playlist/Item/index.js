@@ -2,12 +2,16 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import { actions } from '@youtube-audio-player/core';
 
-const PlaylistItem = ({ playlist: { id, name } }) => (
+const PlaylistItem = ({ playlist, toggleModal }) => (
   <View>
-    <Text>{name}</Text>
+    <Text>{playlist.name}</Text>
     <Button
       title="Remove"
-      onPress={() => actions.removePlaylist(id)} />
+      onPress={() => actions.removePlaylist(playlist.id)}
+    />
+    <Button
+      title="Edit"
+      onPress={() => toggleModal(playlist)} />
   </View>
 );
 
