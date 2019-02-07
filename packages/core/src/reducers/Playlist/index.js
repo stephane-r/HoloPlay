@@ -61,12 +61,11 @@ const playlistActions = {
       user
     };
   },
-  addSourceToPlaylist: async (state, actions, { source }) => {
+  addSourceToPlaylist: async (state, actions, { source, playlistId }) => {
     const currentPlaylist = state.user.playlist;
     const playlistUpdated = {
       playlist: currentPlaylist.map(item => {
-        // TODO: Add playlist id to action parameters
-        if (item.id === currentPlaylist[0].id) {
+        if (item.id === playlistId) {
           const playlist = {
             sources: [...item.sources, source]
           };
