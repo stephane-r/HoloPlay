@@ -34,7 +34,7 @@ class PlaylistScreen extends React.Component {
   }
 
   async toggleModal(playlist) {
-    if (playlist) {
+    if (playlist.id) {
       await this.loadPlaylist(playlist);
     }
 
