@@ -19,7 +19,7 @@ const ResultList = ({ results, user, isFavoris, onPress }: Props): Function => {
         index={index}
         onPress={onPress}
         isFavoris={isFavoris || (user && user.favorisIds.includes(item.id))}
-        playlist={user.playlist}
+        playlist={user ? user.playlist : []}
       />
     ));
   }

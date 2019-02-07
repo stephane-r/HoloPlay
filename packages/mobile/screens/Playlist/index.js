@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Button
+} from 'react-native';
 import { actions, PlaylistContainer } from '@youtube-audio-player/core';
 import { Input } from '@youtube-audio-player/components';
 
@@ -85,33 +92,35 @@ class PlaylistScreen extends React.Component {
     const { toggleModal } = this.state;
 
     return (
-      <View style={styles.container}>
-        <TouchableOpacity onPress={this.logout}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
-        <Button
-          title="Create playlist"
-          onPress={this.toggleModal} />
-        <PlaylistContainer
-          toggleModal={playlist => this.toggleModal(playlist)}
-        />
-        {toggleModal && (
-          <View>
-            <Text>Playlist name</Text>
-            <Input
-              onChangeText={this.handleChange}
-              placeholder="Playlist name"
-              value={this.state.playlist.name}
-            />
-            <Button
-              title="Create/update"
-              onPress={this.submit} />
-            <Button
-              title="Cancel"
-              onPress={this.toggleModal} />
-          </View>
-        )}
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <TouchableOpacity onPress={this.logout}>
+            <Text>Logout</Text>
+          </TouchableOpacity>
+          <Button
+            title="Create playlist"
+            onPress={this.toggleModal} />
+          <PlaylistContainer
+            toggleModal={playlist => this.toggleModal(playlist)}
+          />
+          {toggleModal && (
+            <View>
+              <Text>Playlist name</Text>
+              <Input
+                onChangeText={this.handleChange}
+                placeholder="Playlist name"
+                value={this.state.playlist.name}
+              />
+              <Button
+                title="Create/update"
+                onPress={this.submit} />
+              <Button
+                title="Cancel"
+                onPress={this.toggleModal} />
+            </View>
+          )}
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -121,7 +130,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#F5FCFF',
+    paddingBottom: 150
   }
 });
 

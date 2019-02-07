@@ -90,6 +90,36 @@ const playlistActions = {
       ...state,
       user
     };
+  },
+  removeSourceFromPlaylist: async (state, actions, { source, playlistId }) => {
+    const currentPlaylist = state.user.playlist;
+    const playlistUpdated = {
+      playlist: currentPlaylist.map(item => {
+        if (item.id === playlistId) {
+          const playlist = {
+            sources: item.sources.filter(i => i.id !== source.id)
+          };
+
+          return {
+            ...item,
+            ...playlist
+          };
+        }
+
+        return item;
+      })
+    };
+    const user = {
+      ...state.user,
+      ...playlistUpdated
+    };
+
+    await actions.updateUser(playlistUpdated);
+
+    return {
+      ...state,
+      user
+    };
   }
 };
 
