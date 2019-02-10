@@ -33,7 +33,9 @@ const audioActions = {
   },
   loadSource: async (state, actions, sourceIndex) => {
     const { playlist } = state;
-    const source = playlist[sourceIndex];
+    const isLastSource = playlist.length === sourceIndex - 2;
+    // If is last source, we restart the playlist from first index
+    const source = isLastSource ? playlist[0] : playlist[sourceIndex];
     const { duration } = await getYoutubeContentDetail(source.id);
     const audio = {
       ...source,
