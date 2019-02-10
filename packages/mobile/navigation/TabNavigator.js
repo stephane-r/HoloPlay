@@ -7,6 +7,7 @@ import {
 import LoginScreen from '../screens/Login';
 import DashboardScreen from '../screens/Dashboard';
 import FavorisScreen from '../screens/Favoris';
+import PlaylistScreen from '../screens/Playlist';
 
 export const LoginStack = createStackNavigator({
   Login: {
@@ -26,6 +27,12 @@ export const AppStack = createBottomTabNavigator(
       screen: FavorisScreen,
       navigationOptions: {
         tabBarLabel: 'Favoris'
+      }
+    },
+    Playlist: {
+      screen: PlaylistScreen,
+      navigationOptions: {
+        tabBarLabel: 'Playlist'
       }
     }
   },

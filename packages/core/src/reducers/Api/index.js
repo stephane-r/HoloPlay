@@ -84,6 +84,13 @@ const apiActions = {
       ...state,
       user
     };
+  },
+  updateUser: async (state, actions, userUpdated) => {
+    const { _id } = state.user;
+    const headers = { Authorization: `Bearer ${state.jwt}` };
+    await callApi(api.update(_id), 'put', userUpdated, headers);
+
+    return state;
   }
 };
 

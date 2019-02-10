@@ -39,5 +39,8 @@
     "flow-bin": "^0.91.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.16.1"
+  },
+  "dependencies": {
+    "uuid": "^3.3.2"
   }
 }
