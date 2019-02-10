@@ -88,7 +88,6 @@ class Audio extends React.Component {
             audioOnly={true}
             playInBackground={true}
             paused={paused}
-            poster="https://baconmockup.com/300/200/"
             repeat={repeat}
             onProgress={this.onProgress}
             onLoadStart={this.onLoadStart}

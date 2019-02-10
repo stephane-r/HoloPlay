@@ -12,7 +12,7 @@ class Favoris extends React.Component {
 
   loadSource: Function;
   async loadSource(index: number) {
-    await actions.setSourceOrigin('favoris');
+    await actions.setPlaylistFrom('favoris');
     return actions.loadSource(index);
   }
 
