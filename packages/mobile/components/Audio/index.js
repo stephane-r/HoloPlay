@@ -72,6 +72,10 @@ class Audio extends React.Component {
     });
   }
 
+  seek(seconds = 100) {
+    this.player.seek(seconds);
+  }
+
   render() {
     const { source, paused, repeat } = this.props;
 
@@ -84,7 +88,9 @@ class Audio extends React.Component {
       return (
         <View style={styles.container}>
           <Video
-            source={{ uri: `https://${YOUTUBE_API_STREAM_URL}/${source.id}` }}
+            source={{
+              uri: `https://${YOUTUBE_API_STREAM_URL}/chunk/${source.id}`
+            }}
             audioOnly={true}
             playInBackground={true}
             paused={paused}
@@ -92,6 +98,7 @@ class Audio extends React.Component {
             repeat={repeat}
             onProgress={this.onProgress}
             onLoadStart={this.onLoadStart}
+            ref={player => (this.player = player)}
           />
           <Text>{this.state.currentTime}</Text>
           <Text>{ISO8601toDuration(source.duration)}</Text>
@@ -110,6 +117,10 @@ class Audio extends React.Component {
           <Button
             title="Repeat"
             onPress={actions.repeat} />
+          <Button
+            title="Seek"
+            style={{ width: '100%' }}
+            onPress={this.seek} />
         </View>
       );
     }
@@ -121,7 +132,8 @@ class Audio extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    flexWrap: 'wrap'
   }
 });
 
