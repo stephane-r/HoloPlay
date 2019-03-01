@@ -120,6 +120,13 @@ const playlistActions = {
       ...state,
       user
     };
+  },
+  playPlaylist: async (state, actions, playlistId) => {
+    const playlist = state.user.playlist.find(item => item.id === playlistId);
+    await actions.setPlaylistFrom(playlist);
+    await actions.loadSource(0);
+
+    return;
   }
 };
 

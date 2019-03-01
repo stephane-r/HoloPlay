@@ -20,6 +20,7 @@ class Audio extends React.Component {
     super(props);
     this.onProgress = this.onProgress.bind(this);
     this.onLoadStart = this.onLoadStart.bind(this);
+    this.onEnd = this.onEnd.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +73,10 @@ class Audio extends React.Component {
     });
   }
 
+  onEnd() {
+    actions.loadSource(this.props.nextSourceIndex);
+  }
+
   render() {
     const { source, paused, repeat } = this.props;
 
@@ -88,10 +93,10 @@ class Audio extends React.Component {
             audioOnly={true}
             playInBackground={true}
             paused={paused}
-            poster="https://baconmockup.com/300/200/"
             repeat={repeat}
             onProgress={this.onProgress}
             onLoadStart={this.onLoadStart}
+            onEnd={this.onEnd}
           />
           <Text>{this.state.currentTime}</Text>
           <Text>{ISO8601toDuration(source.duration)}</Text>

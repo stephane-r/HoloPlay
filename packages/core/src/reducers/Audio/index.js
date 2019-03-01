@@ -1,34 +1,41 @@
 import getYoutubeContentDetail from '../../utils/youtubeContentDetail';
 
-const ORIGIN_RESULTS = 'results';
-const ORIGIN_FAVORIS = 'favoris';
-
 const audioState = {
   source: null,
-  sourceOrigin: ORIGIN_RESULTS,
   sourceIndex: null,
   repeat: false,
   paused: false,
-  duration: 0
+  duration: 0,
+  playlist: []
 };
 
 const audioActions = {
-  setSourceOrigin: async (state, actions, sourceOrigin) => {
+  setPlaylistFrom: async (state, actions, origin) => {
+    let playlistList;
+
+    switch (true) {
+      case origin === 'searchResults':
+        playlistList = state.results;
+        break;
+      case origin === 'favoris':
+        playlistList = state.user.favoris;
+        break;
+    }
+
+    if (origin.id) {
+      playlistList = origin.sources;
+    }
+
     return {
       ...state,
-      sourceOrigin
+      playlist: playlistList
     };
   },
   loadSource: async (state, actions, sourceIndex) => {
-    const { sourceOrigin } = state;
-    let source = null;
-
-    if (sourceOrigin === ORIGIN_FAVORIS) {
-      source = state.user.favoris[sourceIndex];
-    } else {
-      source = state.results[sourceIndex];
-    }
-
+    const { playlist } = state;
+    const isLastSource = playlist.length === sourceIndex - 2;
+    // If is last source, we restart the playlist from first index
+    const source = isLastSource ? playlist[0] : playlist[sourceIndex];
     const { duration } = await getYoutubeContentDetail(source.id);
     const audio = {
       ...source,

@@ -29,7 +29,7 @@ class Dashboard extends React.Component<Props> {
 
   loadSource: Function;
   async loadSource(index: number) {
-    await actions.setSourceOrigin('results');
+    await actions.setPlaylistFrom('searchResults');
     return actions.loadSource(index);
   }
 

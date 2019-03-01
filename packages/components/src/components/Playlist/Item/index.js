@@ -7,6 +7,12 @@ const PlaylistItem = ({ playlist, toggleModal }) => (
     <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
       {playlist.name}
     </Text>
+    {playlist.sources.lenth > 0 && (
+      <Button
+        title="Play this playlist"
+        onPress={() => actions.playPlaylist(playlist.id)}
+      />
+    )}
     {playlist.sources.length > 0 ? (
       playlist.sources.map(item => (
         <View
