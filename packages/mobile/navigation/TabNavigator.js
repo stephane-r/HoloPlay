@@ -5,6 +5,7 @@ import {
 } from 'react-navigation';
 
 import LoginScreen from '../screens/Login';
+import RegisterScreen from '../screens/Register';
 import DashboardScreen from '../screens/Dashboard';
 import FavorisScreen from '../screens/Favoris';
 import PlaylistScreen from '../screens/Playlist';
@@ -12,6 +13,9 @@ import PlaylistScreen from '../screens/Playlist';
 export const LoginStack = createStackNavigator({
   Login: {
     screen: LoginScreen
+  },
+  Register: {
+    screen: RegisterScreen
   }
 });
 

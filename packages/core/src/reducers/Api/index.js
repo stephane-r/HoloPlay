@@ -8,7 +8,13 @@ const apiState = {
 };
 
 const apiActions = {
-  registerThroughApi: async state => {
+  registerThroughApi: async (state, actions, formData) => {
+    try {
+      await callApi(api.register, 'post', formData);
+    } catch (error) {
+      alert(JSON.stringify(error));
+    }
+
     return state;
   },
   loginThroughApi: async (state, actions, formData) => {
