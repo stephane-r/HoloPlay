@@ -9,27 +9,27 @@ type Props = {
 };
 
 type State = {
-  identifier: string,
+  username: string,
+  email: string,
   password: string
 };
 
-class Login extends React.Component<Props, State> {
-  static path = '';
-
+class Register extends React.Component<Props, State> {
   static navigationOptions = () => ({
-    title: 'Login',
-    linkName: 'Login'
+    title: 'Register',
+    linkName: 'Register'
   });
 
   constructor(props: Object) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
   }
 
   state = {
-    identifier: 'contact@stephane-richin.fr',
-    password: 'azerty'
+    username: '',
+    email: '',
+    password: ''
   };
 
   handleChange: Function;
@@ -39,21 +39,24 @@ class Login extends React.Component<Props, State> {
     });
   }
 
-  login: Function;
-  async login() {
-    await actions.loginThroughApi(this.state);
-    await actions.setConnected();
-    await actions.search();
-    return this.props.navigation.navigate('Dashboard');
+  register: Function;
+  async register() {
+    await actions.registerThroughApi(this.state);
+    return this.props.navigation.navigate('Login');
   }
 
   render() {
     return (
       <View>
         <Input
-          onChangeText={value => this.handleChange('identifier', value)}
-          placeholder="identifier"
-          value={this.state.identifier}
+          onChangeText={value => this.handleChange('username', value)}
+          placeholder="username"
+          value={this.state.username}
+        />
+        <Input
+          onChangeText={value => this.handleChange('email', value)}
+          placeholder="email"
+          value={this.state.email}
         />
         <Input
           onChangeText={value => this.handleChange('password', value)}
@@ -61,15 +64,11 @@ class Login extends React.Component<Props, State> {
           value={this.state.password}
         />
         <Button
-          title="Login"
-          onPress={this.login} />
-        <Button
           title="Register"
-          onPress={() => this.props.navigation.navigate('Register')}
-        />
+          onPress={this.register} />
       </View>
     );
   }
 }
 
-export default Login;
+export default Register;
