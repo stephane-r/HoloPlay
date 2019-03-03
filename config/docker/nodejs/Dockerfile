@@ -1,67 +1,62 @@
-FROM openjdk:8
+FROM beevelop/android
 
-# Forked from https://github.com/theanam/react-native-docker
 LABEL MAINTAINER STEPHANE RICHIN
 LABEL VERSION 0.1
 LABEL AUTHOR_EMAIL contact@stephane-richin.fr
 
 # ENV VARIABLES
 ENV NODE_VERSION=10.x \
-    SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
-    ANDROID_HOME="/usr/local/android-sdk" \
+    NODE_HOME="/opt/node" \
+    ANDROID_HOME="/opt/android" \
     ANDROID_VERSION=27 \
     ANDROID_BUILD_TOOLS_VERSION=27.0.3\
-    GRADLE_VERSION=4.4\
-    MAVEN_VERSION=3.6.0 \
     GOSU_VERSION=1.10 \
-    HOME=/app
+    HOME=/app \
+    PATH=$PATH:/opt/node/bin
+
+# NODE
+WORKDIR $NODE_HOME
+RUN apt-get update \
+    && apt-get install -y curl git ca-certificates --no-install-recommends \
+    && apt-get clean
 
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
 RUN apt-get update && apt-get -y install nodejs unzip
 
-WORKDIR ${ANDROID_HOME}
-
-# GET SDK MANAGER
-RUN curl -sL -o android.zip ${SDK_URL} && unzip android.zip && rm android.zip
-RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-
-RUN touch /root/.android/repositories.cfg
-
 # ANDROID SDK AND PLATFORM
-RUN $ANDROID_HOME/tools/bin/sdkmanager --update
-RUN $ANDROID_HOME/tools/bin/sdkmanager \
-    "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
+WORKDIR $ANDROID_HOME
+RUN touch /root/.android/repositories.cfg
+RUN yes | $ANDROID_HOME/tools/bin/sdkmanager \
+    "platform-tools" \
     "platforms;android-${ANDROID_VERSION}" \
-    "platform-tools"
+    "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
+RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --update
 
-# GRADLE
-RUN curl -sL -o gradle.zip https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip && \
-    mkdir /opt/gradle && unzip -d /opt/gradle gradle.zip && rm gradle.zip
-
-# MAVEN
-RUN curl -sL -o maven.zip https://www-us.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip && \
-    mkdir /opt/maven && unzip -d /opt/maven maven.zip && rm maven.zip
-
-# ADD PATH TO BASHRC
-RUN export PATH=$PATH:$ANDROID_HOME/emulator\
-    && export PATH=$PATH:$ANDROID_HOME/tools\
-    && export PATH=$PATH:$ANDROID_HOME/tools/bin\
-    && export PATH=$PATH:/opt/gradle/gradle-${GRADLE_VERSION}/bin\
-    && export PATH=$PATH:/opt/maven/apache-maven-${MAVEN_VERSION}/bin\
-    && echo PATH=$PATH:$ANDROID_HOME/platform-tools>>/etc/bash.bashrc
-
-# YARN
 RUN npm install -g yarn
 RUN yarn global add react-native-cli flow-typed
 
-# CHANGE WORKDIR
+# GOSU
 WORKDIR $HOME
+RUN chmod a+rwx $HOME
+
+ENV GOSU_VERSION $GOSU_VERSION
+RUN arch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
+    && echo $arch \
+    && wget -O gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-$arch" \
+    && mv ./gosu /usr/local/bin/gosu \
+    && chmod +x /usr/local/bin/gosu
+
+RUN git config --global user.name Novaway
+
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod a+x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # VOLUMES
-VOLUME ["/app","/root/.gradle"]
+VOLUME ["/app"]
 
-# REAT NATIVE AND REACT WEB PORTS
+# REAT APP PORT
 EXPOSE 8081 3000
 
-# DEFAULT COMMAND
+# DEFAULT CORDOVA COMMAND
 CMD ["react-native", "yarn", "flow-typed"]
