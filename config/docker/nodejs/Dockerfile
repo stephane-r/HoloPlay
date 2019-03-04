@@ -46,7 +46,7 @@ RUN arch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && mv ./gosu /usr/local/bin/gosu \
     && chmod +x /usr/local/bin/gosu
 
-RUN git config --global user.name Novaway
+RUN git config --global user.name yap
 
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod a+x /usr/local/bin/entrypoint.sh

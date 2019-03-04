@@ -30,8 +30,8 @@ FORCED_USER_ID=${LOCAL_USER_ID:-9001}
 
 echo "Starting with UID: $FORCED_USER_ID"
 
-useradd --shell /bin/bash --no-create-home --home $HOME -u $FORCED_USER_ID -o -c "" novaway
+useradd --shell /bin/bash --no-create-home --home $HOME -u $FORCED_USER_ID -o -c "" yap
 
 chown -R $FORCED_USER_ID $HOME
 
-exec gosu novaway "$@"
+exec gosu yap "$@"

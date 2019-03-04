@@ -20,6 +20,9 @@ help: ## Display this help
 ##########
 # Docker #
 ##########
+docker-build:
+	@echo "--> Building docker image"
+	$(DOCKERCOMPO) build
 docker-down:
 	@echo "--> Stopping docker services"
 	$(DOCKERCOMPO) down
