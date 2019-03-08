@@ -4,6 +4,9 @@ node_modules
 /.android
 *.log
 /.config
+.gradle
+.android
+*.timestamp
 
 # Core
 env.js

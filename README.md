@@ -27,6 +27,12 @@ First, copy environment file :
 
 `cp .env.dist .env`
 
+Build Dockerfile :
+
+```
+make docker-build
+```
+
 Then, install project dependencies :
 
 ```
