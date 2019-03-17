@@ -1,4 +1,5 @@
 import React from 'react';
+import codePush from 'react-native-code-push';
 import { Provider } from '@youtube-audio-player/core';
 import App from './components/App';
 
@@ -12,4 +13,4 @@ class AppContainer extends React.Component {
   }
 }
 
-export default AppContainer;
+export default codePush(AppContainer);

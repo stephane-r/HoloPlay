@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ../../node_modules/react-native/local-cli/cli.js start",
     "android:run": "node ../../node_modules/react-native/local-cli/cli.js run-android",
+    "code-push": "node ../../node_modules/react-native/local-cli/cli.js bundle --assets-dest /tmp/CodePush/CodePush --bundle-output /tmp/CodePush/CodePush/index.android.bundle --dev false --entry-file /app/packages/mobile/index.js --platform android",
     "test": "jest"
   },
   "dependencies": {
