@@ -8,6 +8,8 @@ node_modules
 .android
 *.timestamp
 .code-push.config
+.keystore
+CodePush
 
 # Core
 env.js
