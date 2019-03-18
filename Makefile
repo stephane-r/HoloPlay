@@ -9,6 +9,8 @@ DOCKERCOMPO = USER_ID=$(USER_ID) docker-compose -p $(COMPOSE_PROJECT_NAME)
 DOCKERCORRM = ${DOCKERCOMPO} run --rm --service-ports yap
 DOCKERYARN = ${DOCKERCORRM} yarn
 
+DOCKERANDROIDPATH = packages/mobile/android
+
 # Help
 .SILENT:
 .PHONY: help
@@ -71,6 +73,16 @@ web-start:
 ##############
 # Native App #
 ##############
-run-android:
-	@echo "--> Run app on android devices"
-	$(DOCKERSPRN) yarn mobile:android:run
+android-run:
+	@echo "--> Run app on Android devices"
+	$(DOCKERYARN) mobile:android:run
+android-bundle:
+	@echo "--> Bundle react-native app for Android"
+	$(DOCKERYARN) mobile:android:bundle
+android-prepare:
+	@echo "--> Prepare app for Adroid relase"
+	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
+	node ./scripts/prepare.js
+android-release:
+	@echo "--> Release app for Adroid"
+	$(DOCKERYARN) mobile:android:release

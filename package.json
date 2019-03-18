@@ -14,7 +14,10 @@
     "web:start": "yarn workspace @youtube-audio-player/web start",
     "web:build": "yarn yarn workspace @youtube-audio-player/web build",
     "mobile:android:run": "yarn workspace @youtube-audio-player/mobile android:run",
-    "mobile:code-push": "yarn workspace @youtube-audio-player/mobile code-push",
+    "mobile:android:bundle": "yarn workspace @youtube-audio-player/mobile android:bundle",
+    "mobile:android:release": "yarn workspace @youtube-audio-player/mobile android:release",
+    "mobile:android:push:staging": "yarn workspace @youtube-audio-player/mobile push:staging",
+    "mobile:android:push:production": "yarn workspace @youtube-audio-player/mobile push:production",
     "clean:all": "sudo rm -rf node_modules packages/*/node_modules",
     "clean:log": "rm **/*/*.log",
     "prettify": "prettier --write ./packages/**/**/*.js",
@@ -39,7 +42,8 @@
     "eslint-plugin-react": "^7.12.4",
     "flow-bin": "^0.91.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.16.1"
+    "prettier": "^1.16.1",
+    "xml2js": "^0.4.19"
   },
   "dependencies": {
     "react-native-code-push": "^5.5.3",
