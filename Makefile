@@ -28,7 +28,6 @@ help: ## Display this help
 setup:
 	@echo "--> Setup project env files"
 	cp .env.dist .env
-	cp $(DOCKERCOREPATH)/env.js.dist $(DOCKERCOREPATH)/env.js
 	cp $(DOCKERANDROIDPATH)/app/src/main/res/values/.strings.xml.dist $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml
 
 
