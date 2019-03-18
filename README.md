@@ -42,11 +42,7 @@ make yarn-install
 Running React Native App on your device :
 
 ```
-make docker-run
-```
-
-```
-yarn mobile:android:run
+make android-run
 ```
 
 Run web app :
@@ -77,7 +73,7 @@ TODO: Fix Docker container build-tools : `/usr/local/android-sdk/tools/android u
 
 ## Deployment :tada:
 
-Native app is deployed with Code-Push and web with Travis.
+Native app is deployed with [Code-Push](https://github.com/Microsoft/code-push/tree/master/cli) and web with [Travis](https://travis-ci.org/).
 
 TODO
 
@@ -94,7 +90,6 @@ Please read [CONTRIBUTING.md]() for details on our code of conduct, and the proc
 ## Authors :construction_worker_man:
 
 - **Stéphane Richin** - _Initial work_
-- **Pierre Mazieres** - _Initial work_
 
 See also the list of [contributors]() who participated in this project.
 
@@ -107,3 +102,14 @@ This project is licensed under the MIT License.
 - Hat tip to anyone whose code was used
 - Inspiration
 - etc
+
+TODO
+
+Add code-push login on Dockerfile
+
+Script d'init :
+
+copie le .env.dist -> .env
+V : ajoute la clé de déploiement dans le fichier strings.xml
+~V : ajoute le password dans le fichier gradle.properties
+~V : déencode le fichier yap.keystore

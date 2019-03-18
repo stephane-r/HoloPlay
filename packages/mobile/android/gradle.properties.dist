@@ -16,3 +16,8 @@
 # This option should only be used with decoupled projects. More details, visit
 # http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
 # org.gradle.parallel=true
+
+MYAPP_RELEASE_STORE_FILE=yap.keystore
+MYAPP_RELEASE_KEY_ALIAS=yap
+MYAPP_RELEASE_STORE_PASSWORD=KEYSTORE_PASSWORD
+MYAPP_RELEASE_KEY_PASSWORD=KEYSTORE_PASSWORD

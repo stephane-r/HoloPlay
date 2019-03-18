@@ -9,12 +9,25 @@ DOCKERCOMPO = USER_ID=$(USER_ID) docker-compose -p $(COMPOSE_PROJECT_NAME)
 DOCKERCORRM = ${DOCKERCOMPO} run --rm --service-ports yap
 DOCKERYARN = ${DOCKERCORRM} yarn
 
+DOCKERCOREPATH = packages/core/src
+DOCKERANDROIDPATH = packages/mobile/android
+
 # Help
 .SILENT:
 .PHONY: help
 
 help: ## Display this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+
+#################
+# Project Setup #
+#################
+setup:
+	@echo "--> Setup project env files"
+	cp .env.dist .env
+	cp $(DOCKERCOREPATH)/env.js.dist $(DOCKERCOREPATH)/env.js
+	cp $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml.dist $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml
 
 
 ##########
@@ -71,6 +84,16 @@ web-start:
 ##############
 # Native App #
 ##############
-run-android:
-	@echo "--> Run app on android devices"
-	$(DOCKERSPRN) yarn mobile:android:run
+android-run:
+	@echo "--> Run app on Android devices"
+	$(DOCKERYARN) mobile:android:run
+android-bundle:
+	@echo "--> Bundle react-native app for Android"
+	$(DOCKERYARN) mobile:android:bundle
+android-prepare:
+	@echo "--> Prepare Android App for relase"
+	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
+	node ./scripts/prepare.js
+android-release:
+	@echo "--> Release Android App"
+	$(DOCKERYARN) mobile:android:release

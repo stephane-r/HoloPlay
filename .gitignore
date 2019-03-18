@@ -7,6 +7,8 @@ node_modules
 .gradle
 .android
 *.timestamp
+.code-push.config
+strings.xml
 
 # Core
 env.js

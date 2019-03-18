@@ -33,7 +33,7 @@ RUN yes | $ANDROID_HOME/tools/bin/sdkmanager \
 RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --update
 
 RUN npm install -g yarn
-RUN yarn global add react-native-cli flow-typed
+RUN yarn global add react-native-cli flow-typed code-push-cli
 
 # GOSU
 WORKDIR $HOME
@@ -59,4 +59,4 @@ VOLUME ["/app"]
 EXPOSE 8081 3000
 
 # DEFAULT CORDOVA COMMAND
-CMD ["react-native", "yarn", "flow-typed"]
+CMD ["react-native", "yarn", "flow-typed", "code-push"]

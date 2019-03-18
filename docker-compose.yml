@@ -11,5 +11,6 @@ services:
       - 3000:3000
     volumes:
       - /dev/bus/usb:/dev/bus/usb
+      - /app/.code-push.config:/home/stephane/.code-push.config
       - $PWD:/app
     privileged: true
