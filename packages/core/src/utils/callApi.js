@@ -1,6 +1,4 @@
 // @flow
-import { API_URL } from '../config/env';
-
 const defaultHeaders: Object = {
   Accept: 'application/json',
   'Content-Type': 'application/json'
@@ -32,11 +30,14 @@ const callApi = async (
   }
 
   if (__DEV__) {
-    console.log(`${method} - ${API_URL}${slug}`);
+    console.log(`${method} - ${process.env.API_URL}${slug}`);
   }
 
   try {
-    const request = await fetch(`https://${API_URL}${slug}`, params);
+    const request = await fetch(
+      `https://${process.env.API_URL}${slug}`,
+      params
+    );
     const response = await request.json();
 
     return response;

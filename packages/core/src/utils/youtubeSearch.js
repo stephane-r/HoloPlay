@@ -1,10 +1,9 @@
 // @flow
 import YTSearch from 'youtube-search';
-import { YOUTUBE_API_KEY } from '../config/env';
 
 const options: Object = {
   maxResults: 10,
-  key: YOUTUBE_API_KEY
+  key: process.env.YOUTUBE_API_KEY
 };
 
 const YoutubeSearch = (value: string): Promise<void> => {
