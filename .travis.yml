@@ -4,10 +4,7 @@ services:
 stages:
   - setup
   - install
-
-before_script:
-  - make setup
-  - make docker-build
+  - build
 
 cache:
   directories:
@@ -21,5 +18,10 @@ jobs:
         - make setup-production
         - make docker-build
     - stage: install
-      name: install
+      name: Install
       script: make yarn-install
+    - stage: build
+      name: Build
+      script:
+        - make android-prepare
+        - make android-release
