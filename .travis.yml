@@ -1,11 +1,15 @@
-language: node_js
-
 services:
   - docker
 
 before_script:
   - make docker-build
   - make setup
+
+cache:
+  directories:
+    - node_modules
+    - website/.screenshots
+    - website/public/showcase/entry
 
 script:
   - make yarn-install
