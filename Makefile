@@ -6,8 +6,10 @@ USER_ID=`id -u`
 export $(shell sed 's/=.*//' .env)
 
 DOCKERCOMPO = USER_ID=$(USER_ID) docker-compose -p $(COMPOSE_PROJECT_NAME)
-DOCKERCORRM = ${DOCKERCOMPO} run --rm --service-ports yap
-DOCKERYARN = ${DOCKERCORRM} yarn
+DOCKERRM = ${DOCKERCOMPO} run --rm --service-ports
+DOCKERYAP = $(DOCKERRM) yap
+DOCKEREMULATOR = $(DOCKERRM) emulator
+DOCKERYARN = $(DOCKERYAP) yarn
 
 DOCKERCOREPATH = packages/core/src
 DOCKERANDROIDPATH = packages/mobile/android
@@ -39,12 +41,9 @@ docker-build:
 docker-down:
 	@echo "--> Stopping docker services"
 	$(DOCKERCOMPO) down
-docker-run-android:
-	@echo "--> Run Android app"
-	$(DOCKERYARN) mobile:android:run
 docker-run:
 	@echo "--> Run Docker container"
-	$(DOCKERCORRM) bash
+	$(DOCKERYAP) bash
 
 
 ########
@@ -87,6 +86,9 @@ web-start:
 android-run:
 	@echo "--> Run app on Android devices"
 	$(DOCKERYARN) mobile:android:run
+android-run-emulator:
+	@echo "--> Run Docker container"
+	$(DOCKEREMULATOR)
 android-bundle:
 	@echo "--> Bundle react-native app for Android"
 	$(DOCKERYARN) mobile:android:bundle
