@@ -29,6 +29,10 @@ setup:
 	@echo "--> Setup project env files"
 	cp .env.dist .env
 	cp $(DOCKERANDROIDPATH)/app/src/main/res/values/.strings.xml.dist $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml
+setup-production:
+	@echo "--> Setup project env files"
+	cp .env.production.dist .env
+	cp $(DOCKERANDROIDPATH)/app/src/main/res/values/.strings.xml.dist $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml
 
 
 ##########

@@ -1,6 +1,10 @@
 services:
   - docker
 
+stages:
+  - setup
+  - install
+
 before_script:
   - make setup
   - make docker-build
@@ -8,8 +12,14 @@ before_script:
 cache:
   directories:
     - node_modules
-    - website/.screenshots
-    - website/public/showcase/entry
 
-script:
-  - make yarn-install
+jobs:
+  include:
+    - stage: setup
+      name: Setup
+      script:
+        - make setup-production
+        - make docker-build
+    - stage: install
+      name: install
+      script: make yarn-install
