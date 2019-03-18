@@ -2,8 +2,8 @@ services:
   - docker
 
 before_script:
-  - make docker-build
   - make setup
+  - make docker-build
 
 cache:
   directories:
