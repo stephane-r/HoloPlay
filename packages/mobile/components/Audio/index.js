@@ -3,7 +3,6 @@ import React from 'react';
 import Video from 'react-native-video';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import {
-  YOUTUBE_API_STREAM_URL,
   actions,
   ISO8601toDuration,
   youtubeDurationToSeconds
@@ -89,7 +88,9 @@ class Audio extends React.Component {
       return (
         <View style={styles.container}>
           <Video
-            source={{ uri: `https://${YOUTUBE_API_STREAM_URL}/${source.id}` }}
+            source={{
+              uri: `https://${process.env.YOUTUBE_API_STREAM_URL}/${source.id}`
+            }}
             audioOnly={true}
             playInBackground={true}
             paused={paused}
