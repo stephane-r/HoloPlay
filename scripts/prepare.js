@@ -10,6 +10,7 @@ const writeFile = util.promisify(fs.writeFile);
 const parseString = util.promisify(parser.parseString);
 
 const stringsXml = `${__dirname}/../packages/mobile/android/app/src/main/res/values/strings.xml`;
+const stringsXmlDist = `${stringsXml}.dist`;
 
 dotEnv.config();
 
@@ -45,7 +46,7 @@ async function writeXmlFile(file, data) {
  */
 async function upgradeStringsXml() {
   try {
-    const data = await readXmlFile(stringsXml);
+    const data = await readXmlFile(stringsXmlDist);
     const json = {
       ...data,
       resources: {
