@@ -8,6 +8,7 @@ services:
       - LOCAL_USER_ID=$USER_ID
     ports:
       - 8081:8081
+      #   - 5037:5037
       - 3000:3000
     volumes:
       - /dev/bus/usb:/dev/bus/usb

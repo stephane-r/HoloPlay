@@ -56,7 +56,7 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 VOLUME ["/app"]
 
 # REAT APP PORT
-EXPOSE 8081 3000
+EXPOSE 8081 3000 5037
 
 # DEFAULT CORDOVA COMMAND
 CMD ["react-native", "yarn", "flow-typed", "code-push"]
