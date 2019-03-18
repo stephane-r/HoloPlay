@@ -8,7 +8,7 @@ export $(shell sed 's/=.*//' .env)
 DOCKERCOMPO = USER_ID=$(USER_ID) docker-compose -p $(COMPOSE_PROJECT_NAME)
 DOCKERRM = ${DOCKERCOMPO} run --rm --service-ports
 DOCKERYAP = $(DOCKERRM) yap
-DOCKEREMULATOR = $(DOCKERRM) emulator
+DOCKEREMULATOR = $(DOCKERRM) -d emulator
 DOCKERYARN = $(DOCKERYAP) yarn
 
 DOCKERCOREPATH = packages/core/src
@@ -29,7 +29,7 @@ setup:
 	@echo "--> Setup project env files"
 	cp .env.dist .env
 	cp $(DOCKERCOREPATH)/env.js.dist $(DOCKERCOREPATH)/env.js
-	cp $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml.dist $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml
+	cp $(DOCKERANDROIDPATH)/app/src/main/res/values/.strings.xml.dist $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml
 
 
 ##########
