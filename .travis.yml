@@ -1,0 +1,11 @@
+language: node_js
+
+services:
+  - docker
+
+before_script:
+  - make docker-build
+  - make setup
+
+script:
+  - make yarn-install
