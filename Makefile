@@ -64,6 +64,9 @@ yarn-add-dev:
 yarn-remove:
 	@echo "--> Remove dependency"
 	$(DOCKERYARN) remove ${DEP} # Example : make yarn-remove DEP="lodash"
+yarn-static-analysis:
+	@echo "--> Remove dependency"
+	$(DOCKERYARN) static-analysis
 
 
 ##############

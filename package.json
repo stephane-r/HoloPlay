@@ -23,7 +23,8 @@
     "prettify": "prettier --write ./packages/**/**/*.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "lint": "eslint ./packages/**/src",
-    "flow": "./node_modules/.bin/flow"
+    "flow": "./node_modules/.bin/flow",
+    "static-analysis": "yarn flow && yarn lint"
   },
   "pre-commit": [
     "precommit-msg",

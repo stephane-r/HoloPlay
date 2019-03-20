@@ -2,26 +2,31 @@ services:
   - docker
 
 stages:
-  - setup
   - install
+  - static-analysis
   - build
 
 cache:
   directories:
     - node_modules
 
+before_script:
+  - make setup-production
+
 jobs:
   include:
-    - stage: setup
-      name: Setup
-      script:
-        - make setup-production
-        - make docker-build
     - stage: install
-      name: Install
-      script: make yarn-install
+      name: Project dependencies
+      script:
+        # - make docker-build
+        - make yarn-install
+    - stage: static-analysis
+      name: Static analysis (ESLint and Flow)
+      script:
+        - make yarn-static-analysis
     - stage: build
-      name: Build
+      name: Build Android app
       script:
         - make android-prepare
         - make android-release
+        - make android-bundle
