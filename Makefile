@@ -40,7 +40,7 @@ setup-production:
 ##########
 docker-build:
 	@echo "--> Building docker image"
-	$(DOCKERCOMPO) build
+	cd config/docker/nodejs && docker build -t react-native-android .
 docker-down:
 	@echo "--> Stopping docker services"
 	$(DOCKERCOMPO) down
