@@ -96,7 +96,7 @@ android-bundle:
 android-prepare:
 	@echo "--> Prepare Android App for relase"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
-	node ./scripts/prepare.js
+	$(DOCKERYAP) node ./scripts/prepare.js
 android-release:
 	@echo "--> Release Android App"
 	$(DOCKERYARN) mobile:android:release
