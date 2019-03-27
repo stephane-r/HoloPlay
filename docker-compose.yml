@@ -2,7 +2,7 @@ version: '3'
 
 services:
   yap:
-    image: react-native-android
+    image: leg3ndz/react-native-android
     container_name: youtube_audio_player
     environment:
       - LOCAL_USER_ID=$USER_ID
