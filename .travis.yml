@@ -3,7 +3,7 @@ sudo: required
 services:
   - docker
 
-language: minimal
+language: node_js
 
 stages:
   - install
