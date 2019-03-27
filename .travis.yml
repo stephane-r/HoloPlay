@@ -8,29 +8,20 @@ language: minimal
 stages:
   - install
   - static-analysis
-#   - build
-
-# install:
-#   - docker pull leg3ndz/react-native-android:latest
-#   - docker save leg3ndz/react-native-android:latest | gzip > docker/react-native-android.tar.gz
+  - build
 
 before_script:
-  - gzip -dc docker/react-native-android.tar.gz | docker load
-  - docker images
-  - rm -f .env
-  - make setup-production
+  - cp .env.production.dist .env
+  - make setup
   - rm docker-compose.override.yml
-
-# script:
-#   - docker build --pull --cache-from leg3ndz/react-native-android:latest --tag leg3ndz/react-native-android:latest .
-
-after_script:
-  - docker images
 
 cache:
   directories:
-    - docker
     - node_modules
+    - packages/components/node_modules
+    - packages/core/node_modules
+    - packages/mobile/node_modules
+    - packages/web/node_modules
 
 jobs:
   include:
@@ -42,10 +33,10 @@ jobs:
       name: Static analysis (ESLint and Flow)
       script:
         - make yarn-static-analysis
-    # - stage: build
-    #   name: Build Android app
-    #   script:
-    #     - rm -rf .gradle/caches
-    #     - make android-prepare
-    #     - make android-release
-    #     - make android-bundle
+    - stage: build
+      name: Build Android app
+      script:
+        - rm -rf .gradle
+        - make android-prepare
+        - make android-release
+        - make android-bundle
