@@ -8,13 +8,13 @@ stages:
   - static-analysis
 #   - build
 
-install:
-  - docker pull leg3ndz/react-native-android:latest
-  - docker save leg3ndz/react-native-android:latest | gzip > docker/react-native-android.tar.gz
+# install:
+#   - docker pull leg3ndz/react-native-android:latest
+#   - docker save leg3ndz/react-native-android:latest | gzip > docker/react-native-android.tar.gz
 
 before_script:
   - gzip -dc docker/react-native-android.tar.gz | docker load
-  #   - docker pull leg3ndz/react-native-android:latest || true
+  - rm -f .env
   - make setup-production
   - rm docker-compose.override.yml
 
@@ -27,7 +27,6 @@ after_script:
 cache:
   directories:
     - docker
-    - .env
     - node_modules
 
 jobs:
