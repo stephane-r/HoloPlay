@@ -51,4 +51,4 @@ deploy:
   file: 'packages/mobile/android/app/build/outputs/apk/debug/app-debug.apk'
   skip_cleanup: true
   on:
-    branch: travis-ci
+    branch: develop
