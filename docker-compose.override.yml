@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  emulator:
+    image: budtmo/docker-android-x86-$EMULATOR_ANDROID_VERSION
+    container_name: emulator_android
+    environment:
+      - DEVICE=$EMULATOR_DEVICE_NAME
+    ports:
+      - 6080:6080
+      - 5554:5554
+      - 5555:5555
+      - 4723:4723
+    privileged: true

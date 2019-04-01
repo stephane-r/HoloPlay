@@ -16,6 +16,7 @@
     "mobile:android:run": "yarn workspace @youtube-audio-player/mobile android:run",
     "mobile:android:bundle": "yarn workspace @youtube-audio-player/mobile android:bundle",
     "mobile:android:release": "yarn workspace @youtube-audio-player/mobile android:release",
+    "mobile:android:release:debug": "yarn workspace @youtube-audio-player/mobile android:release:debug",
     "mobile:android:push:staging": "yarn workspace @youtube-audio-player/mobile push:staging",
     "mobile:android:push:production": "yarn workspace @youtube-audio-player/mobile push:production",
     "clean:all": "sudo rm -rf node_modules packages/*/node_modules",
@@ -23,7 +24,8 @@
     "prettify": "prettier --write ./packages/**/**/*.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "lint": "eslint ./packages/**/src",
-    "flow": "./node_modules/.bin/flow"
+    "flow": "./node_modules/.bin/flow",
+    "static-analysis": "yarn flow && yarn lint"
   },
   "pre-commit": [
     "precommit-msg",

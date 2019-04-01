@@ -1,0 +1,54 @@
+sudo: required
+
+services:
+  - docker
+
+language: minimal
+
+stages:
+  - install
+  - static-analysis
+  - build
+
+before_script:
+  - cp .env.production.dist .env
+  - make setup
+  - rm docker-compose.override.yml
+
+cache:
+  directories:
+    - node_modules
+    - packages/components/node_modules
+    - packages/core/node_modules
+    - packages/mobile/node_modules
+    - packages/web/node_modules
+    - packages/mobile/android/app/build/outputs/apk
+
+jobs:
+  include:
+    - stage: install
+      name: Project dependencies
+      script:
+        - make yarn-install
+    - stage: static-analysis
+      name: Static analysis (ESLint and Flow)
+      script:
+        - make yarn-static-analysis
+    - stage: build
+      if: branch = develop
+      name: Build Android app
+      script:
+        - rm -rf .cache
+        - make android-prepare
+        - make android-bundle
+        - make android-release-debug
+      deploy:
+        provider: releases
+        tag_name: $TRAVIS_TAG
+        target_commitish: $TRAVIS_COMMIT
+        name: $TRAVIS_TAG
+        api_key: $GITHUB_OAUTH_TOKEN
+        file: 'packages/mobile/android/app/build/outputs/apk/debug/app-debug.apk'
+        skip_cleanup: true
+        on:
+          branch: develop

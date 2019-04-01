@@ -2,28 +2,21 @@ version: '3'
 
 services:
   yap:
-    build: ./config/docker/nodejs
+    image: leg3ndz/react-native-android:latest
     container_name: youtube_audio_player
     environment:
       - LOCAL_USER_ID=$USER_ID
+      - YOUTUBE_API_KEY=$YOUTUBE_API_KEY
+      - YOUTUBE_API_STREAM_URL=$YOUTUBE_API_STREAM_URL
+      - API_URL=$API_URL
+      - KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD
+      - CODE_PUSH_LOGIN_KEY=$CODE_PUSH_LOGIN_KEY
+      - CODE_PUSH_DEPLOY_KEY=$CODE_PUSH_DEPLOY_KEY
     ports:
       - 8081:8081
-      #   - 5037:5037
       - 3000:3000
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - /app/.code-push.config:/home/stephane/.code-push.config
       - $PWD:/app
-    privileged: true
-
-  emulator:
-    image: budtmo/docker-android-x86-$EMULATOR_ANDROID_VERSION
-    container_name: emulator_android
-    environment:
-      - DEVICE=$EMULATOR_DEVICE_NAME
-    ports:
-      - 6080:6080
-      - 5554:5554
-      - 5555:5555
-      - 4723:4723
     privileged: true

@@ -27,8 +27,6 @@ help: ## Display this help
 #################
 setup:
 	@echo "--> Setup project env files"
-	cp .env.dist .env
-	cp $(DOCKERCOREPATH)/env.js.dist $(DOCKERCOREPATH)/env.js
 	cp $(DOCKERANDROIDPATH)/app/src/main/res/values/.strings.xml.dist $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml
 
 
@@ -37,7 +35,7 @@ setup:
 ##########
 docker-build:
 	@echo "--> Building docker image"
-	$(DOCKERCOMPO) build
+	cd config/docker/nodejs && docker build -t react-native-android .
 docker-down:
 	@echo "--> Stopping docker services"
 	$(DOCKERCOMPO) down
@@ -61,6 +59,9 @@ yarn-add-dev:
 yarn-remove:
 	@echo "--> Remove dependency"
 	$(DOCKERYARN) remove ${DEP} # Example : make yarn-remove DEP="lodash"
+yarn-static-analysis:
+	@echo "--> Remove dependency"
+	$(DOCKERYARN) static-analysis
 
 
 ##############
@@ -95,7 +96,11 @@ android-bundle:
 android-prepare:
 	@echo "--> Prepare Android App for relase"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
-	node ./scripts/prepare.js
+	cat $(DOCKERANDROIDPATH)/gradle.properties
+	$(DOCKERYAP) node ./scripts/prepare.js
 android-release:
 	@echo "--> Release Android App"
 	$(DOCKERYARN) mobile:android:release
+android-release-debug:
+	@echo "--> Release debug Android App"
+	$(DOCKERYARN) mobile:android:release:debug
