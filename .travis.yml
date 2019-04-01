@@ -35,20 +35,20 @@ jobs:
       script:
         - make yarn-static-analysis
     - stage: build
+      if: branch = develop
       name: Build Android app
       script:
         - rm -rf .cache
         - make android-prepare
         - make android-bundle
         - make android-release-debug
-
-deploy:
-  provider: releases
-  tag_name: $TRAVIS_TAG
-  target_commitish: $TRAVIS_COMMIT
-  name: $TRAVIS_TAG
-  api_key: $GITHUB_OAUTH_TOKEN
-  file: 'packages/mobile/android/app/build/outputs/apk/debug/app-debug.apk'
-  skip_cleanup: true
-  on:
-    branch: develop
+      deploy:
+        provider: releases
+        tag_name: $TRAVIS_TAG
+        target_commitish: $TRAVIS_COMMIT
+        name: $TRAVIS_TAG
+        api_key: $GITHUB_OAUTH_TOKEN
+        file: 'packages/mobile/android/app/build/outputs/apk/debug/app-debug.apk'
+        skip_cleanup: true
+        on:
+          branch: develop
