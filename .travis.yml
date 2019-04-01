@@ -22,6 +22,7 @@ cache:
     - packages/core/node_modules
     - packages/mobile/node_modules
     - packages/web/node_modules
+    - packages/mobile/android/app/build/outputs/apk
 
 jobs:
   include:
@@ -43,6 +44,11 @@ jobs:
 
 deploy:
   provider: releases
+  tag_name: $TRAVIS_TAG
+  target_commitish: $TRAVIS_COMMIT
+  name: $TRAVIS_TAG
   api_key: $GITHUB_OAUTH_TOKEN
-  file: '/app/packages/mobile/android/app/build/outputs/apk/debug/app-debug.apk'
+  file: 'packages/mobile/android/app/build/outputs/apk/debug/app-debug.apk'
   skip_cleanup: true
+  on:
+    branch: travis-ci
