@@ -100,3 +100,8 @@ android-prepare:
 android-release:
 	@echo "--> Release Android App"
 	$(DOCKERYARN) mobile:android:release
+android-release-debug:
+	@echo "--> Release debug Android App"
+	$(DOCKERYARN) mobile:android:release:debug
+
+# cp env; make setup; make yarn install; rm -rf .cache (remove conflict module name); make android-prepare;

@@ -36,7 +36,7 @@ jobs:
     - stage: build
       name: Build Android app
       script:
-        - rm -rf .gradle
+        - rm -rf .cache
         - make android-prepare
-        - make android-release
         - make android-bundle
+        - make android-release-debug
