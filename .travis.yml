@@ -40,3 +40,9 @@ jobs:
         - make android-prepare
         - make android-bundle
         - make android-release-debug
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: '/app/packages/mobile/android/app/build/outputs/apk/debug/app-debug.apk'
+  skip_cleanup: true
