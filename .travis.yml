@@ -35,7 +35,6 @@ jobs:
       script:
         - make yarn-static-analysis
     - stage: build
-      #   if: branch = develop
       name: Build Android app
       script:
         - rm -rf .cache
@@ -51,5 +50,3 @@ deploy:
   skip_cleanup: true
   on:
     repo: stephane-r/Youtube-Audio-Player
-    # branch: develop
-    branch: github-release
