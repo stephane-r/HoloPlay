@@ -6,6 +6,7 @@ node_modules
 /.config
 .gradle
 .android
+.travis
 *.timestamp
 .code-push.config
 strings.xml
