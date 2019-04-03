@@ -48,6 +48,7 @@ jobs:
       if: branch = develop
       name: Release Android app
       script:
+        - make push-prepare
         - make push-production
       deploy:
         provider: releases

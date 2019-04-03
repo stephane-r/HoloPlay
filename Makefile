@@ -96,7 +96,6 @@ android-bundle:
 android-prepare:
 	@echo "--> Prepare Android App for relase"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
-	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > ./.code-push.config
 	$(DOCKERYAP) node ./scripts/prepare.js
 android-release:
 	@echo "--> Release Android App"
@@ -109,6 +108,9 @@ android-release-debug:
 ##########
 # Deploy #
 ##########
+push-prepare:
+	@echo "--> Set code-push config"
+	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > ./.code-push.config
 push-production:
 	@echo "--> Push bundle to code-push"
 	$(DOCKERYARN) mobile:android:push:production
