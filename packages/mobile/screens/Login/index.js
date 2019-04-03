@@ -52,12 +52,12 @@ class Login extends React.Component<Props, State> {
       <View>
         <Input
           onChangeText={value => this.handleChange('identifier', value)}
-          placeholder="identifier"
+          placeholder="identifierr"
           value={this.state.identifier}
         />
         <Input
           onChangeText={value => this.handleChange('password', value)}
-          placeholder="Password"
+          placeholder="Passwordd"
           value={this.state.password}
         />
         <Button
