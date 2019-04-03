@@ -56,6 +56,11 @@ class Login extends React.Component<Props, State> {
           value={this.state.identifier}
         />
         <Input
+          onChangeText={value => this.handleChange('identifier', value)}
+          placeholder="Test push-production"
+          value={this.state.identifier}
+        />
+        <Input
           onChangeText={value => this.handleChange('password', value)}
           placeholder="Password"
           value={this.state.password}
