@@ -5,11 +5,10 @@
   "scripts": {
     "start": "node ../../node_modules/react-native/local-cli/cli.js start",
     "android:run": "node ../../node_modules/react-native/local-cli/cli.js run-android",
-    "android:bundle": "mkdir -p /tmp/CodePush/CodePush && react-native bundle --platform android --entry-file /app/packages/mobile/index.js --assets-dest /tmp/CodePush/CodePush --bundle-output /tmp/CodePush/CodePush/index.android.bundle --dev false",
+    "android:bundle": "mkdir -p .code-push && react-native bundle --platform android --entry-file /app/packages/mobile/index.js --assets-dest .code-push --bundle-output .code-push/index.android.bundle --dev false",
     "android:release": "cd android && ./gradlew assembleRelease",
     "android:release:debug": "cd android && ./gradlew assembleDebug",
-    "push:staging": "code-push release Youtube-Audio-Player /tmp/CodePush/CodePush '*'",
-    "push:production": "code-push release Youtube-Audio-Player /tmp/CodePush/CodePush --deploymentName Production '*'",
+    "push:production": "code-push release Youtube-Audio-Player .code-push --deploymentName Production '*'",
     "test": "jest"
   },
   "dependencies": {
