@@ -35,11 +35,6 @@ jobs:
       name: Static analysis (ESLint and Flow)
       script:
         - make yarn-static-analysis
-        # Test
-        - rm -rf .cache
-        - make android-prepare
-        - make android-bundle
-        - make push-production
     - stage: build
       if: branch = develop
       name: Build Android app
@@ -49,8 +44,8 @@ jobs:
         - make android-bundle
         - make android-release-debug
 
-# before_deploy:
-#   - make push-production
+before_deploy:
+  - make push-production
 
 deploy:
   provider: releases
