@@ -1,15 +1,15 @@
-FROM beevelop/android
+FROM javiersantos/android-ci:28.0.3
 
 LABEL MAINTAINER STEPHANE RICHIN
-LABEL VERSION 0.1
+LABEL VERSION 0.2
 LABEL AUTHOR_EMAIL contact@stephane-richin.fr
 
 # ENV VARIABLES
 ENV NODE_VERSION=10.x \
     NODE_HOME="/opt/node" \
-    ANDROID_HOME="/opt/android" \
-    ANDROID_VERSION=27 \
-    ANDROID_BUILD_TOOLS_VERSION=27.0.3\
+    ANDROID_HOME="/sdk" \
+    ANDROID_VERSION=28 \
+    ANDROID_BUILD_TOOLS_VERSION=28.0.3\
     GOSU_VERSION=1.10 \
     HOME=/app \
     PATH=$PATH:/opt/node/bin
@@ -17,7 +17,7 @@ ENV NODE_VERSION=10.x \
 # NODE
 WORKDIR $NODE_HOME
 RUN apt-get update \
-    && apt-get install -y curl git ca-certificates --no-install-recommends \
+    && apt-get install -y curl git ca-certificates wget --no-install-recommends \
     && apt-get clean
 
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
@@ -25,7 +25,7 @@ RUN apt-get update && apt-get -y install nodejs unzip
 
 # ANDROID SDK AND PLATFORM
 WORKDIR $ANDROID_HOME
-RUN touch /root/.android/repositories.cfg
+# RUN touch /root/.android/repositories.cfg
 RUN yes | $ANDROID_HOME/tools/bin/sdkmanager \
     "platform-tools" \
     "platforms;android-${ANDROID_VERSION}" \
