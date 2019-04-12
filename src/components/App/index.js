@@ -1,7 +1,8 @@
 import React from 'react';
-import { AsyncStorage, ActivityIndicator } from 'react-native';
-import { actions } from '../../store';
+import { ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { createRootNavigator } from '../../navigation/TabNavigator';
+import { actions } from '../../store';
 import AudioContainer from '../../containers/Audio';
 
 class App extends React.Component {
@@ -38,7 +39,12 @@ class App extends React.Component {
       return <ActivityIndicator />;
     }
 
-    return [<Layout key={1} />, <AudioContainer key={2} />];
+    return (
+      <>
+        <Layout key={1} />
+        <AudioContainer />
+      </>
+    );
   }
 }
 
