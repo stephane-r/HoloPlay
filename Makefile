@@ -82,23 +82,23 @@ web-start:
 ##############
 android-run:
 	@echo "--> Run app on Android devices"
-	$(DOCKERYARN) mobile:android:run
+	$(DOCKERYARN) run
 android-run-emulator:
 	@echo "--> Run Docker container"
 	$(DOCKEREMULATOR)
 android-bundle:
 	@echo "--> Bundle react-native app for Android"
-	$(DOCKERYARN) mobile:android:bundle
+	$(DOCKERYARN) bundle
 android-prepare:
 	@echo "--> Prepare Android App for relase"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
 	$(DOCKERYAP) node ./scripts/prepare.js
 android-release:
 	@echo "--> Release Android App"
-	$(DOCKERYARN) mobile:android:release
+	$(DOCKERYARN) release
 android-release-debug:
 	@echo "--> Release debug Android App"
-	$(DOCKERYARN) mobile:android:release:debug
+	$(DOCKERYARN) release:debug
 
 
 ##########
@@ -109,4 +109,4 @@ push-prepare:
 	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > ./.code-push.config
 push-production:
 	@echo "--> Push bundle to code-push"
-	$(DOCKERYARN) mobile:android:push:production
+	$(DOCKERYARN) push:production
