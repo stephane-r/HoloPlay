@@ -22,6 +22,7 @@
     "react-native": "0.59.4",
     "react-native-code-push": "^5.5.3",
     "react-native-music-control": "^0.9.9",
+    "react-native-quick-actions": "^0.3.10",
     "react-native-video": "^4.3.1",
     "react-navigation": "2.17.0",
     "react-waterfall": "^4.0.1",

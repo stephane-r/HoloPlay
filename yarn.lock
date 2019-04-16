@@ -5812,6 +5812,11 @@ react-native-music-control@^0.9.9:
   resolved "https://registry.yarnpkg.com/react-native-music-control/-/react-native-music-control-0.9.9.tgz#34a9613cd9589ef9d8de8c911713836ebc8c0a18"
   integrity sha512-cJIg/TWjSnKXlvphFkDR6aoyDDdThlomwewimsys0t6gh0FzwA0FBHewrT745RdZt5BF+meCXNheeaNeO+liVw==
 
+react-native-quick-actions@^0.3.10:
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/react-native-quick-actions/-/react-native-quick-actions-0.3.10.tgz#14de1e9d7cdc388bb57145b19b7fefc5b4d0716b"
+  integrity sha512-wWhCECV/bngcUKR8I2uA4h/l8m0sL2QlNDxPHdCecqzJyJjEiVjgYfAVo885/HLl88G5xmTEwmfU/KbfFzp2Yw==
+
 react-native-safe-area-view@0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.11.0.tgz#4f3dda43c2bace37965e7c6aef5fc83d4f19d174"
