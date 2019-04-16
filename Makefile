@@ -11,8 +11,7 @@ DOCKERYAP = $(DOCKERRM) yap
 DOCKEREMULATOR = $(DOCKERRM) -d emulator
 DOCKERYARN = $(DOCKERYAP) yarn
 
-DOCKERCOREPATH = packages/core/src
-DOCKERANDROIDPATH = packages/mobile/android
+DOCKERANDROIDPATH = android
 
 # Help
 .SILENT:
@@ -33,9 +32,6 @@ setup:
 ##########
 # Docker #
 ##########
-docker-build:
-	@echo "--> Building docker image"
-	cd config/docker/nodejs && docker build -t react-native-android .
 docker-down:
 	@echo "--> Stopping docker services"
 	$(DOCKERCOMPO) down
