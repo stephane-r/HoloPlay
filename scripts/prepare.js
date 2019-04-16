@@ -9,7 +9,7 @@ const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const parseString = util.promisify(parser.parseString);
 
-const androidValuesPath = `${__dirname}/../packages/mobile/android/app/src/main/res/values`;
+const androidValuesPath = `${__dirname}/../android/app/src/main/res/values`;
 const stringsXml = `${androidValuesPath}/strings.xml`;
 const stringsXmlDist = `${androidValuesPath}/.strings.xml.dist`;
 

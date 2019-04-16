@@ -19,12 +19,8 @@ before_script:
 cache:
   directories:
     - node_modules
-    - packages/components/node_modules
-    - packages/core/node_modules
-    - packages/mobile/node_modules
-    - packages/web/node_modules
-    - packages/mobile/android/app/build/outputs/apk
-    - packages/mobile/.code-push
+    - android/app/build/outputs/apk
+    - .code-push
 
 jobs:
   include:
@@ -42,7 +38,6 @@ jobs:
       script:
         - rm -rf .cache
         - make android-prepare
-        - make android-bundle
         - make android-release-debug
     - stage: deploy
       if: branch = master
