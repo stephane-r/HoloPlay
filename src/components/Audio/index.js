@@ -27,18 +27,13 @@ class Audio extends React.Component {
     MusicControl.enableControl('stop', true);
     MusicControl.enableControl('nextTrack', true);
     MusicControl.enableControl('previousTrack', true);
-
     MusicControl.enableBackgroundMode(true);
-
     MusicControl.handleAudioInterruptions(true);
-
     MusicControl.on('play', () => actions.paused());
     MusicControl.on('pause', () => actions.paused());
-
     // MusicControl.on('stop', ()=> {
     // this.props.dispatch(stopRemoteControl());
     // })
-
     MusicControl.on('nextTrack', () =>
       actions.loadSource(this.props.previousSourceIndex)
     );

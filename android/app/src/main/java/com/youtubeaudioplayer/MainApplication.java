@@ -35,7 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MusicControl(),
           new MainReactPackage(),
-            new AsyncStoragePackage(),
+          new AsyncStoragePackage(),
           new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
           new ReactVideoPackage()
       );

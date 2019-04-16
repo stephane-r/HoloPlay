@@ -15,7 +15,6 @@ strings.xml
 # Core
 env.js
 dist
-!packages/web/.env
 
 # Mobile
 # OSX
