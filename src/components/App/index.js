@@ -1,33 +1,32 @@
 import React from 'react';
-import { ActivityIndicator, DeviceEventEmitter } from 'react-native';
 import QuickActions from 'react-native-quick-actions';
-import { NavigationActions } from 'react-navigation';
-import AsyncStorage from '@react-native-community/async-storage';
-import { createRootNavigator } from '../../navigation/TabNavigator';
-import { actions } from '../../store';
+import AppContainer from '../../navigation/TabNavigator';
 import AudioContainer from '../../containers/Audio';
+import NavigationService from '../../navigation/NavigationService';
 
 QuickActions.isSupported((error, supported) => {
   if (supported) {
-    QuickActions.setShortcutItems([
+    return QuickActions.setShortcutItems([
       {
         type: 'Orders',
         title: 'Favoris',
-        icon: 'Compose', // Pass any of UIApplicationShortcutIconType<name>
+        icon: 'Compose',
         userInfo: {
-          url: 'app://favoris' // provide custom data, like in-app url you want to open
+          url: 'app://favoris'
         }
       },
       {
         type: 'Orders',
         title: 'Playlist',
-        icon: 'Compose', // Pass any of UIApplicationShortcutIconType<name>
+        icon: 'Compose',
         userInfo: {
-          url: 'app://playlist' // provide custom data, like in-app url you want to open
+          url: 'app://playlist'
         }
       }
     ]);
   }
+
+  return error;
 });
 
 // DeviceEventEmitter.addListener('quickActionShortcut', data => {
@@ -37,12 +36,10 @@ QuickActions.isSupported((error, supported) => {
 QuickActions.popInitialAction().then(data => {
   switch (true) {
     case data.title === 'Favoris':
-      alert('go to favoris screen');
+      setTimeout(() => NavigationService.navigate('Favoris'), 200);
       break;
     case data.title === 'Playlist':
-      NavigationActions.navigate({
-        routeName: 'Playlist'
-      });
+      setTimeout(() => NavigationService.navigate('Playlist'), 200);
       break;
     default:
       break;
@@ -50,46 +47,14 @@ QuickActions.popInitialAction().then(data => {
 });
 
 class App extends React.Component {
-  state = {
-    checkedLogged: false,
-    isLogged: false
-  };
-
-  async componentDidMount() {
-    const token = await AsyncStorage.getItem('userToken');
-
-    if (token) {
-      await actions.addUserToken(token);
-      await actions.getUserInformations();
-      await actions.setConnected();
-      await actions.search();
-
-      return this.setState({
-        isLogged: true,
-        checkedLogged: true
-      });
-    }
-
-    this.setState({
-      checkedLogged: true
-    });
-  }
-
-  test() {
-    alert('yeah');
-  }
-
   render() {
-    const { checkedLogged, isLogged } = this.state;
-    const Layout = createRootNavigator(isLogged);
-
-    if (!checkedLogged) {
-      return <ActivityIndicator />;
-    }
-
     return (
       <>
-        <Layout key={1} />
+        <AppContainer
+          ref={navigatorRef =>
+            NavigationService.setTopLevelNavigator(navigatorRef)
+          }
+        />
         <AudioContainer />
       </>
     );

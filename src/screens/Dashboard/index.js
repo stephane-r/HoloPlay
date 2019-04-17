@@ -1,16 +1,10 @@
 // @flow
 import React from 'react';
-import {
-  ScrollView,
-  View,
-  Button,
-  StyleSheet,
-  TouchableOpacity,
-  Text
-} from 'react-native';
+import { View, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Input from '../../components/Forms/Input';
 import SearchResultContainer from '../../containers/SearchResults';
 import { actions } from '../../store';
+import Layout from '../../components/Layout';
 
 type Props = {
   navigation: Object
@@ -36,7 +30,7 @@ class Dashboard extends React.Component<Props> {
 
   render() {
     return (
-      <ScrollView>
+      <Layout>
         <View style={styles.container}>
           <TouchableOpacity onPress={this.logout}>
             <Text>Logout</Text>
@@ -50,7 +44,7 @@ class Dashboard extends React.Component<Props> {
             onPress={actions.search} />
           <SearchResultContainer onPress={this.loadSource} />
         </View>
-      </ScrollView>
+      </Layout>
     );
   }
 }

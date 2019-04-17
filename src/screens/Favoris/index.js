@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { actions } from '../../store';
 import FavorisContainer from '../../containers/Favoris';
+import Layout from '../../components/Layout';
 
 class Favoris extends React.Component {
   static path = 'favoris';
@@ -18,12 +19,12 @@ class Favoris extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Layout style={styles.container}>
         <TouchableOpacity onPress={() => console.log('logout')}>
           <Text>Logout</Text>
         </TouchableOpacity>
         <FavorisContainer onPress={this.loadSource} />
-      </View>
+      </Layout>
     );
   }
 }

@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  Button
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native';
 import { actions } from '../../store';
 import PlaylistContainer from '../../containers/Playlist';
 import Input from '../../components/Forms/Input';
+import Layout from '../../components/Layout';
 
 const uuidv4 = require('uuid/v4');
 
@@ -93,7 +87,7 @@ class PlaylistScreen extends React.Component {
     const { toggleModal } = this.state;
 
     return (
-      <ScrollView>
+      <Layout>
         <View style={styles.container}>
           <TouchableOpacity onPress={this.logout}>
             <Text>Logout</Text>
@@ -121,7 +115,7 @@ class PlaylistScreen extends React.Component {
             </View>
           )}
         </View>
-      </ScrollView>
+      </Layout>
     );
   }
 }
