@@ -1,5 +1,5 @@
 // @flow
-import { YOUTUBE_API_KEY } from 'react-native-dotenv';
+import { YOUTUBE_API_KEY } from 'react-native-config';
 import YTSearch from 'youtube-search';
 
 const options: Object = {

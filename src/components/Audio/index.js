@@ -1,7 +1,7 @@
 /* eslint react/prop-types: 0 */
 import React from 'react';
 import Video from 'react-native-video';
-import { YOUTUBE_API_STREAM_URL } from 'react-native-dotenv';
+import { YOUTUBE_API_STREAM_URL } from 'react-native-config';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import MusicControl from 'react-native-music-control';
 import { actions } from '../../store';

@@ -22,6 +22,7 @@
     "react": "16.8.3",
     "react-native": "0.59.4",
     "react-native-code-push": "^5.5.3",
+    "react-native-config": "^0.11.7",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-music-control": "^0.9.9",
     "react-native-quick-actions": "^0.3.10",
@@ -51,7 +52,6 @@
     "metro-react-native-babel-preset": "^0.53.1",
     "pre-commit": "^1.2.2",
     "prettier": "^1.16.1",
-    "react-native-dotenv": "^0.2.0",
     "react-native-storybook-loader": "^1.8.0",
     "react-test-renderer": "16.6.3",
     "xml2js": "^0.4.19"
