@@ -1,19 +1,20 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  Button
-} from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { actions } from '../../store';
 import PlaylistContainer from '../../containers/Playlist';
 import Input from '../../components/Forms/Input';
+import Layout from '../../components/Layout';
 
 const uuidv4 = require('uuid/v4');
 
 class PlaylistScreen extends React.Component {
+  static path = 'playlist';
+
+  static navigationOptions = () => ({
+    title: 'Playlist',
+    linkName: 'Playlist'
+  });
+
   state = {
     toggleModal: false,
     playlist: {
@@ -93,47 +94,32 @@ class PlaylistScreen extends React.Component {
     const { toggleModal } = this.state;
 
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={this.logout}>
-            <Text>Logout</Text>
-          </TouchableOpacity>
-          <Button
-            title="Create playlist"
-            onPress={this.toggleModal} />
-          <PlaylistContainer
-            toggleModal={playlist => this.toggleModal(playlist)}
-          />
-          {toggleModal && (
-            <View>
-              <Text>Playlist name</Text>
-              <Input
-                onChangeText={this.handleChange}
-                placeholder="Playlist name"
-                value={this.state.playlist.name}
-              />
-              <Button
-                title="Create/update"
-                onPress={this.submit} />
-              <Button
-                title="Cancel"
-                onPress={this.toggleModal} />
-            </View>
-          )}
-        </View>
-      </ScrollView>
+      <Layout navigate={this.props.navigation}>
+        <Button
+          title="Create playlist"
+          onPress={this.toggleModal} />
+        <PlaylistContainer
+          toggleModal={playlist => this.toggleModal(playlist)}
+        />
+        {toggleModal && (
+          <View>
+            <Text>Playlist name</Text>
+            <Input
+              onChangeText={this.handleChange}
+              placeholder="Playlist name"
+              value={this.state.playlist.name}
+            />
+            <Button
+              title="Create/update"
+              onPress={this.submit} />
+            <Button
+              title="Cancel"
+              onPress={this.toggleModal} />
+          </View>
+        )}
+      </Layout>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    paddingBottom: 150
-  }
-});
 
 export default PlaylistScreen;

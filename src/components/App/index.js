@@ -1,47 +1,43 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import { createRootNavigator } from '../../navigation/TabNavigator';
-import { actions } from '../../store';
+// eslint-disable-next-line import/no-unresolved
+import QuickActions from 'react-native-quick-actions';
+import AppContainer from '../../navigation/TabNavigator';
 import AudioContainer from '../../containers/Audio';
 
-class App extends React.Component {
-  state = {
-    checkedLogged: false,
-    isLogged: false
-  };
-
-  async componentDidMount() {
-    const token = await AsyncStorage.getItem('userToken');
-
-    if (token) {
-      await actions.addUserToken(token);
-      await actions.getUserInformations();
-      await actions.setConnected();
-      await actions.search();
-
-      return this.setState({
-        isLogged: true,
-        checkedLogged: true
-      });
-    }
-
-    return this.setState({
-      checkedLogged: true
-    });
+QuickActions.isSupported((error, supported) => {
+  if (supported) {
+    return QuickActions.setShortcutItems([
+      {
+        type: 'Orders',
+        title: 'Playlist',
+        icon: 'Compose',
+        userInfo: {
+          url: 'app://playlist'
+        }
+      },
+      {
+        type: 'Orders',
+        title: 'Favoris',
+        icon: 'Compose',
+        userInfo: {
+          url: 'app://favoris'
+        }
+      }
+    ]);
   }
 
+  return error;
+});
+
+// DeviceEventEmitter.addListener('quickActionShortcut', data => {
+//   alert(data.title);
+// });
+
+class App extends React.Component {
   render() {
-    const { checkedLogged, isLogged } = this.state;
-    const Layout = createRootNavigator(isLogged);
-
-    if (!checkedLogged) {
-      return <ActivityIndicator />;
-    }
-
     return (
       <>
-        <Layout key={1} />
+        <AppContainer />
         <AudioContainer />
       </>
     );

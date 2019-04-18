@@ -1,66 +1,42 @@
 import {
-  createStackNavigator,
   createSwitchNavigator,
-  createBottomTabNavigator
+  createStackNavigator,
+  createBottomTabNavigator,
+  createAppContainer
 } from 'react-navigation';
 
+import LoadingScreen from '../screens/Loading';
 import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';
 import DashboardScreen from '../screens/Dashboard';
 import FavorisScreen from '../screens/Favoris';
 import PlaylistScreen from '../screens/Playlist';
 
-export const LoginStack = createStackNavigator({
-  Login: {
-    screen: LoginScreen
-  },
-  Register: {
-    screen: RegisterScreen
-  }
+const AuthenticationNavigator = createStackNavigator({
+  Login: LoginScreen,
+  Register: RegisterScreen
 });
 
-export const AppStack = createBottomTabNavigator(
+const AppNavigator = createBottomTabNavigator(
   {
-    Dashboard: {
-      screen: DashboardScreen,
-      navigationOptions: {
-        tabBarLabel: 'Dashboard'
-      }
-    },
-    Favoris: {
-      screen: FavorisScreen,
-      navigationOptions: {
-        tabBarLabel: 'Favoris'
-      }
-    },
-    Playlist: {
-      screen: PlaylistScreen,
-      navigationOptions: {
-        tabBarLabel: 'Playlist'
-      }
-    }
+    Dashboard: DashboardScreen,
+    Favoris: FavorisScreen,
+    Playlist: PlaylistScreen
   },
   {
-    tabBarOptions: {
-      style: {
-        paddingTop: 0
-      }
-    }
+    headerMode: 'none'
   }
 );
 
-export const createRootNavigator = (isLogged = false) => {
-  return createSwitchNavigator(
+export default createAppContainer(
+  createSwitchNavigator(
     {
-      SignedIn: {
-        screen: AppStack
-      },
-      SignedOut: {
-        screen: LoginStack
-      }
+      Loading: LoadingScreen,
+      App: AppNavigator,
+      Auth: AuthenticationNavigator
     },
     {
-      initialRouteName: isLogged ? 'SignedIn' : 'SignedOut'
+      initialRouteName: 'Loading'
     }
-  );
-};
+  )
+);
