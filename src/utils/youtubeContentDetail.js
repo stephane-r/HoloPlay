@@ -1,5 +1,5 @@
 // @flow
-import { YOUTUBE_API_KEY } from 'react-native-dotenv';
+import { YOUTUBE_API_KEY } from 'react-native-config';
 
 const baseURL: string = 'https://www.googleapis.com/youtube/v3/videos';
 

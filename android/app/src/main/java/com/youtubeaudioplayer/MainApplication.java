@@ -3,6 +3,7 @@ package com.youtubeaudioplayer;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.microsoft.codepush.react.CodePush;
@@ -38,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
           new AppShortcutsPackage(),
           new MusicControl(),
           new MainReactPackage(),
+            new ReactNativeConfigPackage(),
             new RNGestureHandlerPackage(),
           new AsyncStoragePackage(),
           new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
