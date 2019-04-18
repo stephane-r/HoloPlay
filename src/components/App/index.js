@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/no-unresolved
 import QuickActions from 'react-native-quick-actions';
 import AppContainer from '../../navigation/TabNavigator';
 import AudioContainer from '../../containers/Audio';

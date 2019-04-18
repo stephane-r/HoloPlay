@@ -1,6 +1,7 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+// eslint-disable-next-line import/no-unresolved
 import QuickActions from 'react-native-quick-actions';
 import { actions } from '../../store';
 
@@ -14,17 +15,6 @@ class LoadingScreen extends React.Component {
 
   async componentDidMount() {
     const token = await AsyncStorage.getItem('userToken');
-
-    // if (token) {
-    // await actions.addUserToken(token);
-    // await actions.getUserInformations();
-    // await actions.setConnected();
-    // await actions.search();
-
-    // return this.props.navigation.navigate('App');
-    // }
-
-    // return this.props.navigation.navigate('Auth');
 
     QuickActions.popInitialAction().then(async data => {
       if (token) {
