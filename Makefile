@@ -69,36 +69,25 @@ flow-install:
 	$(DOCKERFLOW) install ${DEP} # Example : make flow-install DEP="react-navigation"
 
 
-###########
-# Web App #
-###########
-web-start:
-	@echo "--> Run app on android devices"
-	$(DOCKERYARN) web:start
-
-
 ##############
 # Native App #
 ##############
 android-run:
 	@echo "--> Run app on Android devices"
-	$(DOCKERYARN) run
+	$(DOCKERYARN) android:run
 android-run-emulator:
 	@echo "--> Run Docker container"
 	$(DOCKEREMULATOR)
-android-bundle:
-	@echo "--> Bundle react-native app for Android"
-	$(DOCKERYARN) bundle
 android-prepare:
 	@echo "--> Prepare Android App for relase"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
 	$(DOCKERYAP) node ./scripts/prepare.js
 android-release:
 	@echo "--> Release Android App"
-	$(DOCKERYARN) release
+	$(DOCKERYARN) android:release
 android-release-debug:
 	@echo "--> Release debug Android App"
-	$(DOCKERYARN) release:debug
+	$(DOCKERYARN) android:release:debug
 
 
 ##########
