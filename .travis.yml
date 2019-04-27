@@ -49,7 +49,7 @@ jobs:
         provider: releases
         api_key:
           secure: gJx395WPkbST/HUolQcKo99+0NJ0/eZJnB6e/l0bsQtsxdf9oYpWcE23uy8VXGnkFVXQiu7vCYbCQgmGiZGuZaInEQN7eVP6TVbtxG6NBX1MquUxz3un9wX4H6YGXcBuDz7OSMPeLjDDbPCh+kyx2eggkYA4xidGTg4BAfqTpocn0+k+NJnJ8mHpDuhZANrJbHgD3dAfbh2cAU41n34z6tBjmnC/UxCc0hBT/j5iPm+zVahiPRvWxq6YIvWxjIcA+MG4weT3zuINL0rlRLpz3c+nvB3R0KwkDFwG8coEGrBFwDIRzB5alVtY9C23vjFbSIBI/LzcUOmHdS5L+GADnotJDNobXw3432G7siGrtTmmXJYdorqi/iTobwktZ9zMb0stzQmku8HmMuChDs6lzjPmTdN+ifXx/mjhle9BofO4idbVzJOVDqrEYak4vcCCH2ASISdZjTfprsEgT3jvxCa8pz4ypPnYdVCdKomzyMCY69zNkODJz69Sl9blhiMQm+IOj4mDVGj48OGn/9qNj9cJwtTiuQHPni2lRoVoyykE/9Y2jsLudfgLDgr3N+F0JRVCumMk1eV6eS1DbwY8S8WTezNkDJQTjI0cd7hYnh/VvC6mhiffYWoCcf0trwK0ZSSpU9uwnJ9F2RdwpeNzULlbYMEJS/rE0daafkIH1hk=
-        file: packages/mobile/android/app/build/outputs/apk/debug/app-debug.apk
+        file: android/app/build/outputs/apk/debug/app-debug.apk
         skip_cleanup: true
         on:
           repo: stephane-r/Youtube-Audio-Player
