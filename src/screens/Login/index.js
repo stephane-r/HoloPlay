@@ -64,7 +64,7 @@ class Login extends React.Component<Props, State> {
           title="Login"
           onPress={this.login} />
         <Button
-          title="Register"
+          title="Registerr"
           onPress={() => this.props.navigation.navigate('Register')}
         />
       </View>
