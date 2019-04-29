@@ -1,10 +1,11 @@
 import React from 'react';
-import { STORYBOOK } from 'react-native-config';
-// eslint-disable-next-line import/no-unresolved
+import config from 'react-native-config';
 import QuickActions from 'react-native-quick-actions';
 import AppContainer from '../../navigation/TabNavigator';
 import AudioContainer from '../../containers/Audio';
 import StorybookUI from '../../../storybook';
+
+const { STORYBOOK } = config;
 
 QuickActions.isSupported((error, supported) => {
   if (supported) {

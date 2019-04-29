@@ -1,5 +1,7 @@
 // @flow
-import { API_URL } from 'react-native-config';
+import config from 'react-native-config';
+
+const { API_URL } = config;
 
 const defaultHeaders: Object = {
   Accept: 'application/json',
