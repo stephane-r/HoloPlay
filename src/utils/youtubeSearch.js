@@ -1,6 +1,8 @@
 // @flow
-import { YOUTUBE_API_KEY } from 'react-native-config';
+import config from 'react-native-config';
 import YTSearch from 'youtube-search';
+
+const { YOUTUBE_API_KEY } = config;
 
 const options: Object = {
   maxResults: 10,
