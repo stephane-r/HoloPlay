@@ -1,13 +1,15 @@
 /* eslint react/prop-types: 0 */
 import React from 'react';
 import Video from 'react-native-video';
-import { YOUTUBE_API_STREAM_URL } from 'react-native-config';
+import config from 'react-native-config';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import MusicControl from 'react-native-music-control';
 import { actions } from '../../store';
 import Progress from '../Progress';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
 import youtubeDurationToSeconds from '../../utils/youtubeDurationToSeconds';
+
+const { YOUTUBE_API_STREAM_URL } = config;
 
 class Audio extends React.Component {
   state = {
