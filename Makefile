@@ -87,7 +87,7 @@ android-release:
 	$(DOCKERYARN) android:release
 android-release-debug:
 	@echo "--> Release debug Android App"
-	$(DOCKERYARN) android:release:debug
+	$(DOCKERYAP) ./scripts/android-build-debug.sh
 
 
 ##########
