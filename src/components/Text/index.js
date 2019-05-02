@@ -3,15 +3,17 @@ import * as React from 'react';
 import { Text as RnText, StyleSheet } from 'react-native';
 
 type Props = {
+  customStyle?: Object,
   text: string,
   bold: boolean
 };
 
-const Text = ({ text, bold }: Props) => (
+const Text = ({ customStyle, text, bold }: Props) => (
   <RnText
     style={[
       styles.default,
-      { fontFamily: bold ? 'DINPro-Bold' : 'DINPro-Regular' }
+      { fontFamily: bold ? 'DINPro-Bold' : 'DINPro-Regular' },
+      customStyle
     ]}>
     {text}
   </RnText>
