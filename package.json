@@ -4,7 +4,8 @@
   "private": false,
   "scripts": {
     "start": "node ./node_modules/react-native/local-cli/cli.js start -- --reset-cache",
-    "android:run": "node ./node_modules/react-native/local-cli/cli.js run-android",
+    "android:run": "./scripts/android-run.sh",
+    "android:run:emulator": "./scripts/android-run-emulator.sh",
     "android:release": "cd android && ./gradlew assembleRelease",
     "android:release:debug": "cd android && ./gradlew assembleDebug",
     "push:production": "code-push release-react Youtube-Audio-Player android --deploymentName Production --targetBinaryVersion '*'",
