@@ -1,15 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { View, Text, StyleSheet } from 'react-native';
-
-const style = {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#F5FCFF'
-};
-
-const CenteredView = ({ children }) => <View style={style}>{children}</View>;
+import { Text, StyleSheet } from 'react-native';
+import {
+  InputStory,
+  InputLabelStory
+} from '../src/components/Forms/Input/index.story';
 
 const AppText = ({ children, bold }) => (
   <Text style={[styles.text, bold && styles.textBold]}>{children}</Text>
@@ -28,15 +23,6 @@ const styles = StyleSheet.create({
   }
 });
 
-storiesOf('CenteredView', module)
-  .add('default view', () => (
-    <CenteredView>
-      <AppText>Hello Storybook</AppText>
-      <AppText bold>Hello bold Storybook</AppText>
-    </CenteredView>
-  ))
-  .add('default vieww', () => (
-    <CenteredView>
-      <Text>Hello</Text>
-    </CenteredView>
-  ));
+storiesOf('Forms', module)
+  .add('Input', () => <InputStory />)
+  .add('Input with label', () => <InputLabelStory />);
