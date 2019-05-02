@@ -1,15 +1,16 @@
 // @flow
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Spacer from '../../Spacer';
+import Text from '../../Text';
 
 type Props = {
   label: string
-}
+};
 
 const Label = ({ label }: Props) => (
   <View style={styles.default}>
-    <Text>{label}</Text>
+    <Text text={label} />
     <Spacer height={10} />
   </View>
 );
