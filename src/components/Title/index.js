@@ -7,20 +7,22 @@ import Spacer from '../Spacer';
 type Props = {
   level: string,
   title: string,
+  color: string,
   spacer: number
 };
 
-const Title = ({ level, title, spacer }: Props) => (
+const Title = ({ level, title, color, spacer }: Props) => (
   <>
-    <Text
-      text={title}
-      customStyle={[styles.default, styles[`h${level}`]]} />
+    <Text customStyle={[styles.default, styles[`h${level}`], { color }]}>
+      {title}
+    </Text>
     {spacer > 0 && <Spacer height={spacer} />}
   </>
 );
 
 Title.defaultProps = {
-  spacer: 0
+  spacer: 0,
+  color: 'black'
 };
 
 const styles = StyleSheet.create({

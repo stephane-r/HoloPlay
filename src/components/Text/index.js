@@ -4,18 +4,18 @@ import { Text as RnText, StyleSheet } from 'react-native';
 
 type Props = {
   customStyle?: Object,
-  text: string,
+  children: React.Node,
   bold: boolean
 };
 
-const Text = ({ customStyle, text, bold }: Props) => (
+const Text = ({ customStyle, children, bold }: Props) => (
   <RnText
     style={[
       styles.default,
       { fontFamily: bold ? 'DINPro-Bold' : 'DINPro-Regular' },
       customStyle
     ]}>
-    {text}
+    {children}
   </RnText>
 );
 
