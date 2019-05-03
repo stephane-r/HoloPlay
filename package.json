@@ -4,7 +4,8 @@
   "private": false,
   "scripts": {
     "start": "node ./node_modules/react-native/local-cli/cli.js start -- --reset-cache",
-    "android:run": "node ./node_modules/react-native/local-cli/cli.js run-android",
+    "android:run": "./scripts/android-run.sh",
+    "android:run:emulator": "./scripts/android-run-emulator.sh",
     "android:release": "cd android && ./gradlew assembleRelease",
     "android:release:debug": "cd android && ./gradlew assembleDebug",
     "push:production": "code-push release-react Youtube-Audio-Player android --deploymentName Production --targetBinaryVersion '*'",
@@ -26,6 +27,8 @@
     "react-native-gesture-handler": "^1.1.0",
     "react-native-music-control": "^0.9.9",
     "react-native-quick-actions": "^0.3.10",
+    "react-native-svg": "^9.4.0",
+    "react-native-svg-icon": "^0.8.1",
     "react-native-video": "^4.3.1",
     "react-navigation": "^3.8.1",
     "react-waterfall": "^4.0.1",
