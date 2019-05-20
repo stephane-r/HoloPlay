@@ -11,6 +11,7 @@ import {
   TitleH3Story
 } from '../src/components/Title/index.story';
 import { IconStory } from '../src/components/Icon/index.story';
+import { CardVerticalStory, CardHorizontalStory } from '../src/components/Card/Layout/index.story';
 
 storiesOf('Forms', module)
   .add('Input', () => <InputStory />)
@@ -26,3 +27,6 @@ storiesOf('Title', module)
   .add('Level 3', () => <TitleH3Story />);
 
 storiesOf('Icon', module).add('List', () => <IconStory />);
+
+storiesOf('Card', module).add('Horizontal', () => <CardHorizontalStory />);
+storiesOf('Card', module).add('Vertical', () => <CardVerticalStory />);

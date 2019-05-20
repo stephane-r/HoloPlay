@@ -10,7 +10,7 @@ type Props = {
 
 const Label = ({ label }: Props) => (
   <View style={styles.default}>
-    <Text text={label} />
+    <Text>{label}</Text>
     <Spacer height={10} />
   </View>
 );
