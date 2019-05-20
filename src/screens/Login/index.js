@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Button } from 'react-native';
 import Input from '../../components/Forms/Input';
 import { actions } from '../../store';
@@ -8,68 +8,51 @@ type Props = {
   navigation: Object
 };
 
-type State = {
-  identifier: string,
-  password: string
-};
+const LoginScreen = ({ navigation }: Props) => {
+  const [identifier, setIdentifier] = useState('contact@stephane-richin.fr');
+  const [password, setPassword] = useState('azerty');
 
-class Login extends React.Component<Props, State> {
-  static path = '';
-
-  static navigationOptions = () => ({
-    title: 'Login',
-    linkName: 'Login'
-  });
-
-  constructor(props: Object) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.login = this.login.bind(this);
-  }
-
-  state = {
-    identifier: 'contact@stephane-richin.fr',
-    password: 'azerty'
+  const login = async () => {
+    try {
+      await actions.loginThroughApi({ identifier, password });
+      await actions.setConnected();
+      await actions.search();
+      return goToDashboard();
+    } catch (error) {
+      alert(error);
+    }
   };
 
-  handleChange: Function;
-  async handleChange(key: string, value: string) {
-    await this.setState({
-      [key]: value
-    });
-  }
+  const goToDashboard = () => navigation.navigate('Dashboard');
+  const goToRegister = () => navigation.navigate('Register');
 
-  login: Function;
-  async login() {
-    await actions.loginThroughApi(this.state);
-    await actions.setConnected();
-    await actions.search();
-    return this.props.navigation.navigate('Dashboard');
-  }
+  return (
+    <View>
+      <Input
+        onChangeText={value => setIdentifier(value)}
+        placeholder="identifier"
+        value={identifier}
+      />
+      <Input
+        onChangeText={value => setPassword(value)}
+        placeholder="Password"
+        value={password}
+      />
+      <Button
+        title="Login"
+        onPress={login} />
+      <Button
+        title="Register"
+        onPress={goToRegister} />
+    </View>
+  );
+};
 
-  render() {
-    return (
-      <View>
-        <Input
-          onChangeText={value => this.handleChange('identifier', value)}
-          placeholder="identifier"
-          value={this.state.identifier}
-        />
-        <Input
-          onChangeText={value => this.handleChange('password', value)}
-          placeholder="Password"
-          value={this.state.password}
-        />
-        <Button
-          title="Login"
-          onPress={this.login} />
-        <Button
-          title="Registerr"
-          onPress={() => this.props.navigation.navigate('Register')}
-        />
-      </View>
-    );
-  }
-}
+LoginScreen.path = '';
 
-export default Login;
+LoginScreen.navigationOptions = () => ({
+  title: 'Login',
+  linkName: 'Login'
+});
+
+export default LoginScreen;
