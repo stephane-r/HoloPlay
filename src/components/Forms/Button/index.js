@@ -7,18 +7,33 @@ import {
   ActivityIndicator
 } from 'react-native';
 import Text from '../../Text';
+import Icon from '../../Icon';
 
 type Props = {
   title: string,
   onPress: Function,
-  isLoading: Boolean | boolean
+  isLoading: Boolean | boolean,
+  icon?: string
 };
 
-const Button = ({ title, onPress, isLoading }: Props) => (
+const Button = ({ title, onPress, icon, isLoading }: Props) => (
   <TouchableNativeFeedback onPress={onPress}>
-    <View style={styles.default}>
-      {isLoading ? <ActivityIndicator /> : <Text>{title}</Text>}
-    </View>
+    {isLoading ? (
+      <View style={!icon && styles.default}>
+        <ActivityIndicator />
+      </View>
+    ) : (
+      <View style={!icon && styles.default}>
+        {icon ? (
+          <Icon
+            name={icon}
+            height="20"
+            width="20" />
+        ) : (
+          <Text>{title}</Text>
+        )}
+      </View>
+    )}
   </TouchableNativeFeedback>
 );
 

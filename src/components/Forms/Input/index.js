@@ -20,7 +20,7 @@ const Input = ({ label, transparent, spacer, ...props }: Props) => (
       {...props}
       style={[styles.default, transparent && styles.transparent]}
     />
-    {spacer && <Spacer height={spacer} />}
+    <Spacer height={spacer} />
   </>
 );
 
