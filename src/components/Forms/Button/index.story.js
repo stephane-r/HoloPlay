@@ -6,7 +6,7 @@ import Button from '.';
 const ButtonStory = () => (
   <View style={{ padding: 16 }}>
     <Button
-      label="Button label"
+      title="Button label"
       onPress={() => console.log('on press props !')}
     />
   </View>

@@ -11,7 +11,7 @@ import Text from '../../Text';
 type Props = {
   title: string,
   onPress: Function,
-  isLoading: Boolean
+  isLoading: Boolean | boolean
 };
 
 const Button = ({ title, onPress, isLoading }: Props) => (
