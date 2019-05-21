@@ -25,10 +25,11 @@ const Profil = ({ navigate, user }: Props) => {
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <Title
-          level="2"
-          title={`Hey ${user.username}`} />
+          level="1"
+          title={`Hey ${user.username}`}
+          color="white" />
         <Spacer height={5} />
-        <Text>Welcom home</Text>
+        <Text customStyle={{ color: 'white' }}>Welcome home</Text>
       </View>
       <TouchableOpacity onPress={logout}>
         <Image

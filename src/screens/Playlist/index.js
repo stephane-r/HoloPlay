@@ -4,6 +4,8 @@ import { actions } from '../../store';
 import PlaylistContainer from '../../containers/Playlist';
 import Input from '../../components/Forms/Input';
 import Layout from '../../components/Layout';
+import Spacer from '../../components/Spacer';
+import Title from '../../components/Title';
 
 const uuidv4 = require('uuid/v4');
 
@@ -95,6 +97,11 @@ class PlaylistScreen extends React.Component {
 
     return (
       <Layout navigate={this.props.navigation}>
+        <Spacer height={20} />
+        <Title
+          level="2"
+          title="Playlist" />
+        <Spacer height={20} />
         <Button
           title="Create playlist"
           onPress={this.toggleModal} />

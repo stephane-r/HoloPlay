@@ -1,7 +1,6 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import Text from '../../Text';
 import Title from '../../Title';
 import Spacer from '../../Spacer';
 
@@ -13,28 +12,24 @@ type Card = {
 type Props = {
   customStyle?: Object,
   alignment: string,
-  card: Card
+  card: Card,
+  children?: React.Node
 };
 
-const HORIZONTAL_ALIGNMENT = 'vertical';
+const HORIZONTAL_ALIGNMENT = 'horizontal';
 
-const CardLayout = ({ customStyle, alignment, card }: Props) => {
-  const containerStyles =
-    alignment === HORIZONTAL_ALIGNMENT
-      ? stylesHorizontal.container
-      : stylesVertical.container;
-  const pictureStyles =
-    alignment === HORIZONTAL_ALIGNMENT
-      ? stylesHorizontal.picture
-      : stylesVertical.picture;
-  const cardStyles =
-    alignment === HORIZONTAL_ALIGNMENT
-      ? stylesHorizontal.card
-      : stylesVertical.card;
-  const infosStyles =
-    alignment === HORIZONTAL_ALIGNMENT
-      ? stylesHorizontal.infos
-      : stylesVertical.infos;
+const CardLayout = ({ customStyle, alignment, card, children }: Props) => {
+  const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
+  const containerStyles = isHorizontal
+    ? stylesHorizontal.container
+    : stylesVertical.container;
+  const pictureStyles = isHorizontal
+    ? stylesHorizontal.picture
+    : stylesVertical.picture;
+  const cardStyles = isHorizontal ? stylesHorizontal.card : stylesVertical.card;
+  const infosStyles = isHorizontal
+    ? stylesHorizontal.infos
+    : stylesVertical.infos;
 
   return (
     <View style={containerStyles}>
@@ -49,11 +44,12 @@ const CardLayout = ({ customStyle, alignment, card }: Props) => {
             <Title
               level="3"
               title={card.title} />
-            <Spacer height={5} />
-            <View style={styles.footer}>
-              <Text>26 songs</Text>
-              <Text>13.1w</Text>
-            </View>
+            {children && (
+              <>
+                <Spacer height={10} />
+                <View style={styles.footer}>{children}</View>
+              </>
+            )}
             <Spacer height={5} />
           </View>
         </View>
@@ -74,6 +70,7 @@ const stylesVertical = StyleSheet.create({
   },
   card: {
     elevation: 2,
+    flex: 1,
     backgroundColor: 'white',
     borderRadius: 4,
     padding: 10
@@ -94,7 +91,6 @@ const stylesVertical = StyleSheet.create({
 
 const stylesHorizontal = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
     paddingBottom: 20
   },
   card: {
