@@ -31,7 +31,7 @@ Input.defaultProps = {
 
 const styles = StyleSheet.create({
   default: {
-    borderRadius: 20,
+    borderRadius: 4,
     height: 40,
     backgroundColor: 'white',
     borderWidth: 1,

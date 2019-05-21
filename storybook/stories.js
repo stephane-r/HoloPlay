@@ -11,11 +11,16 @@ import {
   TitleH3Story
 } from '../src/components/Title/index.story';
 import { IconStory } from '../src/components/Icon/index.story';
-import { CardVerticalStory, CardHorizontalStory } from '../src/components/Card/Layout/index.story';
+import {
+  CardVerticalStory,
+  CardHorizontalStory
+} from '../src/components/Card/Layout/index.story';
+import ButtonStory from '../src/components/Forms/Button/index.story';
 
 storiesOf('Forms', module)
   .add('Input', () => <InputStory />)
-  .add('Input with label', () => <InputLabelStory />);
+  .add('Input with label', () => <InputLabelStory />)
+  .add('Button', () => <ButtonStory />);
 
 storiesOf('App', module)
   .add('Text', () => <TextStory />)
