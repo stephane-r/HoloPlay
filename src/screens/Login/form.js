@@ -1,9 +1,9 @@
 // @flow
 import React, { useState } from 'react';
-import { Button } from 'react-native';
 import Input from '../../components/Forms/Input';
 import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
+import Button from '../../components/Forms/Button';
 
 type Props = {
   navigation: Object,
@@ -42,10 +42,10 @@ const LoginForm = ({ navigation, loginIsFecthing }: Props) => {
         placeholder="Password"
         value={password}
       />
-      {loginIsFecthing && <Button title="Register" />}
       <Button
         title="Login"
-        onPress={login} />
+        onPress={login}
+        isLoading={loginIsFecthing} />
       <Spacer height={20} />
       {/* <Button
         title="Register"

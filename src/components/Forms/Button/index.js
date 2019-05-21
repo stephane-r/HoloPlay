@@ -1,20 +1,30 @@
 // @flow
 import React from 'react';
-import { View, TouchableNativeFeedback, StyleSheet } from 'react-native';
+import {
+  View,
+  TouchableNativeFeedback,
+  StyleSheet,
+  ActivityIndicator
+} from 'react-native';
 import Text from '../../Text';
 
 type Props = {
-  label: string,
-  onPress: Function
+  title: string,
+  onPress: Function,
+  isLoading: Boolean
 };
 
-const Button = ({ label, onPress }: Props) => (
+const Button = ({ title, onPress, isLoading }: Props) => (
   <TouchableNativeFeedback onPress={onPress}>
     <View style={styles.default}>
-      <Text>{label}</Text>
+      {isLoading ? <ActivityIndicator /> : <Text>{title}</Text>}
     </View>
   </TouchableNativeFeedback>
 );
+
+Button.defaultProps = {
+  isLoading: false
+};
 
 const styles = StyleSheet.create({
   default: {
@@ -22,9 +32,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 4,
     height: 40,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(128, 128, 128, .2)',
     borderWidth: 1,
-    borderColor: 'rgba(128, 128, 128, .2)',
+    borderColor: 'rgba(128, 128, 128, .4)',
     fontSize: 14,
     fontFamily: 'DINPro-Regular',
     paddingHorizontal: 20
