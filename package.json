@@ -27,6 +27,8 @@
     "react-native-gesture-handler": "^1.1.0",
     "react-native-music-control": "^0.9.9",
     "react-native-quick-actions": "^0.3.10",
+    "react-native-simple-dialogs": "^1.1.0",
+    "react-native-snap-carousel": "^3.8.0",
     "react-native-svg": "^9.4.0",
     "react-native-svg-icon": "^0.8.1",
     "react-native-video": "^4.3.1",
