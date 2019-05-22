@@ -13,12 +13,19 @@ type Props = {
   customStyle?: Object,
   alignment: string,
   card: Card,
-  children?: React.Node
+  children?: React.Node,
+  rightContent?: React.Node
 };
 
 const HORIZONTAL_ALIGNMENT = 'horizontal';
 
-const CardLayout = ({ customStyle, alignment, card, children }: Props) => {
+const CardLayout = ({
+  customStyle,
+  alignment,
+  card,
+  children,
+  rightContent
+}: Props) => {
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
   const containerStyles = isHorizontal
     ? stylesHorizontal.container
@@ -30,6 +37,9 @@ const CardLayout = ({ customStyle, alignment, card, children }: Props) => {
   const infosStyles = isHorizontal
     ? stylesHorizontal.infos
     : stylesVertical.infos;
+  const titleStyles = isHorizontal
+    ? stylesHorizontal.title
+    : stylesVertical.title;
 
   return (
     <View style={containerStyles}>
@@ -41,16 +51,20 @@ const CardLayout = ({ customStyle, alignment, card, children }: Props) => {
             source={{ uri: card.picture }}
           />
           <View style={infosStyles}>
-            <Title
-              level="3"
-              title={card.title} />
-            {children && (
-              <>
-                <Spacer height={10} />
-                <View style={styles.footer}>{children}</View>
-              </>
-            )}
-            <Spacer height={5} />
+            <View style={{ flex: 1 }}>
+              <Title
+                level="3"
+                title={card.title}
+                customStyle={titleStyles} />
+              {children && (
+                <>
+                  <Spacer height={10} />
+                  <View style={styles.footer}>{children}</View>
+                </>
+              )}
+              <Spacer height={10} />
+            </View>
+            {rightContent && rightContent}
           </View>
         </View>
       </TouchableNativeFeedback>
@@ -74,6 +88,9 @@ const stylesVertical = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 4,
     padding: 10
+  },
+  title: {
+    height: 60
   },
   infos: {},
   picture: {
@@ -100,6 +117,7 @@ const stylesHorizontal = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 20
   },
+  title: {},
   picture: {
     width: 80,
     height: 80,
@@ -107,6 +125,9 @@ const stylesHorizontal = StyleSheet.create({
     transform: [{ translateY: -10 }]
   },
   infos: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 15
   },

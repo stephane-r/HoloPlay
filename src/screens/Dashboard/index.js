@@ -8,6 +8,7 @@ import SearchContainer from '../../containers/Search';
 import ProfilContainer from '../../containers/Profil';
 import Spacer from '../../components/Spacer';
 import Title from '../../components/Title';
+import CarouselUserPlaylistContainer from '../../containers/CarouselUserPlaylist';
 
 type Props = {
   navigation: Object
@@ -25,8 +26,12 @@ const Dashboard = ({ navigation }: Props) => {
         <SearchContainer />
         <Spacer height={15} />
         <ProfilContainer navigate={navigation} />
+        <Spacer height={30} />
+        <View style={styles.carouselContainer}>
+          <CarouselUserPlaylistContainer />
+        </View>
       </View>
-      <Spacer height={30} />
+      <Spacer height={90} />
       <Title
         level="2"
         title="Search" />
@@ -40,8 +45,10 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#2575f4',
     marginHorizontal: -16,
-    paddingHorizontal: 16,
-    paddingBottom: 40
+    paddingHorizontal: 16
+  },
+  carouselContainer: {
+    marginBottom: -60
   }
 });
 
