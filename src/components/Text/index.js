@@ -8,13 +8,14 @@ type Props = {
   bold: boolean
 };
 
-const Text = ({ customStyle, children, bold }: Props) => (
+const Text = ({ customStyle, children, bold, ...props }: Props) => (
   <RnText
     style={[
       styles.default,
       { fontFamily: bold ? 'DINPro-Bold' : 'DINPro-Regular' },
       customStyle
-    ]}>
+    ]}
+    {...props}>
     {children}
   </RnText>
 );

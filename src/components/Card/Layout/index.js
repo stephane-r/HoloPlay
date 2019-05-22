@@ -1,7 +1,6 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import Text from '../../Text';
 import Title from '../../Title';
 import Spacer from '../../Spacer';
 
@@ -13,28 +12,34 @@ type Card = {
 type Props = {
   customStyle?: Object,
   alignment: string,
-  card: Card
+  card: Card,
+  children?: React.Node,
+  rightContent?: React.Node
 };
 
-const HORIZONTAL_ALIGNMENT = 'vertical';
+const HORIZONTAL_ALIGNMENT = 'horizontal';
 
-const CardLayout = ({ customStyle, alignment, card }: Props) => {
-  const containerStyles =
-    alignment === HORIZONTAL_ALIGNMENT
-      ? stylesHorizontal.container
-      : stylesVertical.container;
-  const pictureStyles =
-    alignment === HORIZONTAL_ALIGNMENT
-      ? stylesHorizontal.picture
-      : stylesVertical.picture;
-  const cardStyles =
-    alignment === HORIZONTAL_ALIGNMENT
-      ? stylesHorizontal.card
-      : stylesVertical.card;
-  const infosStyles =
-    alignment === HORIZONTAL_ALIGNMENT
-      ? stylesHorizontal.infos
-      : stylesVertical.infos;
+const CardLayout = ({
+  customStyle,
+  alignment,
+  card,
+  children,
+  rightContent
+}: Props) => {
+  const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
+  const containerStyles = isHorizontal
+    ? stylesHorizontal.container
+    : stylesVertical.container;
+  const pictureStyles = isHorizontal
+    ? stylesHorizontal.picture
+    : stylesVertical.picture;
+  const cardStyles = isHorizontal ? stylesHorizontal.card : stylesVertical.card;
+  const infosStyles = isHorizontal
+    ? stylesHorizontal.infos
+    : stylesVertical.infos;
+  const titleStyles = isHorizontal
+    ? stylesHorizontal.title
+    : stylesVertical.title;
 
   return (
     <View style={containerStyles}>
@@ -46,15 +51,20 @@ const CardLayout = ({ customStyle, alignment, card }: Props) => {
             source={{ uri: card.picture }}
           />
           <View style={infosStyles}>
-            <Title
-              level="3"
-              title={card.title} />
-            <Spacer height={5} />
-            <View style={styles.footer}>
-              <Text>26 songs</Text>
-              <Text>13.1w</Text>
+            <View style={{ flex: 1 }}>
+              <Title
+                level="3"
+                title={card.title}
+                customStyle={titleStyles} />
+              {children && (
+                <>
+                  <Spacer height={10} />
+                  <View style={styles.footer}>{children}</View>
+                </>
+              )}
+              <Spacer height={10} />
             </View>
-            <Spacer height={5} />
+            {rightContent && rightContent}
           </View>
         </View>
       </TouchableNativeFeedback>
@@ -74,9 +84,13 @@ const stylesVertical = StyleSheet.create({
   },
   card: {
     elevation: 2,
+    flex: 1,
     backgroundColor: 'white',
     borderRadius: 4,
     padding: 10
+  },
+  title: {
+    height: 60
   },
   infos: {},
   picture: {
@@ -94,7 +108,6 @@ const stylesVertical = StyleSheet.create({
 
 const stylesHorizontal = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
     paddingBottom: 20
   },
   card: {
@@ -104,6 +117,7 @@ const stylesHorizontal = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 20
   },
+  title: {},
   picture: {
     width: 80,
     height: 80,
@@ -111,6 +125,9 @@ const stylesHorizontal = StyleSheet.create({
     transform: [{ translateY: -10 }]
   },
   infos: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 15
   },
