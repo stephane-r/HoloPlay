@@ -1,6 +1,6 @@
 // @flow
-import * as React from 'react';
-import { View } from 'react-native';
+import React from 'react';
+import { View, TouchableHighlight } from 'react-native';
 import Icon from '../../Icon';
 import Card from '../Layout';
 import { actions } from '../../../store';
@@ -8,16 +8,22 @@ import { actions } from '../../../store';
 type Props = {
   card: Object,
   item: Object,
-  isFavoris: boolean
+  isFavoris: boolean,
+  addToPlaylist: Function
 };
 
-const CardSearchItem = ({ item, isFavoris, ...props }: Props) => {
+const CardSearchItem = ({
+  item,
+  isFavoris,
+  addToPlaylist,
+  ...props
+}: Props) => {
   const AddOrRemoveToFavoris = () => {
     if (isFavoris) {
-      return actions.addSourceToFavoris(item);
+      return actions.removeSourceFromFavoris(item);
     }
 
-    return actions.removeSourceFromFavoris(item);
+    return actions.addSourceToFavoris(item);
   };
 
   return (
@@ -28,16 +34,19 @@ const CardSearchItem = ({ item, isFavoris, ...props }: Props) => {
           justifyContent: 'space-between',
           flex: 1
         }}>
-        <Icon
-          name={isFavoris ? 'Favorite' : 'FavoriteBorder'}
-          width={20}
-          height={20}
-          onPress={AddOrRemoveToFavoris}
-        />
-        <Icon
-          name="Add"
-          width={20}
-          height={20} />
+        <TouchableHighlight onPress={AddOrRemoveToFavoris}>
+          <Icon
+            name={isFavoris ? 'Favorite' : 'FavoriteBorder'}
+            width={20}
+            height={20}
+          />
+        </TouchableHighlight>
+        <TouchableHighlight onPress={() => addToPlaylist(item)}>
+          <Icon
+            name="Add"
+            width={20}
+            height={20} />
+        </TouchableHighlight>
       </View>
     </Card>
   );
