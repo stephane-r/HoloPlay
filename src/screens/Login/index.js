@@ -1,75 +1,32 @@
 // @flow
 import React from 'react';
-import { View, Button } from 'react-native';
-import Input from '../../components/Forms/Input';
-import { actions } from '../../store';
+import { View, StyleSheet } from 'react-native';
+import LoginFormContainer from '../../containers/Login';
 
 type Props = {
   navigation: Object
 };
 
-type State = {
-  identifier: string,
-  password: string
-};
+const LoginScreen = ({ navigation }: Props) => (
+  <View style={styles.container}>
+    <LoginFormContainer navigation={navigation} />
+  </View>
+);
 
-class Login extends React.Component<Props, State> {
-  static path = '';
+LoginScreen.path = '';
 
-  static navigationOptions = () => ({
-    title: 'Login',
-    linkName: 'Login'
-  });
+LoginScreen.navigationOptions = () => ({
+  title: 'Login',
+  linkName: 'Login',
+  header: null
+});
 
-  constructor(props: Object) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.login = this.login.bind(this);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 16
   }
+});
 
-  state = {
-    identifier: 'contact@stephane-richin.fr',
-    password: 'azerty'
-  };
-
-  handleChange: Function;
-  async handleChange(key: string, value: string) {
-    await this.setState({
-      [key]: value
-    });
-  }
-
-  login: Function;
-  async login() {
-    await actions.loginThroughApi(this.state);
-    await actions.setConnected();
-    await actions.search();
-    return this.props.navigation.navigate('Dashboard');
-  }
-
-  render() {
-    return (
-      <View>
-        <Input
-          onChangeText={value => this.handleChange('identifier', value)}
-          placeholder="identifier"
-          value={this.state.identifier}
-        />
-        <Input
-          onChangeText={value => this.handleChange('password', value)}
-          placeholder="Password"
-          value={this.state.password}
-        />
-        <Button
-          title="Login"
-          onPress={this.login} />
-        <Button
-          title="Registerr"
-          onPress={() => this.props.navigation.navigate('Register')}
-        />
-      </View>
-    );
-  }
-}
-
-export default Login;
+export default LoginScreen;

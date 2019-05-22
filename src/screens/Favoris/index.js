@@ -2,6 +2,8 @@ import React from 'react';
 import { actions } from '../../store';
 import FavorisContainer from '../../containers/Favoris';
 import Layout from '../../components/Layout';
+import Title from '../../components/Title';
+import Spacer from '../../components/Spacer';
 
 class Favoris extends React.Component {
   static path = 'favoris';
@@ -19,6 +21,11 @@ class Favoris extends React.Component {
   render() {
     return (
       <Layout navigate={this.props.navigation}>
+        <Spacer height={20} />
+        <Title
+          level="2"
+          title="Favoris" />
+        <Spacer height={20} />
         <FavorisContainer onPress={this.loadSource} />
       </Layout>
     );

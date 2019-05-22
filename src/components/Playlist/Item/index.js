@@ -14,22 +14,28 @@ const PlaylistItem = ({ playlist, toggleModal }) => (
       />
     )}
     {playlist.sources.length > 0 ? (
-      playlist.sources.map(item => (
-        <View
-          key={item.id}
-          style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-          <Text>{item.title}</Text>
-          <Button
-            title="Remove"
-            onPress={() =>
-              actions.removeSourceFromPlaylist({
-                source: item,
-                playlistId: playlist.id
-              })
-            }
-          />
-        </View>
-      ))
+      playlist.sources.map(item => {
+        if (item && item.id) {
+          return (
+            <View
+              key={item.id}
+              style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              <Text>{item.title}</Text>
+              <Button
+                title="Remove"
+                onPress={() =>
+                  actions.removeSourceFromPlaylist({
+                    source: item,
+                    playlistId: playlist.id
+                  })
+                }
+              />
+            </View>
+          );
+        }
+
+        return null;
+      })
     ) : (
       <Text>Playlist empty</Text>
     )}
