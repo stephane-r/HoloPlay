@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: 8,
-    paddingTop: 23
+    paddingTop: 23,
+    marginHorizontal: -8
   }
 });
 

@@ -8,12 +8,20 @@ type Props = {
   level: string,
   title: string,
   color: string,
-  spacer: number
+  spacer: number,
+  customStyle: Object
 };
 
-const Title = ({ level, title, color, spacer }: Props) => (
+const Title = ({ level, title, color, spacer, customStyle }: Props) => (
   <>
-    <Text customStyle={[styles.default, styles[`h${level}`], { color }]}>
+    <Text
+      customStyle={[
+        styles.default,
+        styles[`h${level}`],
+        { color },
+        customStyle
+      ]}
+      numberOfLines={2}>
       {title}
     </Text>
     {spacer > 0 && <Spacer height={spacer} />}
@@ -22,7 +30,8 @@ const Title = ({ level, title, color, spacer }: Props) => (
 
 Title.defaultProps = {
   spacer: 0,
-  color: 'black'
+  color: 'black',
+  customStyle: {}
 };
 
 const styles = StyleSheet.create({
