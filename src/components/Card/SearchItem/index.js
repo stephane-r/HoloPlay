@@ -37,15 +37,15 @@ const CardSearchItem = ({
         <TouchableHighlight onPress={AddOrRemoveToFavoris}>
           <Icon
             name={isFavoris ? 'Favorite' : 'FavoriteBorder'}
-            width={20}
-            height={20}
+            width={15}
+            height={15}
           />
         </TouchableHighlight>
         <TouchableHighlight onPress={() => addToPlaylist(item)}>
           <Icon
             name="Add"
-            width={20}
-            height={20} />
+            width={15}
+            height={15} />
         </TouchableHighlight>
       </View>
     </Card>
