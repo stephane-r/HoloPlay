@@ -156,6 +156,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-reanimated')
     implementation project(':react-native-svg')
     implementation project(':react-native-config')
     implementation project(':react-native-gesture-handler')
