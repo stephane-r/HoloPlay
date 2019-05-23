@@ -2,17 +2,16 @@
 import React, { useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import CardList from '../../Card/List';
-import CardSearchItem from '../../Card/SearchItem';
 import DialogAddToPlaylistContainer from '../../../containers/DialogAddToPlaylist';
+import CardSearchItemContainer from '../../../containers/SearchItem';
 
 type Props = {
   results: Array<Object>,
   user: Object,
-  isFavoris?: boolean,
-  onPress: Function
+  isFavoris?: boolean
 };
 
-const ResultList = ({ results, user, isFavoris, onPress }: Props): Function => {
+const ResultList = ({ results, user, isFavoris }: Props): Function => {
   const [dialogIsShow, toggleDialog] = useState(false);
   const [source, setDialogSource] = useState(null);
 
@@ -30,12 +29,11 @@ const ResultList = ({ results, user, isFavoris, onPress }: Props): Function => {
           };
 
           return (
-            <CardSearchItem
+            <CardSearchItemContainer
               key={index}
               index={index}
               card={card}
               item={item}
-              onPress={onPress}
               addToPlaylist={item => {
                 setDialogSource(item);
                 toggleDialog(!dialogIsShow);

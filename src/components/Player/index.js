@@ -1,0 +1,150 @@
+/* eslint react/prop-types: 0 */
+import React, { useState, useEffect } from 'react';
+import Video from 'react-native-video';
+import config from 'react-native-config';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Dimensions,
+  ActivityIndicator
+} from 'react-native';
+import MusicControl from 'react-native-music-control';
+import { actions } from '../../store';
+import Progress from '../Progress';
+import ISO8601toDuration from '../../utils/ISO8601toDuration';
+import youtubeDurationToSeconds from '../../utils/youtubeDurationToSeconds';
+
+const { YOUTUBE_API_STREAM_URL } = config;
+
+const Player = ({ source, paused, repeat, ...props }) => {
+  const [currentTime, setCurrentTime] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    MusicControl.enableControl('play', true);
+    MusicControl.enableControl('pause', true);
+    MusicControl.enableControl('stop', true);
+    MusicControl.enableControl('nextTrack', true);
+    MusicControl.enableControl('previousTrack', true);
+    MusicControl.enableBackgroundMode(true);
+    MusicControl.handleAudioInterruptions(true);
+    MusicControl.on('play', () => actions.paused());
+    MusicControl.on('pause', () => actions.paused());
+    // MusicControl.on('stop', ()=>
+    // this.props.dispatch(stopRemoteControl())
+    // );
+    MusicControl.on('nextTrack', () =>
+      actions.loadSource(this.props.previousSourceIndex)
+    );
+    MusicControl.on('previousTrack', () =>
+      actions.loadSource(this.props.previousSourceIndex)
+    );
+  });
+
+  const onProgress = ({ currentTime }) => {
+    setLoading(false);
+    setCurrentTime(Math.round(currentTime));
+  };
+
+  const onLoadStart = () => {
+    const { title, channelTitle, duration, description, thumbnails } = source;
+
+    if (!isLoading) {
+      setLoading(true);
+    }
+
+    MusicControl.setNowPlaying({
+      title,
+      artwork: thumbnails.medium.url,
+      artist: channelTitle,
+      duration: youtubeDurationToSeconds(duration),
+      description
+    });
+  };
+
+  const onEnd = () => {
+    actions.loadSource(props.nextSourceIndex);
+  };
+
+  if (!source) {
+    return null;
+  }
+
+  const uri = `https://${YOUTUBE_API_STREAM_URL}/${source.id}`;
+  const percentage = Math.floor(
+    (100 / youtubeDurationToSeconds(source.duration)) * currentTime
+  );
+
+  return (
+    <View style={styles.panel}>
+      {isLoading && <ActivityIndicator />}
+      <Button
+        title="Fermer"
+        onPress={actions.hidePlayer} />
+      <Video
+        source={{
+          uri
+        }}
+        audioOnly={true}
+        playInBackground={true}
+        paused={paused}
+        repeat={repeat}
+        onProgress={onProgress}
+        onLoadStart={onLoadStart}
+        onEnd={onEnd}
+      />
+      <Text>{currentTime}</Text>
+      <Text>{ISO8601toDuration(source.duration)}</Text>
+      <Progress percentage={percentage} />
+      <Button
+        title="Next"
+        onPress={() => actions.loadSource(props.nextSourceIndex)}
+      />
+      <Button
+        title="Previous"
+        onPress={() => actions.loadSource(props.previousSourceIndex)}
+      />
+      <Button
+        title="Pause"
+        onPress={actions.paused} />
+      <Button
+        title="Repeat"
+        onPress={actions.repeat} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#6f6f76'
+  },
+  commandButton: {
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: '#292929',
+    alignItems: 'center',
+    margin: 7
+  },
+  panel: {
+    height: Dimensions.get('window').height,
+    backgroundColor: '#2c2c2fAA'
+  },
+  panelButton: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: '#292929',
+    alignItems: 'center',
+    marginVertical: 7
+  },
+  panelButtonTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: 'white'
+  }
+});
+
+export default Player;

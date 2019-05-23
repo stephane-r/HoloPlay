@@ -1,6 +1,7 @@
 import getYoutubeContentDetail from '../../utils/youtubeContentDetail';
 
 const audioState = {
+  playerIsOpened: 1, // Can be 1 for close and 0 to open
   source: null,
   sourceIndex: null,
   repeat: false,
@@ -10,6 +11,18 @@ const audioState = {
 };
 
 const audioActions = {
+  showPlayer: async state => {
+    return {
+      ...state,
+      playerIsOpened: 0
+    };
+  },
+  hidePlayer: async state => {
+    return {
+      ...state,
+      playerIsOpened: 1
+    };
+  },
   setPlaylistFrom: async (state, actions, origin) => {
     let playlistList;
 

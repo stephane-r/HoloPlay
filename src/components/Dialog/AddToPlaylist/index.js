@@ -37,6 +37,7 @@ const DialogAddToPlaylist = ({
     <Dialog
       visible={visible}
       title="Add to playlist"
+      animationType="slide"
       onTouchOutside={toggleDialog}>
       <View>
         <Picker

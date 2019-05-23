@@ -13,6 +13,8 @@ type Props = {
   customStyle?: Object,
   alignment: string,
   card: Card,
+  onPress?: Function,
+  index?: Number,
   children?: React.Node,
   rightContent?: React.Node
 };
@@ -24,7 +26,8 @@ const CardLayout = ({
   alignment,
   card,
   children,
-  rightContent
+  rightContent,
+  ...props
 }: Props) => {
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
   const containerStyles = isHorizontal
@@ -43,7 +46,8 @@ const CardLayout = ({
 
   return (
     <View style={containerStyles}>
-      <TouchableNativeFeedback>
+      <TouchableNativeFeedback
+        onPress={() => props.onPress && props.onPress(props.index)}>
         <View style={[cardStyles, customStyle]}>
           <Image
             resizeMode="cover"

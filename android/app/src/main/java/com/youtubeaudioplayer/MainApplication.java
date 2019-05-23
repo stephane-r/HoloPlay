@@ -3,6 +3,7 @@ package com.youtubeaudioplayer;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.swmansion.reanimated.ReanimatedPackage;
 import com.horcrux.svg.SvgPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -40,6 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
           new AppShortcutsPackage(),
           new MusicControl(),
           new MainReactPackage(),
+            new ReanimatedPackage(),
             new SvgPackage(),
             new ReactNativeConfigPackage(),
             new RNGestureHandlerPackage(),
