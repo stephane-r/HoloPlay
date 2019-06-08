@@ -1,9 +1,9 @@
 import createStore from 'react-waterfall';
-import { searchState, searchActions } from '../reducers/Search';
-import { audioState, audioActions } from '../reducers/Audio';
-import { apiState, apiActions } from '../reducers/Api';
-import { appState, appActions } from '../reducers/App';
-import { playlistState, playlistActions } from '../reducers/Playlist';
+import { searchState, searchActions } from '../actions/Search';
+import { audioState, audioActions } from '../actions/Audio';
+import { apiState, apiActions } from '../actions/Api';
+import { appState, appActions } from '../actions/App';
+import { playlistState, playlistActions } from '../actions/Playlist';
 
 const config = {
   initialState: {

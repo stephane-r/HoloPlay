@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import SearchResultContainer from '../../containers/SearchResults';
-import { actions } from '../../store';
 import Layout from '../../components/Layout';
 import SearchContainer from '../../containers/Search';
 import ProfilContainer from '../../containers/Profil';
@@ -14,32 +13,25 @@ type Props = {
   navigation: Object
 };
 
-const Dashboard = ({ navigation }: Props) => {
-  const loadSource = async (index: number) => {
-    await actions.setPlaylistFrom('searchResults');
-    return actions.loadSource(index);
-  };
-
-  return (
-    <Layout navigate={navigation}>
-      <View style={styles.header}>
-        <SearchContainer />
-        <Spacer height={15} />
-        <ProfilContainer navigate={navigation} />
-        <Spacer height={30} />
-        <View style={styles.carouselContainer}>
-          <CarouselUserPlaylistContainer />
-        </View>
-      </View>
-      <Spacer height={90} />
-      <Title
-        level="2"
-        title="Search" />
+const Dashboard = ({ navigation }: Props) => (
+  <Layout navigate={navigation}>
+    <View style={styles.header}>
+      <SearchContainer />
       <Spacer height={15} />
-      <SearchResultContainer onPress={loadSource} />
-    </Layout>
-  );
-};
+      <ProfilContainer navigate={navigation} />
+      <Spacer height={30} />
+      <View style={styles.carouselContainer}>
+        <CarouselUserPlaylistContainer />
+      </View>
+    </View>
+    <Spacer height={90} />
+    <Title
+      level="2"
+      title="Search" />
+    <Spacer height={15} />
+    <SearchResultContainer />
+  </Layout>
+);
 
 const styles = StyleSheet.create({
   header: {
