@@ -19,9 +19,9 @@ const AuthenticationNavigator = createStackNavigator({
 
 const AppNavigator = createBottomTabNavigator(
   {
+    Playlist: PlaylistScreen,
     Dashboard: DashboardScreen,
-    Favoris: FavorisScreen,
-    Playlist: PlaylistScreen
+    Favoris: FavorisScreen
   },
   {
     headerMode: 'none'

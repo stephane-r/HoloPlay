@@ -1,6 +1,14 @@
-const playlistState = {};
+const playlistState = {
+  playlistIsFecthing: false
+};
 
 const playlistActions = {
+  setPlaylistIsFecthing: async state => {
+    return {
+      ...state,
+      playlistIsFecthing: true
+    };
+  },
   createNewPlaylist: async (state, actions, newPlaylist) => {
     const { playlist } = state.user;
     const playlistUpdated = {
@@ -15,7 +23,8 @@ const playlistActions = {
 
     return {
       ...state,
-      user
+      user,
+      playlistIsFecthing: false
     };
   },
   removePlaylist: async (state, actions, playlistId) => {
@@ -58,7 +67,8 @@ const playlistActions = {
 
     return {
       ...state,
-      user
+      user,
+      playlistIsFecthing: false
     };
   },
   addSourceToPlaylist: async (state, actions, { source, playlistId }) => {
