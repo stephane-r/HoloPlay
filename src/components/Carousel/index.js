@@ -62,4 +62,5 @@ const styles = StyleSheet.create({
   }
 });
 
+export { CarouselPlayIcon };
 export default Carousel;

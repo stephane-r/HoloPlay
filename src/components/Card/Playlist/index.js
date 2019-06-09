@@ -6,6 +6,7 @@ import Text from '../../Text';
 import Button from '../../Forms/Button';
 import { actions } from '../../../store';
 import Spacer from '../../Spacer';
+import { CarouselPlayIcon } from '../../Carousel';
 
 type CardPlaylistProps = {
   totalSongs: number,
@@ -30,7 +31,12 @@ const CardPlaylist = ({
 
   return (
     <>
-      <Card {...props}>
+      <Card
+        {...props}
+        items={playlist.sources}
+        rightContent={
+          <CarouselPlayIcon onPress={() => alert('run playlist')} />
+        }>
         <Text>{totalSongs} songs</Text>
       </Card>
       <View style={{ flexDirection: 'row', marginHorizontal: -8 }}>

@@ -3,20 +3,23 @@ import * as React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import Title from '../../Title';
 import Spacer from '../../Spacer';
+import Text from '../../Text';
+import Icon from '../../Icon';
 
-type Card = {
+type CardType = {
   title: string,
   picture: string
 };
 
-type Props = {
+type CardProps = {
   customStyle?: Object,
   alignment: string,
-  card: Card,
+  card: CardType,
   onPress?: Function,
   index?: Number,
   children?: React.Node,
-  rightContent?: React.Node
+  rightContent?: React.Node,
+  items?: Array<Object>
 };
 
 const HORIZONTAL_ALIGNMENT = 'horizontal';
@@ -27,8 +30,9 @@ const CardLayout = ({
   card,
   children,
   rightContent,
+  items,
   ...props
-}: Props) => {
+}: CardProps) => {
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
   const containerStyles = isHorizontal
     ? stylesHorizontal.container
@@ -70,6 +74,35 @@ const CardLayout = ({
             </View>
             {rightContent && rightContent}
           </View>
+          {items &&
+            items.map(item => (
+              // TODO: Move outside the items component for use other TouchableNativeFeedback
+              // TODO: Create component for this renderer
+              <View
+                key={item.id}
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}>
+                <Text
+                  numberOfLines={1}
+                  customStyle={{ width: '90%' }}>
+                  {item.title}
+                </Text>
+                <View style={{ marginLeft: 'auto', marginVertical: 5 }}>
+                  <Icon
+                    name="Play"
+                    width={20}
+                    height={20} />
+                </View>
+              </View>
+            ))}
+          {items && (
+            <View style={{ width: '100%' }}>
+              <Spacer height={10} />
+            </View>
+          )}
         </View>
       </TouchableNativeFeedback>
     </View>
@@ -117,6 +150,7 @@ const stylesHorizontal = StyleSheet.create({
   card: {
     elevation: 2,
     flexDirection: 'row',
+    flexWrap: 'wrap',
     backgroundColor: 'white',
     borderRadius: 4,
     paddingHorizontal: 20
