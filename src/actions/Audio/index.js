@@ -45,21 +45,26 @@ const audioActions = {
     };
   },
   loadSource: async (state, actions, sourceIndex) => {
-    const { playlist } = state;
-    const isLastSource = playlist.length === sourceIndex - 2;
-    // If is last source, we restart the playlist from first index
-    const source = isLastSource ? playlist[0] : playlist[sourceIndex];
-    const { duration } = await getYoutubeContentDetail(source.id);
-    const audio = {
-      ...source,
-      duration
-    };
+    try {
+      const { playlist } = state;
+      const isLastSource = playlist.length === sourceIndex - 2;
+      // If is last source, we restart the playlist from first index
+      const source = isLastSource ? playlist[0] : playlist[sourceIndex];
+      const { duration } = await getYoutubeContentDetail(source.id);
+      const audio = {
+        ...source,
+        duration
+      };
 
-    return {
-      ...state,
-      source: audio,
-      sourceIndex
-    };
+      return {
+        ...state,
+        source: audio,
+        sourceIndex
+      };
+    } catch (error) {
+      alert(error);
+      return state;
+    }
   },
   paused: async state => {
     return {

@@ -7,7 +7,7 @@ import Text from '../Text';
 import Icon from '../Icon';
 
 type PlayIconProps = {
-  onPress: Function
+  onPress?: Function
 };
 
 const CarouselPlayIcon = ({ onPress }: PlayIconProps) => (

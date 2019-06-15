@@ -34,9 +34,9 @@ const CardPlaylist = ({
       <Card
         {...props}
         items={playlist.sources}
-        rightContent={
-          <CarouselPlayIcon onPress={() => alert('run playlist')} />
-        }>
+        playlistId={playlist.id}
+        onPress={() => actions.playPlaylist(playlist.id)}
+        rightContent={<CarouselPlayIcon />}>
         <Text>{totalSongs} songs</Text>
       </Card>
       <View style={{ flexDirection: 'row', marginHorizontal: -8 }}>

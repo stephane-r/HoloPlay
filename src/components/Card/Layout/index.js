@@ -5,6 +5,7 @@ import Title from '../../Title';
 import Spacer from '../../Spacer';
 import Text from '../../Text';
 import Icon from '../../Icon';
+import { actions } from '../../../store';
 
 type CardType = {
   title: string,
@@ -19,7 +20,8 @@ type CardProps = {
   index?: Number,
   children?: React.Node,
   rightContent?: React.Node,
-  items?: Array<Object>
+  items?: Array<Object>,
+  playlistId: Number | null
 };
 
 const HORIZONTAL_ALIGNMENT = 'horizontal';
@@ -50,67 +52,98 @@ const CardLayout = ({
 
   return (
     <View style={containerStyles}>
-      <TouchableNativeFeedback
-        onPress={() => props.onPress && props.onPress(props.index)}>
-        <View style={[cardStyles, customStyle]}>
-          <Image
-            resizeMode="cover"
-            style={pictureStyles}
-            source={{ uri: card.picture }}
-          />
-          <View style={infosStyles}>
-            <View style={{ flex: 1 }}>
-              <Title
-                level="3"
-                title={card.title}
-                customStyle={titleStyles} />
-              {children && (
-                <>
-                  <Spacer height={10} />
-                  <View style={styles.footer}>{children}</View>
-                </>
-              )}
-              <Spacer height={10} />
+      <View style={[cardStyles, customStyle]}>
+        <TouchableNativeFeedback
+          onPress={() => props.onPress && props.onPress(props.index)}>
+          <View
+            style={{
+              width: '100%',
+              flexDirection: isHorizontal ? 'row' : 'column'
+            }}>
+            <Image
+              resizeMode="cover"
+              style={pictureStyles}
+              source={{ uri: card.picture }}
+            />
+            <View style={infosStyles}>
+              <View style={{ flex: 1 }}>
+                <Title
+                  level="3"
+                  title={card.title}
+                  customStyle={titleStyles} />
+                {children && (
+                  <>
+                    <Spacer height={10} />
+                    <View style={styles.footer}>{children}</View>
+                  </>
+                )}
+                <Spacer height={10} />
+              </View>
+              {rightContent && rightContent}
             </View>
-            {rightContent && rightContent}
           </View>
-          {items &&
-            items.map(item => (
-              // TODO: Move outside the items component for use other TouchableNativeFeedback
-              // TODO: Create component for this renderer
-              <View
-                key={item.id}
-                style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  alignItems: 'center'
-                }}>
-                <Text
-                  numberOfLines={1}
-                  customStyle={{ width: '90%' }}>
-                  {item.title}
-                </Text>
-                <View style={{ marginLeft: 'auto', marginVertical: 5 }}>
+        </TouchableNativeFeedback>
+        {items &&
+          items.map(item => (
+            // TODO: Create component for this renderer
+            // TODO: Refacto styles
+            <View
+              key={item.id}
+              style={{
+                flexDirection: 'row',
+                width: '100%',
+                alignItems: 'center'
+              }}>
+              <TouchableNativeFeedback onPress={() => actions.loadSource()}>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  }}>
+                  <Text
+                    numberOfLines={1}
+                    customStyle={{ width: '90%' }}>
+                    {item.title}
+                  </Text>
+                  <View style={{ marginLeft: 'auto', marginVertical: 5 }}>
+                    <Icon
+                      name="Play"
+                      width={20}
+                      height={20} />
+                  </View>
+                </View>
+              </TouchableNativeFeedback>
+              <TouchableNativeFeedback
+                onPress={() =>
+                  actions.removeSourceFromPlaylist({
+                    source: item,
+                    playlistId: props.playlistId
+                  })
+                }>
+                <View style={{ paddingLeft: 10 }}>
                   <Icon
-                    name="Play"
+                    name="ArrowRight"
+                    style
                     width={20}
                     height={20} />
                 </View>
-              </View>
-            ))}
-          {items && (
-            <View style={{ width: '100%' }}>
-              <Spacer height={10} />
+              </TouchableNativeFeedback>
             </View>
-          )}
-        </View>
-      </TouchableNativeFeedback>
+          ))}
+        {items && (
+          <View style={{ width: '100%' }}>
+            <Spacer height={10} />
+          </View>
+        )}
+      </View>
     </View>
   );
 };
 
 CardLayout.defaultProps = {
-  alignment: 'vertical'
+  alignment: 'vertical',
+  playlistId: null
 };
 
 const stylesVertical = StyleSheet.create({
