@@ -7,6 +7,7 @@ import Button from '../../Forms/Button';
 import { actions } from '../../../store';
 import Spacer from '../../Spacer';
 import { CarouselPlayIcon } from '../../Carousel';
+import Source from '../../Source';
 
 type CardPlaylistProps = {
   totalSongs: number,
@@ -34,6 +35,9 @@ const CardPlaylist = ({
       <Card
         {...props}
         items={playlist.sources}
+        itemsRenderer={<Source
+          items={playlist.sources}
+          playlistId={playlist.id} />}
         playlistId={playlist.id}
         onPress={() => actions.playPlaylist(playlist.id)}
         rightContent={<CarouselPlayIcon />}>

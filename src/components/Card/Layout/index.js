@@ -3,9 +3,6 @@ import * as React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import Title from '../../Title';
 import Spacer from '../../Spacer';
-import Text from '../../Text';
-import Icon from '../../Icon';
-import { actions } from '../../../store';
 
 type CardType = {
   title: string,
@@ -20,8 +17,7 @@ type CardProps = {
   index?: Number,
   children?: React.Node,
   rightContent?: React.Node,
-  items?: Array<Object>,
-  playlistId: Number | null
+  itemsRenderer?: React.Node | null
 };
 
 const HORIZONTAL_ALIGNMENT = 'horizontal';
@@ -32,7 +28,7 @@ const CardLayout = ({
   card,
   children,
   rightContent,
-  items,
+  itemsRenderer,
   ...props
 }: CardProps) => {
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
@@ -83,59 +79,7 @@ const CardLayout = ({
             </View>
           </View>
         </TouchableNativeFeedback>
-        {items &&
-          items.map(item => (
-            // TODO: Create component for this renderer
-            // TODO: Refacto styles
-            <View
-              key={item.id}
-              style={{
-                flexDirection: 'row',
-                width: '100%',
-                alignItems: 'center'
-              }}>
-              <TouchableNativeFeedback onPress={() => actions.loadSource()}>
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    alignItems: 'center'
-                  }}>
-                  <Text
-                    numberOfLines={1}
-                    customStyle={{ width: '90%' }}>
-                    {item.title}
-                  </Text>
-                  <View style={{ marginLeft: 'auto', marginVertical: 5 }}>
-                    <Icon
-                      name="Play"
-                      width={20}
-                      height={20} />
-                  </View>
-                </View>
-              </TouchableNativeFeedback>
-              <TouchableNativeFeedback
-                onPress={() =>
-                  actions.removeSourceFromPlaylist({
-                    source: item,
-                    playlistId: props.playlistId
-                  })
-                }>
-                <View style={{ paddingLeft: 10 }}>
-                  <Icon
-                    name="ArrowRight"
-                    style
-                    width={20}
-                    height={20} />
-                </View>
-              </TouchableNativeFeedback>
-            </View>
-          ))}
-        {items && (
-          <View style={{ width: '100%' }}>
-            <Spacer height={10} />
-          </View>
-        )}
+        {itemsRenderer && itemsRenderer}
       </View>
     </View>
   );
@@ -143,7 +87,7 @@ const CardLayout = ({
 
 CardLayout.defaultProps = {
   alignment: 'vertical',
-  playlistId: null
+  itemsRenderer: null
 };
 
 const stylesVertical = StyleSheet.create({
