@@ -1,9 +1,12 @@
+/* eslint-disable react/display-name */
+import React from 'react';
 import {
   createSwitchNavigator,
   createStackNavigator,
-  createBottomTabNavigator,
   createAppContainer
 } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import LoadingScreen from '../screens/Loading';
 import LoginScreen from '../screens/Login';
@@ -17,13 +20,47 @@ const AuthenticationNavigator = createStackNavigator({
   Register: RegisterScreen
 });
 
-const AppNavigator = createBottomTabNavigator(
+const AppNavigator = createMaterialBottomTabNavigator(
   {
-    Playlist: PlaylistScreen,
-    Dashboard: DashboardScreen,
-    Favoris: FavorisScreen
+    Dashboard: {
+      screen: DashboardScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="home"
+            size={23}
+            style={{ color: tintColor }} />
+        ),
+        tabBarColor: '#2575f4'
+      }
+    },
+    Playlist: {
+      screen: PlaylistScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="music-note"
+            size={23}
+            style={{ color: tintColor }} />
+        ),
+        tabBarColor: '#607D8B'
+      }
+    },
+    Favoris: {
+      screen: FavorisScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="favorite"
+            size={23}
+            style={{ color: tintColor }} />
+        ),
+        tabBarColor: '#E91E63'
+      }
+    }
   },
   {
+    shifting: true,
     headerMode: 'none'
   }
 );

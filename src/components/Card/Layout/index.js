@@ -73,7 +73,6 @@ const CardLayout = ({
                     <View style={styles.footer}>{children}</View>
                   </>
                 )}
-                <Spacer height={10} />
               </View>
               {rightContent && rightContent}
             </View>
