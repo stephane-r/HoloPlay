@@ -5,6 +5,7 @@ import QuickActions from 'react-native-quick-actions';
 import AppContainer from '../../navigation/TabNavigator';
 // import AudioContainer from '../../containers/Audio';
 import StorybookUI from '../../../storybook';
+import SnackbarContainer from '../../containers/Snackbar';
 
 const { STORYBOOK } = config;
 
@@ -42,6 +43,7 @@ const App = () => {
     <>
       <AppContainer />
       {/* <AudioContainer /> */}
+      <SnackbarContainer />
     </>
   );
 };

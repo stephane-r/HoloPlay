@@ -4,7 +4,11 @@ import { apiState } from '../Api';
 const appState = {
   isConnected: false,
   loginIsFetching: false,
-  isSearching: false
+  isSearching: false,
+  flashMessage: {
+    message: null,
+    visible: false
+  }
 };
 
 const appActions = {
@@ -45,6 +49,24 @@ const appActions = {
     return {
       ...state,
       ...apiState
+    };
+  },
+  setFlashMessage: async (state, actions, message) => {
+    return {
+      ...state,
+      flashMessage: {
+        message,
+        visible: true
+      }
+    };
+  },
+  hideFlashMessage: async state => {
+    return {
+      ...state,
+      flashMessage: {
+        ...state.flashMessage,
+        visible: false
+      }
     };
   }
 };

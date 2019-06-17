@@ -1,7 +1,6 @@
 // @flow
 import React, { useState } from 'react';
-import { Dimensions } from 'react-native';
-import { TextInput, Button, Snackbar } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
 
@@ -13,8 +12,6 @@ type LoginFormProps = {
 const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
   const [identifier, setIdentifier] = useState(null);
   const [password, setPassword] = useState(null);
-  const [showSnackbar, toggleSnackbar] = useState(false);
-  const [snackbarMessage, setSnakbarMessage] = useState('');
 
   const login = async () => {
     try {
@@ -30,8 +27,7 @@ const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
       }
     } catch (error) {
       await actions.setLoginIsFetched();
-      setSnakbarMessage(error.message);
-      toggleSnackbar(true);
+      actions.setFlashMessage(error.message);
     }
   };
 
@@ -60,16 +56,6 @@ const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
         loading={loginIsFecthing}>
         Login
       </Button>
-      <Snackbar
-        visible={showSnackbar}
-        style={{ width: Dimensions.get('window').width - 32, margin: 16 }}
-        onDismiss={() => toggleSnackbar(false)}
-        action={{
-          label: 'Close',
-          onPress: () => toggleSnackbar(true)
-        }}>
-        {snackbarMessage}
-      </Snackbar>
       {/* <Button
         title="Register"
         onPress={goToRegister} /> */}
