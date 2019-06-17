@@ -1,7 +1,15 @@
 import React from 'react';
 import codePush from 'react-native-code-push';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Provider } from './src/store';
 import App from './src/components/App';
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors
+  }
+};
 
 class AppContainer extends React.Component {
   componentDidMount() {
@@ -49,7 +57,9 @@ class AppContainer extends React.Component {
   render() {
     return (
       <Provider>
-        <App />
+        <PaperProvider theme={theme}>
+          <App />
+        </PaperProvider>
       </Provider>
     );
   }

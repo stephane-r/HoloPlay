@@ -3,6 +3,7 @@ package com.youtubeaudioplayer;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.horcrux.svg.SvgPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
           new AppShortcutsPackage(),
           new MusicControl(),
           new MainReactPackage(),
+            new VectorIconsPackage(),
             new ReanimatedPackage(),
             new SvgPackage(),
             new ReactNativeConfigPackage(),
