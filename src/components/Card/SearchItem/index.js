@@ -1,7 +1,9 @@
 // @flow
 import React from 'react';
-import { View, TouchableHighlight } from 'react-native';
-import Icon from '../../Icon';
+import { View, TouchableNativeFeedback } from 'react-native';
+import { Button, Text } from 'react-native-paper';
+// $FlowFixMe
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Card from '../Layout';
 import { actions } from '../../../store';
 
@@ -32,21 +34,25 @@ const CardSearchItem = ({
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          flex: 1
+          alignItems: 'center',
+          flex: 1,
+          margin: -8,
+          marginRight: 0
         }}>
-        <TouchableHighlight onPress={AddOrRemoveToFavoris}>
-          <Icon
-            name={isFavoris ? 'Favorite' : 'FavoriteBorder'}
-            width={15}
-            height={15}
-          />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => addToPlaylist(item)}>
-          <Icon
-            name="Add"
-            width={15}
-            height={15} />
-        </TouchableHighlight>
+        <Button
+          icon={isFavoris ? 'favorite' : 'favorite-border'}
+          color={isFavoris ? '#2575f4' : '#607D8B'}
+          mode="text"
+          onPress={AddOrRemoveToFavoris}>
+          Favoris
+        </Button>
+        <TouchableNativeFeedback onPress={() => addToPlaylist(item)}>
+          <Text>
+            <Icon
+              name="add"
+              size={25} />
+          </Text>
+        </TouchableNativeFeedback>
       </View>
     </Card>
   );

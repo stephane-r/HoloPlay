@@ -39,7 +39,7 @@ const AppNavigator = createMaterialBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            name="music-note"
+            name="headset"
             size={23}
             style={{ color: tintColor }} />
         ),

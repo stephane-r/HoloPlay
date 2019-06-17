@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import Title from '../Title';
-import Text from '../Text';
+import { Title, Text } from 'react-native-paper';
+// import Text from '../Text';
 import Spacer from '../Spacer';
 import { actions } from '../../store';
 
@@ -25,11 +25,13 @@ const Profil = ({ navigate, user }: Props) => {
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <Title
-          level="1"
-          title={`Hey ${user.username}`}
-          color="white" />
+          style={{
+            color: 'white',
+            fontSize: 35,
+            paddingTop: 5
+          }}>{`Hey ${user.username}`}</Title>
         <Spacer height={5} />
-        <Text customStyle={{ color: 'white' }}>Welcome home</Text>
+        <Text style={{ color: 'white' }}>Welcome home</Text>
       </View>
       <TouchableOpacity onPress={logout}>
         <Image

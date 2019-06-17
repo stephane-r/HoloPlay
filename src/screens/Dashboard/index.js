@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { Title } from 'react-native-paper';
 import SearchResultContainer from '../../containers/SearchResults';
 import Layout from '../../components/Layout';
 import ProfilContainer from '../../containers/Profil';
 import Spacer from '../../components/Spacer';
-import Title from '../../components/Title';
 import CarouselUserPlaylistContainer from '../../containers/CarouselUserPlaylist';
 import Search from '../../components/Search';
 
@@ -25,9 +25,7 @@ const Dashboard = ({ navigation }: DashboardProps) => (
       </View>
     </View>
     <Spacer height={90} />
-    <Title
-      level="2"
-      title="Search" />
+    <Title style={{ fontSize: 27 }}>Search</Title>
     <Spacer height={15} />
     <SearchResultContainer />
   </Layout>
