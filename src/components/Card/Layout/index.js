@@ -105,7 +105,7 @@ const stylesVertical = StyleSheet.create({
     padding: 10
   },
   title: {
-    height: 60
+    height: 55
   },
   infos: {
     marginTop: -5

@@ -1,13 +1,11 @@
 // @flow
 import React from 'react';
-import { View, TouchableNativeFeedback } from 'react-native';
-import { Button, Text } from 'react-native-paper';
-// $FlowFixMe
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { View } from 'react-native';
+import { Button, IconButton } from 'react-native-paper';
 import Card from '../Layout';
 import { actions } from '../../../store';
 
-type Props = {
+type CardSearchItemProps = {
   card: Object,
   item: Object,
   isFavoris: boolean,
@@ -19,7 +17,7 @@ const CardSearchItem = ({
   isFavoris,
   addToPlaylist,
   ...props
-}: Props) => {
+}: CardSearchItemProps) => {
   const AddOrRemoveToFavoris = () => {
     if (isFavoris) {
       return actions.removeSourceFromFavoris(item);
@@ -36,8 +34,7 @@ const CardSearchItem = ({
           justifyContent: 'space-between',
           alignItems: 'center',
           flex: 1,
-          margin: -8,
-          marginRight: 0
+          margin: -8
         }}>
         <Button
           icon={isFavoris ? 'favorite' : 'favorite-border'}
@@ -46,13 +43,12 @@ const CardSearchItem = ({
           onPress={AddOrRemoveToFavoris}>
           Favoris
         </Button>
-        <TouchableNativeFeedback onPress={() => addToPlaylist(item)}>
-          <Text>
-            <Icon
-              name="add"
-              size={25} />
-          </Text>
-        </TouchableNativeFeedback>
+        <IconButton
+          animated
+          icon="add"
+          style={{ width: 24, height: 24 }}
+          onPress={() => addToPlaylist(item)}
+        />
       </View>
     </Card>
   );
