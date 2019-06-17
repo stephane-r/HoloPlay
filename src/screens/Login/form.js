@@ -1,29 +1,37 @@
 // @flow
 import React, { useState } from 'react';
-import Input from '../../components/Forms/Input';
+import { Dimensions } from 'react-native';
+import { TextInput, Button, Snackbar } from 'react-native-paper';
 import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
-import Button from '../../components/Forms/Button';
 
-type Props = {
+type LoginFormProps = {
   navigation: Object,
   loginIsFecthing: Boolean
 };
 
-const LoginForm = ({ navigation, loginIsFecthing }: Props) => {
-  const [identifier, setIdentifier] = useState('contact@stephane-richin.fr');
-  const [password, setPassword] = useState('azerty');
+const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
+  const [identifier, setIdentifier] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [showSnackbar, toggleSnackbar] = useState(false);
+  const [snackbarMessage, setSnakbarMessage] = useState('');
 
   const login = async () => {
     try {
-      await actions.setLoginIsFetching();
-      await actions.loginThroughApi({ identifier, password });
-      await actions.setConnected();
-      await actions.search();
-      return goToDashboard();
+      if (
+        (identifier !== '' || identifier !== null) &&
+        (password !== '' || password !== null)
+      ) {
+        await actions.setLoginIsFetching();
+        await actions.loginThroughApi({ identifier, password });
+        await actions.setConnected();
+        await actions.search();
+        return goToDashboard();
+      }
     } catch (error) {
       await actions.setLoginIsFetched();
-      alert(error);
+      setSnakbarMessage(error.message);
+      toggleSnackbar(true);
     }
   };
 
@@ -32,21 +40,36 @@ const LoginForm = ({ navigation, loginIsFecthing }: Props) => {
 
   return (
     <>
-      <Input
-        onChangeText={value => setIdentifier(value)}
-        placeholder="identifier"
+      <TextInput
+        mode="outlined"
+        label="identifier"
         value={identifier}
+        onChangeText={setIdentifier}
       />
-      <Input
-        onChangeText={value => setPassword(value)}
-        placeholder="Password"
+      <Spacer height={15} />
+      <TextInput
+        mode="outlined"
+        label="Password"
         value={password}
+        onChangeText={setPassword}
       />
-      <Button
-        title="Login"
-        onPress={login}
-        isLoading={loginIsFecthing} />
       <Spacer height={20} />
+      <Button
+        mode="contained"
+        onPress={login}
+        loading={loginIsFecthing}>
+        Login
+      </Button>
+      <Snackbar
+        visible={showSnackbar}
+        style={{ width: Dimensions.get('window').width - 32, margin: 16 }}
+        onDismiss={() => toggleSnackbar(false)}
+        action={{
+          label: 'Close',
+          onPress: () => toggleSnackbar(true)
+        }}>
+        {snackbarMessage}
+      </Snackbar>
       {/* <Button
         title="Register"
         onPress={goToRegister} /> */}
