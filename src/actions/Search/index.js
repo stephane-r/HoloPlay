@@ -9,9 +9,9 @@ const searchActions = {
   setSearchValue: async (state, actions, value) => {
     return { ...state, value };
   },
-  search: async (state, actions) => {
+  search: async (state, actions, value) => {
     await actions.setIsSearching();
-    const results = await YoutubeSearch(state.value);
+    const results = await YoutubeSearch(value);
     return { ...state, results };
   }
 };

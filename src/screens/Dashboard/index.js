@@ -3,20 +3,20 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import SearchResultContainer from '../../containers/SearchResults';
 import Layout from '../../components/Layout';
-import SearchContainer from '../../containers/Search';
 import ProfilContainer from '../../containers/Profil';
 import Spacer from '../../components/Spacer';
 import Title from '../../components/Title';
 import CarouselUserPlaylistContainer from '../../containers/CarouselUserPlaylist';
+import Search from '../../components/Search';
 
-type Props = {
+type DashboardProps = {
   navigation: Object
 };
 
-const Dashboard = ({ navigation }: Props) => (
+const Dashboard = ({ navigation }: DashboardProps) => (
   <Layout navigate={navigation}>
     <View style={styles.header}>
-      <SearchContainer />
+      <Search />
       <Spacer height={15} />
       <ProfilContainer navigate={navigation} />
       <Spacer height={30} />
