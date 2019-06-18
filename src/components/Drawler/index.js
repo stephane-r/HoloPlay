@@ -1,18 +1,15 @@
 // @flow
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { Drawer, Switch, Paragraph } from 'react-native-paper';
 import { actions } from '../../store';
 
 type DrawlerProps = {
-  navigation: Object
+  navigation: Object,
+  darkTheme: boolean
 };
 
-const Drawler = ({ navigation }: DrawlerProps) => {
-  const [darkTheme, setDarkTheme] = useState(false);
-
-  const toggleTheme = () => setDarkTheme(!darkTheme);
-
+const Drawler = ({ navigation, darkTheme }: DrawlerProps) => {
   const logout = async () => {
     await actions.logout();
     return navigation.navigate('Login');
@@ -35,16 +32,14 @@ const Drawler = ({ navigation }: DrawlerProps) => {
           label="Logout"
           icon="settings"
           onPress={logout} />
-        <TouchableNativeFeedback onPress={toggleTheme}>
-          <View style={styles.switchContainer}>
-            <Paragraph style={styles.paragraph}>Dark theme</Paragraph>
-            <Switch
-              value={darkTheme}
-              color="#2575f4"
-              onValueChange={toggleTheme}
-            />
-          </View>
-        </TouchableNativeFeedback>
+        <View style={styles.switchContainer}>
+          <Paragraph style={styles.paragraph}>Dark theme</Paragraph>
+          <Switch
+            value={darkTheme}
+            color="#2575f4"
+            onValueChange={actions.setDarkTheme}
+          />
+        </View>
       </Drawer.Section>
     </View>
   );

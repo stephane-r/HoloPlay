@@ -14,6 +14,8 @@ class LoadingScreen extends React.Component {
   });
 
   async componentDidMount() {
+    actions.appInit();
+
     const token = await AsyncStorage.getItem('userToken');
 
     QuickActions.popInitialAction().then(async data => {

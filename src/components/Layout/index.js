@@ -5,13 +5,13 @@ import {
   StyleSheet,
   DrawerLayoutAndroid
 } from 'react-native';
-import Drawler from '../Drawler';
+import DrawlerContainer from '../../containers/Drawler';
 
 const Layout = ({ navigation, children }) => (
   <DrawerLayoutAndroid
     drawerWidth={300}
     drawerPosition={DrawerLayoutAndroid.positions.Left}
-    renderNavigationView={() => <Drawler navigation={navigation} />}>
+    renderNavigationView={() => <DrawlerContainer navigation={navigation} />}>
     <View style={{ flex: 1 }}>
       <ScrollView>
         <View style={styles.container}>{children}</View>
