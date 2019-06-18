@@ -1,10 +1,23 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  DrawerLayoutAndroid
+} from 'react-native';
+import Drawler from '../Drawler';
 
-const Layout = ({ children }) => (
-  <ScrollView>
-    <View style={styles.container}>{children}</View>
-  </ScrollView>
+const Layout = ({ navigation, children }) => (
+  <DrawerLayoutAndroid
+    drawerWidth={300}
+    drawerPosition={DrawerLayoutAndroid.positions.Left}
+    renderNavigationView={() => <Drawler navigation={navigation} />}>
+    <View style={{ flex: 1 }}>
+      <ScrollView>
+        <View style={styles.container}>{children}</View>
+      </ScrollView>
+    </View>
+  </DrawerLayoutAndroid>
 );
 
 const styles = StyleSheet.create({

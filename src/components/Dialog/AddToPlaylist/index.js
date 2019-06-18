@@ -18,6 +18,10 @@ const DialogAddToPlaylist = ({
   source,
   user
 }: Props) => {
+  if (!user) {
+    return null;
+  }
+
   const [playlistId, setPlaylistId] = useState(user.playlist[0].id);
   const [isLoading, setLoading] = useState(false);
 

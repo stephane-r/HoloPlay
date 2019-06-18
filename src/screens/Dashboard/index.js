@@ -14,11 +14,11 @@ type DashboardProps = {
 };
 
 const Dashboard = ({ navigation }: DashboardProps) => (
-  <Layout navigate={navigation}>
+  <Layout navigation={navigation}>
     <View style={styles.header}>
       <Search />
       <Spacer height={15} />
-      <ProfilContainer navigate={navigation} />
+      <ProfilContainer />
       <Spacer height={30} />
       <View style={styles.carouselContainer}>
         <CarouselUserPlaylistContainer />
