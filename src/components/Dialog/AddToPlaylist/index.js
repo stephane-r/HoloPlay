@@ -58,9 +58,9 @@ const DialogAddToPlaylist = ({
             selectedValue={playlistId}
             style={{ height: 50 }}
             onValueChange={value => setPlaylistId(value)}>
-            {playlist.map(({ name, id }) => (
+            {playlist.map(({ name, id }, index) => (
               <Picker.Item
-                key={id}
+                key={index}
                 label={name}
                 value={id} />
             ))}

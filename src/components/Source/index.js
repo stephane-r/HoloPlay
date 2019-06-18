@@ -16,7 +16,7 @@ const Source = ({ items, playlistId }: SourceProps) => {
     <>
       {items.map(item => (
         <View
-          key={item.id}
+          key={`${item.id}-${String(playlistId)}`}
           style={styles.container}>
           <TouchableNativeFeedback onPress={() => actions.loadSource()}>
             <View style={styles.line}>
