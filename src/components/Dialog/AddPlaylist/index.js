@@ -1,11 +1,7 @@
 // @flow
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
-import { Dialog } from 'react-native-simple-dialogs';
-import Button from '../../Forms/Button';
+import { Portal, Button, Dialog, TextInput } from 'react-native-paper';
 import { actions } from '../../../store';
-import Input from '../../Forms/Input';
-import Text from '../../Text';
 
 // $FlowFixMe
 const uuidv4 = require('uuid/v4');
@@ -47,15 +43,22 @@ const DialogAddPlaylist = ({
   };
 
   const createNewPlaylist = async () => {
+    const playlistName = playlist.name;
     const playlistUpdated = { ...playlist, id: uuidv4(), sources: [] };
 
     await actions.createNewPlaylist(playlistUpdated);
 
     setPlaylist({});
-    return toggleDialog(false);
+    toggleDialog(false);
+
+    return setTimeout(
+      () => actions.setFlashMessage(`${playlistName} was created.`),
+      500
+    );
   };
 
   const updatePlaylist = async () => {
+    const playlistName = playlist.name;
     const playlistUpdated = {
       ...playlist,
       updatedAt: new Date()
@@ -64,42 +67,59 @@ const DialogAddPlaylist = ({
     await actions.updatePlaylist(playlistUpdated);
 
     setPlaylist({});
-    return toggleDialog(false);
+    toggleDialog(false);
+
+    return setTimeout(
+      () => actions.setFlashMessage(`${playlistName} was updated.`),
+      500
+    );
   };
 
   const submit = async () => {
-    await actions.setPlaylistIsFecthing();
+    if (playlist.name && playlist.name !== '') {
+      await actions.setPlaylistIsFecthing();
 
-    if (playlist.id === null) {
-      return createNewPlaylist();
+      if (playlist.id === null) {
+        return createNewPlaylist();
+      }
+
+      return updatePlaylist();
     }
 
-    return updatePlaylist();
+    return actions.setFlashMessage('You must name your playlist.');
+  };
+
+  const closeDialog = () => {
+    setPlaylist({});
+    return toggleDialog(false);
   };
 
   return (
-    <Dialog
-      visible={visible}
-      title="Add to playlist"
-      animationType="slide"
-      onTouchOutside={toggleDialog}>
-      <View>
-        <Text>Playlist name</Text>
-        <Input
-          onChangeText={setPlaylistName}
-          placeholder="Playlist name"
-          value={playlist.name}
-        />
-        <Button
-          title={props.playlist ? 'Update' : 'Create'}
-          isLoading={playlistIsFecthing}
-          onPress={submit}
-        />
-        <Button
-          title="Cancel"
-          onPress={toggleDialog} />
-      </View>
-    </Dialog>
+    <Portal>
+      <Dialog
+        visible={visible}
+        onDismiss={closeDialog}>
+        <Dialog.Title>
+          {playlist.id !== null ? 'Update' : 'Create'} playlist
+        </Dialog.Title>
+        <Dialog.Content>
+          <TextInput
+            mode="outlined"
+            label="Playlist name"
+            value={playlist.name}
+            onChangeText={setPlaylistName}
+          />
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={closeDialog}>Cancel</Button>
+          <Button
+            onPress={submit}
+            loading={playlistIsFecthing}>
+            {playlist.id !== null ? 'Update' : 'Create'}
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
   );
 };
 
