@@ -6,10 +6,10 @@ import { actions } from '../../store';
 
 type DrawlerProps = {
   navigation: Object,
-  darkTheme: boolean
+  darkMode: boolean
 };
 
-const Drawler = ({ navigation, darkTheme }: DrawlerProps) => {
+const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
   const logout = async () => {
     await actions.logout();
     return navigation.navigate('Login');
@@ -35,10 +35,8 @@ const Drawler = ({ navigation, darkTheme }: DrawlerProps) => {
         <View style={styles.switchContainer}>
           <Paragraph style={styles.paragraph}>Dark theme</Paragraph>
           <Switch
-            value={darkTheme}
-            color="#2575f4"
-            onValueChange={actions.setDarkTheme}
-          />
+            value={darkMode}
+            onValueChange={actions.setDarkMode} />
         </View>
       </Drawer.Section>
     </View>

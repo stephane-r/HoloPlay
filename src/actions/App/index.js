@@ -9,16 +9,16 @@ const appState = {
     message: null,
     visible: false
   },
-  darkTheme: false
+  darkMode: false
 };
 
 const appActions = {
   appInit: async state => {
-    const darkTheme = await AsyncStorage.getItem('darkTheme');
+    const darkMode = await AsyncStorage.getItem('darkMode');
 
     return {
       ...state,
-      darkTheme: darkTheme === 'true'
+      darkMode: darkMode === 'true'
     };
   },
   setConnected: state => {
@@ -78,16 +78,16 @@ const appActions = {
       }
     };
   },
-  setDarkTheme: async (state, actions, darkTheme) => {
+  setDarkMode: async (state, actions, darkMode) => {
     try {
-      await AsyncStorage.setItem('darkTheme', String(darkTheme));
+      await AsyncStorage.setItem('darkMode', String(darkMode));
     } catch (error) {
       return actions.setFlashMessage(error);
     }
 
     return {
       ...state,
-      darkTheme
+      darkMode
     };
   }
 };

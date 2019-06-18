@@ -43,7 +43,7 @@ const AppNavigator = createMaterialBottomTabNavigator(
             size={23}
             style={{ color: tintColor }} />
         ),
-        tabBarColor: '#607D8B'
+        tabBarColor: '#0455BF'
       }
     },
     Favoris: {
@@ -55,7 +55,7 @@ const AppNavigator = createMaterialBottomTabNavigator(
             size={23}
             style={{ color: tintColor }} />
         ),
-        tabBarColor: '#E91E63'
+        tabBarColor: '#EE05F2'
       }
     }
   },

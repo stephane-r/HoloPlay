@@ -2,7 +2,8 @@ import React from 'react';
 import config from 'react-native-config';
 // eslint-disable-next-line import/no-unresolved
 import QuickActions from 'react-native-quick-actions';
-import AppContainer from '../../navigation/TabNavigator';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import NavigationContainer from '../../navigation/TabNavigator';
 // import AudioContainer from '../../containers/Audio';
 import StorybookUI from '../../../storybook';
 import SnackbarContainer from '../../containers/Snackbar';
@@ -34,17 +35,35 @@ QuickActions.isSupported((error, supported) => {
   return error;
 });
 
-const App = () => {
+const App = ({ darkMode }) => {
   if (STORYBOOK === 'true') {
     return <StorybookUI />;
   }
 
+  const darkTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#2575f4',
+      accent: '#0455BF'
+    }
+  };
+
+  const defaultTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: 'red',
+      accent: 'blue'
+    }
+  };
+
   return (
-    <>
-      <AppContainer />
+    <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
+      <NavigationContainer />
       {/* <AudioContainer /> */}
       <SnackbarContainer />
-    </>
+    </PaperProvider>
   );
 };
 
