@@ -26,7 +26,7 @@ const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
         <Drawer.Item
           label="Settings"
           icon="settings"
-          onPress={() => alert('TODO')}
+          onPress={() => navigation.navigate('Settings')}
         />
         <Drawer.Item
           label="Logout"

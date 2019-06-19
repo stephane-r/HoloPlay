@@ -32,7 +32,7 @@ const Playlist = ({ user: { playlist }, toggleModal }: PlayListType) => {
 
   return (
     <View>
-      <Spacer height={20} />
+      <Spacer height={18} />
       {playlist.map((playlist, index) => (
         <CardPlaylist
           key={index}
