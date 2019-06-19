@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 import CardPlaylist from '../../Card/Playlist';
 
 type PlaylistType = {
