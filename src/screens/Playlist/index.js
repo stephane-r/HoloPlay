@@ -3,15 +3,14 @@ import React, { useState } from 'react';
 import { Portal, FAB } from 'react-native-paper';
 import PlaylistContainer from '../../containers/Playlist';
 import Layout from '../../components/Layout';
-import Spacer from '../../components/Spacer';
-import Title from '../../components/Title';
 import DialogAddPlaylistContainer from '../../containers/DialogAddPlaylist';
+import Header from '../../components/Header';
 
 type PlaylistScreenProps = {
   navigation: Object
 };
 
-const PlaylistScreen = (props: PlaylistScreenProps) => {
+const PlaylistScreen = ({ navigation }: PlaylistScreenProps) => {
   const [modalIsOpen, setToggleModal] = useState(false);
   const [playlist, setPlaylist] = useState(null);
   const [fabIsOpen, toggleFab] = useState(false);
@@ -25,12 +24,10 @@ const PlaylistScreen = (props: PlaylistScreenProps) => {
   };
 
   return (
-    <Layout navigate={props.navigation}>
-      <Spacer height={20} />
-      <Title
-        level="2"
-        title="Playlist" />
-      <Spacer height={30} />
+    <Layout navigation={navigation}>
+      <Header
+        title="Playlist"
+        backgroundColor="#0455BF" />
       <PlaylistContainer toggleModal={playlist => toggleModal(playlist)} />
       <DialogAddPlaylistContainer
         visible={modalIsOpen}

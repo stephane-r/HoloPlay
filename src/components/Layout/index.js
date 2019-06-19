@@ -1,4 +1,5 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import {
   ScrollView,
   View,
@@ -7,7 +8,12 @@ import {
 } from 'react-native';
 import DrawlerContainer from '../../containers/Drawler';
 
-const Layout = ({ navigation, children }) => (
+type LayoutProps = {
+  navigation: Object,
+  children: React.Node
+};
+
+const Layout = ({ navigation, children }: LayoutProps) => (
   <DrawerLayoutAndroid
     drawerWidth={300}
     drawerPosition={DrawerLayoutAndroid.positions.Left}

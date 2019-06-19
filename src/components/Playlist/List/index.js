@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import CardPlaylist from '../../Card/Playlist';
+import Spacer from '../../Spacer';
 
 type PlaylistType = {
   id: string,
@@ -31,6 +32,7 @@ const Playlist = ({ user: { playlist }, toggleModal }: PlayListType) => {
 
   return (
     <View>
+      <Spacer height={20} />
       {playlist.map((playlist, index) => (
         <CardPlaylist
           key={index}
