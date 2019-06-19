@@ -30,7 +30,7 @@ const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
         />
         <Drawer.Item
           label="Logout"
-          icon="settings"
+          icon="exit-to-app"
           onPress={logout} />
         <View style={styles.switchContainer}>
           <Paragraph style={styles.paragraph}>Dark theme</Paragraph>
