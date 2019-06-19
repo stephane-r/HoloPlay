@@ -18,7 +18,8 @@ type CardProps = {
   index?: Number,
   children?: React.Node,
   rightContent?: React.Node,
-  itemsRenderer?: React.Node | null
+  itemsRenderer?: React.Node | null,
+  showItems?: boolean
 };
 
 const HORIZONTAL_ALIGNMENT = 'horizontal';
@@ -30,6 +31,7 @@ const CardLayout = ({
   children,
   rightContent,
   itemsRenderer,
+  showItems,
   ...props
 }: CardProps) => {
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
@@ -80,7 +82,7 @@ const CardLayout = ({
             </View>
           </View>
         </TouchableNativeFeedback>
-        {itemsRenderer && itemsRenderer}
+        {itemsRenderer && showItems && itemsRenderer}
       </View>
     </View>
   );

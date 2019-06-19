@@ -1,13 +1,14 @@
 // @flow
 import React, { useState } from 'react';
 import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 import Card from '../Layout';
-import Text from '../../Text';
-import Button from '../../Forms/Button';
 import { actions } from '../../../store';
 import Spacer from '../../Spacer';
 import { CarouselPlayIcon } from '../../Carousel';
 import Source from '../../Source';
+import DialogRemovePlaylist from '../../Dialog/RemovePlaylist';
+import MenuPlaylist from '../../Menu/Playlist';
 
 type CardPlaylistProps = {
   totalSongs: number,
@@ -22,7 +23,12 @@ const CardPlaylist = ({
   toggleModal,
   ...props
 }: CardPlaylistProps) => {
+  const [dialogIsOpen, setToggleDialog] = useState(false);
+  const [showItems, setToggleItems] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const toggleDialog = () => setToggleDialog(!dialogIsOpen);
+  const toggleItems = () => setToggleItems(!showItems);
 
   const removePlaylist = async () => {
     setIsLoading(true);
@@ -35,29 +41,42 @@ const CardPlaylist = ({
       <Card
         {...props}
         items={playlist.sources}
-        itemsRenderer={<Source
-          items={playlist.sources}
-          playlistId={playlist.id} />}
+        itemsRenderer={
+          <Source
+            items={playlist.sources}
+            playlistId={playlist.id} />
+        }
+        showItems={showItems}
         playlistId={playlist.id}
-        onPress={() => actions.playPlaylist(playlist.id)}
-        rightContent={<CarouselPlayIcon />}>
+        onPress={playlist.sources.length === 0 ? null : toggleItems}
+        rightContent={
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              marginRight: -30
+            }}>
+            <CarouselPlayIcon
+              onPress={() => actions.playPlaylist(playlist.id)}
+            />
+            <MenuPlaylist
+              onEdit={() => toggleModal(playlist)}
+              onRemove={removePlaylist}
+            />
+          </View>
+        }>
         <Text>{totalSongs} songs</Text>
       </Card>
-      <View style={{ flexDirection: 'row', marginHorizontal: -8 }}>
-        <View style={{ flex: 1, paddingHorizontal: 8 }}>
-          <Button
-            title="Edit playlist"
-            onPress={() => toggleModal(playlist)} />
-        </View>
-        <View style={{ flex: 1, paddingHorizontal: 8 }}>
-          <Button
-            title="Remove playlist"
-            isLoading={isLoading}
-            onPress={removePlaylist}
-          />
-        </View>
-      </View>
-      <Spacer height={40} />
+      <Spacer height={10} />
+      {/* TODO: Maybe remove this Dialog and import to screen parent ? */}
+      <DialogRemovePlaylist
+        visible={dialogIsOpen}
+        toggleDialog={toggleDialog}
+        onPress={removePlaylist}
+        playlistName={playlist.name}
+        loading={isLoading}
+      />
     </>
   );
 };

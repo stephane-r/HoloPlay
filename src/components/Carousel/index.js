@@ -1,22 +1,24 @@
 // @flow
 import React from 'react';
-import { View, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
+import { IconButton, Text } from 'react-native-paper';
 import SnapCarousel from 'react-native-snap-carousel';
 import Card from '../Card/Layout';
-import Text from '../Text';
-import Icon from '../Icon';
 
 type PlayIconProps = {
   onPress?: Function
 };
 
 const CarouselPlayIcon = ({ onPress }: PlayIconProps) => (
-  <TouchableOpacity onPress={onPress}>
-    <Icon
-      name="Play"
-      width={30}
-      heigh={30} />
-  </TouchableOpacity>
+  <IconButton
+    icon="play-circle-outline"
+    size={35}
+    style={{
+      width: 40,
+      marginRight: -5
+    }}
+    onPress={onPress}
+  />
 );
 
 type ItemProps = {

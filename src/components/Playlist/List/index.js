@@ -37,7 +37,10 @@ const Playlist = ({ user: { playlist }, toggleModal }: PlayListType) => {
           alignment="horizontal"
           card={{
             title: playlist.name,
-            picture: 'https://picsum.photos/200/100'
+            picture:
+              playlist.sources.length === 0
+                ? 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
+                : playlist.sources[0].thumbnails.default.url
           }}
           playlist={playlist}
           toggleModal={toggleModal}

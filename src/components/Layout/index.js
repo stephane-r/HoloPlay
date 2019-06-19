@@ -13,7 +13,7 @@ const Layout = ({ navigation, children }) => (
     drawerPosition={DrawerLayoutAndroid.positions.Left}
     renderNavigationView={() => <DrawlerContainer navigation={navigation} />}>
     <View style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView style={{ flex: 1 }}>
         <View style={styles.container}>{children}</View>
       </ScrollView>
     </View>
