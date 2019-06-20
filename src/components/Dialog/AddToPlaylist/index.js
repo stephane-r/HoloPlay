@@ -1,84 +1,82 @@
 // @flow
 import React, { useState } from 'react';
-import { Picker, View, StyleSheet } from 'react-native';
-import { Dialog } from 'react-native-simple-dialogs';
-import Button from '../../Forms/Button';
+import { Picker } from 'react-native';
+import { Paragraph, Dialog, Button, Portal } from 'react-native-paper';
 import { actions } from '../../../store';
 
 type Props = {
   toggleDialog: Function,
   visible: boolean,
   source: Object,
-  user: Object
+  playlist: Object
 };
 
 const DialogAddToPlaylist = ({
   toggleDialog,
   visible,
   source,
-  user
+  playlist
 }: Props) => {
-  const [playlistId, setPlaylistId] = useState(user.playlist[0].id);
+  if (!playlist) {
+    return null;
+  }
+
+  const [playlistId, setPlaylistId] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   const addSourceToPlaylist = async () => {
-    setLoading(true);
+    if (playlistId) {
+      setLoading(true);
 
-    await actions.addSourceToPlaylist({
-      source,
-      playlistId
-    });
+      await actions.addSourceToPlaylist({
+        source,
+        playlistId
+      });
 
-    setLoading(false);
-    return setTimeout(toggleDialog, 1000);
+      setLoading(false);
+      toggleDialog();
+
+      return actions.setFlashMessage(
+        `${source.title} has been added to your playlist.`
+      );
+    }
+
+    return actions.setFlashMessage('You need to select a playlist.');
   };
 
   return (
-    <Dialog
-      visible={visible}
-      title="Add to playlist"
-      animationType="slide"
-      onTouchOutside={toggleDialog}>
-      <View>
-        <Picker
-          selectedValue={playlistId}
-          style={{ height: 50 }}
-          onValueChange={value => setPlaylistId(value)}>
-          {user.playlist.map(({ name, id }) => (
-            <Picker.Item
-              key={id}
-              label={name}
-              value={id} />
-          ))}
-        </Picker>
-        <View style={styles.actionsContainer}>
-          <View style={styles.actionsWrapper}>
-            <Button
-              title="Cancel"
-              onPress={toggleDialog} />
-          </View>
-          <View style={styles.actionsWrapper}>
-            <Button
-              title="Add"
-              onPress={addSourceToPlaylist}
-              isLoading={isLoading}
-            />
-          </View>
-        </View>
-      </View>
-    </Dialog>
+    <Portal>
+      <Dialog
+        visible={visible}
+        onDismiss={toggleDialog}>
+        <Dialog.Title>Add to playlist</Dialog.Title>
+        <Dialog.Content>
+          <Paragraph>
+            Select the playlist to which you want to add your music.
+          </Paragraph>
+          <Picker
+            selectedValue={playlistId}
+            style={{ height: 50 }}
+            onValueChange={value => setPlaylistId(value)}>
+            {playlist.map(({ name, id }, index) => (
+              <Picker.Item
+                key={index}
+                label={name}
+                value={id} />
+            ))}
+          </Picker>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={toggleDialog}>Cancel</Button>
+          <Button
+            onPress={addSourceToPlaylist}
+            loading={isLoading}>
+            Done
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
   );
 };
-
-const styles = StyleSheet.create({
-  actionsContainer: {
-    flexDirection: 'row',
-    marginHorizontal: -8
-  },
-  actionsWrapper: {
-    flex: 1,
-    paddingHorizontal: 8
-  }
-});
 
 export default DialogAddToPlaylist;
