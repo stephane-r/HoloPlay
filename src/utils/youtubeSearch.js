@@ -12,7 +12,7 @@ const options: Object = {
 const YoutubeSearch = (value: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     return YTSearch(value, options, (error, results) => {
-      if (error) reject(error);
+      if (error) reject(error.message);
       resolve(results);
     });
   });

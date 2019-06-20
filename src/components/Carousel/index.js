@@ -33,7 +33,10 @@ const CarouselItem = ({ item }: ItemProps) => (
       alignment="horizontal"
       card={{
         title: item.name,
-        picture: 'https://picsum.photos/200/100'
+        picture:
+          item.sources.length === 0
+            ? 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
+            : item.sources[0].thumbnails.default.url
       }}
       rightContent={
         <CarouselPlayIcon onPress={() => alert('play playlist')} />
@@ -47,11 +50,10 @@ type CarouselProps = {
   data: Array<Object>
 };
 
-const Carousel = ({ data }: CarouselProps) => (
+const Carousel = (props: CarouselProps) => (
   <SnapCarousel
+    {...props}
     layout="tinder"
-    loop
-    data={data}
     itemWidth={Dimensions.get('window').width - 32}
     sliderWidth={Dimensions.get('window').width - 32}
     renderItem={CarouselItem}

@@ -1,9 +1,10 @@
 // @flow
 import React from 'react';
 import { View } from 'react-native';
-import { Button, IconButton } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import Card from '../Layout';
 import { actions } from '../../../store';
+import MenuSearchItem from '../../Menu/SearchItem';
 
 type CardSearchItemProps = {
   card: Object,
@@ -38,16 +39,16 @@ const CardSearchItem = ({
         }}>
         <Button
           icon={isFavoris ? 'favorite' : 'favorite-border'}
-          color={isFavoris ? '#2575f4' : '#607D8B'}
-          mode="text"
+          color={isFavoris ? '#EE05F2' : '#607D8B'}
+          size={20}
+          uppercase={false}
+          animated
           onPress={AddOrRemoveToFavoris}>
           Favoris
         </Button>
-        <IconButton
-          animated
-          icon="add"
-          style={{ width: 24, height: 24 }}
-          onPress={() => addToPlaylist(item)}
+        <MenuSearchItem
+          addToPlaylist={() => addToPlaylist(item)}
+          downloadFile={() => alert('download')}
         />
       </View>
     </Card>
