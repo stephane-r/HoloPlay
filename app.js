@@ -1,9 +1,9 @@
 import React from 'react';
 import codePush from 'react-native-code-push';
 import { Provider } from './src/store';
-import App from './src/components/App';
+import AppContainer from './src/containers/App';
 
-class AppContainer extends React.Component {
+class App extends React.Component {
   componentDidMount() {
     codePush.sync({
       updateDialog: true,
@@ -49,10 +49,10 @@ class AppContainer extends React.Component {
   render() {
     return (
       <Provider>
-        <App />
+        <AppContainer />
       </Provider>
     );
   }
 }
 
-export default codePush(AppContainer);
+export default codePush(App);

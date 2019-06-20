@@ -4,10 +4,23 @@ import { apiState } from '../Api';
 const appState = {
   isConnected: false,
   loginIsFetching: false,
-  isSearching: false
+  isSearching: false,
+  flashMessage: {
+    message: null,
+    visible: false
+  },
+  darkMode: false
 };
 
 const appActions = {
+  appInit: async state => {
+    const darkMode = await AsyncStorage.getItem('darkMode');
+
+    return {
+      ...state,
+      darkMode: darkMode === 'true'
+    };
+  },
   setConnected: state => {
     return {
       ...state,
@@ -45,6 +58,36 @@ const appActions = {
     return {
       ...state,
       ...apiState
+    };
+  },
+  setFlashMessage: async (state, actions, message) => {
+    return {
+      ...state,
+      flashMessage: {
+        message,
+        visible: true
+      }
+    };
+  },
+  hideFlashMessage: async state => {
+    return {
+      ...state,
+      flashMessage: {
+        ...state.flashMessage,
+        visible: false
+      }
+    };
+  },
+  setDarkMode: async (state, actions, darkMode) => {
+    try {
+      await AsyncStorage.setItem('darkMode', String(darkMode));
+    } catch (error) {
+      return actions.setFlashMessage(error);
+    }
+
+    return {
+      ...state,
+      darkMode
     };
   }
 };

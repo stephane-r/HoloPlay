@@ -1,18 +1,23 @@
 /* eslint react/prop-types: 0 */
 import React, { useState, useEffect } from 'react';
-import Video from 'react-native-video';
-import config from 'react-native-config';
 import {
   View,
-  Text,
+  Image,
   Button,
   StyleSheet,
   Dimensions,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
+import Video from 'react-native-video';
+import config from 'react-native-config';
 import MusicControl from 'react-native-music-control';
 import { actions } from '../../store';
 import Progress from '../Progress';
+import Icon from '../Icon';
+import Spacer from '../Spacer';
+import Title from '../Title';
+import Text from '../Text';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
 import youtubeDurationToSeconds from '../../utils/youtubeDurationToSeconds';
 
@@ -95,20 +100,66 @@ const Player = ({ source, paused, repeat, ...props }) => {
         onLoadStart={onLoadStart}
         onEnd={onEnd}
       />
-      <Text>{currentTime}</Text>
-      <Text>{ISO8601toDuration(source.duration)}</Text>
-      <Progress percentage={percentage} />
-      <Button
-        title="Next"
-        onPress={() => actions.loadSource(props.nextSourceIndex)}
-      />
-      <Button
-        title="Previous"
-        onPress={() => actions.loadSource(props.previousSourceIndex)}
-      />
-      <Button
-        title="Pause"
-        onPress={actions.paused} />
+      <View
+        style={{
+          alignItems: 'center',
+          paddingHorizontal: 16
+        }}>
+        <Image
+          source={{ uri: source.thumbnails.medium.url }}
+          style={{
+            width: source.thumbnails.medium.width,
+            height: source.thumbnails.medium.height
+          }}
+        />
+        <Title
+          level="2"
+          title={source.title} />
+        <Spacer height={10} />
+        <Title
+          level="3"
+          title={source.channelTitle} />
+      </View>
+      <Spacer height={40} />
+      <View
+        style={{
+          paddingHorizontal: 16
+        }}>
+        <Text>{currentTime}</Text>
+        <Text>{ISO8601toDuration(source.duration)}</Text>
+        <Progress percentage={percentage} />
+      </View>
+      <Spacer height={40} />
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 16
+        }}>
+        <TouchableOpacity
+          onPress={() => actions.loadSource(props.previousSourceIndex)}>
+          <Icon
+            name="Previous"
+            width={21}
+            height={21} />
+        </TouchableOpacity>
+        <Spacer width={30} />
+        <TouchableOpacity onPress={actions.paused}>
+          <Icon
+            name={paused ? 'Play' : 'Pause'}
+            width={60}
+            height={60} />
+        </TouchableOpacity>
+        <Spacer width={30} />
+        <TouchableOpacity
+          onPress={() => actions.loadSource(props.nextSourceIndex)}>
+          <Icon
+            name="Next"
+            width={21}
+            height={21} />
+        </TouchableOpacity>
+      </View>
       <Button
         title="Repeat"
         onPress={actions.repeat} />

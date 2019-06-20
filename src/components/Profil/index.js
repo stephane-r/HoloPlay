@@ -1,22 +1,14 @@
 // @flow
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import Title from '../Title';
-import Text from '../Text';
+import { View, Image, StyleSheet } from 'react-native';
+import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
-import { actions } from '../../store';
 
 type Props = {
-  navigate: Function,
   user: Object
 };
 
-const Profil = ({ navigate, user }: Props) => {
-  const logout = async () => {
-    await actions.logout();
-    return navigate.navigate('Login');
-  };
-
+const Profil = ({ user }: Props) => {
   if (!user) {
     return null;
   }
@@ -25,18 +17,18 @@ const Profil = ({ navigate, user }: Props) => {
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <Title
-          level="1"
-          title={`Hey ${user.username}`}
-          color="white" />
+          style={{
+            color: 'white',
+            fontSize: 35,
+            paddingTop: 5
+          }}>{`Hey ${user.username}`}</Title>
         <Spacer height={5} />
-        <Text customStyle={{ color: 'white' }}>Welcome home</Text>
+        <Text style={{ color: 'white' }}>Welcome home</Text>
       </View>
-      <TouchableOpacity onPress={logout}>
-        <Image
-          source={{ uri: 'https://picsum.photos/60/60' }}
-          style={{ width: 60, height: 60, borderRadius: 60 }}
-        />
-      </TouchableOpacity>
+      <Image
+        source={{ uri: 'https://picsum.photos/60/60' }}
+        style={{ width: 60, height: 60, borderRadius: 60 }}
+      />
     </View>
   );
 };
