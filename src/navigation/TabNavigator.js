@@ -14,11 +14,21 @@ import RegisterScreen from '../screens/Register';
 import DashboardScreen from '../screens/Dashboard';
 import FavorisScreen from '../screens/Favoris';
 import PlaylistScreen from '../screens/Playlist';
+import SettingsScreen from '../screens/Settings';
 
 const AuthenticationNavigator = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen
 });
+
+const SettingsNavigator = createStackNavigator(
+  {
+    Settings: SettingsScreen
+  },
+  {
+    headerMode: 'none'
+  }
+);
 
 const AppNavigator = createMaterialBottomTabNavigator(
   {
@@ -70,6 +80,7 @@ export default createAppContainer(
     {
       Loading: LoadingScreen,
       App: AppNavigator,
+      Settings: SettingsNavigator,
       Auth: AuthenticationNavigator
     },
     {

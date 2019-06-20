@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   header: {
     marginHorizontal: -16,
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 20,
     paddingBottom: 80,
     marginBottom: -60
   },
