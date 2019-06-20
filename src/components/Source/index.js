@@ -1,9 +1,8 @@
 // @flow
 import * as React from 'react';
-import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Text, IconButton, Divider } from 'react-native-paper';
 import Spacer from '../Spacer';
-import Text from '../Text';
-import Icon from '../Icon';
 import { actions } from '../../store';
 
 type SourceProps = {
@@ -14,40 +13,39 @@ type SourceProps = {
 const Source = ({ items, playlistId }: SourceProps) => {
   return (
     <>
-      {items.map(item => (
+      {items.map((item, index) => (
         <View
-          key={item.id}
+          key={`${item.id}-${String(playlistId)}`}
           style={styles.container}>
-          <TouchableNativeFeedback onPress={() => actions.loadSource()}>
-            <View style={styles.line}>
-              <Text
-                numberOfLines={1}
-                customStyle={{ width: '90%' }}>
-                {item.title}
-              </Text>
-              <View style={{ marginLeft: 'auto', marginVertical: 5 }}>
-                <Icon
-                  name="Play"
-                  width={20}
-                  height={20} />
-              </View>
+          <View style={styles.line}>
+            <Text
+              numberOfLines={1}
+              style={{ width: '75%', flex: 1 }}>
+              {item.title}
+            </Text>
+            <IconButton
+              icon="play-circle-outline"
+              size={25}
+              style={{ margin: 6 }}
+              onPress={() => actions.loadSource()}
+            />
+            <IconButton
+              icon="delete"
+              size={20}
+              style={{ margin: 0 }}
+              onPress={() =>
+                actions.removeSourceFromPlaylist({
+                  source: item,
+                  playlistId
+                })
+              }
+            />
+          </View>
+          {index + 1 < items.length && (
+            <View style={{ width: '100%', height: 1 }}>
+              <Divider />
             </View>
-          </TouchableNativeFeedback>
-          <TouchableNativeFeedback
-            onPress={() =>
-              actions.removeSourceFromPlaylist({
-                source: item,
-                playlistId
-              })
-            }>
-            <View style={{ paddingLeft: 10 }}>
-              <Icon
-                name="ArrowRight"
-                style
-                width={20}
-                height={20} />
-            </View>
-          </TouchableNativeFeedback>
+          )}
         </View>
       ))}
       <View style={{ width: '100%' }}>
@@ -59,7 +57,7 @@ const Source = ({ items, playlistId }: SourceProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     width: '100%',
     alignItems: 'center'
   },

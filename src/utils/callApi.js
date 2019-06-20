@@ -1,5 +1,6 @@
 // @flow
 import config from 'react-native-config';
+import errorApi from './errorApi';
 
 const { API_URL } = config;
 
@@ -37,15 +38,14 @@ const callApi = async (
     console.log(`${method} - ${API_URL}${slug}`);
   }
 
-  try {
-    const request = await fetch(`https://${API_URL}${slug}`, params);
+  const request = await fetch(`https://${API_URL}${slug}`, params);
+  const response = await request.json();
 
-    const response = await request.json();
-
-    return response;
-  } catch (error) {
-    console.log(error);
+  if (response.statusCode >= 400 && response.statusCode < 500) {
+    throw errorApi(response);
   }
+
+  return response;
 };
 
 export default callApi;

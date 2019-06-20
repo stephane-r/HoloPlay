@@ -1,7 +1,9 @@
 // @flow
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 import CardPlaylist from '../../Card/Playlist';
+import Spacer from '../../Spacer';
 
 type PlaylistType = {
   id: string,
@@ -30,13 +32,17 @@ const Playlist = ({ user: { playlist }, toggleModal }: PlayListType) => {
 
   return (
     <View>
+      <Spacer height={18} />
       {playlist.map((playlist, index) => (
         <CardPlaylist
           key={index}
           alignment="horizontal"
           card={{
             title: playlist.name,
-            picture: 'https://picsum.photos/200/100'
+            picture:
+              playlist.sources.length === 0
+                ? 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
+                : playlist.sources[0].thumbnails.default.url
           }}
           playlist={playlist}
           toggleModal={toggleModal}

@@ -1,17 +1,22 @@
+// @flow
 import React, { useState } from 'react';
+import { Portal, FAB } from 'react-native-paper';
 import PlaylistContainer from '../../containers/Playlist';
 import Layout from '../../components/Layout';
-import Spacer from '../../components/Spacer';
-import Title from '../../components/Title';
-import Button from '../../components/Forms/Button';
 import DialogAddPlaylistContainer from '../../containers/DialogAddPlaylist';
+import Header from '../../components/Header';
 
-const PlaylistScreen = props => {
+type PlaylistScreenProps = {
+  navigation: Object
+};
+
+const PlaylistScreen = ({ navigation }: PlaylistScreenProps) => {
   const [modalIsOpen, setToggleModal] = useState(false);
   const [playlist, setPlaylist] = useState(null);
+  const [fabIsOpen, toggleFab] = useState(false);
 
-  const toggleModal = async item => {
-    if (item.id) {
+  const toggleModal = async (item = null) => {
+    if (item && item.id) {
       setPlaylist(item);
     }
 
@@ -19,21 +24,31 @@ const PlaylistScreen = props => {
   };
 
   return (
-    <Layout navigate={props.navigation}>
-      <Spacer height={20} />
-      <Title
-        level="2"
-        title="Playlist" />
-      <Spacer height={30} />
+    <Layout navigation={navigation}>
+      <Header
+        title="Playlist"
+        backgroundColor="#0455BF" />
       <PlaylistContainer toggleModal={playlist => toggleModal(playlist)} />
-      <Button
-        title="Create playlist"
-        onPress={toggleModal} />
       <DialogAddPlaylistContainer
         visible={modalIsOpen}
         toggleDialog={toggleModal}
         playlist={playlist}
       />
+      <Portal>
+        <FAB.Group
+          open={fabIsOpen}
+          icon={fabIsOpen ? 'today' : 'add'}
+          actions={[
+            {
+              icon: 'headset',
+              label: 'New playlist',
+              onPress: () => setToggleModal(true)
+            }
+          ]}
+          onStateChange={({ open }) => toggleFab(open)}
+          fabStyle={{ marginBottom: 70 }}
+        />
+      </Portal>
     </Layout>
   );
 };

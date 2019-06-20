@@ -1,22 +1,24 @@
 // @flow
 import React from 'react';
-import { View, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
+import { IconButton, Text } from 'react-native-paper';
 import SnapCarousel from 'react-native-snap-carousel';
 import Card from '../Card/Layout';
-import Text from '../Text';
-import Icon from '../Icon';
 
 type PlayIconProps = {
   onPress?: Function
 };
 
 const CarouselPlayIcon = ({ onPress }: PlayIconProps) => (
-  <TouchableOpacity onPress={onPress}>
-    <Icon
-      name="Play"
-      width={30}
-      heigh={30} />
-  </TouchableOpacity>
+  <IconButton
+    icon="play-circle-outline"
+    size={35}
+    style={{
+      width: 40,
+      marginRight: -5
+    }}
+    onPress={onPress}
+  />
 );
 
 type ItemProps = {
@@ -31,7 +33,10 @@ const CarouselItem = ({ item }: ItemProps) => (
       alignment="horizontal"
       card={{
         title: item.name,
-        picture: 'https://picsum.photos/200/100'
+        picture:
+          item.sources.length === 0
+            ? 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
+            : item.sources[0].thumbnails.default.url
       }}
       rightContent={
         <CarouselPlayIcon onPress={() => alert('play playlist')} />
@@ -45,11 +50,10 @@ type CarouselProps = {
   data: Array<Object>
 };
 
-const Carousel = ({ data }: CarouselProps) => (
+const Carousel = (props: CarouselProps) => (
   <SnapCarousel
+    {...props}
     layout="tinder"
-    loop
-    data={data}
     itemWidth={Dimensions.get('window').width - 32}
     sliderWidth={Dimensions.get('window').width - 32}
     renderItem={CarouselItem}

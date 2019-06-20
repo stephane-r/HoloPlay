@@ -6,13 +6,14 @@ const searchState = {
 };
 
 const searchActions = {
-  setSearchValue: async (state, actions, value) => {
-    return { ...state, value };
-  },
-  search: async (state, actions) => {
-    await actions.setIsSearching();
-    const results = await YoutubeSearch(state.value);
-    return { ...state, results };
+  search: async (state, actions, value) => {
+    try {
+      await actions.setIsSearching();
+      const results = await YoutubeSearch(value);
+      return { ...state, results };
+    } catch (error) {
+      actions.setFlashMessage(error);
+    }
   }
 };
 

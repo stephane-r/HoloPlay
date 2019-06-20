@@ -1,7 +1,8 @@
 // @flow
 import * as React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import Title from '../../Title';
+// import Title from '../../Title';
+import { Subheading } from 'react-native-paper';
 import Spacer from '../../Spacer';
 
 type CardType = {
@@ -17,7 +18,8 @@ type CardProps = {
   index?: Number,
   children?: React.Node,
   rightContent?: React.Node,
-  itemsRenderer?: React.Node | null
+  itemsRenderer?: React.Node | null,
+  showItems?: boolean
 };
 
 const HORIZONTAL_ALIGNMENT = 'horizontal';
@@ -29,6 +31,7 @@ const CardLayout = ({
   children,
   rightContent,
   itemsRenderer,
+  showItems,
   ...props
 }: CardProps) => {
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
@@ -63,23 +66,23 @@ const CardLayout = ({
             />
             <View style={infosStyles}>
               <View style={{ flex: 1 }}>
-                <Title
-                  level="3"
-                  title={card.title}
-                  customStyle={titleStyles} />
+                <Subheading
+                  style={titleStyles}
+                  numberOfLines={2}>
+                  {card.title}
+                </Subheading>
                 {children && (
                   <>
-                    <Spacer height={10} />
+                    {isHorizontal && <Spacer height={5} />}
                     <View style={styles.footer}>{children}</View>
                   </>
                 )}
-                <Spacer height={10} />
               </View>
               {rightContent && rightContent}
             </View>
           </View>
         </TouchableNativeFeedback>
-        {itemsRenderer && itemsRenderer}
+        {itemsRenderer && showItems && itemsRenderer}
       </View>
     </View>
   );
@@ -104,9 +107,11 @@ const stylesVertical = StyleSheet.create({
     padding: 10
   },
   title: {
-    height: 60
+    height: 55
   },
-  infos: {},
+  infos: {
+    marginTop: -5
+  },
   picture: {
     width: '100%',
     height: 100,
