@@ -38,6 +38,7 @@ jobs:
       script:
         - rm -rf .cache
         - make android-prepare
+        - cat .env
         - make android-release-debug
     - stage: deploy
       if: branch = master
