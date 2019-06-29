@@ -13,6 +13,7 @@ stages:
 
 before_script:
   - cp .env.production.dist .env
+  - make set-env-production
   - make setup
   - rm docker-compose.override.yml
 
@@ -38,12 +39,6 @@ jobs:
       script:
         - rm -rf .cache
         - make android-prepare
-        - echo $YOUTUBE_API_KEY
-        - echo $YOUTUBE_API_STREAM_URL
-        - echo $CODE_PUSH_LOGIN_KEY
-        - echo $KEYSTORE_PASSWORD
-        - echo $CODE_PUSH_DEPLOY_KEY
-        - echo $API_URL
         - make android-release-debug
     - stage: deploy
       if: branch = master

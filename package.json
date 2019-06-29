@@ -64,6 +64,7 @@
     "prettier": "^1.16.1",
     "react-native-storybook-loader": "^1.8.0",
     "react-test-renderer": "16.6.3",
+    "shelljs": "^0.8.3",
     "xml2js": "^0.4.19"
   },
   "pre-commit": [

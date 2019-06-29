@@ -78,6 +78,9 @@ android-run:
 android-run-emulator:
 	@echo "--> Run Docker container"
 	$(DOCKEREMULATOR)
+set-env-production:
+	@echo "--> Set production env file"
+	$(DOCKERYAP) node ./scripts/env-production.js
 android-prepare:
 	@echo "--> Prepare Android App for relase"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
