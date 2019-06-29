@@ -38,7 +38,12 @@ jobs:
       script:
         - rm -rf .cache
         - make android-prepare
-        - cat .env
+        - echo $YOUTUBE_API_KEY
+        - echo $YOUTUBE_API_STREAM_URL
+        - echo $CODE_PUSH_LOGIN_KEY
+        - echo $KEYSTORE_PASSWORD
+        - echo $CODE_PUSH_DEPLOY_KEY
+        - echo $API_URL
         - make android-release-debug
     - stage: deploy
       if: branch = master
