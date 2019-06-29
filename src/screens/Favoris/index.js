@@ -1,35 +1,35 @@
+// @flow
 import React from 'react';
 import { actions } from '../../store';
 import FavorisContainer from '../../containers/Favoris';
 import Layout from '../../components/Layout';
-import Title from '../../components/Title';
-import Spacer from '../../components/Spacer';
+import Header from '../../components/Header';
 
-class Favoris extends React.Component {
-  static path = 'favoris';
+type FavorisProps = {
+  navigation: Object
+};
 
-  static navigationOptions = () => ({
-    title: 'Favoris',
-    linkName: 'Favoris'
-  });
-
-  async loadSource(index) {
+const Favoris = ({ navigation }: FavorisProps) => {
+  const loadSource = async index => {
     await actions.setPlaylistFrom('favoris');
     return actions.loadSource(index);
-  }
+  };
 
-  render() {
-    return (
-      <Layout navigate={this.props.navigation}>
-        <Spacer height={20} />
-        <Title
-          level="2"
-          title="Favoris" />
-        <Spacer height={20} />
-        <FavorisContainer onPress={this.loadSource} />
-      </Layout>
-    );
-  }
-}
+  return (
+    <Layout navigation={navigation}>
+      <Header
+        title="Favoris"
+        backgroundColor="#EE05F2" />
+      <FavorisContainer onPress={loadSource} />
+    </Layout>
+  );
+};
+
+Favoris.path = 'favoris';
+
+Favoris.navigationOptions = () => ({
+  title: 'Favoris',
+  linkName: 'Favoris'
+});
 
 export default Favoris;

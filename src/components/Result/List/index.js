@@ -1,6 +1,6 @@
 // @flow
 import React, { useState } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { Text } from 'react-native-paper';
 import CardList from '../../Card/List';
 import DialogAddToPlaylistContainer from '../../../containers/DialogAddToPlaylist';
 import CardSearchItemContainer from '../../../containers/SearchItem';
@@ -16,7 +16,7 @@ const ResultList = ({ results, user, isFavoris }: Props): Function => {
   const [source, setDialogSource] = useState(null);
 
   if (results.length === 0) {
-    <ActivityIndicator />;
+    return <Text>No result.</Text>;
   }
 
   return (

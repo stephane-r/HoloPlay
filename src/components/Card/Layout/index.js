@@ -1,22 +1,25 @@
 // @flow
 import * as React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import Title from '../../Title';
+// import Title from '../../Title';
+import { Subheading } from 'react-native-paper';
 import Spacer from '../../Spacer';
 
-type Card = {
+type CardType = {
   title: string,
   picture: string
 };
 
-type Props = {
+type CardProps = {
   customStyle?: Object,
   alignment: string,
-  card: Card,
+  card: CardType,
   onPress?: Function,
   index?: Number,
   children?: React.Node,
-  rightContent?: React.Node
+  rightContent?: React.Node,
+  itemsRenderer?: React.Node | null,
+  showItems?: boolean
 };
 
 const HORIZONTAL_ALIGNMENT = 'horizontal';
@@ -27,8 +30,10 @@ const CardLayout = ({
   card,
   children,
   rightContent,
+  itemsRenderer,
+  showItems,
   ...props
-}: Props) => {
+}: CardProps) => {
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
   const containerStyles = isHorizontal
     ? stylesHorizontal.container
@@ -46,38 +51,46 @@ const CardLayout = ({
 
   return (
     <View style={containerStyles}>
-      <TouchableNativeFeedback
-        onPress={() => props.onPress && props.onPress(props.index)}>
-        <View style={[cardStyles, customStyle]}>
-          <Image
-            resizeMode="cover"
-            style={pictureStyles}
-            source={{ uri: card.picture }}
-          />
-          <View style={infosStyles}>
-            <View style={{ flex: 1 }}>
-              <Title
-                level="3"
-                title={card.title}
-                customStyle={titleStyles} />
-              {children && (
-                <>
-                  <Spacer height={10} />
-                  <View style={styles.footer}>{children}</View>
-                </>
-              )}
-              <Spacer height={10} />
+      <View style={[cardStyles, customStyle]}>
+        <TouchableNativeFeedback
+          onPress={() => props.onPress && props.onPress(props.index)}>
+          <View
+            style={{
+              width: '100%',
+              flexDirection: isHorizontal ? 'row' : 'column'
+            }}>
+            <Image
+              resizeMode="cover"
+              style={pictureStyles}
+              source={{ uri: card.picture }}
+            />
+            <View style={infosStyles}>
+              <View style={{ flex: 1 }}>
+                <Subheading
+                  style={titleStyles}
+                  numberOfLines={2}>
+                  {card.title}
+                </Subheading>
+                {children && (
+                  <>
+                    {isHorizontal && <Spacer height={5} />}
+                    <View style={styles.footer}>{children}</View>
+                  </>
+                )}
+              </View>
+              {rightContent && rightContent}
             </View>
-            {rightContent && rightContent}
           </View>
-        </View>
-      </TouchableNativeFeedback>
+        </TouchableNativeFeedback>
+        {itemsRenderer && showItems && itemsRenderer}
+      </View>
     </View>
   );
 };
 
 CardLayout.defaultProps = {
-  alignment: 'vertical'
+  alignment: 'vertical',
+  itemsRenderer: null
 };
 
 const stylesVertical = StyleSheet.create({
@@ -94,9 +107,11 @@ const stylesVertical = StyleSheet.create({
     padding: 10
   },
   title: {
-    height: 60
+    height: 55
   },
-  infos: {},
+  infos: {
+    marginTop: -5
+  },
   picture: {
     width: '100%',
     height: 100,
@@ -117,6 +132,7 @@ const stylesHorizontal = StyleSheet.create({
   card: {
     elevation: 2,
     flexDirection: 'row',
+    flexWrap: 'wrap',
     backgroundColor: 'white',
     borderRadius: 4,
     paddingHorizontal: 20

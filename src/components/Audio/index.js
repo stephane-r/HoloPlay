@@ -29,35 +29,4 @@ const Audio = ({ playerIsOpened }) => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     width: '100%',
-//     backgroundColor: '#6f6f76'
-//   },
-//   commandButton: {
-//     padding: 20,
-//     borderRadius: 10,
-//     backgroundColor: '#292929',
-//     alignItems: 'center',
-//     margin: 7
-//   },
-//   panel: {
-//     height: Dimensions.get('window').height,
-//     backgroundColor: '#2c2c2fAA'
-//   },
-//   panelButton: {
-//     padding: 13,
-//     borderRadius: 10,
-//     backgroundColor: '#292929',
-//     alignItems: 'center',
-//     marginVertical: 7
-//   },
-//   panelButtonTitle: {
-//     fontSize: 17,
-//     fontWeight: 'bold',
-//     color: 'white'
-//   }
-// });
-
 export default Audio;

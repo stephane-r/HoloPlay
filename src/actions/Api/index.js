@@ -18,20 +18,14 @@ const apiActions = {
     return state;
   },
   loginThroughApi: async (state, actions, formData) => {
-    try {
-      const { jwt, user } = await callApi(api.login, 'post', formData);
-      await AsyncStorage.setItem('userToken', jwt);
+    const { jwt, user } = await callApi(api.login, 'post', formData);
+    await AsyncStorage.setItem('userToken', jwt);
 
-      return {
-        ...state,
-        jwt,
-        user
-      };
-    } catch (error) {
-      alert(error);
-
-      return state;
-    }
+    return {
+      ...state,
+      jwt,
+      user
+    };
   },
   addUserToken: (state, actions, jwt) => {
     return {

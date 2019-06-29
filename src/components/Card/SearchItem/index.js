@@ -1,11 +1,12 @@
 // @flow
 import React from 'react';
-import { View, TouchableHighlight } from 'react-native';
-import Icon from '../../Icon';
+import { View } from 'react-native';
+import { Button } from 'react-native-paper';
 import Card from '../Layout';
 import { actions } from '../../../store';
+import MenuSearchItem from '../../Menu/SearchItem';
 
-type Props = {
+type CardSearchItemProps = {
   card: Object,
   item: Object,
   isFavoris: boolean,
@@ -17,7 +18,7 @@ const CardSearchItem = ({
   isFavoris,
   addToPlaylist,
   ...props
-}: Props) => {
+}: CardSearchItemProps) => {
   const AddOrRemoveToFavoris = () => {
     if (isFavoris) {
       return actions.removeSourceFromFavoris(item);
@@ -32,21 +33,23 @@ const CardSearchItem = ({
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          flex: 1
+          alignItems: 'center',
+          flex: 1,
+          margin: -8
         }}>
-        <TouchableHighlight onPress={AddOrRemoveToFavoris}>
-          <Icon
-            name={isFavoris ? 'Favorite' : 'FavoriteBorder'}
-            width={15}
-            height={15}
-          />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => addToPlaylist(item)}>
-          <Icon
-            name="Add"
-            width={15}
-            height={15} />
-        </TouchableHighlight>
+        <Button
+          icon={isFavoris ? 'favorite' : 'favorite-border'}
+          color={isFavoris ? '#EE05F2' : '#607D8B'}
+          size={20}
+          uppercase={false}
+          animated
+          onPress={AddOrRemoveToFavoris}>
+          Favoris
+        </Button>
+        <MenuSearchItem
+          addToPlaylist={() => addToPlaylist(item)}
+          downloadFile={() => alert('download')}
+        />
       </View>
     </Card>
   );
