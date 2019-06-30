@@ -53,8 +53,8 @@ const App = ({ darkMode }) => {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: 'red',
-      accent: 'blue'
+      primary: '#2575f4',
+      accent: '#0455BF'
     }
   };
 
