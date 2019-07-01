@@ -9,7 +9,6 @@ const uuidv4 = require('uuid/v4');
 type Props = {
   toggleDialog: Function,
   visible: boolean,
-  playlistIsFecthing: boolean,
   playlist?: Object
 };
 
@@ -20,12 +19,8 @@ const playlistProps = {
   name: ''
 };
 
-const DialogAddPlaylist = ({
-  playlistIsFecthing,
-  toggleDialog,
-  visible,
-  ...props
-}: Props) => {
+const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
+  const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(
     props.playlist ? props.playlist : playlistProps
   );
@@ -48,8 +43,7 @@ const DialogAddPlaylist = ({
 
     await actions.createNewPlaylist(playlistUpdated);
 
-    setPlaylist({});
-    toggleDialog(false);
+    closeDialog();
 
     return setTimeout(
       () => actions.setFlashMessage(`${playlistName} was created.`),
@@ -66,8 +60,7 @@ const DialogAddPlaylist = ({
 
     await actions.updatePlaylist(playlistUpdated);
 
-    setPlaylist({});
-    toggleDialog(false);
+    closeDialog();
 
     return setTimeout(
       () => actions.setFlashMessage(`${playlistName} was updated.`),
@@ -77,21 +70,22 @@ const DialogAddPlaylist = ({
 
   const submit = async () => {
     if (playlist.name && playlist.name !== '') {
-      await actions.setPlaylistIsFecthing();
+      await setLoading(true);
 
-      if (playlist.id === null) {
-        return createNewPlaylist();
+      if (playlist.id) {
+        return updatePlaylist();
       }
 
-      return updatePlaylist();
+      return createNewPlaylist();
     }
 
     return actions.setFlashMessage('You must name your playlist.');
   };
 
   const closeDialog = () => {
-    setPlaylist({});
-    return toggleDialog(false);
+    setLoading(false);
+    toggleDialog(false);
+    setTimeout(() => setPlaylist({}), 600);
   };
 
   return (
@@ -100,7 +94,7 @@ const DialogAddPlaylist = ({
         visible={visible}
         onDismiss={closeDialog}>
         <Dialog.Title>
-          {playlist.id !== null ? 'Update' : 'Create'} playlist
+          {playlist.id ? 'Update' : 'Create'} playlist
         </Dialog.Title>
         <Dialog.Content>
           <TextInput
@@ -114,8 +108,8 @@ const DialogAddPlaylist = ({
           <Button onPress={closeDialog}>Cancel</Button>
           <Button
             onPress={submit}
-            loading={playlistIsFecthing}>
-            {playlist.id !== null ? 'Update' : 'Create'}
+            loading={loading}>
+            {playlist.id ? 'Update' : 'Create'}
           </Button>
         </Dialog.Actions>
       </Dialog>
