@@ -33,6 +33,7 @@ const CardPlaylist = ({
   const removePlaylist = async () => {
     setIsLoading(true);
     await actions.removePlaylist(playlist.id);
+    actions.setFlashMessage(`${playlist.name} has been removed.`);
     setIsLoading(false);
   };
 
