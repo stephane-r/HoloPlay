@@ -25,6 +25,7 @@ const MenuPlaylist = ({ onEdit, onRemove }: MenuPlaylistProps) => {
           onEdit();
           toggleMenu();
         }}
+        icon="edit"
         title="Edit"
       />
       <Menu.Item
@@ -32,6 +33,7 @@ const MenuPlaylist = ({ onEdit, onRemove }: MenuPlaylistProps) => {
           onRemove();
           toggleMenu();
         }}
+        icon="delete"
         title="Remove"
       />
     </Menu>
