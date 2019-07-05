@@ -4,7 +4,7 @@ import config from 'react-native-config';
 import QuickActions from 'react-native-quick-actions';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import NavigationContainer from '../../navigation/TabNavigator';
-// import AudioContainer from '../../containers/Audio';
+import SidebarContainer from '../../containers/Sidebar';
 import StorybookUI from '../../../storybook';
 import SnackbarContainer from '../../containers/Snackbar';
 
@@ -60,8 +60,8 @@ const App = ({ darkMode }) => {
 
   return (
     <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
+      <SidebarContainer />
       <NavigationContainer />
-      {/* <AudioContainer /> */}
       <SnackbarContainer />
     </PaperProvider>
   );

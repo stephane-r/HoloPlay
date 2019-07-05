@@ -3,12 +3,11 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   Image,
-  Button,
   StyleSheet,
-  Dimensions,
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native';
+import { Button } from 'react-native-paper';
 import Video from 'react-native-video';
 import config from 'react-native-config';
 import MusicControl from 'react-native-music-control';
@@ -84,10 +83,8 @@ const Player = ({ source, paused, repeat, ...props }) => {
 
   return (
     <View style={styles.panel}>
+      <Button onPress={() => actions.hidePlayer()}>Close</Button>
       {isLoading && <ActivityIndicator />}
-      <Button
-        title="Fermer"
-        onPress={actions.hidePlayer} />
       <Video
         source={{
           uri
@@ -179,10 +176,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#292929',
     alignItems: 'center',
     margin: 7
-  },
-  panel: {
-    height: Dimensions.get('window').height,
-    backgroundColor: '#2c2c2fAA'
   },
   panelButton: {
     padding: 13,
