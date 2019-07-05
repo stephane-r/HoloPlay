@@ -28,7 +28,6 @@
     "react-native-music-control": "^0.9.9",
     "react-native-paper": "^2.16.0",
     "react-native-quick-actions": "^0.3.10",
-    "react-native-reanimated": "^1.0.1",
     "react-native-simple-dialogs": "^1.1.0",
     "react-native-snap-carousel": "^3.8.0",
     "react-native-svg": "^9.4.0",
@@ -38,7 +37,6 @@
     "react-navigation": "^3.8.1",
     "react-navigation-material-bottom-tabs": "^1.0.0",
     "react-waterfall": "^4.0.1",
-    "reanimated-bottom-sheet": "^1.0.0-alpha.8",
     "uuid": "^3.3.2",
     "youtube-search": "^1.1.4"
   },
