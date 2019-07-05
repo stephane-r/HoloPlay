@@ -12,10 +12,14 @@ const audioState = {
 
 const audioActions = {
   showPlayer: async state => {
-    return {
-      ...state,
-      playerIsOpened: true
-    };
+    if (state.source) {
+      return {
+        ...state,
+        playerIsOpened: true
+      };
+    }
+
+    return state;
   },
   hidePlayer: async state => {
     return {

@@ -2,6 +2,7 @@
 /* eslint react/prop-types: 0 */
 import React from 'react';
 import { Dimensions, Animated, StyleSheet } from 'react-native';
+import { IconButton } from 'react-native-paper';
 import PlayerContainer from '../../containers/Player';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -32,6 +33,12 @@ const Sidebar = ({ playerIsOpened, source }: SidebarProps) => {
         { transform: [{ translateX: animatedValue }] }
       ]}>
       <PlayerContainer />
+      <IconButton
+        icon="add-a-photo"
+        style={styles.button}
+        size={20}
+        onPress={() => alert('Pressed')}
+      />
     </Animated.View>
   );
 };
@@ -44,7 +51,14 @@ const styles = StyleSheet.create({
     right: 0,
     height: Dimensions.get('window').height,
     zIndex: 2,
-    backgroundColor: 'red'
+    backgroundColor: 'white'
+  },
+  button: {
+    position: 'absolute',
+    bottom: 100,
+    left: -50,
+    backgroundColor: 'red',
+    margin: 0
   }
 });
 
