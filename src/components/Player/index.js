@@ -7,12 +7,11 @@ import {
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, IconButton, ProgressBar } from 'react-native-paper';
 import Video from 'react-native-video';
 import config from 'react-native-config';
 import MusicControl from 'react-native-music-control';
 import { actions } from '../../store';
-import Progress from '../Progress';
 import Icon from '../Icon';
 import Spacer from '../Spacer';
 import Title from '../Title';
@@ -83,8 +82,11 @@ const Player = ({ source, paused, repeat, ...props }) => {
 
   return (
     <View style={styles.panel}>
-      <Button onPress={() => actions.hidePlayer()}>Close</Button>
       {isLoading && <ActivityIndicator />}
+      <IconButton
+        icon="add-a-photo"
+        size={20}
+        onPress={actions.hidePlayer} />
       <Video
         source={{
           uri
@@ -109,6 +111,7 @@ const Player = ({ source, paused, repeat, ...props }) => {
             height: source.thumbnails.medium.height
           }}
         />
+        <Spacer height={20} />
         <Title
           level="2"
           title={source.title} />
@@ -116,15 +119,6 @@ const Player = ({ source, paused, repeat, ...props }) => {
         <Title
           level="3"
           title={source.channelTitle} />
-      </View>
-      <Spacer height={40} />
-      <View
-        style={{
-          paddingHorizontal: 16
-        }}>
-        <Text>{currentTime}</Text>
-        <Text>{ISO8601toDuration(source.duration)}</Text>
-        <Progress percentage={percentage} />
       </View>
       <Spacer height={40} />
       <View
@@ -157,9 +151,22 @@ const Player = ({ source, paused, repeat, ...props }) => {
             height={21} />
         </TouchableOpacity>
       </View>
-      <Button
-        title="Repeat"
-        onPress={actions.repeat} />
+      <Spacer height={40} />
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingHorizontal: 16
+        }}>
+        <Text>{currentTime ? currentTime : '00:00'}</Text>
+        <View style={{ flex: 1, marginHorizontal: 20 }}>
+          <ProgressBar
+            progress={percentage}
+            color="red" />
+        </View>
+        <Text>{ISO8601toDuration(source.duration)}</Text>
+      </View>
+      <Button onPress={actions.repeat}>Repeat</Button>
     </View>
   );
 };
