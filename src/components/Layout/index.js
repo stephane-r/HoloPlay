@@ -13,18 +13,20 @@ type LayoutProps = {
   children: React.Node
 };
 
-const Layout = ({ navigation, children }: LayoutProps) => (
-  <DrawerLayoutAndroid
-    drawerWidth={300}
-    drawerPosition={DrawerLayoutAndroid.positions.Left}
-    renderNavigationView={() => <DrawlerContainer navigation={navigation} />}>
-    <View style={{ flex: 1 }}>
-      <ScrollView style={{ flex: 1 }}>
-        <View style={styles.container}>{children}</View>
-      </ScrollView>
-    </View>
-  </DrawerLayoutAndroid>
-);
+const Layout = ({ navigation, children }: LayoutProps) => {
+  return (
+    <DrawerLayoutAndroid
+      drawerWidth={300}
+      drawerPosition={DrawerLayoutAndroid.positions.Left}
+      renderNavigationView={() => <DrawlerContainer navigation={navigation} />}>
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.container}>{children}</View>
+        </ScrollView>
+      </View>
+    </DrawerLayoutAndroid>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

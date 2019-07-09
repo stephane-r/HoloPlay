@@ -1,12 +1,14 @@
 import React from 'react';
 import config from 'react-native-config';
+import GestureRecognizer from 'react-native-swipe-gestures';
 // eslint-disable-next-line import/no-unresolved
 import QuickActions from 'react-native-quick-actions';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import NavigationContainer from '../../navigation/TabNavigator';
-// import AudioContainer from '../../containers/Audio';
+import SidebarContainer from '../../containers/Sidebar';
 import StorybookUI from '../../../storybook';
 import SnackbarContainer from '../../containers/Snackbar';
+import { actions } from '../../store';
 
 const { STORYBOOK } = config;
 
@@ -58,11 +60,23 @@ const App = ({ darkMode }) => {
     }
   };
 
+  const swipConfig = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80
+  };
+
   return (
     <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
-      <NavigationContainer />
-      {/* <AudioContainer /> */}
-      <SnackbarContainer />
+      <GestureRecognizer
+        onSwipeLeft={actions.showPlayer}
+        config={swipConfig}
+        style={{
+          flex: 1
+        }}>
+        <SidebarContainer />
+        <NavigationContainer />
+        <SnackbarContainer />
+      </GestureRecognizer>
     </PaperProvider>
   );
 };

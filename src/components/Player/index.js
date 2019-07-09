@@ -1,30 +1,28 @@
 /* eslint react/prop-types: 0 */
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Image,
-  Button,
-  StyleSheet,
-  Dimensions,
-  ActivityIndicator,
-  TouchableOpacity
-} from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { Text, Headline, IconButton, ProgressBar } from 'react-native-paper';
 import Video from 'react-native-video';
 import config from 'react-native-config';
 import MusicControl from 'react-native-music-control';
 import { actions } from '../../store';
-import Progress from '../Progress';
-import Icon from '../Icon';
 import Spacer from '../Spacer';
-import Title from '../Title';
-import Text from '../Text';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
 import youtubeDurationToSeconds from '../../utils/youtubeDurationToSeconds';
 
+// @flow
 const { YOUTUBE_API_STREAM_URL } = config;
 
-const Player = ({ source, paused, repeat, ...props }) => {
-  const [currentTime, setCurrentTime] = useState(null);
+type PlayerProps = {
+  source: Object,
+  paused: boolean,
+  repeat: boolean,
+  previousSourceIndex: Function,
+  nextSourceIndex: Function
+};
+
+const Player = ({ source, paused, repeat, ...props }: PlayerProps) => {
+  const [currentTime, setCurrentTime] = useState(0);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,16 +33,14 @@ const Player = ({ source, paused, repeat, ...props }) => {
     MusicControl.enableControl('previousTrack', true);
     MusicControl.enableBackgroundMode(true);
     MusicControl.handleAudioInterruptions(true);
-    MusicControl.on('play', () => actions.paused());
-    MusicControl.on('pause', () => actions.paused());
-    // MusicControl.on('stop', ()=>
-    // this.props.dispatch(stopRemoteControl())
-    // );
+    MusicControl.on('play', actions.paused);
+    MusicControl.on('pause', actions.paused);
+    MusicControl.on('stop', actions.paused);
     MusicControl.on('nextTrack', () =>
-      actions.loadSource(this.props.previousSourceIndex)
+      actions.loadSource(props.previousSourceIndex)
     );
     MusicControl.on('previousTrack', () =>
-      actions.loadSource(this.props.previousSourceIndex)
+      actions.loadSource(props.previousSourceIndex)
     );
   });
 
@@ -83,11 +79,7 @@ const Player = ({ source, paused, repeat, ...props }) => {
   );
 
   return (
-    <View style={styles.panel}>
-      {isLoading && <ActivityIndicator />}
-      <Button
-        title="Fermer"
-        onPress={actions.hidePlayer} />
+    <View style={styles.container}>
       <Video
         source={{
           uri
@@ -100,11 +92,15 @@ const Player = ({ source, paused, repeat, ...props }) => {
         onLoadStart={onLoadStart}
         onEnd={onEnd}
       />
-      <View
-        style={{
-          alignItems: 'center',
-          paddingHorizontal: 16
-        }}>
+      {/* {isLoading && <ActivityIndicator />} */}
+      <Spacer height={10} />
+      <IconButton
+        icon="keyboard-arrow-left"
+        size={30}
+        onPress={actions.hidePlayer}
+      />
+      <Spacer height={40} />
+      <View style={styles.head}>
         <Image
           source={{ uri: source.thumbnails.medium.url }}
           style={{
@@ -112,57 +108,53 @@ const Player = ({ source, paused, repeat, ...props }) => {
             height: source.thumbnails.medium.height
           }}
         />
-        <Title
-          level="2"
-          title={source.title} />
+        <Spacer height={30} />
+        <Headline numberOfLines={1}>{source.title}</Headline>
         <Spacer height={10} />
-        <Title
-          level="3"
-          title={source.channelTitle} />
+        <Text>{source.channelTitle}</Text>
       </View>
-      <Spacer height={40} />
-      <View
-        style={{
-          paddingHorizontal: 16
-        }}>
-        <Text>{currentTime}</Text>
-        <Text>{ISO8601toDuration(source.duration)}</Text>
-        <Progress percentage={percentage} />
-      </View>
-      <Spacer height={40} />
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingHorizontal: 16
-        }}>
-        <TouchableOpacity
-          onPress={() => actions.loadSource(props.previousSourceIndex)}>
-          <Icon
-            name="Previous"
-            width={21}
-            height={21} />
-        </TouchableOpacity>
+      <View style={styles.content}>
+        <View style={styles.progress}>
+          <Text>{currentTime ? currentTime : '00:00'}</Text>
+          <View style={{ flex: 1, marginHorizontal: 20 }}>
+            <ProgressBar
+              progress={percentage}
+              color="#2575f4" />
+          </View>
+          <Text>{ISO8601toDuration(source.duration)}</Text>
+          <Spacer height={60} />
+        </View>
+        <IconButton
+          icon="repeat"
+          size={30}
+          onPress={actions.repeat} />
+        <Spacer width={10} />
+        <IconButton
+          icon="skip-previous"
+          onPress={() => actions.loadSource(props.previousSourceIndex)}
+          size={30}
+        />
         <Spacer width={30} />
-        <TouchableOpacity onPress={actions.paused}>
-          <Icon
-            name={paused ? 'Play' : 'Pause'}
-            width={60}
-            height={60} />
-        </TouchableOpacity>
-        <Spacer width={30} />
-        <TouchableOpacity
-          onPress={() => actions.loadSource(props.nextSourceIndex)}>
-          <Icon
-            name="Next"
-            width={21}
-            height={21} />
-        </TouchableOpacity>
+        <IconButton
+          icon={paused ? 'pause-circle-outline' : 'play-circle-outline'}
+          onPress={() => actions.loadSource(paused)}
+          style={{ width: 80, margin: 0 }}
+          size={80}
+          animated
+        />
+        <Spacer width={20} />
+        <IconButton
+          icon="skip-next"
+          onPress={() => actions.loadSource(props.nextSourceIndex)}
+          size={30}
+        />
+        <Spacer width={10} />
+        <IconButton
+          icon="favorite-border"
+          size={30}
+          onPress={actions.repeat} />
       </View>
-      <Button
-        title="Repeat"
-        onPress={actions.repeat} />
+      <Spacer height={30} />
     </View>
   );
 };
@@ -170,31 +162,25 @@ const Player = ({ source, paused, repeat, ...props }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
-    backgroundColor: '#6f6f76'
+    maxHeight: Dimensions.get('window').height - 50
   },
-  commandButton: {
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: '#292929',
+  head: {
     alignItems: 'center',
-    margin: 7
+    paddingHorizontal: 16,
+    flex: 1
   },
-  panel: {
-    height: Dimensions.get('window').height,
-    backgroundColor: '#2c2c2fAA'
-  },
-  panelButton: {
-    padding: 13,
-    borderRadius: 10,
-    backgroundColor: '#292929',
+  content: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 7
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    flexWrap: 'wrap'
   },
-  panelButtonTitle: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: 'white'
+  progress: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    marginBottom: 40
   }
 });
 

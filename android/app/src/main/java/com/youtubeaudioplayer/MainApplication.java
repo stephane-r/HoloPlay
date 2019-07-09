@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.swmansion.reanimated.ReanimatedPackage;
 import com.horcrux.svg.SvgPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -43,7 +42,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MusicControl(),
           new MainReactPackage(),
             new VectorIconsPackage(),
-            new ReanimatedPackage(),
             new SvgPackage(),
             new ReactNativeConfigPackage(),
             new RNGestureHandlerPackage(),
