@@ -1,7 +1,6 @@
 // @flow
 import * as React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
-// import Title from '../../Title';
 import { Subheading } from 'react-native-paper';
 import Spacer from '../../Spacer';
 
