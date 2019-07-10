@@ -1,7 +1,13 @@
 /* eslint react/prop-types: 0 */
 import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
-import { Text, Headline, IconButton, ProgressBar } from 'react-native-paper';
+import {
+  Text,
+  Headline,
+  IconButton,
+  ProgressBar,
+  ActivityIndicator
+} from 'react-native-paper';
 import Video from 'react-native-video';
 import config from 'react-native-config';
 import MusicControl from 'react-native-music-control';
@@ -21,7 +27,7 @@ type PlayerProps = {
   nextSourceIndex: Function
 };
 
-const Player = ({ source, paused, repeat, ...props }: PlayerProps) => {
+const Player = ({ source, paused, repeat, isFavoris, ...props }: PlayerProps) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoading, setLoading] = useState(true);
 
@@ -72,6 +78,14 @@ const Player = ({ source, paused, repeat, ...props }: PlayerProps) => {
   if (!source) {
     return null;
   }
+  
+  const AddOrRemoveToFavoris = () => {
+    if (isFavoris) {
+      return actions.removeSourceFromFavoris(source);
+    }
+
+    return actions.addSourceToFavoris(source);
+  };
 
   const uri = `https://${YOUTUBE_API_STREAM_URL}/${source.id}`;
   const percentage = Math.floor(
@@ -92,7 +106,6 @@ const Player = ({ source, paused, repeat, ...props }: PlayerProps) => {
         onLoadStart={onLoadStart}
         onEnd={onEnd}
       />
-      {/* {isLoading && <ActivityIndicator />} */}
       <Spacer height={10} />
       <IconButton
         icon="keyboard-arrow-left"
@@ -101,13 +114,16 @@ const Player = ({ source, paused, repeat, ...props }: PlayerProps) => {
       />
       <Spacer height={40} />
       <View style={styles.head}>
-        <Image
-          source={{ uri: source.thumbnails.medium.url }}
-          style={{
-            width: source.thumbnails.medium.width,
-            height: source.thumbnails.medium.height
-          }}
-        />
+        <View>
+          {isLoading && <ActivityIndicator style={styles.loader} />}
+          <Image
+            source={{ uri: source.thumbnails.medium.url }}
+            style={{
+              width: source.thumbnails.medium.width,
+              height: source.thumbnails.medium.height
+            }}
+          />
+        </View>
         <Spacer height={30} />
         <Headline numberOfLines={1}>{source.title}</Headline>
         <Spacer height={10} />
@@ -116,43 +132,49 @@ const Player = ({ source, paused, repeat, ...props }: PlayerProps) => {
       <View style={styles.content}>
         <View style={styles.progress}>
           <Text>{currentTime ? currentTime : '00:00'}</Text>
-          <View style={{ flex: 1, marginHorizontal: 20 }}>
+          <View style={styles.progressBar}>
             <ProgressBar
               progress={percentage}
               color="#2575f4" />
           </View>
           <Text>{ISO8601toDuration(source.duration)}</Text>
-          <Spacer height={60} />
+          <Spacer height={30} />
         </View>
-        <IconButton
-          icon="repeat"
-          size={30}
-          onPress={actions.repeat} />
         <Spacer width={10} />
         <IconButton
-          icon="skip-previous"
-          onPress={() => actions.loadSource(props.previousSourceIndex)}
-          size={30}
-        />
-        <Spacer width={30} />
-        <IconButton
-          icon={paused ? 'pause-circle-outline' : 'play-circle-outline'}
-          onPress={() => actions.loadSource(paused)}
-          style={{ width: 80, margin: 0 }}
-          size={80}
+          icon={repeat ? 'repeat-one' : 'repeat'}
+          size={25}
+          onPress={actions.repeat}
           animated
         />
-        <Spacer width={20} />
-        <IconButton
-          icon="skip-next"
-          onPress={() => actions.loadSource(props.nextSourceIndex)}
-          size={30}
-        />
+        <View style={styles.actionsContainer}>
+          <IconButton
+            icon="skip-previous"
+            onPress={() => actions.loadSource(props.previousSourceIndex)}
+            size={30}
+          />
+          <Spacer width={10} />
+          <IconButton
+            icon={paused ? 'play-circle-outline' : 'pause-circle-outline'}
+            onPress={actions.paused}
+            style={{ width: 80, margin: 0 }}
+            size={80}
+            animated
+          />
+          <IconButton
+            icon="skip-next"
+            onPress={() => actions.loadSource(props.nextSourceIndex)}
+            size={30}
+          />
+        </View>
         <Spacer width={10} />
         <IconButton
-          icon="favorite-border"
-          size={30}
-          onPress={actions.repeat} />
+          icon={isFavoris ? 'favorite' : 'favorite-border'}
+          color={isFavoris ? '#EE05F2' : '#607D8B'}
+          size={25}
+          onPress={AddOrRemoveToFavoris}
+          animated />
+        <Spacer width={10} />
       </View>
       <Spacer height={30} />
     </View>
@@ -162,18 +184,26 @@ const Player = ({ source, paused, repeat, ...props }: PlayerProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    maxHeight: Dimensions.get('window').height - 50
+    maxHeight: Dimensions.get('window').height - 10
   },
   head: {
     alignItems: 'center',
     paddingHorizontal: 16,
     flex: 1
   },
+  loader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    zIndex: 2
+  },
   content: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 16,
     flexWrap: 'wrap'
   },
   progress: {
@@ -181,6 +211,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     marginBottom: 40
+  },
+  progressBar: { flex: 1, marginHorizontal: 20 },
+  actionsContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 
