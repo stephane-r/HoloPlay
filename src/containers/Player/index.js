@@ -2,9 +2,10 @@ import { connect } from '../../store';
 import Player from '../../components/Player';
 
 const PlayerContainer = connect(
-  ({ source, sourceIndex, paused, repeat, playerIsOpened }) => {
+  ({ source, sourceIndex, paused, repeat, playerIsOpened, user }) => {
     const nextSourceIndex = sourceIndex + 1;
     const previousSourceIndex = sourceIndex - 1;
+    const isFavoris = user && source && user.favorisIds.includes(source.id);
 
     return {
       source,
@@ -12,7 +13,8 @@ const PlayerContainer = connect(
       previousSourceIndex,
       paused,
       repeat,
-      playerIsOpened
+      playerIsOpened,
+      isFavoris
     };
   }
 )(Player);
