@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { View, Button } from 'react-native';
-import Input from '../../components/Forms/Input';
+import { View } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import { actions } from '../../store';
 
 type Props = {
@@ -48,24 +48,22 @@ class Register extends React.Component<Props, State> {
   render() {
     return (
       <View>
-        <Input
+        <TextInput
           onChangeText={value => this.handleChange('username', value)}
           placeholder="username"
           value={this.state.username}
         />
-        <Input
+        <TextInput
           onChangeText={value => this.handleChange('email', value)}
           placeholder="email"
           value={this.state.email}
         />
-        <Input
+        <TextInput
           onChangeText={value => this.handleChange('password', value)}
           placeholder="Password"
           value={this.state.password}
         />
-        <Button
-          title="Register"
-          onPress={this.register} />
+        <Button onPress={this.register}>Register</Button>
       </View>
     );
   }
