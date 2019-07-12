@@ -50,15 +50,21 @@ type CarouselProps = {
   data: Array<Object>
 };
 
-const Carousel = (props: CarouselProps) => (
-  <SnapCarousel
-    {...props}
-    layout="tinder"
-    itemWidth={Dimensions.get('window').width - 32}
-    sliderWidth={Dimensions.get('window').width - 32}
-    renderItem={CarouselItem}
-  />
-);
+const Carousel = (props: CarouselProps) => {
+  if (!props.data) {
+    return null;
+  }
+
+  return (
+    <SnapCarousel
+      {...props}
+      layout="tinder"
+      itemWidth={Dimensions.get('window').width - 32}
+      sliderWidth={Dimensions.get('window').width - 32}
+      renderItem={CarouselItem}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   itemContainer: {

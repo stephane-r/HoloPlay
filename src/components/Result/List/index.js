@@ -39,17 +39,18 @@ const ResultList = ({ results, user, isFavoris }: Props): Function => {
                 toggleDialog(!dialogIsShow);
               }}
               isFavoris={
-                isFavoris || (user && user.favorisIds.includes(item.id))
+                isFavoris ||
+                (user && user.favorisIds && user.favorisIds.includes(item.id))
               }
             />
           );
         })}
       </CardList>
-      <DialogAddToPlaylistContainer
+      {/* <DialogAddToPlaylistContainer
         visible={dialogIsShow}
         toggleDialog={() => toggleDialog(!dialogIsShow)}
         source={source}
-      />
+      /> */}
     </>
   );
 };

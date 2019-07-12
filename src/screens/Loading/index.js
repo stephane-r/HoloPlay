@@ -20,21 +20,25 @@ class LoadingScreen extends React.Component {
 
     QuickActions.popInitialAction().then(async data => {
       if (token) {
-        await actions.addUserToken(token);
-        await actions.getUserInformations();
-        await actions.setConnected();
-        await actions.search();
+        try {
+          await actions.addUserToken(token);
+          await actions.getUserInformations();
+          await actions.setConnected();
+          await actions.search();
 
-        if (data && data.title) {
-          switch (true) {
-            case data.title === 'Favoris':
-              return this.props.navigation.navigate('Favoris');
-            case data.title === 'Playlist':
-              return this.props.navigation.navigate('Playlist');
+          if (data && data.title) {
+            switch (true) {
+              case data.title === 'Favoris':
+                return this.props.navigation.navigate('Favoris');
+              case data.title === 'Playlist':
+                return this.props.navigation.navigate('Playlist');
+            }
           }
-        }
 
-        return this.props.navigation.navigate('App');
+          return this.props.navigation.navigate('App');
+        } catch (error) {
+          return this.props.navigation.navigate('Auth');
+        }
       }
 
       return this.props.navigation.navigate('Auth');
