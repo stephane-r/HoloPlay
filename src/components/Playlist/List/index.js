@@ -2,8 +2,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
+import { useQuery } from 'react-apollo-hooks';
 import CardPlaylist from '../../Card/Playlist';
 import Spacer from '../../Spacer';
+import GET_USER from '../../../query/me';
 
 type PlaylistType = {
   id: string,
@@ -25,7 +27,9 @@ type PlayListType = {
   toggleModal: Function
 };
 
-const Playlist = ({ user: { playlist }, toggleModal }: PlayListType) => {
+const Playlist = ({ playlist, toggleModal }: PlayListType) => {
+  const { data, error, loading } = useQuery(GET_USER);
+
   if (playlist && playlist.length === 0) {
     return <Text>Aucune playlist</Text>;
   }

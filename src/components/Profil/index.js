@@ -1,15 +1,15 @@
 // @flow
 import React from 'react';
+import { useQuery } from 'react-apollo-hooks';
 import { View, Image, StyleSheet } from 'react-native';
 import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
+import GET_USER from '../../query/me';
 
-type Props = {
-  user: Object
-};
+const Profil = () => {
+  const { data, error, loading } = useQuery(GET_USER);
 
-const Profil = ({ user }: Props) => {
-  if (!user) {
+  if (error || loading) {
     return null;
   }
 
@@ -21,7 +21,7 @@ const Profil = ({ user }: Props) => {
             color: 'white',
             fontSize: 35,
             paddingTop: 5
-          }}>{`Hey ${user.username}`}</Title>
+          }}>{`Hey ${data.me.username}`}</Title>
         <Spacer height={5} />
         <Text style={{ color: 'white' }}>Welcome home</Text>
       </View>

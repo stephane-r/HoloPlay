@@ -1,7 +1,12 @@
 // @flow
 import React, { useState, useEffect } from 'react';
 import { Portal, Button, Dialog, TextInput } from 'react-native-paper';
+import gql from 'graphql-tag';
+import { useMutation } from 'react-apollo-hooks';
 import { actions } from '../../../store';
+import type { Mutation } from '../../../graphql';
+// TODO: Test to create playlist with mutation
+// TODO: https://graphql-code-generator.com/docs/plugins/flow
 
 // $FlowFixMe
 const uuidv4 = require('uuid/v4');
@@ -13,9 +18,9 @@ type Props = {
 };
 
 const playlistProps = {
-  id: null,
-  createAt: new Date(),
-  updatedAt: null,
+  // id: null,
+  // createAt: new Date(),
+  // updatedAt: null,
   name: ''
 };
 
@@ -24,6 +29,9 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
   const [playlist, setPlaylist] = useState(
     props.playlist ? props.playlist : playlistProps
   );
+  // const [test] = useMutation(Mutation.createPlaylist, {
+  //   data: { ...playlist, userIds: [1], sources: '' }
+  // });
 
   useEffect(() => {
     if (props.playlist) {
@@ -41,7 +49,8 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
     const playlistName = playlist.name;
     const playlistUpdated = { ...playlist, id: uuidv4(), sources: [] };
 
-    await actions.createNewPlaylist(playlistUpdated);
+    // await actions.createNewPlaylist(playlistUpdated);
+    // test();
 
     closeDialog();
 
