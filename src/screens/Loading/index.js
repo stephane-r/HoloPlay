@@ -4,7 +4,7 @@ import { ActivityIndicator } from 'react-native';
 import { useQuery } from 'react-apollo-hooks';
 import QuickActions from 'react-native-quick-actions';
 import { actions } from '../../store';
-import GET_USER from '../../query/me';
+import GET_USER from '../../graphql/query/me';
 
 const TITLE_FAVORIS = 'Favoris';
 const TITLE_PLAYLIST = 'Playlist';

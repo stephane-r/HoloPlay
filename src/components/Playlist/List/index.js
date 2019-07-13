@@ -5,7 +5,7 @@ import { Text } from 'react-native-paper';
 import { useQuery } from 'react-apollo-hooks';
 import CardPlaylist from '../../Card/Playlist';
 import Spacer from '../../Spacer';
-import GET_USER from '../../../query/me';
+import GET_USER from '../../../graphql/query/me';
 
 type PlaylistType = {
   id: string,

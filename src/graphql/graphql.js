@@ -16,6 +16,13 @@ export type Scalars = {
   Long: any
 };
 
+export const CacheControlScopeValues = Object.freeze({
+  Public: 'PUBLIC',
+  Private: 'PRIVATE'
+});
+
+export type CacheControlScope = $Values<typeof CacheControlScopeValues>;
+
 export type CreatePlaylistInput = {
   data?: ?PlaylistInput
 };
@@ -425,3 +432,7 @@ export type UsersPermissionsUser = {
   role?: ?UsersPermissionsRole,
   playlist?: ?Playlist
 };
+type $Pick<Origin: Object, Keys: Object> = $ObjMapi<
+  Keys,
+  <Key>(k: Key) => $ElementType<Origin, Key>
+>;

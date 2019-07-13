@@ -15,7 +15,8 @@
     "lint": "eslint src",
     "flow": "./node_modules/.bin/flow",
     "static-analysis": "yarn flow && yarn lint",
-    "storybook": "storybook start"
+    "storybook": "storybook start",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.3.1",
@@ -53,6 +54,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/runtime": "^7.4.3",
+    "@graphql-codegen/cli": "^1.4.0",
     "@storybook/react-native": "^4.1.18",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.7.1",
@@ -73,7 +75,10 @@
     "react-native-storybook-loader": "^1.8.0",
     "react-test-renderer": "16.6.3",
     "shelljs": "^0.8.3",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.19",
+    "@graphql-codegen/flow": "1.4.0",
+    "@graphql-codegen/flow-operations": "1.4.0",
+    "@graphql-codegen/introspection": "1.4.0"
   },
   "pre-commit": [
     "precommit-msg",

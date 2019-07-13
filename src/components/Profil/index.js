@@ -4,7 +4,7 @@ import { useQuery } from 'react-apollo-hooks';
 import { View, Image, StyleSheet } from 'react-native';
 import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
-import GET_USER from '../../query/me';
+import GET_USER from '../../graphql/query/me';
 
 const Profil = () => {
   const { data, error, loading } = useQuery(GET_USER);

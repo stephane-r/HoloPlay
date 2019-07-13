@@ -1,0 +1,5 @@
+schema: http://localhost:1337/graphql
+documents: ./src/**/*.graphql
+generates:
+  types.flow.js:
+    - flow
