@@ -1,37 +1,35 @@
 // @flow
 import React, { useState, useEffect } from 'react';
 import { Portal, Button, Dialog, TextInput } from 'react-native-paper';
-import gql from 'graphql-tag';
-import { useMutation } from 'react-apollo-hooks';
+import { withApollo } from 'react-apollo';
 import { actions } from '../../../store';
-import type { Mutation } from '../../../graphql';
-// TODO: Test to create playlist with mutation
-// TODO: https://graphql-code-generator.com/docs/plugins/flow
-
-// $FlowFixMe
-const uuidv4 = require('uuid/v4');
+import {
+  CREATE_PLAYLIST,
+  UPDATE_PLAYLIST
+} from '../../../graphql/mutation/playlist';
+import GET_USER_PLAYIST from '../../../graphql/query/playlist';
 
 type Props = {
   toggleDialog: Function,
   visible: boolean,
+  client: Object,
   playlist?: Object
 };
 
 const playlistProps = {
-  // id: null,
-  // createAt: new Date(),
-  // updatedAt: null,
   name: ''
 };
 
-const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
+const DialogAddPlaylist = ({
+  toggleDialog,
+  visible,
+  client,
+  ...props
+}: Props) => {
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(
     props.playlist ? props.playlist : playlistProps
   );
-  // const [test] = useMutation(Mutation.createPlaylist, {
-  //   data: { ...playlist, userIds: [1], sources: '' }
-  // });
 
   useEffect(() => {
     if (props.playlist) {
@@ -39,18 +37,21 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
     }
   }, [props.playlist]);
 
-  const setPlaylistName = async name => {
-    const playlistUpdated = { ...playlist, name };
+  const setPlaylistName = async name => setPlaylist({ ...playlist, name });
 
-    setPlaylist(playlistUpdated);
-  };
-
-  const createNewPlaylist = async () => {
+  const createPlaylist = () => {
     const playlistName = playlist.name;
-    const playlistUpdated = { ...playlist, id: uuidv4(), sources: [] };
+    const playlistUpdated = { ...playlist, sources: [] };
 
-    // await actions.createNewPlaylist(playlistUpdated);
-    // test();
+    client.mutate({
+      mutation: CREATE_PLAYLIST,
+      variables: { ...playlistUpdated, users: [1] },
+      refetchQueries: [
+        {
+          query: GET_USER_PLAYIST
+        }
+      ]
+    });
 
     closeDialog();
 
@@ -60,14 +61,18 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
     );
   };
 
-  const updatePlaylist = async () => {
+  const updatePlaylist = () => {
     const playlistName = playlist.name;
-    const playlistUpdated = {
-      ...playlist,
-      updatedAt: new Date()
-    };
 
-    await actions.updatePlaylist(playlistUpdated);
+    client.mutate({
+      mutation: UPDATE_PLAYLIST,
+      variables: { ...playlist, users: [1] },
+      refetchQueries: [
+        {
+          query: GET_USER_PLAYIST
+        }
+      ]
+    });
 
     closeDialog();
 
@@ -85,7 +90,7 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
         return updatePlaylist();
       }
 
-      return createNewPlaylist();
+      return createPlaylist();
     }
 
     return actions.setFlashMessage('You must name your playlist.');
@@ -126,4 +131,4 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
   );
 };
 
-export default DialogAddPlaylist;
+export default withApollo(DialogAddPlaylist);

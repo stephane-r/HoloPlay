@@ -6,7 +6,7 @@ import SearchResultContainer from '../../containers/SearchResults';
 import Layout from '../../components/Layout';
 import ProfilContainer from '../../containers/Profil';
 import Spacer from '../../components/Spacer';
-import CarouselUserPlaylistContainer from '../../containers/CarouselUserPlaylist';
+import CarouselUserPlaylists from '../../components/Carousel';
 import Search from '../../components/Search';
 
 type DashboardProps = {
@@ -21,7 +21,7 @@ const Dashboard = ({ navigation }: DashboardProps) => (
       <ProfilContainer />
       <Spacer height={30} />
       <View style={styles.carouselContainer}>
-        <CarouselUserPlaylistContainer />
+        <CarouselUserPlaylists />
       </View>
     </View>
     <Spacer height={90} />

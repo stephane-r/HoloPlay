@@ -1,9 +1,11 @@
 // @flow
 import React, { useState } from 'react';
 import { Text } from 'react-native-paper';
+import { useQuery } from 'react-apollo-hooks';
 import CardList from '../../Card/List';
 import DialogAddToPlaylistContainer from '../../../containers/DialogAddToPlaylist';
 import CardSearchItemContainer from '../../../containers/SearchItem';
+import GET_FAVORIS_IDS from '../../../graphql/query/favorisIds';
 
 type Props = {
   results: Array<Object>,
@@ -14,6 +16,14 @@ type Props = {
 const ResultList = ({ results, user, isFavoris }: Props): Function => {
   const [dialogIsShow, toggleDialog] = useState(false);
   const [source, setDialogSource] = useState(null);
+
+  const { data, error, loading } = useQuery(GET_FAVORIS_IDS, {
+    variables: { userId: 1 }
+  });
+
+  if (loading || error) {
+    return null;
+  }
 
   if (results.length === 0) {
     return <Text>No result.</Text>;
@@ -34,14 +44,13 @@ const ResultList = ({ results, user, isFavoris }: Props): Function => {
               index={index}
               card={card}
               item={item}
+              favorisIds={data.user.favorisIds}
+              favoris={data.user.favoris}
               addToPlaylist={item => {
                 setDialogSource(item);
                 toggleDialog(!dialogIsShow);
               }}
-              isFavoris={
-                isFavoris ||
-                (user && user.favorisIds && user.favorisIds.includes(item.id))
-              }
+              isFavoris={isFavoris || data.user.favorisIds.includes(item.id)}
             />
           );
         })}

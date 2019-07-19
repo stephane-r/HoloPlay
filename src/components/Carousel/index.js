@@ -3,7 +3,9 @@ import React from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import { IconButton, Text } from 'react-native-paper';
 import SnapCarousel from 'react-native-snap-carousel';
+import { useQuery } from 'react-apollo-hooks';
 import Card from '../Card/Layout';
+import GET_USER_PLAYIST from '../../graphql/query/playlist';
 
 type PlayIconProps = {
   onPress?: Function
@@ -21,12 +23,12 @@ const CarouselPlayIcon = ({ onPress }: PlayIconProps) => (
   />
 );
 
-type ItemProps = {
+type CarouselItemProps = {
   item: Object,
   index: Number
 };
 
-const CarouselItem = ({ item }: ItemProps) => (
+const CarouselItem = ({ item }: CarouselItemProps) => (
   <View style={styles.itemContainer}>
     <Card
       key={item.id}
@@ -34,30 +36,31 @@ const CarouselItem = ({ item }: ItemProps) => (
       card={{
         title: item.name,
         picture:
-          item.sources.length === 0
-            ? 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
-            : item.sources[0].thumbnails.default.url
+          'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png'
+        // item.sources.length === 0
+        // ? 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
+        // : item.sources[0].thumbnails.default.url
       }}
       rightContent={
         <CarouselPlayIcon onPress={() => alert('play playlist')} />
       }>
-      <Text>{item.sources.length} sound</Text>
+      {/* <Text>{item.sources.length} sound</Text> */}
+      <Text>0 sound</Text>
     </Card>
   </View>
 );
 
-type CarouselProps = {
-  data: Array<Object>
-};
+const Carousel = () => {
+  const { data, error, loading } = useQuery(GET_USER_PLAYIST);
 
-const Carousel = (props: CarouselProps) => {
-  if (!props.data) {
+  if (loading || error) {
     return null;
   }
 
   return (
     <SnapCarousel
-      {...props}
+      data={data.playlists}
+      firstItem={data.playlists.length - 1}
       layout="tinder"
       itemWidth={Dimensions.get('window').width - 32}
       sliderWidth={Dimensions.get('window').width - 32}

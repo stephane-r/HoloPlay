@@ -2,11 +2,18 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
+import { withApollo } from 'react-apollo';
 import Card from '../Layout';
 import { actions } from '../../../store';
 import MenuSearchItem from '../../Menu/SearchItem';
+import { ADD_TO_FAVORIS } from '../../../graphql/mutation/favoris';
+import GET_USER from '../../../graphql/query/me';
+import GET_FAVORIS_IDS from '../../../graphql/query/favorisIds';
 
 type CardSearchItemProps = {
+  client: Object,
+  favorisIds: Array<number>,
+  favoris: Array<Object>,
   card: Object,
   item: Object,
   isFavoris: boolean,
@@ -14,6 +21,7 @@ type CardSearchItemProps = {
 };
 
 const CardSearchItem = ({
+  client,
   item,
   isFavoris,
   addToPlaylist,
@@ -21,10 +29,39 @@ const CardSearchItem = ({
 }: CardSearchItemProps) => {
   const AddOrRemoveToFavoris = () => {
     if (isFavoris) {
-      return actions.removeSourceFromFavoris(item);
+      // return actions.removeSourceFromFavoris(item);
+      return client.mutate({
+        mutation: ADD_TO_FAVORIS,
+        variables: {
+          userId: 1,
+          favorisIds: props.favorisIds.filter(f => f !== item.id),
+          favoris: props.favoris
+            ? props.favoris.filter(f => f.id !== item.id)
+            : []
+        },
+        refetchQueries: [
+          {
+            query: GET_FAVORIS_IDS,
+            variables: { userId: 1 }
+          }
+        ]
+      });
     }
 
-    return actions.addSourceToFavoris(item);
+    return client.mutate({
+      mutation: ADD_TO_FAVORIS,
+      variables: {
+        userId: 1,
+        favorisIds: [...props.favorisIds, item.id],
+        favoris: props.favoris ? [...props.favoris, item] : [item]
+      },
+      refetchQueries: [
+        {
+          query: GET_FAVORIS_IDS,
+          variables: { userId: 1 }
+        }
+      ]
+    });
   };
 
   return (
@@ -55,4 +92,4 @@ const CardSearchItem = ({
   );
 };
 
-export default CardSearchItem;
+export default withApollo(CardSearchItem);

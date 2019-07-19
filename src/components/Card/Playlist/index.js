@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
+import { useMutation } from 'react-apollo-hooks';
 import Card from '../Layout';
 import { actions } from '../../../store';
 import Spacer from '../../Spacer';
@@ -9,6 +10,7 @@ import { CarouselPlayIcon } from '../../Carousel';
 import Source from '../../Source';
 import DialogRemovePlaylist from '../../Dialog/RemovePlaylist';
 import MenuPlaylist from '../../Menu/Playlist';
+import { REMOVE_PLAYLIST } from '../../../graphql/mutation/playlist';
 
 type CardPlaylistProps = {
   totalSongs: number,
@@ -26,13 +28,18 @@ const CardPlaylist = ({
   const [dialogIsOpen, setToggleDialog] = useState(false);
   const [showItems, setToggleItems] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [removePlaylistMut] = useMutation(REMOVE_PLAYLIST);
 
   const toggleDialog = () => setToggleDialog(!dialogIsOpen);
   const toggleItems = () => setToggleItems(!showItems);
 
   const removePlaylist = async () => {
     setIsLoading(true);
-    await actions.removePlaylist(playlist.id);
+    removePlaylistMut({
+      variables: {
+        id: playlist.id
+      }
+    });
     actions.setFlashMessage(`${playlist.name} has been removed.`);
     setIsLoading(false);
   };
