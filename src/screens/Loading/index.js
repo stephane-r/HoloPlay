@@ -18,7 +18,7 @@ const LoadingScreen = (props: LoadingScreenProps) => {
 
   const { data, error } = useQuery(GET_USER);
 
-  if (data && data.me) {
+  if (data && data.userMe) {
     QuickActions.popInitialAction().then(async action => {
       if (action && action.title) {
         switch (true) {

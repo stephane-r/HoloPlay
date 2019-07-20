@@ -2,7 +2,8 @@ import gql from 'graphql-tag';
 
 const GET_USER = gql`
   {
-    me {
+    userMe {
+      id
       username
     }
   }

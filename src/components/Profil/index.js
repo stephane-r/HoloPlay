@@ -21,7 +21,7 @@ const Profil = () => {
             color: 'white',
             fontSize: 35,
             paddingTop: 5
-          }}>{`Hey ${data.me.username}`}</Title>
+          }}>{`Hey ${data.userMe.username}`}</Title>
         <Spacer height={5} />
         <Text style={{ color: 'white' }}>Welcome home</Text>
       </View>

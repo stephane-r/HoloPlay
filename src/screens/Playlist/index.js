@@ -5,6 +5,8 @@ import PlaylistContainer from '../../containers/Playlist';
 import Layout from '../../components/Layout';
 import DialogAddPlaylistContainer from '../../containers/DialogAddPlaylist';
 import Header from '../../components/Header';
+import { useQuery } from 'react-apollo-hooks';
+import GET_USER from '../../graphql/query/me';
 
 type PlaylistScreenProps = {
   navigation: Object
@@ -14,6 +16,8 @@ const PlaylistScreen = ({ navigation }: PlaylistScreenProps) => {
   const [modalIsOpen, setToggleModal] = useState(false);
   const [playlist, setPlaylist] = useState(null);
   const [fabIsOpen, toggleFab] = useState(false);
+
+  const { data, error, loading } = useQuery(GET_USER);
 
   const toggleModal = async (item = null) => {
     if (item && item.id) {
@@ -33,6 +37,7 @@ const PlaylistScreen = ({ navigation }: PlaylistScreenProps) => {
         visible={modalIsOpen}
         toggleDialog={toggleModal}
         playlist={playlist}
+        userId={data.userMe.id}
       />
       <Portal>
         <FAB.Group

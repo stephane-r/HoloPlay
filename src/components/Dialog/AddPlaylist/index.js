@@ -13,6 +13,7 @@ type Props = {
   toggleDialog: Function,
   visible: boolean,
   client: Object,
+  userId: null,
   playlist?: Object
 };
 
@@ -23,6 +24,7 @@ const playlistProps = {
 const DialogAddPlaylist = ({
   toggleDialog,
   visible,
+  userId,
   client,
   ...props
 }: Props) => {
@@ -45,7 +47,7 @@ const DialogAddPlaylist = ({
 
     client.mutate({
       mutation: CREATE_PLAYLIST,
-      variables: { ...playlistUpdated, users: [1] },
+      variables: { ...playlistUpdated, users: [userId] },
       refetchQueries: [
         {
           query: GET_USER_PLAYIST
@@ -66,7 +68,7 @@ const DialogAddPlaylist = ({
 
     client.mutate({
       mutation: UPDATE_PLAYLIST,
-      variables: { ...playlist, users: [1] },
+      variables: { ...playlist, users: [userId] },
       refetchQueries: [
         {
           query: GET_USER_PLAYIST
