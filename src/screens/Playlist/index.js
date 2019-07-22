@@ -1,11 +1,11 @@
 // @flow
 import React, { useState } from 'react';
 import { Portal, FAB } from 'react-native-paper';
+import { useQuery } from 'react-apollo-hooks';
 import PlaylistContainer from '../../containers/Playlist';
 import Layout from '../../components/Layout';
 import DialogAddPlaylistContainer from '../../containers/DialogAddPlaylist';
 import Header from '../../components/Header';
-import { useQuery } from 'react-apollo-hooks';
 import GET_USER from '../../graphql/query/me';
 
 type PlaylistScreenProps = {
@@ -17,7 +17,7 @@ const PlaylistScreen = ({ navigation }: PlaylistScreenProps) => {
   const [playlist, setPlaylist] = useState(null);
   const [fabIsOpen, toggleFab] = useState(false);
 
-  const { data, error, loading } = useQuery(GET_USER);
+  const { data } = useQuery(GET_USER);
 
   const toggleModal = async (item = null) => {
     if (item && item.id) {
@@ -32,7 +32,10 @@ const PlaylistScreen = ({ navigation }: PlaylistScreenProps) => {
       <Header
         title="Playlist"
         backgroundColor="#0455BF" />
-      <PlaylistContainer toggleModal={playlist => toggleModal(playlist)} />
+      <PlaylistContainer
+        userId={data.userMe.id}
+        toggleModal={playlist => toggleModal(playlist)}
+      />
       <DialogAddPlaylistContainer
         visible={modalIsOpen}
         toggleDialog={toggleModal}

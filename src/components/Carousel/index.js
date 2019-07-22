@@ -6,6 +6,7 @@ import SnapCarousel from 'react-native-snap-carousel';
 import { useQuery } from 'react-apollo-hooks';
 import Card from '../Card/Layout';
 import GET_USER_PLAYIST from '../../graphql/query/playlist';
+import GET_USER from '../../graphql/query/me';
 
 type PlayIconProps = {
   onPress?: Function
@@ -50,8 +51,12 @@ const CarouselItem = ({ item }: CarouselItemProps) => (
   </View>
 );
 
-const Carousel = () => {
-  const { data, error, loading } = useQuery(GET_USER_PLAYIST);
+const Carousel = ({ userId }) => {
+  const { data, error, loading } = useQuery(GET_USER_PLAYIST, {
+    variables: {
+      userId
+    }
+  });
 
   if (loading || error) {
     return null;
@@ -59,8 +64,8 @@ const Carousel = () => {
 
   return (
     <SnapCarousel
-      data={data.playlists}
-      firstItem={data.playlists.length - 1}
+      data={data.user.playlists}
+      firstItem={data.user.playlists.length - 1}
       layout="tinder"
       itemWidth={Dimensions.get('window').width - 32}
       sliderWidth={Dimensions.get('window').width - 32}

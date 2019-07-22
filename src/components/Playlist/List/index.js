@@ -27,8 +27,12 @@ type PlayListType = {
   toggleModal: Function
 };
 
-const Playlist = ({ playlist, toggleModal }: PlayListType) => {
-  const { data, error, loading } = useQuery(GET_USER_PLAYIST);
+const Playlist = ({ playlist, userId, toggleModal }: PlayListType) => {
+  const { data, error, loading } = useQuery(GET_USER_PLAYIST, {
+    variables: {
+      userId
+    }
+  });
 
   if (loading) {
     return <Text>Chargement des playlist</Text>;
@@ -41,7 +45,7 @@ const Playlist = ({ playlist, toggleModal }: PlayListType) => {
   return (
     <View>
       <Spacer height={18} />
-      {data.playlists.map((playlist, index) => (
+      {data.user.playlists.map((playlist, index) => (
         <CardPlaylist
           key={index}
           alignment="horizontal"

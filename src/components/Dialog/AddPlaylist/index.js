@@ -50,7 +50,10 @@ const DialogAddPlaylist = ({
       variables: { ...playlistUpdated, users: [userId] },
       refetchQueries: [
         {
-          query: GET_USER_PLAYIST
+          query: GET_USER_PLAYIST,
+          variables: {
+            userId
+          }
         }
       ]
     });
@@ -71,7 +74,10 @@ const DialogAddPlaylist = ({
       variables: { ...playlist, users: [userId] },
       refetchQueries: [
         {
-          query: GET_USER_PLAYIST
+          query: GET_USER_PLAYIST,
+          variables: {
+            userId
+          }
         }
       ]
     });

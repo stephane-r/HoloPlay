@@ -13,26 +13,26 @@ type Props = {
   isFavoris?: boolean
 };
 
-const ResultList = ({ results, user, isFavoris }: Props): Function => {
+const ResultList = ({ results, user, userId, isFavoris }: Props): Function => {
   const [dialogIsShow, toggleDialog] = useState(false);
   const [source, setDialogSource] = useState(null);
 
   const { data, error, loading } = useQuery(GET_FAVORIS_IDS, {
-    variables: { userId: 1 }
+    variables: { userId }
   });
 
   if (loading || error) {
-    return null;
+    return <Text>{String(error)}</Text>;
   }
 
-  if (results.length === 0) {
+  if (!data.favoris || data.favoris.length === 0) {
     return <Text>No result.</Text>;
   }
 
   return (
     <>
       <CardList>
-        {results.map((item, index) => {
+        {data.favoris.map((item, index) => {
           const card = {
             title: item.title,
             picture: item.thumbnails.default.url

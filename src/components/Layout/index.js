@@ -6,7 +6,9 @@ import {
   StyleSheet,
   DrawerLayoutAndroid
 } from 'react-native';
+import { useQuery } from 'react-apollo-hooks';
 import DrawlerContainer from '../../containers/Drawler';
+import GET_USER from '../../graphql/query/me';
 
 type LayoutProps = {
   navigation: Object,
