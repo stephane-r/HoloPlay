@@ -7,8 +7,7 @@ import Card from '../Layout';
 import { actions } from '../../../store';
 import MenuSearchItem from '../../Menu/SearchItem';
 import { ADD_TO_FAVORIS } from '../../../graphql/mutation/favoris';
-import GET_USER from '../../../graphql/query/me';
-import GET_FAVORIS_IDS from '../../../graphql/query/favorisIds';
+import GET_USER from '../../../graphql/query/user';
 
 type CardSearchItemProps = {
   client: Object,
@@ -17,6 +16,7 @@ type CardSearchItemProps = {
   card: Object,
   item: Object,
   isFavoris: boolean,
+  userId: number,
   addToPlaylist: Function
 };
 
@@ -25,42 +25,39 @@ const CardSearchItem = ({
   item,
   isFavoris,
   addToPlaylist,
+  userId,
   ...props
 }: CardSearchItemProps) => {
   const AddOrRemoveToFavoris = () => {
+    const refetchQueries = [
+      {
+        query: GET_USER,
+        variables: { userId }
+      }
+    ];
+
     if (isFavoris) {
-      // return actions.removeSourceFromFavoris(item);
       return client.mutate({
         mutation: ADD_TO_FAVORIS,
         variables: {
-          userId: 1,
+          userId,
           favorisIds: props.favorisIds.filter(f => f !== item.id),
           favoris: props.favoris
             ? props.favoris.filter(f => f.id !== item.id)
             : []
         },
-        refetchQueries: [
-          {
-            query: GET_FAVORIS_IDS,
-            variables: { userId: 1 }
-          }
-        ]
+        refetchQueries
       });
     }
 
     return client.mutate({
       mutation: ADD_TO_FAVORIS,
       variables: {
-        userId: 1,
+        userId,
         favorisIds: [...props.favorisIds, item.id],
         favoris: props.favoris ? [...props.favoris, item] : [item]
       },
-      refetchQueries: [
-        {
-          query: GET_FAVORIS_IDS,
-          variables: { userId: 1 }
-        }
-      ]
+      refetchQueries
     });
   };
 

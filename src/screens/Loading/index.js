@@ -4,7 +4,7 @@ import { ActivityIndicator } from 'react-native';
 import { useQuery } from 'react-apollo-hooks';
 import QuickActions from 'react-native-quick-actions';
 import { actions } from '../../store';
-import GET_USER from '../../graphql/query/me';
+import GET_ME from '../../graphql/query/me';
 
 const TITLE_FAVORIS = 'Favoris';
 const TITLE_PLAYLIST = 'Playlist';
@@ -16,7 +16,7 @@ type LoadingScreenProps = {
 const LoadingScreen = (props: LoadingScreenProps) => {
   actions.appInit();
 
-  const { data, error } = useQuery(GET_USER);
+  const { data, error } = useQuery(GET_ME);
 
   if (data && data.userMe) {
     QuickActions.popInitialAction().then(async action => {

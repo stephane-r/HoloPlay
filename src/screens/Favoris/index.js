@@ -6,7 +6,7 @@ import { actions } from '../../store';
 import Layout from '../../components/Layout';
 import Header from '../../components/Header';
 import ResultList from '../../components/Result/List';
-import GET_FAVORIS_IDS from '../../graphql/query/favorisIds';
+import GET_USER from '../../graphql/query/user';
 
 type ScreenProps = {
   userId: number
@@ -23,7 +23,7 @@ const Favoris = ({ navigation, ...props }: FavorisProps) => {
     return actions.loadSource(index);
   };
 
-  const { data, loading } = useQuery(GET_FAVORIS_IDS, {
+  const { data, loading } = useQuery(GET_USER, {
     variables: { userId: props.screenProps.userId }
   });
 

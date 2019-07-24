@@ -1,12 +1,11 @@
 import gql from 'graphql-tag';
 
-const GET_USER = gql`
+const GET_ME = gql`
   {
     userMe {
       id
-      username
     }
   }
 `;
 
-export default GET_USER;
+export default GET_ME;

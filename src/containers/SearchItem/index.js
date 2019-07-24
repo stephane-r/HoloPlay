@@ -1,7 +1,7 @@
 import { connect, actions } from '../../store';
 import CardSearchItem from '../../components/Card/SearchItem';
 
-const CardSearchItemContainer = connect(() => {
+const CardSearchItemContainer = connect(({ userId }) => {
   const loadSource = async index => {
     await actions.setPlaylistFrom('searchResults');
     await actions.loadSource(index);
@@ -10,7 +10,8 @@ const CardSearchItemContainer = connect(() => {
   };
 
   return {
-    onPress: loadSource
+    onPress: loadSource,
+    userId
   };
 })(CardSearchItem);
 

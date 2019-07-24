@@ -7,7 +7,7 @@ import {
   CREATE_PLAYLIST,
   UPDATE_PLAYLIST
 } from '../../../graphql/mutation/playlist';
-import GET_USER_PLAYIST from '../../../graphql/query/playlist';
+import GET_USER from '../../../graphql/query/user';
 
 type Props = {
   toggleDialog: Function,
@@ -33,6 +33,15 @@ const DialogAddPlaylist = ({
     props.playlist ? props.playlist : playlistProps
   );
 
+  const refetchQueries = [
+    {
+      query: GET_USER,
+      variables: {
+        userId
+      }
+    }
+  ];
+
   useEffect(() => {
     if (props.playlist) {
       setPlaylist(props.playlist);
@@ -48,14 +57,7 @@ const DialogAddPlaylist = ({
     client.mutate({
       mutation: CREATE_PLAYLIST,
       variables: { ...playlistUpdated, users: [userId] },
-      refetchQueries: [
-        {
-          query: GET_USER_PLAYIST,
-          variables: {
-            userId
-          }
-        }
-      ]
+      refetchQueries
     });
 
     closeDialog();
@@ -67,25 +69,16 @@ const DialogAddPlaylist = ({
   };
 
   const updatePlaylist = () => {
-    const playlistName = playlist.name;
-
     client.mutate({
       mutation: UPDATE_PLAYLIST,
       variables: { ...playlist, users: [userId] },
-      refetchQueries: [
-        {
-          query: GET_USER_PLAYIST,
-          variables: {
-            userId
-          }
-        }
-      ]
+      refetchQueries
     });
 
     closeDialog();
 
     return setTimeout(
-      () => actions.setFlashMessage(`${playlistName} was updated.`),
+      () => actions.setFlashMessage(`${playlist.name} was updated.`),
       500
     );
   };

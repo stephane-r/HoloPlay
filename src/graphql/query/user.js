@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const GET_USER_ME = gql`
+const GET_USER = gql`
   query User($userId: ID!) {
     user(id: $userId) {
       id
@@ -8,10 +8,12 @@ const GET_USER_ME = gql`
       favorisIds
       favoris
       playlists {
+        id
         name
+        sources
       }
     }
   }
 `;
 
-export default GET_USER_ME;
+export default GET_USER;

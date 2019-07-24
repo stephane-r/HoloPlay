@@ -5,7 +5,7 @@ import { Text } from 'react-native-paper';
 import { useQuery } from 'react-apollo-hooks';
 import CardPlaylist from '../../Card/Playlist';
 import Spacer from '../../Spacer';
-import GET_USER_PLAYIST from '../../../graphql/query/playlist';
+import GET_USER from '../../../graphql/query/user';
 
 type PlaylistType = {
   id: string,
@@ -28,10 +28,8 @@ type PlayListType = {
 };
 
 const Playlist = ({ playlist, userId, toggleModal }: PlayListType) => {
-  const { data, error, loading } = useQuery(GET_USER_PLAYIST, {
-    variables: {
-      userId
-    }
+  const { data, error, loading } = useQuery(GET_USER, {
+    variables: { userId }
   });
 
   if (loading) {

@@ -5,7 +5,7 @@ import { IconButton, Text } from 'react-native-paper';
 import SnapCarousel from 'react-native-snap-carousel';
 import { useQuery } from 'react-apollo-hooks';
 import Card from '../Card/Layout';
-import GET_USER_PLAYIST from '../../graphql/query/playlist';
+import GET_USER from '../../graphql/query/user';
 
 type PlayIconProps = {
   onPress?: Function
@@ -51,7 +51,7 @@ const CarouselItem = ({ item }: CarouselItemProps) => (
 );
 
 const Carousel = ({ userId }) => {
-  const { data, error, loading } = useQuery(GET_USER_PLAYIST, {
+  const { data, error, loading } = useQuery(GET_USER, {
     variables: {
       userId
     }

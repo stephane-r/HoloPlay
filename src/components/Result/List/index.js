@@ -40,6 +40,7 @@ const ResultList = ({ data, ...props }: ResultListProps) => {
                 setDialogSource(item);
                 toggleDialog(!dialogIsShow);
               }}
+              isFavoris={props.isFavoris || props.favorisIds.includes(item.id)}
             />
           );
         })}
