@@ -33,3 +33,13 @@ export const REMOVE_PLAYLIST = gql`
     }
   }
 `;
+
+export const ADD_SOURCE_TO_PLAYLIST = gql`
+  mutation($id: ID!, $sources: JSON) {
+    updatePlaylist(input: { where: { id: $id }, data: { sources: $sources } }) {
+      playlist {
+        name
+      }
+    }
+  }
+`;

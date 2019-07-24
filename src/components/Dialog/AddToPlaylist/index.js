@@ -1,36 +1,55 @@
 // @flow
 import React, { useState } from 'react';
+import { withApollo } from 'react-apollo';
 import { Picker } from 'react-native';
 import { Paragraph, Dialog, Button, Portal } from 'react-native-paper';
 import { actions } from '../../../store';
+import GET_USER from '../../../graphql/query/user';
+import { ADD_SOURCE_TO_PLAYLIST } from '../../../graphql/mutation/playlist';
 
 type Props = {
+  client: Object,
   toggleDialog: Function,
   visible: boolean,
   source: Object,
-  playlist: Object
+  playlists: Object,
+  userId: number
 };
 
 const DialogAddToPlaylist = ({
+  client,
   toggleDialog,
   visible,
   source,
-  playlist
+  playlists,
+  userId
 }: Props) => {
-  if (!playlist) {
+  if (!playlists) {
     return null;
   }
 
   const [playlistId, setPlaylistId] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
-  const addSourceToPlaylist = async () => {
+  const addSourceToPlaylist = () => {
     if (playlistId) {
       setLoading(true);
 
-      await actions.addSourceToPlaylist({
-        source,
-        playlistId
+      const { sources } = playlists.find(p => p.id === playlistId);
+      const sourcesUpdated = sources ? [...sources, source] : [source];
+
+      client.mutate({
+        mutation: ADD_SOURCE_TO_PLAYLIST,
+        variables: {
+          id: playlistId,
+          sources: sourcesUpdated
+        },
+        refetchQueries: [
+          {
+            query: GET_USER,
+            variables: { userId }
+          }
+        ]
       });
 
       setLoading(false);
@@ -58,7 +77,7 @@ const DialogAddToPlaylist = ({
             selectedValue={playlistId}
             style={{ height: 50 }}
             onValueChange={value => setPlaylistId(value)}>
-            {playlist.map(({ name, id }, index) => (
+            {playlists.map(({ name, id }, index) => (
               <Picker.Item
                 key={index}
                 label={name}
@@ -79,4 +98,4 @@ const DialogAddToPlaylist = ({
   );
 };
 
-export default DialogAddToPlaylist;
+export default withApollo(DialogAddToPlaylist);

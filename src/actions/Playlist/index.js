@@ -9,36 +9,36 @@ const playlistActions = {
       playlistIsFecthing: true
     };
   },
-  addSourceToPlaylist: async (state, actions, { source, playlistId }) => {
-    const currentPlaylist = state.user.playlist;
-    const playlistUpdated = {
-      playlist: currentPlaylist.map(item => {
-        if (item.id === playlistId) {
-          const playlist = {
-            sources: [...item.sources, source]
-          };
+  // addSourceToPlaylist: async (state, actions, { source, playlistId }) => {
+  //   const currentPlaylist = state.user.playlist;
+  //   const playlistUpdated = {
+  //     playlist: currentPlaylist.map(item => {
+  //       if (item.id === playlistId) {
+  //         const playlist = {
+  //           sources: [...item.sources, source]
+  //         };
 
-          return {
-            ...item,
-            ...playlist
-          };
-        }
+  //         return {
+  //           ...item,
+  //           ...playlist
+  //         };
+  //       }
 
-        return item;
-      })
-    };
-    const user = {
-      ...state.user,
-      ...playlistUpdated
-    };
+  //       return item;
+  //     })
+  //   };
+  //   const user = {
+  //     ...state.user,
+  //     ...playlistUpdated
+  //   };
 
-    await actions.updateUser(playlistUpdated);
+  //   await actions.updateUser(playlistUpdated);
 
-    return {
-      ...state,
-      user
-    };
-  },
+  //   return {
+  //     ...state,
+  //     user
+  //   };
+  // },
   removeSourceFromPlaylist: async (state, actions, { source, playlistId }) => {
     const currentPlaylist = state.user.playlist;
     const playlistUpdated = {

@@ -42,6 +42,7 @@ const Dashboard = ({ navigation, ...props }: DashboardProps) => {
       <Title style={{ fontSize: 27 }}>Search</Title>
       <Spacer height={15} />
       <SearchResultContainer
+        playlists={loading ? [] : data.user.playlists}
         favorisIds={loading ? [] : data.user.favorisIds}
         favoris={loading ? [] : data.user.favoris}
       />
