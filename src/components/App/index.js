@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import config from 'react-native-config';
 import GestureRecognizer from 'react-native-swipe-gestures';
@@ -9,6 +10,10 @@ import SidebarContainer from '../../containers/Sidebar';
 import StorybookUI from '../../../storybook';
 import SnackbarContainer from '../../containers/Snackbar';
 import { actions } from '../../store';
+
+type AppProps = {
+  darkMode: boolean
+};
 
 const { STORYBOOK } = config;
 
@@ -37,33 +42,33 @@ QuickActions.isSupported((error, supported) => {
   return error;
 });
 
-const App = ({ darkMode }) => {
+const darkTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#2575f4',
+    accent: '#0455BF'
+  }
+};
+
+const defaultTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#2575f4',
+    accent: '#0455BF'
+  }
+};
+
+const swipConfig = {
+  velocityThreshold: 0.3,
+  directionalOffsetThreshold: 80
+};
+
+const App = ({ darkMode, userId }: AppProps) => {
   if (STORYBOOK === 'true') {
     return <StorybookUI />;
   }
-
-  const darkTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: '#2575f4',
-      accent: '#0455BF'
-    }
-  };
-
-  const defaultTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: '#2575f4',
-      accent: '#0455BF'
-    }
-  };
-
-  const swipConfig = {
-    velocityThreshold: 0.3,
-    directionalOffsetThreshold: 80
-  };
 
   return (
     <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
@@ -74,7 +79,11 @@ const App = ({ darkMode }) => {
           flex: 1
         }}>
         <SidebarContainer />
-        <NavigationContainer />
+        <NavigationContainer
+          screenProps={{
+            userId
+          }}
+        />
         <SnackbarContainer />
       </GestureRecognizer>
     </PaperProvider>

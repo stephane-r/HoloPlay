@@ -2,40 +2,39 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Title } from 'react-native-paper';
-import { useQuery } from 'react-apollo-hooks';
 import SearchResultContainer from '../../containers/SearchResults';
 import Layout from '../../components/Layout';
 import ProfilContainer from '../../containers/Profil';
 import Spacer from '../../components/Spacer';
 import CarouselUserPlaylists from '../../components/Carousel';
 import Search from '../../components/Search';
-import GET_USER from '../../graphql/query/me';
+
+type ScreenProps = {
+  userId: number
+};
 
 type DashboardProps = {
-  navigation: Object
+  navigation: Object,
+  screenProps: ScreenProps
 };
 
-const Dashboard = ({ navigation }: DashboardProps) => {
-  const { data } = useQuery(GET_USER);
-
-  return (
-    <Layout navigation={navigation}>
-      <View style={styles.header}>
-        <Search />
-        <Spacer height={15} />
-        <ProfilContainer />
-        <Spacer height={30} />
-        <View style={styles.carouselContainer}>
-          <CarouselUserPlaylists userId={data.userMe.id} />
-        </View>
-      </View>
-      <Spacer height={90} />
-      <Title style={{ fontSize: 27 }}>Search</Title>
+const Dashboard = ({ navigation, ...props }: DashboardProps) => (
+  <Layout navigation={navigation}>
+    <View style={styles.header}>
+      <Search />
       <Spacer height={15} />
-      <SearchResultContainer />
-    </Layout>
-  );
-};
+      <ProfilContainer />
+      <Spacer height={30} />
+      <View style={styles.carouselContainer}>
+        <CarouselUserPlaylists userId={props.screenProps.userId} />
+      </View>
+    </View>
+    <Spacer height={90} />
+    <Title style={{ fontSize: 27 }}>Search</Title>
+    <Spacer height={15} />
+    <SearchResultContainer />
+  </Layout>
+);
 
 const styles = StyleSheet.create({
   header: {

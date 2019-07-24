@@ -4,7 +4,8 @@ import api from '../../api';
 
 const apiState = {
   jwt: null,
-  user: null
+  user: null,
+  userId: null
 };
 
 const apiActions = {
@@ -20,11 +21,13 @@ const apiActions = {
   loginThroughApi: async (state, actions, formData) => {
     const { jwt, user } = await callApi(api.login, 'post', formData);
     await AsyncStorage.setItem('userToken', jwt);
+    await AsyncStorage.setItem('userId', String(user.id));
 
     return {
       ...state,
       jwt,
-      user
+      user,
+      userId: user.id
     };
   },
   addUserToken: (state, actions, jwt) => {

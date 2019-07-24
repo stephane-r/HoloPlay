@@ -6,7 +6,6 @@ import SnapCarousel from 'react-native-snap-carousel';
 import { useQuery } from 'react-apollo-hooks';
 import Card from '../Card/Layout';
 import GET_USER_PLAYIST from '../../graphql/query/playlist';
-import GET_USER from '../../graphql/query/me';
 
 type PlayIconProps = {
   onPress?: Function

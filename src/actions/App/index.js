@@ -15,10 +15,12 @@ const appState = {
 const appActions = {
   appInit: async state => {
     const darkMode = await AsyncStorage.getItem('darkMode');
+    const userId = await AsyncStorage.getItem('userId');
 
     return {
       ...state,
-      darkMode: darkMode === 'true'
+      darkMode: darkMode === 'true',
+      userId: Number(userId)
     };
   },
   setConnected: state => {

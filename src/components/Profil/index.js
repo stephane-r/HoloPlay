@@ -4,10 +4,14 @@ import { useQuery } from 'react-apollo-hooks';
 import { View, Image, StyleSheet } from 'react-native';
 import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
-import GET_USER from '../../graphql/query/me';
+import GET_USER_ME from '../../graphql/query/user';
 
-const Profil = () => {
-  const { data, error, loading } = useQuery(GET_USER);
+const Profil = ({ userId }) => {
+  const { data, error, loading } = useQuery(GET_USER_ME, {
+    variables: {
+      userId
+    }
+  });
 
   if (error || loading) {
     return null;
@@ -21,7 +25,7 @@ const Profil = () => {
             color: 'white',
             fontSize: 35,
             paddingTop: 5
-          }}>{`Hey ${data.userMe.username}`}</Title>
+          }}>{`Hey ${data.user.username}`}</Title>
         <Spacer height={5} />
         <Text style={{ color: 'white' }}>Welcome home</Text>
       </View>
