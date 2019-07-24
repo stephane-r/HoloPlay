@@ -1,8 +1,10 @@
 import gql from 'graphql-tag';
 
 export const CREATE_PLAYLIST = gql`
-  mutation($name: String!, $users: [ID]) {
-    createPlaylist(input: { data: { name: $name, users: $users } }) {
+  mutation($name: String!, $users: [ID], $deleted: Boolean) {
+    createPlaylist(
+      input: { data: { name: $name, users: $users, deleted: $deleted } }
+    ) {
       playlist {
         name
       }
@@ -23,8 +25,8 @@ export const UPDATE_PLAYLIST = gql`
 `;
 
 export const REMOVE_PLAYLIST = gql`
-  mutation($id: ID!) {
-    deletePlaylist(input: { where: { id: $id } }) {
+  mutation($id: ID!, $deleted: Boolean) {
+    updatePlaylist(input: { where: { id: $id }, data: { deleted: $deleted } }) {
       playlist {
         name
       }

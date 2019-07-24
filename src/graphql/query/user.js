@@ -7,7 +7,7 @@ const GET_USER = gql`
       username
       favorisIds
       favoris
-      playlists {
+      playlists(where: { deleted: false }) {
         id
         name
         sources

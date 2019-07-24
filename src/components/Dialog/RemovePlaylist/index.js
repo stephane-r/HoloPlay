@@ -16,24 +16,22 @@ const DialogRemovePlaylist = ({
   onPress,
   playlistName,
   loading
-}: DialogRemovePlaylistProps) => {
-  return (
-    <Portal>
-      <Dialog
-        visible={visible}
-        onDismiss={toggleDialog}>
-        <Dialog.Title>Remove {playlistName} playlist ?</Dialog.Title>
-        <Dialog.Actions>
-          <Button onPress={toggleDialog}>Cancel</Button>
-          <Button
-            onPress={onPress}
-            loading={loading}>
-            Remove
-          </Button>
-        </Dialog.Actions>
-      </Dialog>
-    </Portal>
-  );
-};
+}: DialogRemovePlaylistProps) => (
+  <Portal>
+    <Dialog
+      visible={visible}
+      onDismiss={toggleDialog}>
+      <Dialog.Title>Remove {playlistName} playlist ?</Dialog.Title>
+      <Dialog.Actions>
+        <Button onPress={toggleDialog}>Cancel</Button>
+        <Button
+          onPress={onPress}
+          loading={loading}>
+          Remove
+        </Button>
+      </Dialog.Actions>
+    </Dialog>
+  </Portal>
+);
 
 export default DialogRemovePlaylist;

@@ -1,5 +1,6 @@
 // @flow
 import React, { useState } from 'react';
+import { withApollo } from 'react-apollo';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useMutation } from 'react-apollo-hooks';
@@ -11,6 +12,7 @@ import Source from '../../Source';
 import DialogRemovePlaylist from '../../Dialog/RemovePlaylist';
 import MenuPlaylist from '../../Menu/Playlist';
 import { REMOVE_PLAYLIST } from '../../../graphql/mutation/playlist';
+import GET_USER from '../../../graphql/query/user';
 
 type CardPlaylistProps = {
   totalSongs: number,
@@ -20,6 +22,7 @@ type CardPlaylistProps = {
 };
 
 const CardPlaylist = ({
+  client,
   totalSongs,
   playlist,
   toggleModal,
@@ -28,17 +31,24 @@ const CardPlaylist = ({
   const [dialogIsOpen, setToggleDialog] = useState(false);
   const [showItems, setToggleItems] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [removePlaylistMut] = useMutation(REMOVE_PLAYLIST);
+  // const [removePlaylistMut] = useMutation(REMOVE_PLAYLIST);
 
   const toggleDialog = () => setToggleDialog(!dialogIsOpen);
   const toggleItems = () => setToggleItems(!showItems);
 
   const removePlaylist = async () => {
     setIsLoading(true);
-    removePlaylistMut({
-      variables: {
-        id: playlist.id
-      }
+    client.mutate({
+      mutation: REMOVE_PLAYLIST,
+      variables: { ...playlist, deleted: true },
+      refetchQueries: [
+        {
+          query: GET_USER,
+          variables: {
+            userId: props.userId
+          }
+        }
+      ]
     });
     actions.setFlashMessage(`${playlist.name} has been removed.`);
     setIsLoading(false);
@@ -70,7 +80,7 @@ const CardPlaylist = ({
             />
             <MenuPlaylist
               onEdit={() => toggleModal(playlist)}
-              onRemove={removePlaylist}
+              onRemove={toggleDialog}
             />
           </View>
         }>
@@ -89,4 +99,4 @@ const CardPlaylist = ({
   );
 };
 
-export default CardPlaylist;
+export default withApollo(CardPlaylist);

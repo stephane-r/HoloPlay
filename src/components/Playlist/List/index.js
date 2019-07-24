@@ -59,6 +59,7 @@ const Playlist = ({ playlist, userId, toggleModal }: PlayListType) => {
           toggleModal={toggleModal}
           // totalSongs={playlist.sources.length}
           playlistId={playlist.id}
+          userId={userId}
         />
       ))}
     </View>

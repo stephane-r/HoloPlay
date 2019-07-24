@@ -9,7 +9,7 @@ import {
 } from '../../../graphql/mutation/playlist';
 import GET_USER from '../../../graphql/query/user';
 
-type Props = {
+type DialogAddPlaylistProps = {
   toggleDialog: Function,
   visible: boolean,
   client: Object,
@@ -18,7 +18,8 @@ type Props = {
 };
 
 const playlistProps = {
-  name: ''
+  name: '',
+  deleted: false
 };
 
 const DialogAddPlaylist = ({
@@ -27,7 +28,7 @@ const DialogAddPlaylist = ({
   userId,
   client,
   ...props
-}: Props) => {
+}: DialogAddPlaylistProps) => {
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(
     props.playlist ? props.playlist : playlistProps
@@ -52,7 +53,7 @@ const DialogAddPlaylist = ({
 
   const createPlaylist = () => {
     const playlistName = playlist.name;
-    const playlistUpdated = { ...playlist, sources: [] };
+    const playlistUpdated = { ...playlistProps, ...playlist, sources: [] };
 
     client.mutate({
       mutation: CREATE_PLAYLIST,
