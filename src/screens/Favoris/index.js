@@ -1,26 +1,47 @@
 // @flow
 import React from 'react';
-import { actions } from '../../store';
-import FavorisContainer from '../../containers/Favoris';
+import { useQuery } from 'react-apollo-hooks';
+import { Text } from 'react-native-paper';
+// import { actions } from '../../store';
 import Layout from '../../components/Layout';
 import Header from '../../components/Header';
+import ResultList from '../../components/Result/List';
+import GET_USER from '../../graphql/query/user';
 
-type FavorisProps = {
-  navigation: Object
+type ScreenProps = {
+  userId: number
 };
 
-const Favoris = ({ navigation }: FavorisProps) => {
-  const loadSource = async index => {
-    await actions.setPlaylistFrom('favoris');
-    return actions.loadSource(index);
-  };
+type FavorisProps = {
+  navigation: Object,
+  screenProps: ScreenProps
+};
+
+const Favoris = ({ navigation, ...props }: FavorisProps) => {
+  // const loadSource = async index => {
+  //   await actions.setPlaylistFrom('favoris');
+  //   return actions.loadSource(index);
+  // };
+
+  const { data, loading } = useQuery(GET_USER, {
+    variables: { userId: props.screenProps.userId }
+  });
 
   return (
     <Layout navigation={navigation}>
       <Header
         title="Favoris"
         backgroundColor="#EE05F2" />
-      <FavorisContainer onPress={loadSource} />
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <ResultList
+          data={data.user.favoris}
+          favorisIds={data.user.favorisIds}
+          favoris={data.user.favoris}
+          isFavoris
+        />
+      )}
     </Layout>
   );
 };

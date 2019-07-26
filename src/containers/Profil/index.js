@@ -1,8 +1,8 @@
 import { connect } from '../../store';
 import Profil from '../../components/Profil';
 
-const ProfilContainer = connect(({ user }) => ({
-  user
+const ProfilContainer = connect(({ userId }) => ({
+  userId
 }))(Profil);
 
 export default ProfilContainer;

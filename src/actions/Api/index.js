@@ -4,7 +4,8 @@ import api from '../../api';
 
 const apiState = {
   jwt: null,
-  user: null
+  user: null,
+  userId: null
 };
 
 const apiActions = {
@@ -20,11 +21,13 @@ const apiActions = {
   loginThroughApi: async (state, actions, formData) => {
     const { jwt, user } = await callApi(api.login, 'post', formData);
     await AsyncStorage.setItem('userToken', jwt);
+    await AsyncStorage.setItem('userId', String(user.id));
 
     return {
       ...state,
       jwt,
-      user
+      user,
+      userId: user.id
     };
   },
   addUserToken: (state, actions, jwt) => {
@@ -33,18 +36,16 @@ const apiActions = {
       jwt
     };
   },
-  getUserInformations: async state => {
-    const user = await callApi(api.me, 'get', null, {
-      Authorization: `Bearer ${state.jwt}`
-    });
+  // getUserInformations: async state => {
+  //   const user = await callApi(api.me, 'get', null, {
+  //     Authorization: `Bearer ${state.jwt}`
+  //   });
 
-    console.log(user);
-
-    return {
-      ...state,
-      user
-    };
-  },
+  //   return {
+  //     ...state,
+  //     user
+  //   };
+  // },
   addSourceToFavoris: async (state, action, source) => {
     const { _id, favoris, favorisIds } = state.user;
     const userUpdated = {

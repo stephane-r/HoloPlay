@@ -11,6 +11,7 @@ node_modules
 *.timestamp
 .code-push.config
 strings.xml
+.npm
 
 # Core
 env.js

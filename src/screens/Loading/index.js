@@ -1,53 +1,47 @@
+// @flow
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import { useQuery } from 'react-apollo-hooks';
 // eslint-disable-next-line import/no-unresolved
 import QuickActions from 'react-native-quick-actions';
 import { actions } from '../../store';
+import GET_ME from '../../graphql/query/me';
 
-class LoadingScreen extends React.Component {
-  static path = 'loading';
+const TITLE_FAVORIS = 'Favoris';
+const TITLE_PLAYLIST = 'Playlist';
 
-  static navigationOptions = () => ({
-    title: 'Loading',
-    linkName: 'Loading'
-  });
+type LoadingScreenProps = {
+  navigation: Object
+};
 
-  async componentDidMount() {
-    actions.appInit();
+const LoadingScreen = (props: LoadingScreenProps) => {
+  actions.appInit();
 
-    const token = await AsyncStorage.getItem('userToken');
+  const { data, error } = useQuery(GET_ME);
 
-    QuickActions.popInitialAction().then(async data => {
-      if (token) {
-        try {
-          await actions.addUserToken(token);
-          await actions.getUserInformations();
-          await actions.setConnected();
-          await actions.search();
-
-          if (data && data.title) {
-            switch (true) {
-              case data.title === 'Favoris':
-                return this.props.navigation.navigate('Favoris');
-              case data.title === 'Playlist':
-                return this.props.navigation.navigate('Playlist');
-            }
-          }
-
-          return this.props.navigation.navigate('App');
-        } catch (error) {
-          return this.props.navigation.navigate('Auth');
+  if (data && data.userMe) {
+    QuickActions.popInitialAction().then(async action => {
+      if (action && action.title) {
+        switch (true) {
+          case action.title === TITLE_FAVORIS:
+            return props.navigation.navigate(TITLE_FAVORIS);
+          case action.title === TITLE_PLAYLIST:
+            return props.navigation.navigate(TITLE_PLAYLIST);
         }
       }
 
-      return this.props.navigation.navigate('Auth');
+      actions.setConnected();
+      actions.search();
+
+      return props.navigation.navigate('App');
     });
   }
 
-  render() {
-    return <ActivityIndicator />;
+  if (error) {
+    return props.navigation.navigate('Auth');
   }
-}
+
+  return <ActivityIndicator />;
+};
 
 export default LoadingScreen;
