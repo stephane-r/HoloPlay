@@ -1,16 +1,21 @@
 // @flow
 import React, { useState } from 'react';
 import { Portal, FAB } from 'react-native-paper';
-import PlaylistContainer from '../../containers/Playlist';
 import Layout from '../../components/Layout';
-import DialogAddPlaylistContainer from '../../containers/DialogAddPlaylist';
+import DialogAddPlaylist from '../../components/Dialog/AddPlaylist';
 import Header from '../../components/Header';
+import Playlist from '../../components/Playlist/List';
 
-type PlaylistScreenProps = {
-  navigation: Object
+type ScreenProps = {
+  userId: number
 };
 
-const PlaylistScreen = ({ navigation }: PlaylistScreenProps) => {
+type PlaylistScreenProps = {
+  navigation: Object,
+  screenProps: ScreenProps
+};
+
+const PlaylistScreen = ({ navigation, ...props }: PlaylistScreenProps) => {
   const [modalIsOpen, setToggleModal] = useState(false);
   const [playlist, setPlaylist] = useState(null);
   const [fabIsOpen, toggleFab] = useState(false);
@@ -28,11 +33,15 @@ const PlaylistScreen = ({ navigation }: PlaylistScreenProps) => {
       <Header
         title="Playlist"
         backgroundColor="#0455BF" />
-      <PlaylistContainer toggleModal={playlist => toggleModal(playlist)} />
-      <DialogAddPlaylistContainer
+      <Playlist
+        userId={props.screenProps.userId}
+        toggleModal={playlist => toggleModal(playlist)}
+      />
+      <DialogAddPlaylist
         visible={modalIsOpen}
         toggleDialog={toggleModal}
         playlist={playlist}
+        userId={props.screenProps.userId}
       />
       <Portal>
         <FAB.Group

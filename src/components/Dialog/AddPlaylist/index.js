@@ -1,29 +1,47 @@
 // @flow
 import React, { useState, useEffect } from 'react';
 import { Portal, Button, Dialog, TextInput } from 'react-native-paper';
+import { withApollo } from 'react-apollo';
 import { actions } from '../../../store';
+import {
+  CREATE_PLAYLIST,
+  UPDATE_PLAYLIST
+} from '../../../graphql/mutation/playlist';
+import GET_USER from '../../../graphql/query/user';
 
-// $FlowFixMe
-const uuidv4 = require('uuid/v4');
-
-type Props = {
+type DialogAddPlaylistProps = {
   toggleDialog: Function,
   visible: boolean,
+  client?: Object,
+  userId: number,
   playlist?: Object
 };
 
 const playlistProps = {
-  id: null,
-  createAt: new Date(),
-  updatedAt: null,
-  name: ''
+  name: '',
+  deleted: false
 };
 
-const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
+const DialogAddPlaylist = ({
+  toggleDialog,
+  visible,
+  userId,
+  client,
+  ...props
+}) => {
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(
     props.playlist ? props.playlist : playlistProps
   );
+
+  const refetchQueries = [
+    {
+      query: GET_USER,
+      variables: {
+        userId
+      }
+    }
+  ];
 
   useEffect(() => {
     if (props.playlist) {
@@ -31,17 +49,17 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
     }
   }, [props.playlist]);
 
-  const setPlaylistName = async name => {
-    const playlistUpdated = { ...playlist, name };
+  const setPlaylistName = async name => setPlaylist({ ...playlist, name });
 
-    setPlaylist(playlistUpdated);
-  };
-
-  const createNewPlaylist = async () => {
+  const createPlaylist = () => {
     const playlistName = playlist.name;
-    const playlistUpdated = { ...playlist, id: uuidv4(), sources: [] };
+    const playlistUpdated = { ...playlistProps, ...playlist, sources: [] };
 
-    await actions.createNewPlaylist(playlistUpdated);
+    client.mutate({
+      mutation: CREATE_PLAYLIST,
+      variables: { ...playlistUpdated, users: [userId] },
+      refetchQueries
+    });
 
     closeDialog();
 
@@ -51,19 +69,17 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
     );
   };
 
-  const updatePlaylist = async () => {
-    const playlistName = playlist.name;
-    const playlistUpdated = {
-      ...playlist,
-      updatedAt: new Date()
-    };
-
-    await actions.updatePlaylist(playlistUpdated);
+  const updatePlaylist = () => {
+    client.mutate({
+      mutation: UPDATE_PLAYLIST,
+      variables: { ...playlist, users: [userId] },
+      refetchQueries
+    });
 
     closeDialog();
 
     return setTimeout(
-      () => actions.setFlashMessage(`${playlistName} was updated.`),
+      () => actions.setFlashMessage(`${playlist.name} was updated.`),
       500
     );
   };
@@ -76,7 +92,7 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
         return updatePlaylist();
       }
 
-      return createNewPlaylist();
+      return createPlaylist();
     }
 
     return actions.setFlashMessage('You must name your playlist.');
@@ -117,4 +133,4 @@ const DialogAddPlaylist = ({ toggleDialog, visible, ...props }: Props) => {
   );
 };
 
-export default DialogAddPlaylist;
+export default withApollo<DialogAddPlaylistProps>(DialogAddPlaylist);
