@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import config from 'react-native-config';
+// $FlowFixMe
 import GestureRecognizer from 'react-native-swipe-gestures';
 // eslint-disable-next-line import/no-unresolved
 import QuickActions from 'react-native-quick-actions';
@@ -12,7 +13,8 @@ import SnackbarContainer from '../../containers/Snackbar';
 import { actions } from '../../store';
 
 type AppProps = {
-  darkMode: boolean
+  darkMode: boolean,
+  userId: number
 };
 
 const { STORYBOOK } = config;

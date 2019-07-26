@@ -2,6 +2,7 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useQuery } from 'react-apollo-hooks';
+// eslint-disable-next-line import/no-unresolved
 import QuickActions from 'react-native-quick-actions';
 import { actions } from '../../store';
 import GET_ME from '../../graphql/query/me';

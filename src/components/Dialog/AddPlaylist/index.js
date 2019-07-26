@@ -12,8 +12,8 @@ import GET_USER from '../../../graphql/query/user';
 type DialogAddPlaylistProps = {
   toggleDialog: Function,
   visible: boolean,
-  client: Object,
-  userId: null,
+  client?: Object,
+  userId: number,
   playlist?: Object
 };
 
@@ -28,7 +28,7 @@ const DialogAddPlaylist = ({
   userId,
   client,
   ...props
-}: DialogAddPlaylistProps) => {
+}) => {
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(
     props.playlist ? props.playlist : playlistProps
@@ -133,4 +133,4 @@ const DialogAddPlaylist = ({
   );
 };
 
-export default withApollo(DialogAddPlaylist);
+export default withApollo<DialogAddPlaylistProps>(DialogAddPlaylist);

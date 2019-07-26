@@ -7,7 +7,8 @@ import { actions } from '../../store';
 
 type SourceProps = {
   items: Array<Object>,
-  playlistId: Number
+  playlistId: Number,
+  onRemove: Function
 };
 
 const Source = ({ items, playlistId, onRemove }: SourceProps) => (

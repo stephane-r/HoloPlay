@@ -4,13 +4,13 @@ import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { withApollo } from 'react-apollo';
 import Card from '../Layout';
-import { actions } from '../../../store';
+// import { actions } from '../../../store';
 import MenuSearchItem from '../../Menu/SearchItem';
 import { ADD_TO_FAVORIS } from '../../../graphql/mutation/favoris';
 import GET_USER from '../../../graphql/query/user';
 
 type CardSearchItemProps = {
-  client: Object,
+  client?: Object,
   favorisIds: Array<number>,
   favoris: Array<Object>,
   card: Object,
@@ -27,7 +27,7 @@ const CardSearchItem = ({
   addToPlaylist,
   userId,
   ...props
-}: CardSearchItemProps) => {
+}) => {
   const AddOrRemoveToFavoris = () => {
     const refetchQueries = [
       {
@@ -89,4 +89,4 @@ const CardSearchItem = ({
   );
 };
 
-export default withApollo(CardSearchItem);
+export default withApollo<CardSearchItemProps>(CardSearchItem);

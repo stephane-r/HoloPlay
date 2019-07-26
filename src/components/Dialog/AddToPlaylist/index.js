@@ -7,7 +7,7 @@ import { actions } from '../../../store';
 import GET_USER from '../../../graphql/query/user';
 import { ADD_SOURCE_TO_PLAYLIST } from '../../../graphql/mutation/playlist';
 
-type Props = {
+type DialogAddToPlaylistProps = {
   client: Object,
   toggleDialog: Function,
   visible: boolean,
@@ -23,7 +23,7 @@ const DialogAddToPlaylist = ({
   source,
   playlists,
   userId
-}: Props) => {
+}) => {
   if (!playlists) {
     return null;
   }
@@ -98,4 +98,4 @@ const DialogAddToPlaylist = ({
   );
 };
 
-export default withApollo(DialogAddToPlaylist);
+export default withApollo<DialogAddToPlaylistProps>(DialogAddToPlaylist);

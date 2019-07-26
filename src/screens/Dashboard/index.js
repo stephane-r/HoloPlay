@@ -9,11 +9,8 @@ import ProfilContainer from '../../containers/Profil';
 import Spacer from '../../components/Spacer';
 import CarouselUserPlaylists from '../../components/Carousel';
 import Search from '../../components/Search';
+import type { ScreenProps } from '../../types';
 import GET_USER from '../../graphql/query/user';
-
-type ScreenProps = {
-  userId: number
-};
 
 type DashboardProps = {
   navigation: Object,
@@ -41,11 +38,13 @@ const Dashboard = ({ navigation, ...props }: DashboardProps) => {
       <Spacer height={90} />
       <Title style={{ fontSize: 27 }}>Search</Title>
       <Spacer height={15} />
-      <SearchResultContainer
-        playlists={loading ? [] : data.user.playlists}
-        favorisIds={loading ? [] : data.user.favorisIds}
-        favoris={loading ? [] : data.user.favoris}
-      />
+      {!loading && (
+        <SearchResultContainer
+          playlists={data.user.playlists}
+          favorisIds={data.user.favorisIds}
+          favoris={data.user.favoris}
+        />
+      )}
     </Layout>
   );
 };

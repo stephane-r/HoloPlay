@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* @flow */
 
 /** All built-in and custom scalars, mapped to their actual values */

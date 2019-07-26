@@ -10,7 +10,8 @@ type ResultListProps = {
   playlists?: null | Array<Object>,
   favorisIds?: Array<number>,
   favoris?: Array<Object>,
-  isFavoris: boolean
+  isFavoris: boolean,
+  userId?: number
 };
 
 const defaultValue = {
@@ -46,6 +47,7 @@ const ResultList = ({ data, ...props }: ResultListProps) => {
                 setDialogSource(item);
                 toggleDialog(!dialogIsShow);
               }}
+              // $FlowFixMe
               isFavoris={props.isFavoris || props.favorisIds.includes(item.id)}
             />
           );

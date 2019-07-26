@@ -17,10 +17,12 @@ import {
 import GET_USER from '../../../graphql/query/user';
 
 type CardPlaylistProps = {
+  client?: Object,
   totalSongs: number,
   playlist: Object,
   toggleModal: Function,
-  card: Object
+  card: Object,
+  userId: number
 };
 
 const CardPlaylist = ({
@@ -29,7 +31,7 @@ const CardPlaylist = ({
   playlist,
   toggleModal,
   ...props
-}: CardPlaylistProps) => {
+}) => {
   const [dialogIsOpen, setToggleDialog] = useState(false);
   const [showItems, setToggleItems] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -120,4 +122,4 @@ const CardPlaylist = ({
   );
 };
 
-export default withApollo(CardPlaylist);
+export default withApollo<CardPlaylistProps>(CardPlaylist);

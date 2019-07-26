@@ -28,6 +28,10 @@ type CarouselItemProps = {
   index: Number
 };
 
+type CarouselProps = {
+  userId: number
+};
+
 const CarouselItem = ({ item }: CarouselItemProps) => (
   <View style={styles.itemContainer}>
     <Card
@@ -50,7 +54,7 @@ const CarouselItem = ({ item }: CarouselItemProps) => (
   </View>
 );
 
-const Carousel = ({ userId }) => {
+const Carousel = ({ userId }: CarouselProps) => {
   const { data, error, loading } = useQuery(GET_USER, {
     variables: {
       userId
