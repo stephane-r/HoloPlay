@@ -43,3 +43,5 @@ export const ADD_SOURCE_TO_PLAYLIST = gql`
     }
   }
 `;
+
+export const REMOVE_SOURCE_TO_PLAYLIST = ADD_SOURCE_TO_PLAYLIST;

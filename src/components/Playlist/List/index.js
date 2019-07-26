@@ -34,9 +34,10 @@ const Playlist = ({ userId, toggleModal }: PlayListType) => {
           alignment="horizontal"
           card={{
             title: playlist.name,
-            picture: playlist.sources
-              ? playlist.sources[0].thumbnails.default.url
-              : 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
+            picture:
+              playlist.sources && playlist.sources[0]
+                ? playlist.sources[0].thumbnails.default.url
+                : 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
           }}
           playlist={{
             ...playlist,
