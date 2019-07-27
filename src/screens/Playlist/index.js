@@ -1,6 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import { Portal, FAB } from 'react-native-paper';
+import { withNavigationFocus } from 'react-navigation';
 import Layout from '../../components/Layout';
 import DialogAddPlaylist from '../../components/Dialog/AddPlaylist';
 import Header from '../../components/Header';
@@ -11,6 +12,7 @@ type ScreenProps = {
 };
 
 type PlaylistScreenProps = {
+  isFocused: boolean,
   navigation: Object,
   screenProps: ScreenProps
 };
@@ -43,21 +45,23 @@ const PlaylistScreen = ({ navigation, ...props }: PlaylistScreenProps) => {
         playlist={playlist}
         userId={props.screenProps.userId}
       />
-      <Portal>
-        <FAB.Group
-          open={fabIsOpen}
-          icon={fabIsOpen ? 'today' : 'add'}
-          actions={[
-            {
-              icon: 'headset',
-              label: 'New playlist',
-              onPress: () => setToggleModal(true)
-            }
-          ]}
-          onStateChange={({ open }) => toggleFab(open)}
-          fabStyle={{ marginBottom: 70 }}
-        />
-      </Portal>
+      {props.isFocused && (
+        <Portal>
+          <FAB.Group
+            open={fabIsOpen}
+            icon={fabIsOpen ? 'today' : 'add'}
+            actions={[
+              {
+                icon: 'headset',
+                label: 'New playlist',
+                onPress: () => setToggleModal(true)
+              }
+            ]}
+            onStateChange={({ open }) => toggleFab(open)}
+            fabStyle={{ marginBottom: 70 }}
+          />
+        </Portal>
+      )}
     </Layout>
   );
 };
@@ -69,4 +73,4 @@ PlaylistScreen.navigationOptions = () => ({
   linkName: 'Playlist'
 });
 
-export default PlaylistScreen;
+export default withNavigationFocus(PlaylistScreen);

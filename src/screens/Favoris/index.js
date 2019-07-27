@@ -39,6 +39,7 @@ const Favoris = ({ navigation, ...props }: FavorisProps) => {
           data={data.user.favoris}
           favorisIds={data.user.favorisIds}
           favoris={data.user.favoris}
+          playlists={data.user.playlists}
           isFavoris
         />
       )}
