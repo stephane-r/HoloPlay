@@ -9,15 +9,6 @@ const apiState = {
 };
 
 const apiActions = {
-  registerThroughApi: async (state, actions, formData) => {
-    try {
-      await callApi(api.register, 'post', formData);
-    } catch (error) {
-      alert(JSON.stringify(error));
-    }
-
-    return state;
-  },
   loginThroughApi: async (state, actions, formData) => {
     const { jwt, user } = await callApi(api.login, 'post', formData);
     await AsyncStorage.setItem('userToken', jwt);
@@ -36,16 +27,6 @@ const apiActions = {
       jwt
     };
   },
-  // getUserInformations: async state => {
-  //   const user = await callApi(api.me, 'get', null, {
-  //     Authorization: `Bearer ${state.jwt}`
-  //   });
-
-  //   return {
-  //     ...state,
-  //     user
-  //   };
-  // },
   addSourceToFavoris: async (state, action, source) => {
     const { _id, favoris, favorisIds } = state.user;
     const userUpdated = {
