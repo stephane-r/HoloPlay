@@ -125,7 +125,7 @@ const Player = ({
     });
   };
 
-  const uri = `http://${YOUTUBE_API_STREAM_URL}/${source.id}`;
+  const uri = `https://${YOUTUBE_API_STREAM_URL}/${source.id}`;
   const percentage = Math.floor(
     (100 / youtubeDurationToSeconds(source.duration)) * currentTime
   );
