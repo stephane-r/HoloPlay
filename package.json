@@ -27,6 +27,7 @@
     "apollo-link-http": "^1.5.15",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
+    "hh-mm-ss": "^1.2.0",
     "querystring": "^0.2.0",
     "react": "16.8.3",
     "react-apollo": "^2.5.8",
@@ -55,6 +56,9 @@
     "@babel/core": "^7.4.3",
     "@babel/runtime": "^7.4.3",
     "@graphql-codegen/cli": "^1.4.0",
+    "@graphql-codegen/flow": "1.4.0",
+    "@graphql-codegen/flow-operations": "1.4.0",
+    "@graphql-codegen/introspection": "1.4.0",
     "@storybook/react-native": "^4.1.18",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.7.1",
@@ -75,10 +79,7 @@
     "react-native-storybook-loader": "^1.8.0",
     "react-test-renderer": "16.6.3",
     "shelljs": "^0.8.3",
-    "xml2js": "^0.4.19",
-    "@graphql-codegen/flow": "1.4.0",
-    "@graphql-codegen/flow-operations": "1.4.0",
-    "@graphql-codegen/introspection": "1.4.0"
+    "xml2js": "^0.4.19"
   },
   "pre-commit": [
     "precommit-msg",

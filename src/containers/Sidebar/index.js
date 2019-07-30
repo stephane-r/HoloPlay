@@ -1,9 +1,10 @@
 import { connect } from '../../store';
 import Sidebar from '../../components/Sidebar';
 
-const SidebarContainer = connect(({ playerIsOpened, source }) => ({
+const SidebarContainer = connect(({ playerIsOpened, source, userId }) => ({
   playerIsOpened,
-  source
+  source,
+  userId
 }))(Sidebar);
 
 export default SidebarContainer;
