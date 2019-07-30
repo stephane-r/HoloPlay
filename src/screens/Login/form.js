@@ -32,7 +32,7 @@ const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
   };
 
   const goToDashboard = () => navigation.navigate('Dashboard');
-  // const goToRegister = () => navigation.navigate('Register');
+  const goToRegister = () => navigation.navigate('Register');
 
   return (
     <>
@@ -56,9 +56,12 @@ const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
         loading={loginIsFecthing}>
         Login
       </Button>
-      {/* <Button
-        title="Register"
-        onPress={goToRegister} /> */}
+      <Spacer height={20} />
+      <Button
+        mode="outlined"
+        onPress={goToRegister}>
+        Register
+      </Button>
     </>
   );
 };

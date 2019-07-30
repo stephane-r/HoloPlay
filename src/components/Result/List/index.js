@@ -47,8 +47,10 @@ const ResultList = ({ data, ...props }: ResultListProps) => {
                 setDialogSource(item);
                 toggleDialog(!dialogIsShow);
               }}
-              // $FlowFixMe
-              isFavoris={props.isFavoris || props.favorisIds.includes(item.id)}
+              isFavoris={
+                props.isFavoris ||
+                (props.favorisIds && props.favorisIds.includes(item.id))
+              }
             />
           );
         })}
