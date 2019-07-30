@@ -12,6 +12,7 @@ import Video from 'react-native-video';
 import config from 'react-native-config';
 import MusicControl from 'react-native-music-control';
 import { withApollo } from 'react-apollo';
+import TimeFormat from 'hh-mm-ss';
 import { actions } from '../../store';
 import Spacer from '../Spacer';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
@@ -91,7 +92,7 @@ const Player = ({
     return null;
   }
 
-  const isFavoris = props.favorisIds && props.favorisIds.includes(source.id);
+  const isFavoris = props.favorisIds.includes(source.id);
 
   const AddOrRemoveToFavoris = () => {
     const refetchQueries = [
@@ -126,9 +127,8 @@ const Player = ({
   };
 
   const uri = `https://${YOUTUBE_API_STREAM_URL}/${source.id}`;
-  const percentage = Math.floor(
-    (100 / youtubeDurationToSeconds(source.duration)) * currentTime
-  );
+  const duration = youtubeDurationToSeconds(source.duration);
+  const percentage = Math.floor((100 / duration) * currentTime);
 
   return (
     <View style={styles.container}>
@@ -169,7 +169,14 @@ const Player = ({
       </View>
       <View style={styles.content}>
         <View style={styles.progress}>
-          <Text>{currentTime ? currentTime : '00:00'}</Text>
+          <Text>
+            {currentTime
+              ? TimeFormat.fromS(
+                currentTime,
+                duration > 3600 ? 'hh:mm:ss' : 'mm:ss'
+              )
+              : '00:00'}
+          </Text>
           <View style={styles.progressBar}>
             <ProgressBar
               progress={percentage / 100}
