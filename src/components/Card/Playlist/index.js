@@ -83,6 +83,10 @@ const CardPlaylist = ({
         itemsRenderer={
           <Source
             items={playlist.sources}
+            onPlay={async sourceIndex => {
+              await actions.setPlaylistFrom(playlist.sources);
+              actions.loadSource(sourceIndex);
+            }}
             onRemove={removeSource}
             playlistId={playlist.id}
           />

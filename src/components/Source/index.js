@@ -3,15 +3,15 @@ import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, IconButton, Divider } from 'react-native-paper';
 import Spacer from '../Spacer';
-import { actions } from '../../store';
 
 type SourceProps = {
   items: Array<Object>,
   playlistId: Number,
-  onRemove: Function
+  onRemove: Function,
+  onPlay: Function
 };
 
-const Source = ({ items, playlistId, onRemove }: SourceProps) => (
+const Source = ({ items, playlistId, onPlay, onRemove }: SourceProps) => (
   <>
     {items.map((item, index) => (
       <View
@@ -27,7 +27,7 @@ const Source = ({ items, playlistId, onRemove }: SourceProps) => (
             icon="play-circle-outline"
             size={25}
             style={{ margin: 6 }}
-            onPress={actions.loadSource}
+            onPress={() => onPlay(index)}
           />
           <IconButton
             icon="delete"
