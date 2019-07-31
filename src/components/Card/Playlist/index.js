@@ -103,7 +103,10 @@ const CardPlaylist = ({
               marginRight: -30
             }}>
             <CarouselPlayIcon
-              onPress={() => actions.playPlaylist(playlist.id)}
+              onPress={async () => {
+                await actions.setPlaylistFrom(playlist.sources);
+                actions.loadSource(0);
+              }}
             />
             <MenuPlaylist
               onEdit={() => toggleModal(playlist)}
