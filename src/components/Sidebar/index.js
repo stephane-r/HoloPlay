@@ -40,8 +40,8 @@ const Sidebar = ({ playerIsOpened, source, userId }: SidebarProps) => {
       ]}>
       <PlayerContainer
         userId={userId}
-        favoris={loading ? [] : data.user.favoris}
-        favorisIds={loading ? [] : data.user.favorisIds}
+        favoris={loading || !data.user ? [] : data.user.favoris}
+        favorisIds={loading || !data.user ? [] : data.user.favorisIds}
       />
     </Animated.View>
   );
