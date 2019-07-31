@@ -38,7 +38,7 @@ const Favoris = ({ navigation, ...props }: FavorisProps) => {
         <ResultList
           data={data.user.favoris}
           favorisIds={data.user.favorisIds}
-          favoris={data.user.favoris}
+          favoris={data.user.favoris.reverse()}
           playlists={data.user.playlists}
           isFavoris
         />
