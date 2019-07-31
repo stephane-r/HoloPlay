@@ -36,15 +36,16 @@ const CardSearchItem = ({
       }
     ];
 
+    const favorisIds = props.favorisIds ? props.favorisIds : [];
+    const favoris = props.favoris ? props.favoris : [];
+
     if (isFavoris) {
       return client.mutate({
         mutation: ADD_TO_FAVORIS,
         variables: {
           userId,
-          favorisIds: props.favorisIds.filter(f => f !== item.id),
-          favoris: props.favoris
-            ? props.favoris.filter(f => f.id !== item.id)
-            : []
+          favorisIds: favorisIds ? favorisIds.filter(f => f !== item.id) : [],
+          favoris: favoris ? favoris.filter(f => f.id !== item.id) : []
         },
         refetchQueries
       });
@@ -54,8 +55,8 @@ const CardSearchItem = ({
       mutation: ADD_TO_FAVORIS,
       variables: {
         userId,
-        favorisIds: [...props.favorisIds, item.id],
-        favoris: props.favoris ? [...props.favoris, item] : [item]
+        favorisIds: [...favorisIds, item.id],
+        favoris: favoris ? [...favoris, item] : [item]
       },
       refetchQueries
     });

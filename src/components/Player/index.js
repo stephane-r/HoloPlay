@@ -102,25 +102,27 @@ const Player = ({
       }
     ];
 
+    const favorisIds = props.favorisIds ? props.favorisIds : [];
+    const favoris = props.favoris ? props.favoris : [];
+
     if (isFavoris) {
       return client.mutate({
         mutation: ADD_TO_FAVORIS,
         variables: {
           userId,
-          favorisIds: props.favorisIds.filter(f => f !== source.id),
-          favoris: props.favoris
-            ? props.favoris.filter(f => f.id !== source.id)
-            : []
+          favorisIds: favorisIds ? favorisIds.filter(f => f !== source.id) : [],
+          favoris: favoris ? favoris.filter(f => f.id !== source.id) : []
         },
         refetchQueries
       });
     }
+
     return client.mutate({
       mutation: ADD_TO_FAVORIS,
       variables: {
         userId,
-        favorisIds: [...props.favorisIds, source.id],
-        favoris: props.favoris ? [...props.favoris, source] : [source]
+        favorisIds: [...favorisIds, source.id],
+        favoris: favoris ? [...favoris, source] : [source]
       },
       refetchQueries
     });
