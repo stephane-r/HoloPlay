@@ -37,6 +37,9 @@ const audioActions = {
       case origin === 'favoris':
         playlistList = state.user.favoris;
         break;
+      case typeof origin === 'object':
+        playlistList = origin;
+        break;
     }
 
     if (origin.id) {
