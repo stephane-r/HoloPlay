@@ -56,6 +56,7 @@ const CardPlaylist = ({
       refetchQueries
     });
     actions.setFlashMessage(`${playlist.name} has been removed.`);
+    toggleDialog();
     setIsLoading(false);
   };
 
