@@ -6,6 +6,7 @@ import SnapCarousel from 'react-native-snap-carousel';
 import { useQuery } from 'react-apollo-hooks';
 import Card from '../Card/Layout';
 import GET_USER from '../../graphql/query/user';
+import { actions } from '../../store';
 
 type PlayIconProps = {
   onPress?: Function
@@ -28,31 +29,44 @@ type CarouselItemProps = {
   index: Number
 };
 
+const setCardItem = (item: Object) => ({
+  title: item.name,
+  picture:
+    item.sources && item.sources[0]
+      ? item.sources[0].thumbnails.default.url
+      : 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png'
+});
+
 type CarouselProps = {
   userId: number
 };
 
-const CarouselItem = ({ item }: CarouselItemProps) => (
-  <View style={styles.itemContainer}>
-    <Card
-      key={item.id}
-      alignment="horizontal"
-      card={{
-        title: item.name,
-        picture:
-          'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png'
-        // item.sources.length === 0
-        // ? 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
-        // : item.sources[0].thumbnails.default.url
-      }}
-      rightContent={
-        <CarouselPlayIcon onPress={() => alert('play playlist')} />
-      }>
-      {/* <Text>{item.sources.length} sound</Text> */}
-      <Text>0 sound</Text>
-    </Card>
-  </View>
-);
+const CarouselItem = ({ item }: CarouselItemProps) => {
+  const sourceCount = item.sources ? item.sources.length : '0';
+
+  const runPlaylist = async () => {
+    await actions.setPlaylistFrom(item.sources);
+    actions.loadSource(0);
+  };
+
+  return (
+    <View style={styles.itemContainer}>
+      <Card
+        key={item.id}
+        alignment="horizontal"
+        card={setCardItem(item)}
+        onPress={runPlaylist}
+        rightContent={
+          sourceCount !== '0' && <CarouselPlayIcon onPress={runPlaylist} />
+        }>
+        <Text>
+          {sourceCount} song
+          {sourceCount !== '0' && 's'}
+        </Text>
+      </Card>
+    </View>
+  );
+};
 
 const Carousel = ({ userId }: CarouselProps) => {
   const { data, error, loading } = useQuery(GET_USER, {
@@ -83,5 +97,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export { CarouselPlayIcon };
+export { CarouselPlayIcon, setCardItem };
 export default Carousel;
