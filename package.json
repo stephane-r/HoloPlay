@@ -49,6 +49,7 @@
     "react-navigation": "^3.8.1",
     "react-navigation-material-bottom-tabs": "^1.0.0",
     "react-waterfall": "^4.0.1",
+    "rn-placeholder": "^3.0.0-alpha.4",
     "uuid": "^3.3.2",
     "youtube-search": "^1.1.4"
   },
