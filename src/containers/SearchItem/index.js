@@ -3,7 +3,6 @@ import CardSearchItem from '../../components/Card/SearchItem';
 
 const CardSearchItemContainer = connect(({ userId }) => {
   const loadSource = async index => {
-    await actions.setPlaylistFrom('searchResults');
     await actions.loadSource(index);
 
     return actions.showPlayer();

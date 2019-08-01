@@ -1,9 +1,10 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text } from 'react-native-paper';
 import CardList from '../../Card/List';
 import DialogAddToPlaylistContainer from '../../../containers/DialogAddToPlaylist';
 import CardSearchItemContainer from '../../../containers/SearchItem';
+import { actions } from '../../../store';
 
 type ResultListProps = {
   data: Array<Object>,
@@ -11,7 +12,8 @@ type ResultListProps = {
   favorisIds?: Array<number>,
   favoris?: Array<Object>,
   isFavoris: boolean,
-  userId?: number
+  userId?: number,
+  setPlaylistFrom: string
 };
 
 const defaultValue = {
@@ -26,6 +28,12 @@ const ResultList = ({ data, ...props }: ResultListProps) => {
   if (!data) {
     return <Text>No result.</Text>;
   }
+
+  useEffect(() => {
+    if (data) {
+      actions.setPlaylistFrom(props.setPlaylistFrom);
+    }
+  }, [data]);
 
   return (
     <>
