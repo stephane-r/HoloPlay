@@ -5,6 +5,7 @@ import { View, Image, StyleSheet } from 'react-native';
 import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
 import GET_USER_ME from '../../graphql/query/user';
+import PlaceholderProfil from '../Placeholder/Profil';
 
 type ProfilProps = {
   userId: number
@@ -16,7 +17,7 @@ const Profil = ({ userId }: ProfilProps) => {
   });
 
   if (error || loading) {
-    return null;
+    return <PlaceholderProfil />;
   }
 
   return (

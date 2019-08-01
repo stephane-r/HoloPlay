@@ -163,4 +163,5 @@ const styles = StyleSheet.create({
   }
 });
 
+export { stylesVertical, stylesHorizontal };
 export default CardLayout;

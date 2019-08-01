@@ -7,6 +7,7 @@ import CardPlaylist from '../../Card/Playlist';
 import Spacer from '../../Spacer';
 import GET_USER from '../../../graphql/query/user';
 import { setCardItem } from '../../Carousel';
+import DataEmpty from '../../Data/Empty';
 
 type PlayListType = {
   userId: number,
@@ -24,6 +25,10 @@ const Playlist = ({ userId, toggleModal }: PlayListType) => {
 
   if (error) {
     return <Text>Error.</Text>;
+  }
+
+  if (data.user.playlists.length === 0) {
+    return <DataEmpty text="No playlist." />;
   }
 
   return (
