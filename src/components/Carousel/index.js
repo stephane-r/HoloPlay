@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import { IconButton, Text } from 'react-native-paper';
 import SnapCarousel from 'react-native-snap-carousel';
@@ -7,6 +7,7 @@ import { useQuery } from 'react-apollo-hooks';
 import Card from '../Card/Layout';
 import GET_USER from '../../graphql/query/user';
 import { actions } from '../../store';
+import PlaceholderCarousel from '../Placeholder/Carousel';
 
 type PlayIconProps = {
   onPress?: Function
@@ -68,15 +69,16 @@ const CarouselItem = ({ item }: CarouselItemProps) => {
   );
 };
 
-const Carousel = ({ userId }: CarouselProps) => {
-  const { data, error, loading } = useQuery(GET_USER, {
+const Carousel = ({ userId }) => {
+  const [isInit, setInit] = useState(false);
+  const { data, loading } = useQuery(GET_USER, {
     variables: {
       userId
     }
   });
 
-  if (loading || error) {
-    return null;
+  if (loading) {
+    return <PlaceholderCarousel />;
   }
 
   return (
@@ -86,7 +88,8 @@ const Carousel = ({ userId }: CarouselProps) => {
       layout="tinder"
       itemWidth={Dimensions.get('window').width - 32}
       sliderWidth={Dimensions.get('window').width - 32}
-      renderItem={CarouselItem}
+      renderItem={isInit ? CarouselItem : PlaceholderCarousel}
+      onLayout={() => setTimeout(() => setInit(true), 200)}
     />
   );
 };
@@ -98,4 +101,4 @@ const styles = StyleSheet.create({
 });
 
 export { CarouselPlayIcon, setCardItem };
-export default Carousel;
+export default React.memo<CarouselProps>(Carousel);

@@ -4,7 +4,6 @@ import { apiState } from '../Api';
 const appState = {
   isConnected: false,
   loginIsFetching: false,
-  isSearching: false,
   flashMessage: {
     message: null,
     visible: false
@@ -40,18 +39,6 @@ const appActions = {
     return {
       ...state,
       loginIsFecthing: false
-    };
-  },
-  setIsSearching: async state => {
-    return {
-      ...state,
-      isSearching: true
-    };
-  },
-  setIsSearched: async state => {
-    return {
-      ...state,
-      isSearching: false
     };
   },
   logout: async state => {

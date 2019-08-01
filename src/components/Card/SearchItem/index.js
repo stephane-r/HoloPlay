@@ -4,7 +4,6 @@ import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { withApollo } from 'react-apollo';
 import Card from '../Layout';
-// import { actions } from '../../../store';
 import MenuSearchItem from '../../Menu/SearchItem';
 import { ADD_TO_FAVORIS } from '../../../graphql/mutation/favoris';
 import GET_USER from '../../../graphql/query/user';

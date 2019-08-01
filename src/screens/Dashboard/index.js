@@ -43,6 +43,7 @@ const Dashboard = ({ navigation, ...props }: DashboardProps) => {
           playlists={data.user.playlists}
           favorisIds={data.user.favorisIds}
           favoris={data.user.favoris}
+          setPlaylistFrom="searchResults"
         />
       )}
     </Layout>
