@@ -55,11 +55,15 @@ const Player = ({
     MusicControl.on('play', actions.paused);
     MusicControl.on('pause', actions.paused);
     MusicControl.on('stop', actions.paused);
-    MusicControl.on('nextTrack', () =>
-      actions.loadSource(props.previousSourceIndex)
+    MusicControl.on(
+      'nextTrack',
+      () => props.nextSourceIndex && actions.loadSource(props.nextSourceIndex)
     );
-    MusicControl.on('previousTrack', () =>
-      actions.loadSource(props.previousSourceIndex)
+    MusicControl.on(
+      'previousTrack',
+      () =>
+        props.previousSourceIndex &&
+        actions.loadSource(props.previousSourceIndex)
     );
   });
 
@@ -85,7 +89,9 @@ const Player = ({
   };
 
   const onEnd = () => {
-    actions.loadSource(props.nextSourceIndex);
+    if (props.nextSourceIndex) {
+      actions.loadSource(props.nextSourceIndex);
+    }
   };
 
   if (!source) {
