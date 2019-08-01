@@ -6,6 +6,7 @@ import { useQuery } from 'react-apollo-hooks';
 import CardPlaylist from '../../Card/Playlist';
 import Spacer from '../../Spacer';
 import GET_USER from '../../../graphql/query/user';
+import { setCardItem } from '../../Carousel';
 
 type PlayListType = {
   userId: number,
@@ -32,13 +33,7 @@ const Playlist = ({ userId, toggleModal }: PlayListType) => {
         <CardPlaylist
           key={index}
           alignment="horizontal"
-          card={{
-            title: playlist.name,
-            picture:
-              playlist.sources && playlist.sources[0]
-                ? playlist.sources[0].thumbnails.default.url
-                : 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png' // TODO: Replace placeholder ..
-          }}
+          card={setCardItem(playlist)}
           playlist={{
             ...playlist,
             sources: playlist.sources ? playlist.sources : []
