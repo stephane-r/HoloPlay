@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Drawer, Switch, Paragraph } from 'react-native-paper';
 import { actions } from '../../store';
@@ -10,6 +10,13 @@ type DrawlerProps = {
 };
 
 const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
+  const [isDarkMode, setDarkMode] = useState(darkMode);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!isDarkMode);
+    actions.setDarkMode(!isDarkMode);
+  };
+
   const logout = async () => {
     await actions.logout();
     return navigation.navigate('Login');
@@ -33,10 +40,10 @@ const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
           icon="exit-to-app"
           onPress={logout} />
         <View style={styles.switchContainer}>
-          <Paragraph style={styles.paragraph}>Dark theme</Paragraph>
+          <Paragraph style={styles.paragraph}>Dark theme (soon)</Paragraph>
           <Switch
-            value={darkMode}
-            onValueChange={actions.setDarkMode} />
+            value={isDarkMode}
+            onValueChange={toggleDarkMode} />
         </View>
       </Drawer.Section>
     </View>
