@@ -1,10 +1,10 @@
 // @flow
 import React, { useState, useEffect } from 'react';
-import { Text } from 'react-native-paper';
 import CardList from '../../Card/List';
 import DialogAddToPlaylistContainer from '../../../containers/DialogAddToPlaylist';
 import CardSearchItemContainer from '../../../containers/SearchItem';
 import { actions } from '../../../store';
+import PlaceholderCardSearchItem from '../../Placeholder/Card';
 
 type ResultListProps = {
   data: Array<Object>,
@@ -13,7 +13,8 @@ type ResultListProps = {
   favoris?: Array<Object>,
   isFavoris: boolean,
   userId?: number,
-  setPlaylistFrom: string
+  setPlaylistFrom: string,
+  isSearching?: boolean
 };
 
 const defaultValue = {
@@ -21,13 +22,22 @@ const defaultValue = {
   name: 'Choose playlist'
 };
 
-const ResultList = ({ data, ...props }: ResultListProps) => {
+const ResultList = ({ data, ...props }) => {
+  if (props.isSearching) {
+    return (
+      <CardList>
+        <PlaceholderCardSearchItem />
+        <PlaceholderCardSearchItem />
+        <PlaceholderCardSearchItem />
+        <PlaceholderCardSearchItem />
+        <PlaceholderCardSearchItem />
+        <PlaceholderCardSearchItem />
+      </CardList>
+    );
+  }
+
   const [dialogIsShow, toggleDialog] = useState(false);
   const [source, setDialogSource] = useState(null);
-
-  if (!data) {
-    return <Text>No result.</Text>;
-  }
 
   useEffect(() => {
     if (data) {
@@ -80,4 +90,4 @@ ResultList.defaultProps = {
   isFavoris: false
 };
 
-export default ResultList;
+export default React.memo<ResultListProps>(ResultList);

@@ -93,3 +93,8 @@ const App = ({ darkMode, userId }: AppProps) => {
 };
 
 export default App;
+
+// TODO: Impossible de relancer la musique en cours
+// TODO: Rajouter un vrai placeholder sur les screens Playlist et Favoris
+// TODO: Grisé le bouton Play (ou le masquer) si aucune musique dans la playlist
+// TODO: Faire le trie dans les actions useless
