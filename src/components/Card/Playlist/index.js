@@ -86,7 +86,8 @@ const CardPlaylist = ({
             items={playlist.sources}
             onPlay={async sourceIndex => {
               await actions.setPlaylistFrom(playlist.sources);
-              actions.loadSource(sourceIndex);
+              await actions.loadSource(sourceIndex);
+              return actions.showPlayer();
             }}
             onRemove={removeSource}
             playlistId={playlist.id}
