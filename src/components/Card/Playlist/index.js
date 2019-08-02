@@ -117,7 +117,9 @@ const CardPlaylist = ({
             />
           </View>
         }>
-        <Text>{totalSongs} songs</Text>
+        <Text>
+          {totalSongs} song{totalSongs > 1 && 's'}
+        </Text>
       </Card>
       <Spacer height={10} />
       {/* TODO: Maybe remove this Dialog and import to screen parent ? */}

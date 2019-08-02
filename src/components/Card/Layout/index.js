@@ -67,7 +67,7 @@ const CardLayout = ({
               <View style={{ flex: 1 }}>
                 <Subheading
                   style={titleStyles}
-                  numberOfLines={2}>
+                  numberOfLines={isHorizontal ? 1 : 2}>
                   {card.title}
                 </Subheading>
                 {children && (

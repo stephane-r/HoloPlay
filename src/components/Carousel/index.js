@@ -43,7 +43,7 @@ type CarouselProps = {
 };
 
 const CarouselItem = ({ item }: CarouselItemProps) => {
-  const sourceCount = item.sources ? item.sources.length : '0';
+  const sourceCount = item.sources ? item.sources.length : 0;
 
   const runPlaylist = async () => {
     await actions.setPlaylistFrom(item.sources);
@@ -62,7 +62,7 @@ const CarouselItem = ({ item }: CarouselItemProps) => {
         }>
         <Text>
           {sourceCount} song
-          {sourceCount !== '0' && 's'}
+          {sourceCount > 1 && 's'}
         </Text>
       </Card>
     </View>
