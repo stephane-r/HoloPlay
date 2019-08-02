@@ -5,7 +5,7 @@ import YTSearch from 'youtube-search';
 const { YOUTUBE_API_KEY } = config;
 
 const options: Object = {
-  maxResults: 10,
+  maxResults: 20,
   key: YOUTUBE_API_KEY
 };
 
