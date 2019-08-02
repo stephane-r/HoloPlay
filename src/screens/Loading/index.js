@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { useQuery } from 'react-apollo-hooks';
 // eslint-disable-next-line import/no-unresolved
 import QuickActions from 'react-native-quick-actions';
@@ -41,7 +41,11 @@ const LoadingScreen = (props: LoadingScreenProps) => {
     return props.navigation.navigate('Auth');
   }
 
-  return <ActivityIndicator />;
+  return (
+    <View style={{ flex: 1, justifyContent: 'center' }}>
+      <ActivityIndicator size="large" />
+    </View>
+  );
 };
 
 export default LoadingScreen;
