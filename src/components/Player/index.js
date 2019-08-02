@@ -11,21 +11,18 @@ import {
 import Video from 'react-native-video';
 import config from 'react-native-config';
 import MusicControl from 'react-native-music-control';
-import { withApollo } from 'react-apollo';
 import TimeFormat from 'hh-mm-ss';
 import { actions } from '../../store';
 import Spacer from '../Spacer';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
 import youtubeDurationToSeconds from '../../utils/youtubeDurationToSeconds';
-import GET_USER from '../../graphql/query/user';
-import { ADD_TO_FAVORIS } from '../../graphql/mutation/favoris';
+import FavorisContainer from '../../containers/Favoris';
 
 // @flow
 const { YOUTUBE_API_STREAM_URL } = config;
 
 type PlayerProps = {
   client: Object,
-  userId: number,
   source: Object,
   paused: boolean,
   repeat: boolean,
@@ -33,14 +30,7 @@ type PlayerProps = {
   nextSourceIndex: Function
 };
 
-const Player = ({
-  client,
-  userId,
-  source,
-  paused,
-  repeat,
-  ...props
-}: PlayerProps) => {
+const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoading, setLoading] = useState(true);
 
@@ -94,45 +84,14 @@ const Player = ({
     }
   };
 
+  const onError = () => {
+    setLoading(false);
+    actions.setFlashMessage('Error from Stream API');
+  };
+
   if (!source) {
     return null;
   }
-
-  const isFavoris = props.favorisIds.includes(source.id);
-
-  const AddOrRemoveToFavoris = () => {
-    const refetchQueries = [
-      {
-        query: GET_USER,
-        variables: { userId }
-      }
-    ];
-
-    const favorisIds = props.favorisIds ? props.favorisIds : [];
-    const favoris = props.favoris ? props.favoris : [];
-
-    if (isFavoris) {
-      return client.mutate({
-        mutation: ADD_TO_FAVORIS,
-        variables: {
-          userId,
-          favorisIds: favorisIds ? favorisIds.filter(f => f !== source.id) : [],
-          favoris: favoris ? favoris.filter(f => f.id !== source.id) : []
-        },
-        refetchQueries
-      });
-    }
-
-    return client.mutate({
-      mutation: ADD_TO_FAVORIS,
-      variables: {
-        userId,
-        favorisIds: [...favorisIds, source.id],
-        favoris: favoris ? [...favoris, source] : [source]
-      },
-      refetchQueries
-    });
-  };
 
   const uri = `${YOUTUBE_API_STREAM_URL}/${source.id}`;
   const duration = youtubeDurationToSeconds(source.duration);
@@ -151,6 +110,7 @@ const Player = ({
         onProgress={onProgress}
         onLoadStart={onLoadStart}
         onEnd={onEnd}
+        onError={onError}
       />
       <Spacer height={10} />
       <IconButton
@@ -221,13 +181,7 @@ const Player = ({
           />
         </View>
         <Spacer width={10} />
-        <IconButton
-          icon={isFavoris ? 'favorite' : 'favorite-border'}
-          color={isFavoris ? '#EE05F2' : '#607D8B'}
-          size={25}
-          onPress={AddOrRemoveToFavoris}
-          animated
-        />
+        <FavorisContainer source={source} />
         <Spacer width={10} />
       </View>
       <Spacer height={30} />
@@ -275,4 +229,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withApollo(Player);
+export default Player;
