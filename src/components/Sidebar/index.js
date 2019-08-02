@@ -1,10 +1,11 @@
 // @flow
 /* eslint react/prop-types: 0 */
 import React from 'react';
-import { Dimensions, Animated, StyleSheet } from 'react-native';
+import { Dimensions, Animated, StyleSheet, BackHandler } from 'react-native';
 import { useQuery } from 'react-apollo-hooks';
 import PlayerContainer from '../../containers/Player';
 import GET_USER from '../../graphql/query/user';
+import { actions } from '../../store';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const FROM_VALUE = WINDOW_WIDTH;
@@ -31,6 +32,14 @@ const Sidebar = ({ playerIsOpened, source, userId }: SidebarProps) => {
     toValue: to,
     duration: 200
   }).start();
+
+  BackHandler.addEventListener('hardwareBackPress', () => {
+    if (playerIsOpened) {
+      actions.hidePlayer();
+    }
+
+    return false;
+  });
 
   return (
     <Animated.View
