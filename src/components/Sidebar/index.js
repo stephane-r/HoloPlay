@@ -1,30 +1,16 @@
 // @flow
-/* eslint react/prop-types: 0 */
 import React from 'react';
 import { Dimensions, Animated, StyleSheet, BackHandler } from 'react-native';
-import { useQuery } from 'react-apollo-hooks';
 import PlayerContainer from '../../containers/Player';
-import GET_USER from '../../graphql/query/user';
 import { actions } from '../../store';
-
-const WINDOW_WIDTH = Dimensions.get('window').width;
-const FROM_VALUE = WINDOW_WIDTH;
-const TO_VALUE = 0;
 
 type SidebarProps = {
   playerIsOpened: boolean,
-  source: Object,
-  userId: number
+  from: string,
+  to: string
 };
 
-const Sidebar = ({ playerIsOpened, source, userId }: SidebarProps) => {
-  const { data, loading } = useQuery(GET_USER, {
-    variables: { userId }
-  });
-
-  const from = !source ? FROM_VALUE : playerIsOpened ? FROM_VALUE : TO_VALUE;
-  const to = playerIsOpened ? TO_VALUE : FROM_VALUE;
-
+const Sidebar = ({ playerIsOpened, from, to }) => {
   const animatedValue = new Animated.Value(from);
 
   Animated.timing(animatedValue, {
@@ -47,11 +33,7 @@ const Sidebar = ({ playerIsOpened, source, userId }: SidebarProps) => {
         styles.container,
         { transform: [{ translateX: animatedValue }] }
       ]}>
-      <PlayerContainer
-        userId={userId}
-        favoris={loading || !data.user ? [] : data.user.favoris}
-        favorisIds={loading || !data.user ? [] : data.user.favorisIds}
-      />
+      <PlayerContainer />
     </Animated.View>
   );
 };
@@ -68,4 +50,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Sidebar;
+export default React.memo<SidebarProps>(Sidebar);
