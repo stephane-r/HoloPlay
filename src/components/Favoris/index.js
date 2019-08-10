@@ -49,8 +49,8 @@ const Favoris = ({ client, userId, source, buttonWithIcon }) => {
       mutation: ADD_TO_FAVORIS,
       variables: {
         userId,
-        favorisIds: [...favorisIds, source.id],
-        favoris: favoris ? [...favoris, source] : [source]
+        favorisIds: [source.id, ...favorisIds],
+        favoris: favoris ? [source, ...favoris] : [source]
       },
       refetchQueries
     });
