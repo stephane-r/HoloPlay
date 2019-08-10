@@ -46,6 +46,7 @@ const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
       <TextInput
         mode="outlined"
         label="Password"
+        secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
