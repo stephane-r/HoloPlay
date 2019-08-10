@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LoginFormContainer from '../../containers/Login';
+import AppVersion from '../../components/Version';
 
 type Props = {
   navigation: Object
@@ -9,7 +10,10 @@ type Props = {
 
 const LoginScreen = ({ navigation }: Props) => (
   <View style={styles.container}>
-    <LoginFormContainer navigation={navigation} />
+    <View style={{ flex: 1, justifyContent: 'center' }}>
+      <LoginFormContainer navigation={navigation} />
+    </View>
+    <AppVersion customStyle={{ alignSelf: 'center' }} />
   </View>
 );
 

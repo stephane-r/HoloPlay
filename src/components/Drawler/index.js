@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Drawer, Switch, Paragraph } from 'react-native-paper';
 import { actions } from '../../store';
+import AppVersion from '../Version';
 
 type DrawlerProps = {
   navigation: Object,
@@ -46,6 +47,7 @@ const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
             onValueChange={toggleDarkMode} />
         </View>
       </Drawer.Section>
+      <AppVersion />
     </View>
   );
 };
