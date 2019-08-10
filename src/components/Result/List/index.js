@@ -1,9 +1,8 @@
 // @flow
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import CardList from '../../Card/List';
 import DialogAddToPlaylistContainer from '../../../containers/DialogAddToPlaylist';
 import CardSearchItemContainer from '../../../containers/SearchItem';
-import { actions } from '../../../store';
 import PlaceholderCardSearchItem from '../../Placeholder/Card';
 
 type ResultListProps = {
@@ -38,12 +37,6 @@ const ResultList = ({ data, ...props }) => {
 
   const [dialogIsShow, toggleDialog] = useState(false);
   const [source, setDialogSource] = useState(null);
-
-  useEffect(() => {
-    if (data) {
-      actions.setPlaylistFrom(props.setPlaylistFrom);
-    }
-  }, [data]);
 
   return (
     <>
