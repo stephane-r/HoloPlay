@@ -25,7 +25,7 @@ QuickActions.isSupported((error, supported) => {
       {
         type: 'Orders',
         title: 'Playlist',
-        icon: 'Compose',
+        icon: 'headset',
         userInfo: {
           url: 'app://playlist'
         }
@@ -33,7 +33,7 @@ QuickActions.isSupported((error, supported) => {
       {
         type: 'Orders',
         title: 'Favoris',
-        icon: 'Compose',
+        icon: 'favorite',
         userInfo: {
           url: 'app://favoris'
         }
