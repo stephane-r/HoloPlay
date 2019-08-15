@@ -6,6 +6,13 @@ YAP has not been tested on iOS because i'm on a Linux environment. PR if needed 
 
 External API is build with [Strapi](https://strapi.io/), an Headless CMS, and [YouTube Audio Serve](https://github.com/stephane-r/Youtube-Audio-Server) for audio stream.
 
+![Dashboard screen](./docs/dashboard.jpg)
+![Playlist screen](./docs/playlists.jpg)
+![Favoris screen](./docs/favoris.jpg)
+![Quick Actions](./docs/quick-actions.jpg)
+
+Interface based on beautiful free [Music Song](https://www.uplabs.com/posts/music-song).
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -16,7 +23,7 @@ YAP has [Docker image](https://github.com/stephane-r/react-native-docker) with a
 
 Docker is not required. You can use default React-Native CLI for run/build the project.
 
-### Installing :package:
+### Installing
 
 First, copy environment file :
 
@@ -46,23 +53,24 @@ Add new dependency :
 make yarn-add $DEP
 ```
 
-## Deployment :tada:
+## Deployment
 
 YAP is updated with [Code-Push](https://github.com/Microsoft/code-push/tree/master/cli) on every tags.
 
 See `.travis.yml` file for process.
 
-## Built With :muscle:
+## Built With
 
 - [React Native](https://facebook.github.io/react-native/)
 - [GraphQL](https://graphql.org/)
 - [React Apollo](https://github.com/apollographql/react-apollo)
 - [React Native Paper](https://github.com/callstack/react-native-paper)
+- [React Native Quick Actions](https://github.com/jordanbyron/react-native-quick-actions)
 - [React Waterfall](https://github.com/didierfranc/react-waterfall)
 
 And more.
 
-## Contributing :+1:
+## Contributing
 
 Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
 
