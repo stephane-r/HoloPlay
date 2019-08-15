@@ -56,7 +56,7 @@ const Favoris = ({ client, userId, source, buttonWithIcon }) => {
     });
   };
 
-  const isFavoris = data.user.favorisIds.includes(source.id);
+  const isFavoris = Array.isArray(data.user.favorisIds) && data.user.favorisIds.includes(source.id);
 
   if (buttonWithIcon) {
     return (
