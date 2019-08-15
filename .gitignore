@@ -51,7 +51,6 @@ local.properties
 gradle.properties
 *.iml
 *.bundle
-**/main/res
 
 # BUCK
 buck-out/
