@@ -60,7 +60,7 @@ const ResultList = ({ data, ...props }) => {
               }}
               isFavoris={
                 props.isFavoris ||
-                (props.favorisIds && props.favorisIds.includes(item.id))
+                (Array.isArray(props.favorisIds) && props.favorisIds.includes(item.id))
               }
             />
           );
