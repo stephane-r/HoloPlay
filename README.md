@@ -1,4 +1,4 @@
-# Youtube Audio Player
+# Youtube Audio Player :notes: :musical_note:
 
 Youtube Audio Player (YAP) is an open source app, can stream Youtube audio with an open source [external API](https://github.com/stephane-r/Youtube-Audio-Player-Api). You can create your free account, save music to favoris and create your playlist.
 
