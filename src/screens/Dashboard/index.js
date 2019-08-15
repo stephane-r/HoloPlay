@@ -24,6 +24,11 @@ const Dashboard = ({ navigation, ...props }: DashboardProps) => {
     }
   });
 
+  const userPlaylistsEmpty = !loading && data.user.playlists.length === 0;
+  const carouselContainerStyles = {
+    marginBottom: userPlaylistsEmpty ? 0 : -60
+  };
+
   return (
     <Layout navigation={navigation}>
       <View style={styles.header}>
@@ -31,11 +36,11 @@ const Dashboard = ({ navigation, ...props }: DashboardProps) => {
         <Spacer height={15} />
         <ProfilContainer />
         <Spacer height={30} />
-        <View style={styles.carouselContainer}>
+        <View style={carouselContainerStyles}>
           <CarouselUserPlaylists userId={props.screenProps.userId} />
         </View>
       </View>
-      <Spacer height={90} />
+      <Spacer height={userPlaylistsEmpty ? 30 : 90} />
       <Title style={{ fontSize: 27 }}>Search</Title>
       <Spacer height={15} />
       {!loading && (
@@ -55,9 +60,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#2575f4',
     marginHorizontal: -16,
     paddingHorizontal: 16
-  },
-  carouselContainer: {
-    marginBottom: -60
   }
 });
 
