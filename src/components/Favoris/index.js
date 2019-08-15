@@ -30,8 +30,10 @@ const Favoris = ({ client, userId, source, buttonWithIcon }) => {
       }
     ];
 
-    const favorisIds = data.user.favorisIds ? data.user.favorisIds : [];
-    const favoris = data.user.favoris ? data.user.favoris : [];
+    const favorisIds = Array.isArray(data.user.favorisIds)
+      ? data.user.favorisIds
+      : [];
+    const favoris = Array.isArray(data.user.favoris) ? data.user.favoris : [];
 
     if (isFavoris) {
       return client.mutate({
@@ -56,7 +58,9 @@ const Favoris = ({ client, userId, source, buttonWithIcon }) => {
     });
   };
 
-  const isFavoris = Array.isArray(data.user.favorisIds) && data.user.favorisIds.includes(source.id);
+  const isFavoris =
+    Array.isArray(data.user.favorisIds) &&
+    data.user.favorisIds.includes(source.id);
 
   if (buttonWithIcon) {
     return (

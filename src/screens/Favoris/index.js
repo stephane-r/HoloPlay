@@ -29,18 +29,19 @@ const Favoris = ({ navigation, ...props }: FavorisProps) => {
         backgroundColor="#EE05F2" />
       {loading ? (
         <Text>Loading...</Text>
-      ) : data.user.favoris.length === 0 ? (
-        <DataEmpty text="No favoris." />
-      ) : (
-        <ResultList
-          data={data.user.favoris}
-          favorisIds={data.user.favorisIds}
-          favoris={data.user.favoris}
-          playlists={data.user.playlists}
-          setPlaylistFrom={data.user.favoris}
-          isFavoris
-        />
-      )}
+      ) : !Array.isArray(data.user.favoris) ||
+        data.user.favoris.length === 0 ? (
+          <DataEmpty text="No favoris." />
+        ) : (
+          <ResultList
+            data={data.user.favoris}
+            favorisIds={data.user.favorisIds}
+            favoris={data.user.favoris}
+            playlists={data.user.playlists}
+            setPlaylistFrom={data.user.favoris}
+            isFavoris
+          />
+        )}
     </Layout>
   );
 };
