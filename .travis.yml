@@ -13,7 +13,6 @@ stages:
 
 before_script:
   - cp .env.production.dist .env
-  - make set-env-production
   - make setup
   - rm docker-compose.override.yml
 
@@ -38,6 +37,7 @@ jobs:
       name: Build Android app
       script:
         - rm -rf .cache
+        - make set-env-production
         - make android-prepare
         - make android-release-debug
     - stage: release
