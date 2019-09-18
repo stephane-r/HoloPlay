@@ -18,7 +18,6 @@ before_script:
 
 cache:
   directories:
-    - .env
     - node_modules
     - android/app/build/outputs/apk
     - .code-push
@@ -28,7 +27,6 @@ jobs:
     - stage: install
       name: Project dependencies
       script:
-        - make set-env-production
         - make yarn-install
     - stage: static-analysis
       name: Static analysis (ESLint and Flow)
@@ -39,6 +37,7 @@ jobs:
       name: Build Android app
       script:
         - rm -rf .cache
+        - make set-env-production
         - make android-prepare
         - make android-release-debug
     - stage: release
