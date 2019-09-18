@@ -1,33 +1,33 @@
 const shell = require('shelljs');
 
 const envs = [
-  {
-    value: 'APP_NAME',
-    property: 'yap'
-  },
+  // {
+  //   value: 'APP_NAME',
+  //   property: 'yap'
+  // },
   {
     value: 'YOUTUBE_API_KEY',
-    property: 'AIzaSyD4pyuFpgd3h_IgQAEjSFvsYHsCysoilr8'
+    property: process.env.YOUTUBE_API_KEY
   },
   {
     value: 'YOUTUBE_API_STREAM_URL',
-    property: 'audio.stephane-richin.fr'
+    property: process.env.YOUTUBE_API_STREAM_URL
   },
   {
     value: 'API_URL',
-    property: 'api.stephane-richin.fr'
+    property: process.env.API_URL
   },
   {
     value: 'CODE_PUSH_LOGIN_KEY',
-    property: '62f1338ca8c15c8653b9225a48ddccd4802815e2'
+    property: process.env.CODE_PUSH_LOGIN_KEY
   },
   {
     value: 'KEYSTORE_PASSWORD',
-    property: 'yaptest'
+    property: process.env.KEYSTORE_PASSWORD
   },
   {
     value: 'CODE_PUSH_DEPLOY_KEY',
-    property: 'y34kCULBz3YcrDjwE1whnp1Jrj0kcba0c218-c02b-4e08-8f34-202298c95a54'
+    property: process.env.CODE_PUSH_DEPLOY_KEY
   }
 ];
 

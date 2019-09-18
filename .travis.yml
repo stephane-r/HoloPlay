@@ -13,12 +13,12 @@ stages:
 
 before_script:
   - cp .env.production.dist .env
-  - make set-env-production
   - make setup
   - rm docker-compose.override.yml
 
 cache:
   directories:
+    - .env
     - node_modules
     - android/app/build/outputs/apk
     - .code-push
@@ -28,6 +28,7 @@ jobs:
     - stage: install
       name: Project dependencies
       script:
+        - make set-env-production
         - make yarn-install
     - stage: static-analysis
       name: Static analysis (ESLint and Flow)
