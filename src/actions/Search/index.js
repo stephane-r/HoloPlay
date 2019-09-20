@@ -1,13 +1,22 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import YoutubeSearch from '../../utils/youtubeSearch';
 
 const searchState = {
   value: null,
   results: [],
-  isSearching: true
+  isSearching: true,
+  history: []
 };
 
 const searchActions = {
   search: async (state, actions, value) => {
+    let history = state.history;
+
+    if (value) {
+      history = [...history.slice(0, 4), value];
+      await AsyncStorage.setItem('searchHistory', JSON.stringify(history));
+    }
+
     try {
       await actions.setIsSearching();
       const results = await YoutubeSearch(value);
@@ -15,6 +24,11 @@ const searchActions = {
     } catch (error) {
       actions.setFlashMessage(error);
     }
+
+    return {
+      ...state,
+      history
+    };
   },
   setIsSearching: async state => {
     return {

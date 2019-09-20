@@ -8,9 +8,9 @@ import Layout from '../../components/Layout';
 import ProfilContainer from '../../containers/Profil';
 import Spacer from '../../components/Spacer';
 import CarouselUserPlaylists from '../../components/Carousel';
-import Search from '../../components/Search';
 import type { ScreenProps } from '../../types';
 import GET_USER from '../../graphql/query/user';
+import SearchContainer from '../../containers/Search';
 
 type DashboardProps = {
   navigation: Object,
@@ -32,7 +32,7 @@ const Dashboard = ({ navigation, ...props }: DashboardProps) => {
   return (
     <Layout navigation={navigation}>
       <View style={styles.header}>
-        <Search />
+        <SearchContainer />
         <Spacer height={15} />
         <ProfilContainer />
         <Spacer height={30} />

@@ -15,11 +15,13 @@ const appActions = {
   appInit: async state => {
     const darkMode = await AsyncStorage.getItem('darkMode');
     const userId = await AsyncStorage.getItem('userId');
+    const searchHistory = await AsyncStorage.getItem('searchHistory');
 
     return {
       ...state,
       darkMode: darkMode === 'true',
-      userId: Number(userId)
+      userId: Number(userId),
+      history: JSON.parse(searchHistory)
     };
   },
   setConnected: state => {
