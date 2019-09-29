@@ -13,21 +13,21 @@ const searchActions = {
     let history = state.history;
 
     if (value) {
-      history = [...history.slice(0, 4), value];
+      history = [value, ...history.slice(0, 4)];
       await AsyncStorage.setItem('searchHistory', JSON.stringify(history));
     }
 
     try {
       await actions.setIsSearching();
       const results = await YoutubeSearch(value);
-      return { ...state, results, isSearching: false };
+      return { ...state, results, isSearching: false, history };
     } catch (error) {
       actions.setFlashMessage(error);
     }
 
     return {
       ...state,
-      history
+      isSearching: false
     };
   },
   setIsSearching: async state => {

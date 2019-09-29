@@ -1,13 +1,18 @@
 // @flow
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Searchbar, Text, TouchableRipple } from 'react-native-paper';
+import {
+  Searchbar,
+  Text,
+  TouchableRipple,
+  IconButton
+} from 'react-native-paper';
 import { actions } from '../../store';
 
 const SEARCH_INPUT_PLACEHOLDER = 'Search music';
 const SEARCH_EMPTY_VALUE = 'Add search value';
 
-type History = String;
+type History = string;
 
 type SearchProps = {
   history: Array<History>
@@ -31,35 +36,43 @@ const Search = ({ history }: SearchProps) => {
     return actions.setFlashMessage(SEARCH_EMPTY_VALUE);
   };
 
-  const setInputValue = (value: string): Function => {
-    if (!value || value === '') {
-      setShowSubmenu(false);
-    }
-
-    return setValue(value);
-  };
+  const toggleSubmenu = () => setShowSubmenu(!showSubmenu);
 
   return (
     <View style={styles.container}>
-      <Searchbar
-        placeholder={SEARCH_INPUT_PLACEHOLDER}
-        onChangeText={setInputValue}
-        onFocus={() => (value || value === '') && setShowSubmenu(true)}
-        onKeyPress={() => value !== '' && setShowSubmenu(true)}
-        onBlur={() => setTimeout(() => setShowSubmenu(false), 500)}
-        onIconPress={searchThroughApi}
-        value={value}
+      <View style={{ flex: 1, paddingRight: 8 }}>
+        <Searchbar
+          placeholder={SEARCH_INPUT_PLACEHOLDER}
+          onChangeText={setValue}
+          // onFocus={() => (value || value === '') && setShowSubmenu(true)}
+          // onKeyPress={() => value !== '' && setShowSubmenu(true)}
+          // onBlur={() => setTimeout(() => setShowSubmenu(false), 500)}
+          onIconPress={searchThroughApi}
+          value={value}
+        />
+      </View>
+      <IconButton
+        icon="history"
+        color="white"
+        size={30}
+        onPress={toggleSubmenu}
       />
       <Submenu
         items={history}
-        selectValue={setValue}
-        isOpen={showSubmenu} />
+        selectValue={(value: string) => {
+          setValue(value);
+          toggleSubmenu();
+        }}
+        isOpen={showSubmenu}
+      />
     </View>
   );
 };
 
 const Submenu = ({ isOpen, selectValue, items }: SearchSubmenuProps) => (
-  <View style={[styles.submenu, { opacity: isOpen ? 1 : 0 }]}>
+  <View
+    style={[styles.submenu, { opacity: isOpen ? 1 : 0 }]}
+    pointerEvents={isOpen ? 'auto' : 'none'}>
     {items.map((text, index) => (
       <TouchableRipple
         key={index}
@@ -79,7 +92,8 @@ const Submenu = ({ isOpen, selectValue, items }: SearchSubmenuProps) => (
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 16
+    paddingVertical: 16,
+    flexDirection: 'row'
   },
   submenu: {
     position: 'absolute',
