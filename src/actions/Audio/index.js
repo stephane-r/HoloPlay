@@ -54,10 +54,10 @@ const audioActions = {
       const isLastSource = playlist.length === sourceIndex - 2;
       // If is last source, we restart the playlist from first index
       const source = isLastSource ? playlist[0] : playlist[sourceIndex];
-      const { duration } = await getYoutubeContentDetail(source.id);
+      const { contentDetails } = await getYoutubeContentDetail(source.id);
       const audio = {
         ...source,
-        duration
+        duration: contentDetails.duration
       };
 
       return {

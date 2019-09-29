@@ -3,10 +3,13 @@ import * as React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import Spacer from '../../Spacer';
+import Label from '../../Label';
+import ISO8601toDuration from '../../../utils/ISO8601toDuration';
 
 type CardType = {
   title: string,
-  picture: string
+  picture: string,
+  duration?: string
 };
 
 type CardProps = {
@@ -18,7 +21,8 @@ type CardProps = {
   children?: React.Node,
   rightContent?: React.Node,
   itemsRenderer?: React.Node | null,
-  showItems?: boolean
+  showItems?: boolean,
+  isStream: boolean
 };
 
 const HORIZONTAL_ALIGNMENT = 'horizontal';
@@ -58,11 +62,34 @@ const CardLayout = ({
               width: '100%',
               flexDirection: isHorizontal ? 'row' : 'column'
             }}>
-            <Image
-              resizeMode="cover"
-              style={pictureStyles}
-              source={{ uri: card.picture }}
-            />
+            <View style={{ position: 'relative' }}>
+              <Image
+                resizeMode="cover"
+                style={pictureStyles}
+                source={{ uri: card.picture }}
+              />
+              {!isHorizontal && (
+                <>
+                  {card.duration && !props.isStream && (
+                    <Label
+                      align="left"
+                      theme="#0455BF"
+                      color="black">
+                      {ISO8601toDuration(card.duration)}
+                      6m
+                    </Label>
+                  )}
+                  {props.isStream && (
+                    <Label
+                      align="right"
+                      theme="#2575f4"
+                      color="white">
+                      LIVE
+                    </Label>
+                  )}
+                </>
+              )}
+            </View>
             <View style={infosStyles}>
               <View style={{ flex: 1 }}>
                 <Subheading
@@ -89,7 +116,8 @@ const CardLayout = ({
 
 CardLayout.defaultProps = {
   alignment: 'vertical',
-  itemsRenderer: null
+  itemsRenderer: null,
+  isStream: false
 };
 
 const stylesVertical = StyleSheet.create({

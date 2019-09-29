@@ -28,6 +28,7 @@ const CardSearchItem = ({
   return (
     <Card
       {...props}
+      isStream={item.liveStreamingDetails}
       onPress={loadSource}>
       <View
         style={{
