@@ -44,7 +44,8 @@ const ResultList = ({ data, ...props }) => {
         {data.map((item, index) => {
           const card = {
             title: item.title,
-            picture: item.thumbnails.default.url
+            picture: item.thumbnails.default.url,
+            duration: item.contentDetails ? item.contentDetails.duration : null
           };
 
           return (
@@ -60,7 +61,8 @@ const ResultList = ({ data, ...props }) => {
               }}
               isFavoris={
                 props.isFavoris ||
-                (Array.isArray(props.favorisIds) && props.favorisIds.includes(item.id))
+                (Array.isArray(props.favorisIds) &&
+                  props.favorisIds.includes(item.id))
               }
             />
           );
