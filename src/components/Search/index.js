@@ -1,6 +1,6 @@
 // @flow
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Animated } from 'react-native';
 import {
   Searchbar,
   Text,
@@ -69,26 +69,38 @@ const Search = ({ history }: SearchProps) => {
   );
 };
 
-const Submenu = ({ isOpen, selectValue, items }: SearchSubmenuProps) => (
-  <View
-    style={[styles.submenu, { opacity: isOpen ? 1 : 0 }]}
-    pointerEvents={isOpen ? 'auto' : 'none'}>
-    {items.map((text, index) => (
-      <TouchableRipple
-        key={index}
-        onPress={() => selectValue(text)}>
-        <View
-          style={{
-            borderTopColor: '#bdc3c7',
-            borderTopWidth: index === 0 ? 0 : 1,
-            padding: 7
-          }}>
-          <Text>{text}</Text>
-        </View>
-      </TouchableRipple>
-    ))}
-  </View>
-);
+const Submenu = ({ isOpen, selectValue, items }: SearchSubmenuProps) => {
+  const opacity = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: isOpen ? 1 : 0,
+      duration: 300,
+      useNativeDriver: true
+    }).start();
+  });
+
+  return (
+    <Animated.View
+      style={[styles.submenu, { opacity }]}
+      pointerEvents={isOpen ? 'auto' : 'none'}>
+      {items.map((text, index) => (
+        <TouchableRipple
+          key={index}
+          onPress={() => selectValue(text)}>
+          <View
+            style={{
+              borderTopColor: '#bdc3c7',
+              borderTopWidth: index === 0 ? 0 : 1,
+              padding: 7
+            }}>
+            <Text>{text}</Text>
+          </View>
+        </TouchableRipple>
+      ))}
+    </Animated.View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
