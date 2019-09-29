@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import {
   Text,
@@ -33,6 +33,7 @@ type PlayerProps = {
 const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoading, setLoading] = useState(true);
+  const player = useRef(null);
 
   useEffect(() => {
     MusicControl.enableControl('play', true);
@@ -93,13 +94,14 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
     return null;
   }
 
-  const uri = `${YOUTUBE_API_STREAM_URL}/${source.id}`;
+  const uri = `${YOUTUBE_API_STREAM_URL}/chunk/${source.id}`;
   const duration = youtubeDurationToSeconds(source.duration);
   const percentage = Math.floor((100 / duration) * currentTime);
 
   return (
     <View style={styles.container}>
       <Video
+        ref={player}
         source={{
           uri
         }}
@@ -166,12 +168,24 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
             onPress={() => actions.loadSource(props.previousSourceIndex)}
             size={30}
           />
+          <IconButton
+            icon="replay-30"
+            onPress={() => player.current.seek(currentTime - 30)}
+            size={30}
+            animated
+          />
           <Spacer width={10} />
           <IconButton
             icon={paused ? 'play-circle-outline' : 'pause-circle-outline'}
             onPress={actions.paused}
             style={{ width: 80, margin: 0 }}
             size={80}
+            animated
+          />
+          <IconButton
+            icon="forward-30"
+            onPress={() => player.current.seek(currentTime + 30)}
+            size={30}
             animated
           />
           <IconButton
