@@ -12,5 +12,8 @@
     "javascript.validate.enable": false,
     "flow.enabled": true,
     "flow.useNPMPackagedFlow": true,
-    "peacock.color": "#2575f4"
+    "peacock.color": "#2575f4",
+    "vscode_custom_css.imports": [
+        "file:///home/stephane/Téléchargements/synthewave84.css"
+    ]
 }
