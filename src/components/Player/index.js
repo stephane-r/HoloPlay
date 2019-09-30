@@ -94,7 +94,7 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
     return null;
   }
 
-  const uri = `${YOUTUBE_API_STREAM_URL}/chunk/${source.id}`;
+  const uri = `${YOUTUBE_API_STREAM_URL}/${source.id}`;
   const duration = youtubeDurationToSeconds(source.duration);
   const percentage = Math.floor((100 / duration) * currentTime);
 
@@ -168,12 +168,12 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
             onPress={() => actions.loadSource(props.previousSourceIndex)}
             size={30}
           />
-          <IconButton
+          {/* <IconButton
             icon="replay-30"
             onPress={() => player.current.seek(currentTime - 30)}
             size={30}
             animated
-          />
+          /> */}
           <Spacer width={10} />
           <IconButton
             icon={paused ? 'play-circle-outline' : 'pause-circle-outline'}
@@ -182,12 +182,12 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
             size={80}
             animated
           />
-          <IconButton
+          {/* <IconButton
             icon="forward-30"
             onPress={() => player.current.seek(currentTime + 30)}
             size={30}
             animated
-          />
+          /> */}
           <IconButton
             icon="skip-next"
             onPress={() => actions.loadSource(props.nextSourceIndex)}
