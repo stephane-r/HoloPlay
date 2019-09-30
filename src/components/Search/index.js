@@ -51,20 +51,24 @@ const Search = ({ history }: SearchProps) => {
           value={value}
         />
       </View>
-      <IconButton
-        icon="history"
-        color="white"
-        size={30}
-        onPress={toggleSubmenu}
-      />
-      <Submenu
-        items={history}
-        selectValue={(value: string) => {
-          setValue(value);
-          toggleSubmenu();
-        }}
-        isOpen={showSubmenu}
-      />
+      {history.length > 0 && (
+        <>
+          <IconButton
+            icon="history"
+            color="white"
+            size={30}
+            onPress={toggleSubmenu}
+          />
+          <Submenu
+            items={history}
+            selectValue={(value: string) => {
+              setValue(value);
+              toggleSubmenu();
+            }}
+            isOpen={showSubmenu}
+          />
+        </>
+      )}
     </View>
   );
 };

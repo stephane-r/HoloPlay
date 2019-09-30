@@ -21,7 +21,7 @@ const appActions = {
       ...state,
       darkMode: darkMode === 'true',
       userId: Number(userId),
-      history: JSON.parse(searchHistory)
+      history: searchHistory ? JSON.parse(searchHistory) : []
     };
   },
   setConnected: state => {
