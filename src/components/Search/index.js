@@ -44,9 +44,6 @@ const Search = ({ history }: SearchProps) => {
         <Searchbar
           placeholder={SEARCH_INPUT_PLACEHOLDER}
           onChangeText={setValue}
-          // onFocus={() => (value || value === '') && setShowSubmenu(true)}
-          // onKeyPress={() => value !== '' && setShowSubmenu(true)}
-          // onBlur={() => setTimeout(() => setShowSubmenu(false), 500)}
           onIconPress={searchThroughApi}
           value={value}
         />
