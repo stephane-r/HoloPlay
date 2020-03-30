@@ -1,20 +1,16 @@
 // @flow
 import config from 'react-native-config';
 
-const { YOUTUBE_API_KEY } = config;
-
-const baseURL: string = 'https://www.googleapis.com/youtube/v3/videos';
+const { YOUTUBE_API_STREAM_URL } = config;
 
 const getYoutubeContentDetail = async (id: string): Object => {
   try {
-    const request = await fetch(
-      `${baseURL}?part=contentDetails,liveStreamingDetails&id=${id}&key=${YOUTUBE_API_KEY}`
-    );
+    const request = await fetch(`${YOUTUBE_API_STREAM_URL}/videos/${id}`);
     const response = await request.json();
 
-    return response.items[0];
+    return response;
   } catch (error) {
-    return error;
+    console.log(error);
   }
 };
 

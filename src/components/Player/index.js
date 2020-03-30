@@ -9,18 +9,14 @@ import {
   ActivityIndicator
 } from 'react-native-paper';
 import Video from 'react-native-video';
-import config from 'react-native-config';
 import MusicControl from 'react-native-music-control';
 import TimeFormat from 'hh-mm-ss';
 import { actions } from '../../store';
 import Spacer from '../Spacer';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
-import youtubeDurationToSeconds from '../../utils/youtubeDurationToSeconds';
 import FavorisContainer from '../../containers/Favoris';
 
 // @flow
-const { YOUTUBE_API_STREAM_URL } = config;
-
 type PlayerProps = {
   client: Object,
   source: Object,
@@ -56,7 +52,7 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
         props.previousSourceIndex &&
         actions.loadSource(props.previousSourceIndex)
     );
-  });
+  }, [source]);
 
   const onProgress = ({ currentTime }) => {
     setLoading(false);
@@ -64,7 +60,14 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
   };
 
   const onLoadStart = () => {
-    const { title, channelTitle, duration, description, thumbnails } = source;
+    console.log(source);
+    const {
+      title,
+      channelTitle,
+      lengthSeconds,
+      description,
+      thumbnail
+    } = source;
 
     if (!isLoading) {
       setLoading(true);
@@ -72,9 +75,9 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
 
     MusicControl.setNowPlaying({
       title,
-      artwork: thumbnails.medium.url,
+      artwork: thumbnail.url,
       artist: channelTitle,
-      duration: youtubeDurationToSeconds(duration),
+      duration: lengthSeconds,
       description
     });
   };
@@ -94,8 +97,9 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
     return null;
   }
 
-  const uri = `${YOUTUBE_API_STREAM_URL}/${source.id}`;
-  const duration = youtubeDurationToSeconds(source.duration);
+  console.log(source);
+
+  const duration = source.lengthSeconds;
   const percentage = Math.floor((100 / duration) * currentTime);
 
   return (
@@ -103,7 +107,7 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
       <Video
         ref={player}
         source={{
-          uri
+          uri: source.uri
         }}
         audioOnly={true}
         playInBackground={true}
@@ -125,15 +129,15 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
         <View>
           {isLoading && <ActivityIndicator style={styles.loader} />}
           <Image
-            source={{ uri: source.thumbnails.medium.url }}
+            source={{ uri: source.thumbnail.url }}
             style={{
-              width: source.thumbnails.medium.width,
-              height: source.thumbnails.medium.height
+              width: source.thumbnail.width,
+              height: source.thumbnail.height
             }}
           />
         </View>
         <Spacer height={30} />
-        <Headline numberOfLines={1}>{source.title}</Headline>
+        <Headline numberOfLines={2}>{source.title}</Headline>
         <Spacer height={10} />
         <Text>{source.channelTitle}</Text>
       </View>
@@ -142,17 +146,17 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
           <Text>
             {currentTime
               ? TimeFormat.fromS(
-                currentTime,
-                duration > 3600 ? 'hh:mm:ss' : 'mm:ss'
-              )
+                  currentTime,
+                  duration > 3600 ? 'hh:mm:ss' : 'mm:ss'
+                )
               : '00:00'}
           </Text>
           <View style={styles.progressBar}>
-            <ProgressBar
-              progress={percentage / 100}
-              color="#2575f4" />
+            <ProgressBar progress={percentage / 100} color="#2575f4" />
           </View>
-          <Text>{ISO8601toDuration(source.duration)}</Text>
+          <Text>
+            {source.duration ? ISO8601toDuration(source.duration) : 'test'}
+          </Text>
           <Spacer height={30} />
         </View>
         <Spacer width={10} />

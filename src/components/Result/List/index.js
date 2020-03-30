@@ -44,8 +44,8 @@ const ResultList = ({ data, ...props }) => {
         {data.map((item, index) => {
           const card = {
             title: item.title,
-            picture: item.thumbnails.default.url,
-            duration: item.contentDetails ? item.contentDetails.duration : null
+            picture: item.videoThumbnails.find(q => q.quality === 'medium').url,
+            duration: item.lengthSeconds
           };
 
           return (

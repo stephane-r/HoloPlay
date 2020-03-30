@@ -71,19 +71,12 @@ const CardLayout = ({
               {!isHorizontal && (
                 <>
                   {card.duration && !props.isStream && (
-                    <Label
-                      align="left"
-                      theme="#0455BF"
-                      color="black">
-                      {ISO8601toDuration(card.duration)}
-                      6m
+                    <Label align="left" theme="#0455BF" color="black">
+                      {card.duration}
                     </Label>
                   )}
                   {props.isStream && (
-                    <Label
-                      align="right"
-                      theme="#2575f4"
-                      color="white">
+                    <Label align="right" theme="#2575f4" color="white">
                       LIVE
                     </Label>
                   )}

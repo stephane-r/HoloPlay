@@ -54,10 +54,16 @@ const audioActions = {
       const isLastSource = playlist.length === sourceIndex - 2;
       // If is last source, we restart the playlist from first index
       const source = isLastSource ? playlist[0] : playlist[sourceIndex];
-      const { contentDetails } = await getYoutubeContentDetail(source.id);
+      const data = await getYoutubeContentDetail(source.id || source.videoId);
       const audio = {
         ...source,
-        duration: contentDetails.duration
+        ...data,
+        uri: data.adaptiveFormats.find(
+          ({ type }) => type === 'audio/webm; codecs="opus"'
+        ).url,
+        thumbnail: data.videoThumbnails.find(
+          ({ quality }) => quality === 'medium'
+        )
       };
 
       return {
