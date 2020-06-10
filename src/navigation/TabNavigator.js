@@ -10,15 +10,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import LoadingScreen from '../screens/Loading';
 import LoginScreen from '../screens/Login';
-import RegisterScreen from '../screens/Register';
 import DashboardScreen from '../screens/Dashboard';
 import FavorisScreen from '../screens/Favoris';
 import PlaylistScreen from '../screens/Playlist';
 import SettingsScreen from '../screens/Settings';
 
 const AuthenticationNavigator = createStackNavigator({
-  Login: LoginScreen,
-  Register: RegisterScreen
+  Login: LoginScreen
 });
 
 const SettingsNavigator = createStackNavigator(
@@ -36,10 +34,7 @@ const AppNavigator = createMaterialBottomTabNavigator(
       screen: DashboardScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon
-            name="home"
-            size={23}
-            style={{ color: tintColor }} />
+          <Icon name="home" size={23} style={{ color: tintColor }} />
         ),
         tabBarColor: '#2575f4'
       }
@@ -48,10 +43,7 @@ const AppNavigator = createMaterialBottomTabNavigator(
       screen: PlaylistScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon
-            name="headset"
-            size={23}
-            style={{ color: tintColor }} />
+          <Icon name="headset" size={23} style={{ color: tintColor }} />
         ),
         tabBarColor: '#0455BF'
       }
@@ -60,10 +52,7 @@ const AppNavigator = createMaterialBottomTabNavigator(
       screen: FavorisScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon
-            name="favorite"
-            size={23}
-            style={{ color: tintColor }} />
+          <Icon name="favorite" size={23} style={{ color: tintColor }} />
         ),
         tabBarColor: '#EE05F2'
       }
