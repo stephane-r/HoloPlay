@@ -13,6 +13,7 @@ import config from 'react-native-config';
 import SettingsProfilContainer from '../../containers/SettingsProfil';
 import DialogEditUserEmailContainer from '../../containers/DialogEditUserEmail';
 import DialogEditUserUsernameContainer from '../../containers/DialogEditUserUsername';
+import useStore from '../../hooks/useStore';
 
 const { API_URL, YOUTUBE_API_KEY, YOUTUBE_API_STREAM_URL } = config;
 
@@ -21,19 +22,10 @@ type FavorisProps = {
 };
 
 const SettingsScreen = ({ navigation }: FavorisProps) => {
-  const [showDialogName, setToggleDialogName] = useState(false);
-  const [showDialogEmail, setToggleDialogEmail] = useState(false);
-  const [enableCustomApi, setEnableCustomApi] = useState(false);
-
-  const toggleDialogName = () => setToggleDialogName(!showDialogName);
-  const toggleDialogEmail = () => setToggleDialogEmail(!showDialogEmail);
-
-  const opacity = enableCustomApi ? 1 : 0.3;
+  const store = useStore();
 
   return (
-    <View
-      style={styles.container}
-      navigation={navigation}>
+    <View style={styles.container}>
       <Appbar>
         <Appbar.BackAction
           icon="archive"
@@ -42,49 +34,21 @@ const SettingsScreen = ({ navigation }: FavorisProps) => {
         <Appbar.Content title="App Settings" />
       </Appbar>
       <View style={styles.content}>
-        <Subheading style={styles.subheading}>ACCOUNT</Subheading>
-        <SettingsProfilContainer
-          toggleDialogName={toggleDialogName}
-          toggleDialogEmail={toggleDialogEmail}
-        />
-        <Subheading style={styles.subheading}>SETTINGS</Subheading>
-        <TouchableRipple onPress={() => setEnableCustomApi(!enableCustomApi)}>
-          <List.Item
-            title="Enable custom API's"
-            right={() => (
-              <Switch
-                value={enableCustomApi}
-                onValueChange={setEnableCustomApi}
-              />
-            )}
-          />
-        </TouchableRipple>
+        <Subheading style={styles.subheading}>API</Subheading>
+        <View style={{ height: 15 }} />
         <Divider />
-        <List.Item
-          title="API URL"
-          description={API_URL}
-          style={{ opacity }} />
+        <List.Item title="Invidious instance" description={store.instance} />
         <Divider />
-        <List.Item
-          title="Youtube API Stream URL"
-          description={YOUTUBE_API_STREAM_URL}
-          style={{ opacity }}
-        />
-        <Divider />
-        <List.Item
-          title="Youtube API Key"
-          description={YOUTUBE_API_KEY}
-          style={{ opacity }}
-        />
+        <List.Item title="Token" description={store.token} />
       </View>
-      <DialogEditUserEmailContainer
+      {/* <DialogEditUserEmailContainer
         visible={showDialogEmail}
         onDismiss={toggleDialogEmail}
       />
       <DialogEditUserUsernameContainer
         visible={showDialogName}
         onDismiss={toggleDialogName}
-      />
+      /> */}
     </View>
   );
 };
