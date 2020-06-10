@@ -26,10 +26,7 @@ const CardSearchItem = ({
   };
 
   return (
-    <Card
-      {...props}
-      isStream={item.liveStreamingDetails}
-      onPress={loadSource}>
+    <Card {...props} isStream={item.liveStreamingDetails} onPress={loadSource}>
       <View
         style={{
           flexDirection: 'row',
@@ -38,9 +35,7 @@ const CardSearchItem = ({
           flex: 1,
           margin: -8
         }}>
-        <FavorisContainer
-          source={item}
-          buttonWithIcon />
+        <FavorisContainer source={item} buttonWithIcon />
         <MenuSearchItem
           addToPlaylist={() => addToPlaylist(item)}
           downloadFile={() => alert('download')}

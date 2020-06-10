@@ -37,10 +37,12 @@ const client = new ApolloClient({
 
 class App extends React.Component {
   componentDidMount() {
-    codePush.sync({
-      updateDialog: true,
-      installMode: codePush.InstallMode.IMMEDIATE
-    });
+    if (process.env.NODE_ENV === 'production') {
+      codePush.sync({
+        updateDialog: true,
+        installMode: codePush.InstallMode.IMMEDIATE
+      });
+    }
   }
 
   codePushStatusDidChange(status) {

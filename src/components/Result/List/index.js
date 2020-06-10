@@ -60,9 +60,7 @@ const ResultList = ({ data, ...props }) => {
                 toggleDialog(!dialogIsShow);
               }}
               isFavoris={
-                props.isFavoris ||
-                (Array.isArray(props.favorisIds) &&
-                  props.favorisIds.includes(item.id))
+                props.isFavoris || props.favorisIds.includes(item.videoId)
               }
             />
           );

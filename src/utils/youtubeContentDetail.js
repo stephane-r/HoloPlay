@@ -1,11 +1,10 @@
 // @flow
-import config from 'react-native-config';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const { YOUTUBE_API_STREAM_URL } = config;
-
-const getYoutubeContentDetail = async (id: string): Object => {
+const getYoutubeContentDetail = async (videoId: string): Object => {
   try {
-    const request = await fetch(`${YOUTUBE_API_STREAM_URL}/videos/${id}`);
+    const instance = await AsyncStorage.getItem('instance');
+    const request = await fetch(`${instance}/api/v1/videos/${videoId}`);
     const response = await request.json();
 
     return response;

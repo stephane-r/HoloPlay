@@ -1,66 +1,74 @@
 // @flow
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IconButton, Button } from 'react-native-paper';
-import { useQuery } from 'react-apollo-hooks';
-import { withApollo } from 'react-apollo';
-import GET_USER from '../../graphql/query/user';
-import { ADD_TO_FAVORIS } from '../../graphql/mutation/favoris';
+import useStore from '../../hooks/useStore';
+import { actions } from '../../store';
 
 type FavorisProps = {
-  client: Object,
-  userId: number,
   source: Object,
   buttonWithIcon: boolean
 };
 
-const Favoris = ({ client, userId, source, buttonWithIcon }) => {
-  const { data, error, loading } = useQuery(GET_USER, {
-    variables: { userId }
-  });
+const Favoris = ({ favorisPlaylist, favorisIds, source, buttonWithIcon }) => {
+  const store = useStore();
 
-  if (loading || error) {
-    return null;
-  }
+  useEffect(() => {}, []);
 
-  const AddOrRemoveToFavoris = () => {
-    const refetchQueries = [
-      {
-        query: GET_USER,
-        variables: { userId }
-      }
-    ];
-
-    const favorisIds = Array.isArray(data.user.favorisIds)
-      ? data.user.favorisIds
-      : [];
-    const favoris = Array.isArray(data.user.favoris) ? data.user.favoris : [];
-
+  const addOrRemoveToFavoris = async () => {
     if (isFavoris) {
-      return client.mutate({
-        mutation: ADD_TO_FAVORIS,
-        variables: {
-          userId,
-          favorisIds: favorisIds ? favorisIds.filter(f => f !== source.id) : [],
-          favoris: favoris ? favoris.filter(f => f.id !== source.id) : []
-        },
-        refetchQueries
-      });
+      try {
+        const video = favorisPlaylist.videos.find(
+          v => v.videoId === source.videoId
+        );
+
+        if (video.indexId) {
+          actions.removeFromFavoris(source.videoId);
+
+          await fetch(
+            `${store.instance}/api/v1/auth/playlists/${
+              favorisPlaylist.playlistId
+            }/videos/${video.indexId}`,
+            {
+              method: 'DELETE',
+              headers: {
+                Authorization: `Bearer ${store.token}`
+              }
+            }
+          );
+        }
+
+        return actions.setFlashMessage('Removed from favoris');
+      } catch (error) {
+        return console.log(error);
+      }
     }
 
-    return client.mutate({
-      mutation: ADD_TO_FAVORIS,
-      variables: {
-        userId,
-        favorisIds: [source.id, ...favorisIds],
-        favoris: favoris ? [source, ...favoris] : [source]
-      },
-      refetchQueries
-    });
+    try {
+      await fetch(
+        `${store.instance}/api/v1/auth/playlists/${
+          favorisPlaylist.playlistId
+        }/videos`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${store.token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            videoId: source.videoId
+          })
+        }
+      );
+
+      actions.addToFavoris(source);
+
+      return actions.setFlashMessage('Added from favoris');
+    } catch (error) {
+      return console.log(error);
+    }
   };
 
-  const isFavoris =
-    Array.isArray(data.user.favorisIds) &&
-    data.user.favorisIds.includes(source.id);
+  const isFavoris = favorisIds.includes(source.videoId);
 
   if (buttonWithIcon) {
     return (
@@ -70,7 +78,7 @@ const Favoris = ({ client, userId, source, buttonWithIcon }) => {
         size={20}
         uppercase={false}
         animated
-        onPress={AddOrRemoveToFavoris}>
+        onPress={addOrRemoveToFavoris}>
         Favoris
       </Button>
     );
@@ -81,7 +89,7 @@ const Favoris = ({ client, userId, source, buttonWithIcon }) => {
       icon={isFavoris ? 'favorite' : 'favorite-border'}
       color={isFavoris ? '#EE05F2' : '#607D8B'}
       size={25}
-      onPress={AddOrRemoveToFavoris}
+      onPress={addOrRemoveToFavoris}
       animated
     />
   );
@@ -91,4 +99,4 @@ Favoris.defaultProps = {
   buttonWithIcon: false
 };
 
-export default withApollo<FavorisProps>(Favoris);
+export default Favoris;

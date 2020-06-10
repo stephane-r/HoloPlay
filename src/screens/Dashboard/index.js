@@ -1,30 +1,25 @@
 // @flow
-import React from 'react';
+import React, { Suspense } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Title } from 'react-native-paper';
-import { useQuery } from 'react-apollo-hooks';
-import SearchResultContainer from '../../containers/SearchResults';
 import Layout from '../../components/Layout';
-import ProfilContainer from '../../containers/Profil';
 import Spacer from '../../components/Spacer';
-import CarouselUserPlaylists from '../../components/Carousel';
 import type { ScreenProps } from '../../types';
-import GET_USER from '../../graphql/query/user';
 import SearchContainer from '../../containers/Search';
+import Profil from '../../components/Profil';
+import Carousel from '../../components/Carousel';
+import PlaceholderCarousel from '../../components/Placeholder/Carousel';
+import SearchResultContainer from '../../containers/SearchResults';
+import PlaceholderSearchList from '../../components/Placeholder/Search';
+import PlaylistsCarouselContainer from '../../containers/PlaylistsCarousel';
 
 type DashboardProps = {
   navigation: Object,
   screenProps: ScreenProps
 };
 
-const Dashboard = ({ navigation, ...props }: DashboardProps) => {
-  const { data, loading } = useQuery(GET_USER, {
-    variables: {
-      userId: props.screenProps.userId
-    }
-  });
-
-  const userPlaylistsEmpty = !loading && data.user.playlists.length === 0;
+const Dashboard = ({ navigation }: DashboardProps) => {
+  const userPlaylistsEmpty = false;
   const carouselContainerStyles = {
     marginBottom: userPlaylistsEmpty ? 0 : -60
   };
@@ -34,23 +29,18 @@ const Dashboard = ({ navigation, ...props }: DashboardProps) => {
       <View style={styles.header}>
         <SearchContainer />
         <Spacer height={15} />
-        <ProfilContainer />
+        <Profil />
         <Spacer height={30} />
         <View style={carouselContainerStyles}>
-          <CarouselUserPlaylists userId={props.screenProps.userId} />
+          <PlaylistsCarouselContainer />
         </View>
       </View>
       <Spacer height={userPlaylistsEmpty ? 30 : 90} />
       <Title style={{ fontSize: 27 }}>Search</Title>
       <Spacer height={15} />
-      {!loading && (
-        <SearchResultContainer
-          playlists={data.user.playlists}
-          favorisIds={data.user.favorisIds}
-          favoris={data.user.favoris}
-          setPlaylistFrom="searchResults"
-        />
-      )}
+      <Suspense fallback={<PlaceholderSearchList />}>
+        <SearchResultContainer setPlaylistFrom="searchResults" />
+      </Suspense>
     </Layout>
   );
 };

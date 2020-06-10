@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { apiState } from '../Api';
 
 const appState = {
+  instance: null,
+  token: null,
   isConnected: false,
   loginIsFetching: false,
   flashMessage: {
@@ -13,15 +15,19 @@ const appState = {
 
 const appActions = {
   appInit: async state => {
-    const darkMode = await AsyncStorage.getItem('darkMode');
-    const userId = await AsyncStorage.getItem('userId');
-    const searchHistory = await AsyncStorage.getItem('searchHistory');
+    const [darkMode, searchHistory, instance, token] = await Promise.all([
+      AsyncStorage.getItem('darkMode'),
+      AsyncStorage.getItem('searchHistory'),
+      AsyncStorage.getItem('instance'),
+      AsyncStorage.getItem('token')
+    ]);
 
     return {
       ...state,
       darkMode: darkMode === 'true',
-      userId: Number(userId),
-      history: searchHistory ? JSON.parse(searchHistory) : []
+      history: searchHistory ? JSON.parse(searchHistory) : [],
+      instance,
+      token
     };
   },
   setConnected: state => {

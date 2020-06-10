@@ -15,6 +15,7 @@ import {
   REMOVE_SOURCE_TO_PLAYLIST
 } from '../../../graphql/mutation/playlist';
 import GET_USER from '../../../graphql/query/user';
+import useStore from '../../../hooks/useStore';
 
 type CardPlaylistProps = {
   client?: Object,
@@ -32,6 +33,7 @@ const CardPlaylist = ({
   toggleModal,
   ...props
 }) => {
+  const store = useStore();
   const [dialogIsOpen, setToggleDialog] = useState(false);
   const [showItems, setToggleItems] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,52 +52,73 @@ const CardPlaylist = ({
 
   const removePlaylist = async () => {
     setIsLoading(true);
-    client.mutate({
-      mutation: REMOVE_PLAYLIST,
-      variables: { ...playlist, deleted: true },
-      refetchQueries
-    });
-    actions.setFlashMessage(`${playlist.name} has been removed.`);
+
+    try {
+      await fetch(
+        `${store.instance}/api/v1/auth/playlists/${playlist.playlistId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${store.token}`
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+    actions.setFlashMessage(`${playlist.title} has been removed.`);
     toggleDialog();
     setIsLoading(false);
   };
 
-  const removeSource = sourceId => {
-    const { sources } = playlist;
-    const sourcesUpdated = sources.filter(s => s.id !== sourceId);
+  const removeSource = async indexId => {
+    try {
+      await fetch(
+        `${store.instance}/api/v1/auth/playlists/${
+          playlist.playlistId
+        }/videos/${indexId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${store.token}`
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
 
-    client.mutate({
-      mutation: REMOVE_SOURCE_TO_PLAYLIST,
-      variables: {
-        id: playlist.id,
-        sources: sourcesUpdated
-      },
-      refetchQueries
+    actions.removeFromPlaylist({
+      playlistId: playlist.playlistId,
+      indexId: indexId
     });
 
-    return actions.setFlashMessage(`${sourceId} has been removed.`);
+    return actions.setFlashMessage(`${indexId} has been removed.`);
   };
 
   return (
     <>
       <Card
         {...props}
-        items={playlist.sources}
+        items={playlist.videos}
         itemsRenderer={
           <Source
-            items={playlist.sources}
+            items={playlist.videos}
             onPlay={async sourceIndex => {
-              await actions.setPlaylistFrom(playlist.sources);
-              await actions.loadSource(sourceIndex);
-              return actions.showPlayer();
+              if (sourceIndex) {
+                await actions.setPlaylistFrom(playlist.videos);
+                await actions.loadSource(sourceIndex);
+                return actions.showPlayer();
+              }
             }}
             onRemove={removeSource}
-            playlistId={playlist.id}
+            playlistId={playlist.playlistId}
           />
         }
         showItems={showItems}
-        playlistId={playlist.id}
-        onPress={playlist.sources.length === 0 ? null : toggleItems}
+        playlistId={playlist.playlistId}
+        onPress={playlist.videos.length === 0 ? null : toggleItems}
         rightContent={
           <View
             style={{
@@ -104,10 +127,10 @@ const CardPlaylist = ({
               alignItems: 'center',
               marginRight: -30
             }}>
-            {playlist.sources > 0 && (
+            {playlist.videos > 0 && (
               <CarouselPlayIcon
                 onPress={async () => {
-                  await actions.setPlaylistFrom(playlist.sources);
+                  await actions.setPlaylistFrom(playlist.videos);
                   actions.loadSource(0);
                 }}
               />
@@ -128,7 +151,7 @@ const CardPlaylist = ({
         visible={dialogIsOpen}
         toggleDialog={toggleDialog}
         onPress={removePlaylist}
-        playlistName={playlist.name}
+        playlistName={playlist.title}
         loading={isLoading}
       />
     </>

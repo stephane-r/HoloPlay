@@ -6,6 +6,7 @@ import Layout from '../../components/Layout';
 import DialogAddPlaylist from '../../components/Dialog/AddPlaylist';
 import Header from '../../components/Header';
 import Playlist from '../../components/Playlist/List';
+import PlaylistsContainer from '../../containers/Playlists';
 
 type ScreenProps = {
   userId: number
@@ -32,18 +33,17 @@ const PlaylistScreen = ({ navigation, ...props }: PlaylistScreenProps) => {
 
   return (
     <Layout navigation={navigation}>
-      <Header
-        title="Playlist"
-        backgroundColor="#0455BF" />
-      <Playlist
-        userId={props.screenProps.userId}
-        toggleModal={playlist => toggleModal(playlist)}
+      <Header title="Playlist" backgroundColor="#0455BF" />
+      <PlaylistsContainer
+        toggleModal={playlist => {
+          setPlaylist(playlist);
+          toggleModal();
+        }}
       />
       <DialogAddPlaylist
         visible={modalIsOpen}
         toggleDialog={toggleModal}
         playlist={playlist}
-        userId={props.screenProps.userId}
       />
       {props.isFocused && (
         <Portal>

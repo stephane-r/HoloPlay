@@ -19,4 +19,4 @@ const config = {
   }
 };
 
-export const { Provider, connect, actions } = createStore(config);
+export const { Provider, connect, actions, getState } = createStore(config);

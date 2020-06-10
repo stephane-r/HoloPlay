@@ -97,8 +97,6 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
     return null;
   }
 
-  console.log(source);
-
   const duration = source.lengthSeconds;
   const percentage = Math.floor((100 / duration) * currentTime);
 

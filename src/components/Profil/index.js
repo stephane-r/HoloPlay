@@ -1,39 +1,22 @@
 // @flow
 import React from 'react';
-import { useQuery } from 'react-apollo-hooks';
 import { View, Image, StyleSheet } from 'react-native';
 import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
-import GET_USER_ME from '../../graphql/query/user';
-import PlaceholderProfil from '../Placeholder/Profil';
 
-type ProfilProps = {
-  userId: number
-};
-
-const Profil = ({ userId }: ProfilProps) => {
-  const { data, error, loading } = useQuery(GET_USER_ME, {
-    variables: { userId }
-  });
-
-  if (error || loading) {
-    return <PlaceholderProfil />;
-  }
-
-  return (
-    <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <Title style={styles.title}>Hey {data.user.username}</Title>
-        <Spacer height={5} />
-        <Text style={styles.text}>Welcome home</Text>
-      </View>
-      <Image
-        source={{ uri: 'https://picsum.photos/60/60' }}
-        style={styles.image}
-      />
+const Profil = () => (
+  <View style={styles.container}>
+    <View style={{ flex: 1 }}>
+      <Title style={styles.title}>Hey Stéphane</Title>
+      <Spacer height={5} />
+      <Text style={styles.text}>Welcome home</Text>
     </View>
-  );
-};
+    <Image
+      source={{ uri: 'https://picsum.photos/60/60' }}
+      style={styles.image}
+    />
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {

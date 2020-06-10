@@ -4,7 +4,6 @@ import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import Label from '../../Label';
-import ISO8601toDuration from '../../../utils/ISO8601toDuration';
 
 type CardType = {
   title: string,

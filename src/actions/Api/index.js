@@ -1,79 +1,91 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import callApi from '../../utils/callApi';
-import api from '../../api';
-
+// TODO: Rename to data
 const apiState = {
-  jwt: null,
-  user: null,
-  userId: null
+  playlists: [],
+  favorisPlaylist: null
 };
 
 const apiActions = {
-  loginThroughApi: async (state, actions, formData) => {
-    const { jwt, user } = await callApi(api.login, 'post', formData);
-    await AsyncStorage.setItem('userToken', jwt);
-    await AsyncStorage.setItem('userId', String(user.id));
+  receivePlaylists: (state, actions, playlists) => ({
+    ...state,
+    playlists
+  }),
+  addPlaylist: (state, actions, playlist) => ({
+    ...state,
+    playlists: [playlist, ...state]
+  }),
+  updatePlaylist: (state, actions, playlist) => ({
+    ...state,
+    playlists: state.playlists.map(p => {
+      if (p.playlistId === playlist.playlistId) {
+        return {
+          ...p,
+          ...playlist
+        };
+      }
+
+      return playlist;
+    })
+  }),
+  removePlaylist: (state, actions, playlistId) => ({
+    ...state,
+    playlists: state.playlists.filter(p => p.playlistId !== playlistId)
+  }),
+  receiveFavorisPlaylist: (state, actions, favorisPlaylist) => ({
+    ...state,
+    favorisPlaylist
+  }),
+  addToPlaylist: (state, actions, { playlistId, video }) => {
+    const playlists = state.playlists.map(p => {
+      if (p.playlistId === playlistId) {
+        console.log({
+          ...p,
+          videos: [video, ...p.videos]
+        });
+        return {
+          ...p,
+          videos: [video, ...p.videos]
+        };
+      }
+
+      return p;
+    });
 
     return {
       ...state,
-      jwt,
-      user,
-      userId: user.id
+      playlists
     };
   },
-  addUserToken: (state, actions, jwt) => {
-    return {
-      ...state,
-      jwt
-    };
-  },
-  addSourceToFavoris: async (state, action, source) => {
-    const { _id, favoris, favorisIds } = state.user;
-    const userUpdated = {
-      favoris: [...favoris, source],
-      favorisIds: [...favorisIds, source.id]
-    };
-    const user = {
-      ...state.user,
-      ...userUpdated
-    };
+  removeFromPlaylist: (state, actions, { playlistId, indexId }) => {
+    const playlists = state.playlists.map(p => {
+      if (p.playlistId === playlistId) {
+        return {
+          ...p,
+          videos: p.videos.filter(v => v.indexId !== indexId)
+        };
+      }
 
-    const headers = { Authorization: `Bearer ${state.jwt}` };
-    await callApi(api.update(_id), 'put', userUpdated, headers);
+      return p;
+    });
 
     return {
       ...state,
-      user
+      playlists
     };
   },
-  removeSourceFromFavoris: async (state, action, source) => {
-    const { _id, favoris, favorisIds } = state.user;
-    const favorisFiltered = favoris.filter(item => item.id !== source.id);
-    const favorisIdsFiltered = favorisIds.filter(id => id !== source.id);
-    const userUpdated = {
-      favoris: favorisFiltered,
-      favorisIds: favorisIdsFiltered
-    };
-    const user = {
-      ...state.user,
-      ...userUpdated
-    };
-
-    const headers = { Authorization: `Bearer ${state.jwt}` };
-    await callApi(api.update(_id), 'put', userUpdated, headers);
-
-    return {
-      ...state,
-      user
-    };
-  },
-  updateUser: async (state, actions, userUpdated) => {
-    const { _id } = state.user;
-    const headers = { Authorization: `Bearer ${state.jwt}` };
-    await callApi(api.update(_id), 'put', userUpdated, headers);
-
-    return state;
-  }
+  addToFavoris: (state, actions, video) => ({
+    ...state,
+    favorisPlaylist: {
+      ...state.favorisPlaylist,
+      videos: [video, ...state.favorisPlaylist.videos]
+    }
+  }),
+  removeFromFavoris: (state, actions, videoId) => ({
+    ...state,
+    favorisPlaylist: {
+      ...state.favorisPlaylist,
+      videos: state.favorisPlaylist.videos.filter(v => v.videoId !== videoId)
+    }
+  })
 };
 
 export { apiState, apiActions };

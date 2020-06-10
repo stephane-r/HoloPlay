@@ -1,9 +1,13 @@
 import { connect } from '../../store';
-import ResultList from '../../components/Result/List';
+import ResultSearch from '../../components/Result/Search';
 
-const SearchResultContainer = connect(({ isSearching, results }) => ({
-  isSearching,
-  data: results ? results : null
-}))(ResultList);
+const SearchResultContainer = connect(
+  ({ searchValue, playlists, searchType, favorisPlaylist }) => ({
+    searchValue,
+    playlists,
+    searchType,
+    favorisPlaylist
+  })
+)(ResultSearch);
 
 export default SearchResultContainer;

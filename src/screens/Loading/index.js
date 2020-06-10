@@ -1,11 +1,9 @@
 // @flow
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { useQuery } from 'react-apollo-hooks';
-// eslint-disable-next-line import/no-unresolved
+import AsyncStorage from '@react-native-community/async-storage';
 import QuickActions from 'react-native-quick-actions';
 import { actions } from '../../store';
-import GET_ME from '../../graphql/query/me';
 
 const TITLE_FAVORIS = 'Favoris';
 const TITLE_PLAYLIST = 'Playlist';
@@ -17,29 +15,59 @@ type LoadingScreenProps = {
 const LoadingScreen = (props: LoadingScreenProps) => {
   actions.appInit();
 
-  const { data, error } = useQuery(GET_ME);
+  QuickActions.popInitialAction().then(async action => {
+    const instance = await AsyncStorage.getItem('instance');
+    const token = await AsyncStorage.getItem('token');
 
-  if (data && data.userMe) {
-    QuickActions.popInitialAction().then(async action => {
-      if (action && action.title) {
-        switch (true) {
-          case action.title === TITLE_FAVORIS:
-            return props.navigation.navigate(TITLE_FAVORIS);
-          case action.title === TITLE_PLAYLIST:
-            return props.navigation.navigate(TITLE_PLAYLIST);
+    if (!instance || !token) {
+      return props.navigation.navigate('Auth');
+    }
+
+    const preferencesRequest = await fetch(
+      `${instance}/api/v1/auth/preferences`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       }
+    );
+    const preferences = await preferencesRequest.json();
 
-      actions.setConnected();
-      actions.search();
+    if (preferences) {
+      const playlistsRequest = await fetch(
+        `${instance}/api/v1/auth/playlists`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      const playlists = await playlistsRequest.json();
 
-      return props.navigation.navigate('App');
-    });
-  }
+      console.log(playlists);
 
-  if (error) {
-    return props.navigation.navigate('Auth');
-  }
+      const favorisPlaylist = playlists.find(p => p.title === 'favoris');
+
+      actions.receivePlaylists(playlists);
+
+      if (favorisPlaylist) {
+        actions.receiveFavorisPlaylist(favorisPlaylist);
+      }
+    }
+
+    actions.setConnected();
+
+    if (action && action.title) {
+      switch (true) {
+        case action.title === TITLE_FAVORIS:
+          return props.navigation.navigate(TITLE_FAVORIS);
+        case action.title === TITLE_PLAYLIST:
+          return props.navigation.navigate(TITLE_PLAYLIST);
+      }
+    }
+
+    return props.navigation.navigate('App');
+  });
 
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>

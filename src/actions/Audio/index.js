@@ -39,8 +39,8 @@ const audioActions = {
         break;
     }
 
-    if (origin.id) {
-      playlistList = origin.sources;
+    if (origin.videoId) {
+      playlistList = origin.videos;
     }
 
     return {
@@ -54,7 +54,7 @@ const audioActions = {
       const isLastSource = playlist.length === sourceIndex - 2;
       // If is last source, we restart the playlist from first index
       const source = isLastSource ? playlist[0] : playlist[sourceIndex];
-      const data = await getYoutubeContentDetail(source.id || source.videoId);
+      const data = await getYoutubeContentDetail(source.videoId);
       const audio = {
         ...source,
         ...data,

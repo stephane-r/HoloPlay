@@ -5624,6 +5624,13 @@ fbjs@^1.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
+fetch-suspense@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/fetch-suspense/-/fetch-suspense-1.2.2.tgz#f6a6635060aed82c5ba59d34a9ef906fbff3d16c"
+  integrity sha512-GqfncRoLp8014UA5AQSRRbUNkRLHJBdZFi9L9QABiNabc4vtlEeBruiayTnXFQFB9tRWSb2iflNNtgdBuYTwTA==
+  dependencies:
+    deep-equal "^1.0.1"
+
 figgy-pudding@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.1.tgz#862470112901c727a0e495a80744bd5baa1d6790"
@@ -10522,10 +10529,10 @@ react-treebeard@3.1.0:
     shallowequal "^1.1.0"
     velocity-react "^1.4.1"
 
-react-waterfall@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/react-waterfall/-/react-waterfall-4.0.1.tgz#5f37854123f5345a29d0b2818f5fe86f264943b1"
-  integrity sha512-Bq4MApxvYI8OgtT3FoIn/PvFZ6s4Vj903ZIoaLz+1rSiJ3i8qd5qHW2tCpsb4XfyVpvIw2Js7Fstc+RAvMMbzQ==
+react-waterfall@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/react-waterfall/-/react-waterfall-4.0.4.tgz#85ff084624f1a50698beb099a252220e25f57f08"
+  integrity sha512-UIuR9Fmuv7sXupKOYhplRc6Hy8aC/TTQiibqY01dgG/UFHhi1X3+QPSL+9/4mi9CTEitAqkCgiPkpDT+lzqSUQ==
 
 react@16.8.3:
   version "16.8.3"
