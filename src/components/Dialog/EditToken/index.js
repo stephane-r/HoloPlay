@@ -2,8 +2,7 @@
 import React from 'react';
 import { Dialog, Button, TextInput } from 'react-native-paper';
 
-type DialogEditUserEmailProps = {
-  title: string,
+type DialogEditTokenProps = {
   label: string,
   value: string,
   visible: boolean,
@@ -11,18 +10,15 @@ type DialogEditUserEmailProps = {
   onSubmit: Function
 };
 
-const DialogEditUserEmail = ({
-  title,
+const DialogEditToken = ({
   label,
   value,
   visible,
   onDismiss,
   onSubmit
-}: DialogEditUserEmailProps) => (
-  <Dialog
-    visible={visible}
-    onDismiss={onDismiss}>
-    <Dialog.Title>{title}</Dialog.Title>
+}: DialogEditTokenProps) => (
+  <Dialog visible={visible} onDismiss={onDismiss}>
+    <Dialog.Title>Edit token</Dialog.Title>
     <Dialog.Content>
       <TextInput
         mode="outlined"
@@ -38,4 +34,4 @@ const DialogEditUserEmail = ({
   </Dialog>
 );
 
-export default DialogEditUserEmail;
+export default DialogEditToken;

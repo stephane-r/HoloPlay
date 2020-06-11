@@ -11,7 +11,7 @@ type LoginFormProps = {
   loginIsFecthing: Boolean
 };
 
-const PUBLIC_INVIDIOUS_INSTANCS = [
+export const PUBLIC_INVIDIOUS_INSTANCES = [
   {
     value: 'https://invidio.us',
     label: 'invidio.us (Official Instance)'
@@ -51,7 +51,7 @@ const PUBLIC_INVIDIOUS_INSTANCS = [
 ];
 
 const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
-  const [instance, setInstance] = useState(PUBLIC_INVIDIOUS_INSTANCS[0].value);
+  const [instance, setInstance] = useState(PUBLIC_INVIDIOUS_INSTANCES[0].value);
   const [customInstance, setCustomInstance] = useState(false);
   const [token, setToken] = useState(null);
 
@@ -85,7 +85,7 @@ const LoginForm = ({ navigation, loginIsFecthing }: LoginFormProps) => {
   return (
     <>
       <Picker selectedValue={instance} onValueChange={onValueChange}>
-        {PUBLIC_INVIDIOUS_INSTANCS.map(({ value, label }, index) => (
+        {PUBLIC_INVIDIOUS_INSTANCES.map(({ value, label }, index) => (
           <Picker.Item key={index} label={label} value={value} />
         ))}
       </Picker>

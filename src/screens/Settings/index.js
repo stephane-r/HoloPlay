@@ -1,21 +1,10 @@
 // @flow
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import {
-  Appbar,
-  Switch,
-  Subheading,
-  List,
-  Divider,
-  TouchableRipple
-} from 'react-native-paper';
-import config from 'react-native-config';
-import SettingsProfilContainer from '../../containers/SettingsProfil';
-import DialogEditUserEmailContainer from '../../containers/DialogEditUserEmail';
-import DialogEditUserUsernameContainer from '../../containers/DialogEditUserUsername';
+import { Appbar, Subheading, List, Divider } from 'react-native-paper';
 import useStore from '../../hooks/useStore';
-
-const { API_URL, YOUTUBE_API_KEY, YOUTUBE_API_STREAM_URL } = config;
+import DialogEditToken from '../../components/Dialog/EditToken';
+import DialogEditApiInstance from '../../components/Dialog/EditApiInstance';
 
 type FavorisProps = {
   navigation: Object
@@ -23,6 +12,12 @@ type FavorisProps = {
 
 const SettingsScreen = ({ navigation }: FavorisProps) => {
   const store = useStore();
+  const [showDialogToken, setShowDialogToken] = useState(false);
+  const [showDialogApiInstance, setShowDialogApiInstance] = useState(false);
+
+  const toggleDialogToken = () => setShowDialogToken(!showDialogToken);
+  const toggleDialogApiInstance = () =>
+    setShowDialogApiInstance(!showDialogApiInstance);
 
   return (
     <View style={styles.container}>
@@ -37,18 +32,31 @@ const SettingsScreen = ({ navigation }: FavorisProps) => {
         <Subheading style={styles.subheading}>API</Subheading>
         <View style={{ height: 15 }} />
         <Divider />
-        <List.Item title="Invidious instance" description={store.instance} />
+        <List.Item
+          title="Invidious instance"
+          description={store.instance}
+          onPress={toggleDialogApiInstance}
+        />
         <Divider />
-        <List.Item title="Token" description={store.token} />
+        <List.Item
+          title="Token"
+          description={store.token}
+          onPress={toggleDialogToken}
+        />
       </View>
-      {/* <DialogEditUserEmailContainer
-        visible={showDialogEmail}
-        onDismiss={toggleDialogEmail}
+      <DialogEditToken
+        label="Edit token"
+        value={store.token}
+        visible={showDialogToken}
+        onDismiss={toggleDialogToken}
+        onSubmit={() => alert('TODO')}
       />
-      <DialogEditUserUsernameContainer
-        visible={showDialogName}
-        onDismiss={toggleDialogName}
-      /> */}
+      <DialogEditApiInstance
+        value={store.instance}
+        visible={showDialogApiInstance}
+        onDismiss={toggleDialogApiInstance}
+        onSubmit={() => alert('TODO')}
+      />
     </View>
   );
 };
