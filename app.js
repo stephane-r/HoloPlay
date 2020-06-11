@@ -1,18 +1,16 @@
 import React from 'react';
 import codePush from 'react-native-code-push';
-import config from 'react-native-config';
-import AsyncStorage from '@react-native-community/async-storage';
 import { Provider } from './src/store';
 import AppContainer from './src/containers/App';
 
 class App extends React.Component {
   componentDidMount() {
-    if (process.env.NODE_ENV === 'production') {
-      codePush.sync({
-        updateDialog: true,
-        installMode: codePush.InstallMode.IMMEDIATE
-      });
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    codePush.sync({
+      updateDialog: true,
+      installMode: codePush.InstallMode.IMMEDIATE
+    });
+    // }
   }
 
   codePushStatusDidChange(status) {

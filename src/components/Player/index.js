@@ -38,7 +38,7 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
     MusicControl.enableControl('nextTrack', true);
     MusicControl.enableControl('previousTrack', true);
     MusicControl.enableBackgroundMode(true);
-    MusicControl.handleAudioInterruptions(true);
+    // MusicControl.handleAudioInterruptions(true);
     MusicControl.on('play', actions.paused);
     MusicControl.on('pause', actions.paused);
     MusicControl.on('stop', actions.paused);
@@ -117,11 +117,7 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
         onError={onError}
       />
       <Spacer height={10} />
-      <IconButton
-        icon="keyboard-arrow-left"
-        size={30}
-        onPress={actions.hidePlayer}
-      />
+      <IconButton icon="chevron-left" size={30} onPress={actions.hidePlayer} />
       <Spacer height={40} />
       <View style={styles.head}>
         <View>
@@ -171,7 +167,7 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
             size={30}
           />
           <IconButton
-            icon="replay-30"
+            icon="rewind-30"
             onPress={() => player.current.seek(30)}
             size={30}
             animated
@@ -185,7 +181,7 @@ const Player = ({ client, source, paused, repeat, ...props }: PlayerProps) => {
             animated
           />
           <IconButton
-            icon="forward-30"
+            icon="fast-forward-30"
             onPress={() => player.current.seek(currentTime + 30)}
             size={30}
             animated

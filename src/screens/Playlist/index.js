@@ -49,7 +49,7 @@ const PlaylistScreen = ({ navigation, ...props }: PlaylistScreenProps) => {
         <Portal>
           <FAB.Group
             open={fabIsOpen}
-            icon={fabIsOpen ? 'today' : 'add'}
+            icon={fabIsOpen ? 'close' : 'plus'}
             actions={[
               {
                 icon: 'headset',

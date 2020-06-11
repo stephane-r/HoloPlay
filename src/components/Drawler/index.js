@@ -23,7 +23,7 @@ const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
       <Drawer.Section title="Navigation">
         <Drawer.Item
           label="Create new playlist"
-          icon="create-new-folder"
+          icon="folder-plus"
           onPress={() => navigation.navigate('Playlist')}
         />
         <Drawer.Item

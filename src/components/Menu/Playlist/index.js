@@ -16,10 +16,9 @@ const MenuPlaylist = ({ onEdit, onRemove }: MenuPlaylistProps) => {
     <Menu
       visible={menuIsOpen}
       onDismiss={toggleMenu}
-      anchor={<IconButton
-        icon="more-vert"
-        size={20}
-        onPress={toggleMenu} />}>
+      anchor={
+        <IconButton icon="dots-vertical" size={20} onPress={toggleMenu} />
+      }>
       <Menu.Item
         onPress={() => {
           onEdit();

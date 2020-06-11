@@ -58,7 +58,7 @@ const Favoris = ({ favorisPlaylist, favorisIds, source, buttonWithIcon }) => {
   const isFavoris = favorisIds.includes(source.videoId);
 
   const iconColor = {
-    icon: isFavoris ? 'favorite' : 'favorite-border',
+    icon: isFavoris ? 'heart' : 'heart-outline',
     color: isFavoris ? '#EE05F2' : '#607D8B'
   };
 
