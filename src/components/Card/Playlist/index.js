@@ -1,6 +1,5 @@
 // @flow
 import React, { useState } from 'react';
-import { withApollo } from 'react-apollo';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Card from '../Layout';
@@ -10,15 +9,11 @@ import { CarouselPlayIcon } from '../../Carousel';
 import Source from '../../Source';
 import DialogRemovePlaylist from '../../Dialog/RemovePlaylist';
 import MenuPlaylist from '../../Menu/Playlist';
-import {
-  REMOVE_PLAYLIST,
-  REMOVE_SOURCE_TO_PLAYLIST
-} from '../../../graphql/mutation/playlist';
-import GET_USER from '../../../graphql/query/user';
 import useStore from '../../../hooks/useStore';
+import callApi from '../../../utils/callApi';
+import { ApiRoutes } from '../../../constants';
 
 type CardPlaylistProps = {
-  client?: Object,
   totalSongs: number,
   playlist: Object,
   toggleModal: Function,
@@ -26,13 +21,7 @@ type CardPlaylistProps = {
   userId: number
 };
 
-const CardPlaylist = ({
-  client,
-  totalSongs,
-  playlist,
-  toggleModal,
-  ...props
-}) => {
+const CardPlaylist = ({ totalSongs, playlist, toggleModal, ...props }) => {
   const store = useStore();
   const [dialogIsOpen, setToggleDialog] = useState(false);
   const [showItems, setToggleItems] = useState(false);
@@ -40,15 +29,6 @@ const CardPlaylist = ({
 
   const toggleDialog = () => setToggleDialog(!dialogIsOpen);
   const toggleItems = () => setToggleItems(!showItems);
-
-  const refetchQueries = [
-    {
-      query: GET_USER,
-      variables: {
-        userId: props.userId
-      }
-    }
-  ];
 
   const removePlaylist = async () => {
     setIsLoading(true);
@@ -74,17 +54,10 @@ const CardPlaylist = ({
 
   const removeSource = async indexId => {
     try {
-      await fetch(
-        `${store.instance}/api/v1/auth/playlists/${
-          playlist.playlistId
-        }/videos/${indexId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${store.token}`
-          }
-        }
-      );
+      await callApi({
+        url: ApiRoutes.VideoIndexId(playlist.playlistId, indexId),
+        method: 'DELETE'
+      });
     } catch (error) {
       console.log(error);
     }
@@ -158,4 +131,4 @@ const CardPlaylist = ({
   );
 };
 
-export default withApollo<CardPlaylistProps>(CardPlaylist);
+export default CardPlaylist;

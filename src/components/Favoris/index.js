@@ -1,8 +1,9 @@
 // @flow
 import React, { useEffect } from 'react';
 import { IconButton, Button } from 'react-native-paper';
-import useStore from '../../hooks/useStore';
 import { actions } from '../../store';
+import callApi from '../../utils/callApi';
+import { ApiRoutes } from '../../constants';
 
 type FavorisProps = {
   source: Object,
@@ -10,8 +11,6 @@ type FavorisProps = {
 };
 
 const Favoris = ({ favorisPlaylist, favorisIds, source, buttonWithIcon }) => {
-  const store = useStore();
-
   useEffect(() => {}, []);
 
   const addOrRemoveToFavoris = async () => {
@@ -23,18 +22,14 @@ const Favoris = ({ favorisPlaylist, favorisIds, source, buttonWithIcon }) => {
 
         if (video.indexId) {
           actions.removeFromFavoris(source.videoId);
-
-          await fetch(
-            `${store.instance}/api/v1/auth/playlists/${
-              favorisPlaylist.playlistId
-            }/videos/${video.indexId}`,
-            {
-              method: 'DELETE',
-              headers: {
-                Authorization: `Bearer ${store.token}`
-              }
-            }
-          );
+          actions.setFlashMessage('Removed from favoris');
+          await callApi({
+            url: ApiRoutes.VideoIndexId(
+              favorisPlaylist.playlistId,
+              video.indexId
+            ),
+            method: 'DELETE'
+          });
         }
 
         return actions.setFlashMessage('Removed from favoris');
@@ -44,21 +39,13 @@ const Favoris = ({ favorisPlaylist, favorisIds, source, buttonWithIcon }) => {
     }
 
     try {
-      await fetch(
-        `${store.instance}/api/v1/auth/playlists/${
-          favorisPlaylist.playlistId
-        }/videos`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${store.token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            videoId: source.videoId
-          })
+      await callApi({
+        url: ApiRoutes.Videos(favorisPlaylist.playlistId),
+        method: 'POST',
+        body: {
+          videoId: source.videoId
         }
-      );
+      });
 
       actions.addToFavoris(source);
 
@@ -70,11 +57,15 @@ const Favoris = ({ favorisPlaylist, favorisIds, source, buttonWithIcon }) => {
 
   const isFavoris = favorisIds.includes(source.videoId);
 
+  const iconColor = {
+    icon: isFavoris ? 'favorite' : 'favorite-border',
+    color: isFavoris ? '#EE05F2' : '#607D8B'
+  };
+
   if (buttonWithIcon) {
     return (
       <Button
-        icon={isFavoris ? 'favorite' : 'favorite-border'}
-        color={isFavoris ? '#EE05F2' : '#607D8B'}
+        {...iconColor}
         size={20}
         uppercase={false}
         animated
@@ -86,8 +77,7 @@ const Favoris = ({ favorisPlaylist, favorisIds, source, buttonWithIcon }) => {
 
   return (
     <IconButton
-      icon={isFavoris ? 'favorite' : 'favorite-border'}
-      color={isFavoris ? '#EE05F2' : '#607D8B'}
+      {...iconColor}
       size={25}
       onPress={addOrRemoveToFavoris}
       animated

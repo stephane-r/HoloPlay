@@ -6,7 +6,7 @@ import Spacer from '../Spacer';
 
 const Profil = () => (
   <View style={styles.container}>
-    <View style={{ flex: 1 }}>
+    <View style={styles.textContainer}>
       <Title style={styles.title}>Hey Stéphane</Title>
       <Spacer height={5} />
       <Text style={styles.text}>Welcome home</Text>
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  textContainer: {
+    flex: 1
   },
   title: {
     color: 'white',

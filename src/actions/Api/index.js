@@ -85,7 +85,27 @@ const apiActions = {
       ...state.favorisPlaylist,
       videos: state.favorisPlaylist.videos.filter(v => v.videoId !== videoId)
     }
-  })
+  }),
+  callApi: async (state, actions, { url, body }) => {
+    const params = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${state.token}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    if (body) {
+      params.body = body;
+    }
+
+    console.log(params);
+
+    const request = await fetch(`${state.instance}/api/v1/${url}`, params);
+    const result = await request.json();
+
+    return result;
+  }
 };
 
 export { apiState, apiActions };

@@ -4,6 +4,8 @@ import { ActivityIndicator, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import QuickActions from 'react-native-quick-actions';
 import { actions } from '../../store';
+import callApi from '../../utils/callApi';
+import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../../constants';
 
 const TITLE_FAVORIS = 'Favoris';
 const TITLE_PLAYLIST = 'Playlist';
@@ -16,43 +18,28 @@ const LoadingScreen = (props: LoadingScreenProps) => {
   actions.appInit();
 
   QuickActions.popInitialAction().then(async action => {
-    const instance = await AsyncStorage.getItem('instance');
-    const token = await AsyncStorage.getItem('token');
+    const [instance, token] = await Promise.all([
+      AsyncStorage.getItem('instance'),
+      AsyncStorage.getItem('token')
+    ]);
 
     if (!instance || !token) {
       return props.navigation.navigate('Auth');
     }
 
-    const preferencesRequest = await fetch(
-      `${instance}/api/v1/auth/preferences`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
-    const preferences = await preferencesRequest.json();
-
-    if (preferences) {
-      const playlistsRequest = await fetch(
-        `${instance}/api/v1/auth/playlists`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+    try {
+      const playlists = await callApi({ url: ApiRoutes.Playlists });
+      const favorisPlaylist = playlists.find(
+        p => p.title === FAVORIS_PLAYLIST_TITLE
       );
-      const playlists = await playlistsRequest.json();
-
-      console.log(playlists);
-
-      const favorisPlaylist = playlists.find(p => p.title === 'favoris');
 
       actions.receivePlaylists(playlists);
 
       if (favorisPlaylist) {
         actions.receiveFavorisPlaylist(favorisPlaylist);
       }
+    } catch (error) {
+      return props.navigation.navigate('Auth');
     }
 
     actions.setConnected();

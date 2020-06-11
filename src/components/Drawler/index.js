@@ -18,11 +18,6 @@ const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
     actions.setDarkMode(!isDarkMode);
   };
 
-  const logout = async () => {
-    await actions.logout();
-    return navigation.navigate('Login');
-  };
-
   return (
     <View style={styles.container}>
       <Drawer.Section title="Navigation">
@@ -36,15 +31,9 @@ const Drawler = ({ navigation, darkMode }: DrawlerProps) => {
           icon="settings"
           onPress={() => navigation.navigate('Settings')}
         />
-        <Drawer.Item
-          label="Logout"
-          icon="exit-to-app"
-          onPress={logout} />
         <View style={styles.switchContainer}>
           <Paragraph style={styles.paragraph}>Dark theme (soon)</Paragraph>
-          <Switch
-            value={isDarkMode}
-            onValueChange={toggleDarkMode} />
+          <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
         </View>
       </Drawer.Section>
       <AppVersion />

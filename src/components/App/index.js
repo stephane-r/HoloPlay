@@ -13,8 +13,7 @@ import SnackbarContainer from '../../containers/Snackbar';
 import { actions } from '../../store';
 
 type AppProps = {
-  darkMode: boolean,
-  userId: number
+  darkMode: boolean
 };
 
 const { STORYBOOK } = config;
@@ -67,7 +66,7 @@ const swipConfig = {
   directionalOffsetThreshold: 80
 };
 
-const App = ({ darkMode, userId }: AppProps) => {
+const App = ({ darkMode }: AppProps) => {
   if (STORYBOOK === 'true') {
     return <StorybookUI />;
   }
@@ -81,11 +80,7 @@ const App = ({ darkMode, userId }: AppProps) => {
           flex: 1
         }}>
         <SidebarContainer />
-        <NavigationContainer
-          screenProps={{
-            userId
-          }}
-        />
+        <NavigationContainer />
         <SnackbarContainer />
       </GestureRecognizer>
     </PaperProvider>

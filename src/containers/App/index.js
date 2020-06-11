@@ -1,9 +1,8 @@
 import { connect } from '../../store';
 import App from '../../components/App';
 
-const AppContainer = connect(({ darkMode, userId }) => ({
-  darkMode,
-  userId
+const AppContainer = connect(({ darkMode }) => ({
+  darkMode
 }))(App);
 
 export default AppContainer;

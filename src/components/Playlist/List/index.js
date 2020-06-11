@@ -7,7 +7,6 @@ import { setCardItem } from '../../Carousel';
 import DataEmpty from '../../Data/Empty';
 
 type PlayListType = {
-  userId: number,
   toggleModal: Function
 };
 
@@ -15,9 +14,6 @@ const Playlist = ({ playlists, toggleModal }: PlayListType) => {
   if (playlists.length === 0) {
     return <DataEmpty text="No playlist." />;
   }
-
-  // TODO: la MàJ du store à l'ajout/edition d'une playlist ne marche pas
-  console.log(playlists);
 
   return (
     <View>

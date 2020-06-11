@@ -1,15 +1,10 @@
 // @flow
-import React, { useState, useEffect } from 'react';
+import React, { memo } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import { IconButton, Text } from 'react-native-paper';
 import SnapCarousel from 'react-native-snap-carousel';
-import useFetch from 'fetch-suspense';
-import AsyncStorage from '@react-native-community/async-storage';
 import Card from '../Card/Layout';
-import GET_USER from '../../graphql/query/user';
-import { actions, getState } from '../../store';
-import PlaceholderCarousel from '../Placeholder/Carousel';
-import useCallApi from '../../hooks/useCallApi';
+import { actions } from '../../store';
 
 type PlayIconProps = {
   onPress?: Function
@@ -85,4 +80,4 @@ const styles = StyleSheet.create({
 });
 
 export { CarouselPlayIcon, setCardItem };
-export default React.memo(Carousel);
+export default memo(Carousel);
