@@ -29,7 +29,7 @@ const PlaylistMenu: React.FC<Props> = ({ onEdit, onRemove }) => {
           onEdit();
           toggleMenu();
         }}
-        icon="edit"
+        icon="pencil"
         title="Edit"
       />
       <Menu.Item

@@ -6,9 +6,9 @@ import Spacer from '../../components/Spacer';
 import SearchbarContainer from '../../containers/Search/Bar';
 import Profil from '../../components/Profil';
 import Carousel from '../../components/Carousel';
-import SearchResultContainer from '../../containers/SearchResults';
+import SearchResultContainer from '../../containers/Search/Result';
 import PlaceholderSearchList from '../../components/Placeholder/Search';
-import PlaylistsCarouselContainer from '../../containers/PlaylistsCarousel';
+import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
 
 interface Props {
   navigation: any;

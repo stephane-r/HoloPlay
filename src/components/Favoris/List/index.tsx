@@ -1,9 +1,9 @@
 import React, { useState, memo } from 'react';
 import CardList from '../../Card/List';
-import PlaceholderCardSearchItem from '../../Placeholder/Card';
 import { Playlist, Video } from '../../../types';
-import CardSearchItem from '../../Card/SearchItem';
+import CardSearch from '../../Card/Search';
 import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
+import { FAVORIS_PLAYLIST_TITLE } from '../../../constants';
 
 interface Props {
   videos: Video[];
@@ -25,31 +25,18 @@ const ResultList: React.FC<Props> = ({ videos, ...props }) => {
   return (
     <>
       <CardList>
-        {videos.map((video) => {
-          const card = {
-            title: video.title,
-            picture:
-              video.videoThumbnails.find((q) => q.quality === 'medium')?.url ??
-              '',
-            duration: video.lengthSeconds
-          };
-
-          return (
-            <CardSearchItem
-              {...props}
-              key={video.videoId}
-              card={card}
-              video={video}
-              addToPlaylist={(item): void => {
-                setVideo(item);
-                toggleDialog(!dialogIsShow);
-              }}
-              isFavoris={
-                props.isFavoris || props.favorisIds?.includes(video.videoId)
-              }
-            />
-          );
-        })}
+        {videos.map((video) => (
+          <CardSearch
+            isFavoris
+            key={video.videoId}
+            video={video}
+            setPlaylistFrom={FAVORIS_PLAYLIST_TITLE}
+            addToPlaylist={(item): void => {
+              setVideo(item);
+              toggleDialog(!dialogIsShow);
+            }}
+          />
+        ))}
       </CardList>
       {props.playlists && (
         <DialogAddVideoToPlaylist
@@ -61,10 +48,6 @@ const ResultList: React.FC<Props> = ({ videos, ...props }) => {
       )}
     </>
   );
-};
-
-ResultList.defaultProps = {
-  isFavoris: false
 };
 
 export default memo(ResultList);

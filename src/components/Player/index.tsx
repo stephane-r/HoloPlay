@@ -9,7 +9,6 @@ import {
 } from 'react-native-paper';
 import Video from 'react-native-video';
 import MusicControl from 'react-native-music-control';
-// @ts-ignore
 import TimeFormat from 'hh-mm-ss';
 import { actions } from '../../store';
 import Spacer from '../Spacer';
@@ -26,8 +25,8 @@ interface Props {
 }
 
 const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
-  const [currentTime, setCurrentTime] = useState(0);
-  const [isLoading, setLoading] = useState(true);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [isLoading, setLoading] = useState<boolean>(true);
   const player = useRef(null);
 
   useEffect(() => {
@@ -47,14 +46,14 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
     MusicControl.on(
       // @ts-ignore
       'nextTrack',
-      () => props.nextSourceIndex && actions.loadSource(props.nextSourceIndex)
+      () => props.nextSourceIndex && actions.loadVideo(props.nextSourceIndex)
     );
     MusicControl.on(
       // @ts-ignore
       'previousTrack',
       (): void =>
         props.previousSourceIndex &&
-        actions.loadSource(props.previousSourceIndex)
+        actions.loadVideo(props.previousSourceIndex)
     );
   }, [source]);
 
@@ -81,7 +80,7 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
 
   const onEnd = (): void => {
     if (props.nextSourceIndex) {
-      actions.loadSource(props.nextSourceIndex);
+      actions.loadVideo(props.nextSourceIndex);
     }
   };
 
@@ -171,7 +170,7 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
           <IconButton
             accessibilityStates={[]}
             icon="skip-previous"
-            onPress={() => actions.loadSource(props.previousSourceIndex)}
+            onPress={() => actions.loadVideo(props.previousSourceIndex)}
             size={30}
           />
           <IconButton
@@ -202,12 +201,12 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
           <IconButton
             accessibilityStates={[]}
             icon="skip-next"
-            onPress={() => actions.loadSource(props.nextSourceIndex)}
+            onPress={() => actions.loadVideo(props.nextSourceIndex)}
             size={30}
           />
         </View>
         <Spacer width={10} />
-        <FavorisButtonContainer source={source} />
+        <FavorisButtonContainer video={source} />
         <Spacer width={10} />
       </View>
       <Spacer height={30} />

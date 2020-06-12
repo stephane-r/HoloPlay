@@ -30,11 +30,11 @@ const dataActions = {
       if (p.playlistId === playlist.playlistId) {
         return {
           ...p,
-          ...playlist
+          title: playlist.title
         };
       }
 
-      return playlist;
+      return p;
     })
   }),
   removePlaylist: (store: Store, actions: any, playlistId: string): Store => ({

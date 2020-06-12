@@ -20,10 +20,9 @@ const Playlist: React.FC<Props> = ({ playlists, toggleModal }) => {
   return (
     <View>
       <Spacer height={18} />
-      {playlists.map((playlist, index) => (
+      {playlists.map((playlist) => (
         <CardPlaylist
-          key={index}
-          card={setCardItem(playlist)}
+          key={playlist.playlistId}
           playlist={playlist}
           toggleModal={toggleModal}
           totalSongs={playlist.videos?.length ?? 0}

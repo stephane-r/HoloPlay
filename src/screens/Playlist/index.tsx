@@ -5,7 +5,7 @@ import Layout from '../../components/Layout';
 import DialogAddPlaylist from '../../components/Dialog/AddPlaylist';
 import Header from '../../components/Header';
 import Playlist from '../../components/Playlist/List';
-import PlaylistsContainer from '../../containers/Playlists';
+import PlaylistsContainer from '../../containers/Playlists/List';
 import { Playlist as PlaylistType } from '../../types/Api';
 
 interface Props {

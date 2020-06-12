@@ -2,7 +2,7 @@
 import React, { useState, memo, useEffect } from 'react';
 import CardList from '../../Card/List';
 import useCallApi from '../../../hooks/useCallApi';
-import CardSearchItem from '../../Card/SearchItem';
+import CardSearch from '../../Card/Search';
 import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
 import Playlist from '../../Playlist/List';
@@ -38,28 +38,18 @@ const SearchResult: React.FC<Props> = ({
   return (
     <>
       <CardList>
-        {data.map((video, index) => {
-          const card = {
-            title: video.title,
-            picture:
-              video.videoThumbnails.find((q) => q.quality === 'medium')?.url ??
-              '',
-            duration: video.lengthSeconds
-          };
-
-          return (
-            <CardSearchItem
-              key={video.videoId}
-              card={card}
-              video={video}
-              setPlaylistFrom={setPlaylistFrom}
-              addToPlaylist={(item) => {
-                setVideo(item);
-                toggleDialog(!dialogIsShow);
-              }}
-            />
-          );
-        })}
+        {data.map((video, index) => (
+          <CardSearch
+            key={video.videoId}
+            loopIndex={index}
+            video={video}
+            setPlaylistFrom="searchResults"
+            addToPlaylist={(item) => {
+              setVideo(item);
+              toggleDialog(!dialogIsShow);
+            }}
+          />
+        ))}
       </CardList>
       {playlists && (
         <DialogAddVideoToPlaylist

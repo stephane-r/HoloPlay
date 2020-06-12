@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Text } from 'react-native-paper';
 import Card from '../Layout';
 import { actions, Store } from '../../../store';
 import Spacer from '../../Spacer';
-import { CarouselPlayIcon } from '../../Carousel';
-import Video from '../../Source';
+import { CarouselPlayIcon, setCardItem } from '../../Carousel';
+import Video from '../../Video';
 import DialogRemovePlaylist from '../../Dialog/RemovePlaylist';
 import PlaylistMenu from '../../Playlist/Menu';
 import useStore from '../../../hooks/useStore';
@@ -17,14 +17,12 @@ interface Props {
   totalSongs: number;
   playlist: Playlist;
   toggleModal: (playlist: Playlist) => void;
-  card: any;
 }
 
 const CardPlaylist: React.FC<Props> = ({
   totalSongs,
   playlist,
-  toggleModal,
-  ...props
+  toggleModal
 }) => {
   const store: Store = useStore();
   const [dialogIsOpen, setToggleDialog] = useState(false);
@@ -38,17 +36,23 @@ const CardPlaylist: React.FC<Props> = ({
     setIsLoading(true);
 
     try {
+      // Updating store before because this callApi return an error if success ...
+      actions.removePlaylist(playlist.playlistId);
+      actions.setFlashMessage(`${playlist.title} has been removed.`);
+
       await callApi({
         url: ApiRoutes.PlaylistId(playlist.playlistId),
         method: 'DELETE'
       });
     } catch (error) {
       console.log(error);
+      // actions.setFlashMessage(
+      //   `Error : ${playlist.title} has not been removed.`
+      // );
+    } finally {
+      toggleDialog();
+      setIsLoading(false);
     }
-
-    actions.setFlashMessage(`${playlist.title} has been removed.`);
-    toggleDialog();
-    setIsLoading(false);
   };
 
   const removeVideo = async (videoIndexId: string) => {
@@ -69,20 +73,25 @@ const CardPlaylist: React.FC<Props> = ({
     return actions.setFlashMessage(`${videoIndexId} has been removed.`);
   };
 
+  const card = setCardItem(playlist);
+
   return (
     <>
       <Card
-        {...props}
+        card={card}
         alignment="horizontal"
-        items={playlist.videos}
         itemsRenderer={
           <Video
             videos={playlist.videos}
-            onPlay={async (videoIndex) => {
-              if (videoIndex) {
-                await actions.setPlaylistFrom(playlist.videos);
-                await actions.loadSource(videoIndex);
-                return actions.showPlayer();
+            onPlay={async (videoIndex: number) => {
+              if (videoIndex !== null || videoIndex !== undefined) {
+                try {
+                  await actions.setPlaylistFrom(playlist.videos);
+                  await actions.loadVideo(videoIndex);
+                  actions.showPlayer();
+                } catch (error) {
+                  console.log(error);
+                }
               }
             }}
             onRemove={removeVideo}
@@ -104,7 +113,7 @@ const CardPlaylist: React.FC<Props> = ({
               <CarouselPlayIcon
                 onPress={async () => {
                   await actions.setPlaylistFrom(playlist.videos);
-                  actions.loadSource(0);
+                  actions.loadVideo(0);
                 }}
               />
             )}

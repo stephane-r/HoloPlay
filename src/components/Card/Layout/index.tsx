@@ -15,7 +15,6 @@ interface CardProps {
     [key: string]: string | number;
   };
   alignment: string;
-  card: CardType;
   onPress?: (videoIndex: number) => void;
   index?: number;
   rightContent?: any;

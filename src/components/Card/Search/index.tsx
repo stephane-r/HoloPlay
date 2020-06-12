@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { View } from 'react-native';
 import Card from '../Layout';
@@ -8,31 +7,37 @@ import { actions } from '../../../store';
 import { SearchVideo, Video } from '../../../types';
 
 interface Props {
-  card: {
-    title: string;
-    picture: string;
-    duration: number;
-  };
   video: SearchVideo;
-  addToPlaylist: (item: any) => void;
+  addToPlaylist: (video: SearchVideo) => void;
   setPlaylistFrom: string;
+  loopIndex?: number;
 }
 
-const CardSearchItem: React.FC<Props> = ({
+const CardSearch: React.FC<Props> = ({
   video,
   addToPlaylist,
   setPlaylistFrom,
-  ...props
+  loopIndex
 }) => {
   const loadVideo = async (index: number): Promise<any> => {
     await actions.setPlaylistFrom(setPlaylistFrom);
-    await actions.loadSource(index);
+    await actions.loadVideo(index);
 
     return actions.showPlayer();
   };
 
+  const card = {
+    title: video.title,
+    picture:
+      video.videoThumbnails.find((q) => q.quality === 'medium')?.url ?? '',
+    duration: video.lengthSeconds
+  };
+
   return (
-    <Card {...props} onPress={loadVideo} alignment="vertical">
+    <Card
+      card={card}
+      onPress={() => loadVideo(video.index || loopIndex)}
+      alignment="vertical">
       <View
         style={{
           flexDirection: 'row',
@@ -51,4 +56,4 @@ const CardSearchItem: React.FC<Props> = ({
   );
 };
 
-export default CardSearchItem;
+export default CardSearch;

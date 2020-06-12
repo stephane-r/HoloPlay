@@ -24,24 +24,23 @@ const CarouselPlayIcon: React.FC<CarouselPlayIconProps> = ({ onPress }) => (
 );
 
 interface CarouselItemProps {
-  item: any;
+  item: Playlist;
   index: number;
 }
 
 const setCardItem = (item: any): any => ({
   title: item.title,
   picture:
-    item.videos && item.videos[0]
-      ? item.videos[0].videoThumbnails[0].url
-      : 'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png'
+    item.videos[0]?.videoThumbnails[0]?.url ??
+    'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png'
 });
 
 const CarouselItem: React.FC<CarouselItemProps> = ({ item }) => {
-  const sourceCount = item.videos ? item.videos.length : 0;
+  const videosCount = item.videos?.length ?? 0;
 
   const runPlaylist = async (): Promise<any> => {
     await actions.setPlaylistFrom(item.videos);
-    actions.loadSource(0);
+    actions.loadVideo(0);
   };
 
   return (
@@ -52,11 +51,15 @@ const CarouselItem: React.FC<CarouselItemProps> = ({ item }) => {
         card={setCardItem(item)}
         onPress={runPlaylist}
         rightContent={
-          sourceCount !== '0' && <CarouselPlayIcon onPress={runPlaylist} />
+          <CarouselPlayIcon
+            onPress={(): null | void =>
+              videosCount > 0 ? runPlaylist() : null
+            }
+          />
         }>
         <Text accessibilityStates={[]}>
-          {sourceCount} song
-          {sourceCount > 1 && 's'}
+          {videosCount} song
+          {videosCount > 1 && 's'}
         </Text>
       </Card>
     </View>

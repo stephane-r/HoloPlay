@@ -6,6 +6,7 @@ import useStore from '../../../hooks/useStore';
 import { Playlist } from '../../../types';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
+import { Alert } from 'react-native';
 
 interface Props {
   toggleDialog: (value: null | Playlist) => void;
@@ -68,6 +69,13 @@ const DialogAddPlaylist: React.FC<Props> = ({
 
   const updatePlaylist = async () => {
     try {
+      // Updating store before because this callApi return an error if success ...
+      actions.updatePlaylist({
+        ...playlist,
+        title: playlist.title
+      });
+      actions.setFlashMessage(`${playlist.title} was updated.`);
+
       await callApi({
         url: ApiRoutes.PlaylistId(playlist.playlistId),
         method: 'PATCH',
@@ -76,21 +84,12 @@ const DialogAddPlaylist: React.FC<Props> = ({
           privacy: 'public'
         }
       });
-
-      actions.updatePlaylist({
-        ...playlist,
-        title: playlist.title
-      });
     } catch (error) {
       console.log(error);
+      // actions.setFlashMessage(`Error : ${playlist.title} not updated.`);
+    } finally {
+      closeDialog();
     }
-
-    closeDialog();
-
-    return setTimeout(
-      () => actions.setFlashMessage(`${playlist.title} was updated.`),
-      500
-    );
   };
 
   const submit = async (): Promise<any> => {
