@@ -4,30 +4,29 @@ import { Video, Playlist, VideoThumbnail } from '../../types';
 import { Store } from '../../store';
 import { Alert } from 'react-native';
 
-// TODO: Refactoring playlist, source and sourceIndex
-export interface AudioState {
+export interface PlayerState {
   playerIsOpened: boolean;
-  source: null | Video;
-  sourceIndex: null | number;
+  video: null | Video;
+  videoIndex: null | number;
   repeat: boolean;
   paused: boolean;
   duration: number;
   playlist: null | Video[];
 }
 
-const audioState: AudioState = {
+const playerState: PlayerState = {
   playerIsOpened: false,
-  source: null,
-  sourceIndex: null,
+  video: null,
+  videoIndex: null,
   repeat: false,
   paused: false,
   duration: 0,
   playlist: null
 };
 
-const audioActions = {
+const playerActions = {
   showPlayer: async (store: Store): Promise<Store> => {
-    if (store.source) {
+    if (store.video) {
       return {
         ...store,
         playerIsOpened: true
@@ -76,7 +75,7 @@ const audioActions = {
     store: Store,
     actions: any,
     videoIndex: number
-  ): Promise<AudioState> => {
+  ): Promise<PlayerState> => {
     try {
       const { playlist } = store;
       const isLastVideo = playlist.length === videoIndex - 2;
@@ -96,8 +95,8 @@ const audioActions = {
 
       return {
         ...store,
-        source: videoUpdated,
-        sourceIndex: videoIndex
+        video: videoUpdated,
+        videoIndex: videoIndex
       };
     } catch (error) {
       return store;
@@ -117,4 +116,4 @@ const audioActions = {
   }
 };
 
-export { audioActions, audioState };
+export { playerActions, playerState };

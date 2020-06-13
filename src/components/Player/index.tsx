@@ -17,14 +17,14 @@ import FavorisButtonContainer from '../../containers/Favoris/Button';
 import { Video as VideoType } from '../../types';
 
 interface Props {
-  source: VideoType;
+  video: VideoType;
   paused: boolean;
   repeat: boolean;
-  previousSourceIndex: () => void;
-  nextSourceIndex: () => void;
+  previousVideoIndex: () => void;
+  nextVideoIndex: () => void;
 }
 
-const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
+const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(true);
   const player = useRef(null);
@@ -46,16 +46,15 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
     MusicControl.on(
       // @ts-ignore
       'nextTrack',
-      () => props.nextSourceIndex && actions.loadVideo(props.nextSourceIndex)
+      () => props.nextVideoIndex && actions.loadVideo(props.nextVideoIndex)
     );
     MusicControl.on(
       // @ts-ignore
       'previousTrack',
       (): void =>
-        props.previousSourceIndex &&
-        actions.loadVideo(props.previousSourceIndex)
+        props.previousVideoIndex && actions.loadVideo(props.previousVideoIndex)
     );
-  }, [source]);
+  }, [video]);
 
   const onProgress = ({ currentTime }: { currentTime: number }): void => {
     setLoading(false);
@@ -63,7 +62,7 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
   };
 
   const onLoadStart = (): void => {
-    const { title, author, lengthSeconds, thumbnail } = source;
+    const { title, author, lengthSeconds, thumbnail } = video;
 
     if (!isLoading) {
       setLoading(true);
@@ -79,8 +78,8 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
   };
 
   const onEnd = (): void => {
-    if (props.nextSourceIndex) {
-      actions.loadVideo(props.nextSourceIndex);
+    if (props.nextVideoIndex) {
+      actions.loadVideo(props.nextVideoIndex);
     }
   };
 
@@ -89,11 +88,11 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
     actions.setFlashMessage('Error from Stream API');
   };
 
-  if (!source) {
+  if (!video) {
     return null;
   }
 
-  const duration = source.lengthSeconds;
+  const duration = video.lengthSeconds;
   const percentage = Math.floor((100 / duration) * currentTime);
 
   return (
@@ -101,7 +100,7 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
       <Video
         ref={player}
         source={{
-          uri: source.uri
+          uri: video.uri
         }}
         audioOnly={true}
         playInBackground={true}
@@ -126,17 +125,17 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
             <ActivityIndicator accessibilityStates={[]} style={styles.loader} />
           )}
           <Image
-            source={{ uri: source.thumbnail.url }}
+            source={{ uri: video.thumbnail.url }}
             style={{
-              width: source.thumbnail.width,
-              height: source.thumbnail.height
+              width: video.thumbnail.width,
+              height: video.thumbnail.height
             }}
           />
         </View>
         <Spacer height={30} />
-        <Headline numberOfLines={2}>{source.title}</Headline>
+        <Headline numberOfLines={2}>{video.title}</Headline>
         <Spacer height={10} />
-        <Text accessibilityStates={[]}>source.channelTitle</Text>
+        <Text accessibilityStates={[]}>video.channelTitle</Text>
       </View>
       <View style={styles.content}>
         <View style={styles.progress}>
@@ -155,7 +154,7 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
               color="#2575f4"
             />
           </View>
-          <Text accessibilityStates={[]}>{source.lengthSeconds}</Text>
+          <Text accessibilityStates={[]}>{video.lengthSeconds}</Text>
           <Spacer height={30} />
         </View>
         <Spacer width={10} />
@@ -170,7 +169,7 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
           <IconButton
             accessibilityStates={[]}
             icon="skip-previous"
-            onPress={() => actions.loadVideo(props.previousSourceIndex)}
+            onPress={() => actions.loadVideo(props.previousVideoIndex)}
             size={30}
           />
           <IconButton
@@ -201,12 +200,12 @@ const Player: React.FC<Props> = ({ source, paused, repeat, ...props }) => {
           <IconButton
             accessibilityStates={[]}
             icon="skip-next"
-            onPress={() => actions.loadVideo(props.nextSourceIndex)}
+            onPress={() => actions.loadVideo(props.nextVideoIndex)}
             size={30}
           />
         </View>
         <Spacer width={10} />
-        <FavorisButtonContainer video={source} />
+        <FavorisButtonContainer video={video} />
         <Spacer width={10} />
       </View>
       <Spacer height={30} />

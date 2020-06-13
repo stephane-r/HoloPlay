@@ -1,11 +1,11 @@
 // @ts-ignore
 import createStore from 'react-waterfall';
 import { searchState, searchActions, SearchState } from '../actions/Search';
-import { audioState, audioActions, AudioState } from '../actions/Audio';
+import { playerState, playerActions, PlayerState } from '../actions/Player';
 import { dataState, dataActions, DataState } from '../actions/Data';
 import { appState, appActions, AppState } from '../actions/App';
 
-export interface Store extends AppState, DataState, AudioState, SearchState {}
+export interface Store extends AppState, DataState, PlayerState, SearchState {}
 
 interface ConfigStore {
   initialState: Store;
@@ -17,13 +17,13 @@ interface ConfigStore {
 const config: ConfigStore = {
   initialState: {
     ...searchState,
-    ...audioState,
+    ...playerState,
     ...dataState,
     ...appState
   },
   actionsCreators: {
     ...searchActions,
-    ...audioActions,
+    ...playerActions,
     ...dataActions,
     ...appActions
   }
