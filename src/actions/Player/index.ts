@@ -25,22 +25,14 @@ const playerState: PlayerState = {
 };
 
 const playerActions = {
-  showPlayer: async (store: Store): Promise<Store> => {
-    if (store.video) {
-      return {
-        ...store,
-        playerIsOpened: true
-      };
-    }
-
-    return store;
-  },
-  hidePlayer: async (store: Store): Promise<Store> => {
-    return {
-      ...store,
-      playerIsOpened: false
-    };
-  },
+  showPlayer: async (store: Store): Promise<Store> => ({
+    ...store,
+    playerIsOpened: store.video !== null
+  }),
+  hidePlayer: async (store: Store): Promise<Store> => ({
+    ...store,
+    playerIsOpened: false
+  }),
   setPlaylistFrom: async (
     store: Store,
     actions: any,
@@ -78,7 +70,7 @@ const playerActions = {
   ): Promise<PlayerState> => {
     try {
       const { playlist } = store;
-      const isLastVideo = playlist.length === videoIndex - 2;
+      const isLastVideo = playlist.length === videoIndex;
       // If is last video, we restart the playlist from first index
       const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
       const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
@@ -102,18 +94,14 @@ const playerActions = {
       return store;
     }
   },
-  paused: async (store: Store): Promise<Store> => {
-    return {
-      ...store,
-      paused: !store.paused
-    };
-  },
-  repeat: async (store: Store): Promise<Store> => {
-    return {
-      ...store,
-      repeat: !store.repeat
-    };
-  }
+  paused: async (store: Store): Promise<Store> => ({
+    ...store,
+    paused: !store.paused
+  }),
+  repeat: async (store: Store): Promise<Store> => ({
+    ...store,
+    repeat: !store.repeat
+  })
 };
 
 export { playerActions, playerState };
