@@ -24,7 +24,7 @@
     "fetch-suspense": "^1.2.2",
     "hh-mm-ss": "^1.2.0",
     "react": "16.11.0",
-    "react-native": "0.62.0",
+    "react-native": "0.62.2",
     "react-native-code-push": "^6.2.1",
     "react-native-config": "^1.2.1",
     "react-native-gesture-handler": "^1.6.1",
