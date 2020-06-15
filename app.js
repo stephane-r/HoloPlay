@@ -1,7 +1,14 @@
 import React from 'react';
+import * as Sentry from '@sentry/react-native';
 import codePush from 'react-native-code-push';
 import { Provider } from './src/store';
 import AppContainer from './src/containers/App';
+
+Sentry.init({
+  dsn: ''
+});
+
+Sentry.captureMessage('Hello Sentry!');
 
 class App extends React.Component {
   componentDidMount() {
