@@ -15,8 +15,7 @@ interface Props {
 const Layout: React.FC<any> = ({ navigation, children }) => (
   <DrawerLayoutAndroid
     drawerWidth={300}
-    // @ts-ignore
-    drawerPosition={DrawerLayoutAndroid.positions.Left}
+    drawerPosition="left"
     renderNavigationView={() => <DrawlerContainer navigation={navigation} />}>
     <View style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }}>

@@ -12,12 +12,12 @@ Sentry.captureMessage('Hello Sentry!');
 
 class App extends React.Component {
   componentDidMount() {
-    // if (process.env.NODE_ENV === 'production') {
-    codePush.sync({
-      updateDialog: true,
-      installMode: codePush.InstallMode.IMMEDIATE
-    });
-    // }
+    if (process.env.NODE_ENV === 'production') {
+      codePush.sync({
+        updateDialog: true,
+        installMode: codePush.InstallMode.IMMEDIATE
+      });
+    }
   }
 
   codePushStatusDidChange(status) {

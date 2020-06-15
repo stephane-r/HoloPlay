@@ -1,7 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import { Dialog, Button, TextInput } from 'react-native-paper';
-import { Picker, View } from 'react-native';
+import { Picker, View } from '@react-native-community/picker';
 import { PUBLIC_INVIDIOUS_INSTANCES } from '../../../constants';
 
 interface Props {

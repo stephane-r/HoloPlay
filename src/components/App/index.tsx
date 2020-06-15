@@ -1,5 +1,5 @@
 import React from 'react';
-import config from 'react-native-config';
+// import config from 'react-native-config';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import QuickActions from 'react-native-quick-actions';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -9,7 +9,7 @@ import StorybookUI from '../../../storybook';
 import SnackbarContainer from '../../containers/Snackbar';
 import { actions } from '../../store';
 
-const { STORYBOOK } = config;
+// const { STORYBOOK } = config;
 
 QuickActions.isSupported((error, supported) => {
   if (supported) {
@@ -64,9 +64,9 @@ interface Props {
 }
 
 const App: React.FC<Props> = ({ darkMode }) => {
-  if (STORYBOOK === 'true') {
-    return <StorybookUI />;
-  }
+  //   if (STORYBOOK === 'true') {
+  //     return <StorybookUI />;
+  //   }
 
   return (
     <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>

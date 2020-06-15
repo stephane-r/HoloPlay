@@ -1,6 +1,6 @@
 // @flow
 import React, { useState } from 'react';
-import { Picker } from 'react-native';
+import { Picker } from '@react-native-community/picker';
 import { Paragraph, Dialog, Button, Portal } from 'react-native-paper';
 import { actions, Store } from '../../../store';
 import useStore from '../../../hooks/useStore';

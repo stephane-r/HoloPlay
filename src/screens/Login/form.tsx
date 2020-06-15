@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, Button } from 'react-native-paper';
-import { Picker, View } from 'react-native';
+import { View } from 'react-native';
+import { Picker } from '@react-native-community/picker';
 import AsyncStorage from '@react-native-community/async-storage';
 import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
