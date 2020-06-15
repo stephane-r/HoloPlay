@@ -2,21 +2,15 @@ package com.youtubeaudioplayer;
 
 import android.app.Application;
 
+import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.horcrux.svg.SvgPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import com.microsoft.codepush.react.CodePush;
-import com.reactNativeQuickActions.AppShortcutsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
-import com.brentvatne.react.ReactVideoPackage;
-import com.tanguyantoine.react.MusicControl;
+import com.microsoft.codepush.react.CodePush;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,8 +20,8 @@ public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
     @Override
-      protected String getJSBundleFile() {
-      return CodePush.getJSBundleFile();
+    protected String getJSBundleFile() {
+        return CodePush.getJSBundleFile();
     }
 
     @Override
@@ -37,18 +31,23 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new AppShortcutsPackage(),
-          new MusicControl(),
-          new MainReactPackage(),
-            new VectorIconsPackage(),
-            new SvgPackage(),
-            new ReactNativeConfigPackage(),
-            new RNGestureHandlerPackage(),
-          new AsyncStoragePackage(),
-          new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
-          new ReactVideoPackage()
-      );
+        @SuppressWarnings("UnnecessaryLocalVariable")
+        List<ReactPackage> packages = new PackageList(this).getPackages();
+        // Packages that cannot be autolinked yet can be added manually here, for example:
+        // packages.add(new MyReactNativePackage());
+        return packages;
+    //   return Arrays.<ReactPackage>asList(
+    //       new AppShortcutsPackage(),
+    //       new MusicControl(),
+    //       new MainReactPackage(),
+    //       new VectorIconsPackage(),
+    //       new SvgPackage(),
+    //       new ReactNativeConfigPackage(),
+    //       new RNGestureHandlerPackage(),
+    //       new AsyncStoragePackage(),
+    //       new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
+    //       new ReactVideoPackage()
+    //   );
     }
 
     @Override
