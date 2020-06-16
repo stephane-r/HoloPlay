@@ -1,4 +1,4 @@
-// @flow
+//
 import React from 'react';
 import { Dialog, Button, Portal } from 'react-native-paper';
 

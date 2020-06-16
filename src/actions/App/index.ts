@@ -5,8 +5,6 @@ import { FlashMessage } from '../../types/FlashMessage';
 export interface AppState {
   instance: null | string;
   token: null | string;
-  isConnected: boolean;
-  loginIsFetching: boolean;
   flashMessage: FlashMessage;
   darkMode: boolean;
 }
@@ -14,8 +12,6 @@ export interface AppState {
 const appState: AppState = {
   instance: null,
   token: null,
-  isConnected: false,
-  loginIsFetching: false,
   flashMessage: {
     message: null,
     visible: false
@@ -24,7 +20,7 @@ const appState: AppState = {
 };
 
 const appActions = {
-  appInit: async (store: Store): Promise<Store> => {
+  appInit: (store: Store): Store => {
     const [darkMode, searchHistory, instance, token] = await Promise.all([
       AsyncStorage.getItem('darkMode'),
       AsyncStorage.getItem('searchHistory'),
@@ -40,30 +36,7 @@ const appActions = {
       token
     };
   },
-  setConnected: (store: Store): Store => {
-    return {
-      ...store,
-      isConnected: true,
-      loginIsFetching: false
-    };
-  },
-  setLoginIsFetching: async (store: Store): Promise<Store> => {
-    return {
-      ...store,
-      loginIsFetching: true
-    };
-  },
-  setLoginIsFetched: async (store: Store): Promise<Store> => {
-    return {
-      ...store,
-      loginIsFetching: false
-    };
-  },
-  setFlashMessage: async (
-    store: Store,
-    actions: any,
-    message: any
-  ): Promise<Store> => {
+  setFlashMessage: (store: Store, actions: any, message: any): Store => {
     return {
       ...store,
       flashMessage: {
@@ -72,7 +45,7 @@ const appActions = {
       }
     };
   },
-  hideFlashMessage: async (store: Store): Promise<Store> => {
+  hideFlashMessage: (store: Store): Store => {
     return {
       ...store,
       flashMessage: {
@@ -81,11 +54,7 @@ const appActions = {
       }
     };
   },
-  setDarkMode: async (
-    store: Store,
-    actions: any,
-    darkMode: boolean
-  ): Promise<Store> => {
+  setDarkMode: (store: Store, actions: any, darkMode: boolean): Store => {
     try {
       await AsyncStorage.setItem('darkMode', String(darkMode));
     } catch (error) {

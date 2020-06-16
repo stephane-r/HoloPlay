@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { Dialog, Button, TextInput } from 'react-native-paper';
 

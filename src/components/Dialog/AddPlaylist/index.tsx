@@ -1,4 +1,3 @@
-// @flow
 import React, { useState, useEffect } from 'react';
 import { Portal, Button, Dialog, TextInput } from 'react-native-paper';
 import { actions } from '../../../store';

@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react';
 import { Dialog, Button, TextInput } from 'react-native-paper';
 import { Picker, View } from '@react-native-community/picker';

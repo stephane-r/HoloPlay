@@ -40,14 +40,11 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
           AsyncStorage.setItem('token', token)
         ]);
         await fetchPlaylists();
-        actions.setLoginIsFetched();
-        actions.setConnected();
         setIsLoading(false);
         return onSuccess(token);
       }
     } catch (error) {
       console.log(error);
-      actions.setLoginIsFetched();
       actions.setFlashMessage(error.message);
     }
   };

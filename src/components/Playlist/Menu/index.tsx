@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react';
 import { IconButton, Menu } from 'react-native-paper';
 

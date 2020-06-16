@@ -1,4 +1,3 @@
-// @flow
 import React, { useState, memo, useEffect } from 'react';
 import CardList from '../../Card/List';
 import useCallApi from '../../../hooks/useCallApi';

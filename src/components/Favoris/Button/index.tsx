@@ -1,4 +1,3 @@
-// @flow
 import React, { useEffect } from 'react';
 import { IconButton, Button } from 'react-native-paper';
 import { actions } from '../../../store';

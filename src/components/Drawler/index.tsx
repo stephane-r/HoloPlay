@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Drawer, Switch, Paragraph } from 'react-native-paper';
