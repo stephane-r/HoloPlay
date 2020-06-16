@@ -8,15 +8,11 @@ import {
 } from 'react-native';
 import DrawlerContainer from '../../containers/Drawler';
 
-interface Props {
-  navigation: any;
-}
-
-const Layout: React.FC<any> = ({ navigation, children }) => (
+const Layout: React.FC = ({ children }) => (
   <DrawerLayoutAndroid
     drawerWidth={300}
     drawerPosition="left"
-    renderNavigationView={() => <DrawlerContainer navigation={navigation} />}>
+    renderNavigationView={() => <DrawlerContainer />}>
     <View style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.container}>{children}</View>

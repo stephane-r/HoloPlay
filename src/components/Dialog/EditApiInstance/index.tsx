@@ -30,7 +30,6 @@ const DialogEditApiInstance: React.FC<Props> = ({
 
   return (
     <Dialog visible={visible} onDismiss={onDismiss}>
-      {/* @ts-ignore */}
       <Dialog.Title>Edit API instance</Dialog.Title>
       <Dialog.Content>
         <Picker selectedValue={instance} onValueChange={onValueChange}>
@@ -51,9 +50,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
         </Picker>
       </Dialog.Content>
       <Dialog.Actions>
-        {/* @ts-ignore */}
         <Button onPress={onDismiss}>Cancel</Button>
-        {/* @ts-ignore */}
         <Button onPress={onSubmit}>Submit</Button>
       </Dialog.Actions>
     </Dialog>

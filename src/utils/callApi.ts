@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import errorApi from './errorApi';
 
 interface Args {
   url: string;
@@ -35,7 +34,7 @@ const callApi = async ({ url, method, body }: Args): Promise<any> => {
   const response = await request.json();
 
   if (response.statusCode >= 400 && response.statusCode < 500) {
-    throw errorApi(response);
+    throw Error(response);
   }
 
   return response;

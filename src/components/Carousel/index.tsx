@@ -5,6 +5,7 @@ import SnapCarousel from 'react-native-snap-carousel';
 import Card from '../Card/Layout';
 import { actions } from '../../store';
 import { Playlist } from '../../types';
+import Spacer from '../Spacer';
 
 type CarouselPlayIconProps = {
   onPress?: () => void;
@@ -71,14 +72,16 @@ interface CarouselProps {
 }
 
 const Carousel: React.FC<CarouselProps> = ({ playlists }) => (
-  <SnapCarousel
-    data={playlists}
-    firstItem={playlists.length - 1}
-    layout="tinder"
-    itemWidth={Dimensions.get('window').width - 32}
-    sliderWidth={Dimensions.get('window').width - 32}
-    renderItem={CarouselItem}
-  />
+  <View style={{ marginBottom: playlists.length === 0 ? 0 : -60 }}>
+    <SnapCarousel
+      data={playlists}
+      firstItem={playlists.length - 1}
+      layout="tinder"
+      itemWidth={Dimensions.get('window').width - 32}
+      sliderWidth={Dimensions.get('window').width - 32}
+      renderItem={CarouselItem}
+    />
+  </View>
 );
 
 const styles = StyleSheet.create({

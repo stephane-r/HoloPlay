@@ -9,29 +9,24 @@ import Carousel from '../../components/Carousel';
 import SearchResultContainer from '../../containers/Search/Result';
 import PlaceholderSearchList from '../../components/Placeholder/Search';
 import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
+import CarouselSpacerContainer from '../../containers/CarouselSpacer';
 
-interface Props {
-  navigation: any;
-}
-
-const Dashboard: React.FC<Props> = ({ navigation }) => {
+const DashboardScreen: React.FC = () => {
   const userPlaylistsEmpty = false;
   const carouselContainerStyles = {
     marginBottom: userPlaylistsEmpty ? 0 : -60
   };
 
   return (
-    <Layout navigation={navigation}>
+    <Layout>
       <View style={styles.header}>
         <SearchbarContainer />
         <Spacer height={15} />
         <Profil />
         <Spacer height={30} />
-        <View style={carouselContainerStyles}>
-          <PlaylistsCarouselContainer />
-        </View>
+        <PlaylistsCarouselContainer />
       </View>
-      <Spacer height={userPlaylistsEmpty ? 30 : 90} />
+      <CarouselSpacerContainer />
       <Title style={{ fontSize: 27 }}>Search</Title>
       <Spacer height={15} />
       <Suspense fallback={<PlaceholderSearchList />}>
@@ -49,4 +44,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Dashboard;
+export default DashboardScreen;

@@ -9,11 +9,7 @@ import FavorisPlaylistContainer from '../../containers/Favoris/Playlist';
 import callApi from '../../utils/callApi';
 import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../../constants';
 
-interface Props {
-  navigation: any;
-}
-
-const Favoris: React.FC<Props> = ({ navigation }) => {
+const Favoris: React.FC = () => {
   const store = useStore();
   const favoris = store.playlists.find((p) => p.title === 'favoris');
 
@@ -41,7 +37,7 @@ const Favoris: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <Layout navigation={navigation}>
+    <Layout>
       <Header title="Favoris" backgroundColor="#EE05F2" />
       {favoris ? (
         <FavorisPlaylistContainer />

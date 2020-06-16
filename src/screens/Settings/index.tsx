@@ -23,9 +23,8 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
       <Appbar accessibilityStates={[]}>
         <Appbar.BackAction
           accessibilityStates={[]}
-          // @ts-ignore
           icon="archive"
-          onPress={(): void => navigation.navigate('Dashboard')}
+          onPress={(): void => navigation.goBack()}
         />
         <Appbar.Content title="App Settings" accessibilityStates={[]} />
       </Appbar>

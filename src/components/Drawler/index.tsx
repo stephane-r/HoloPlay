@@ -4,14 +4,15 @@ import { View, StyleSheet } from 'react-native';
 import { Drawer, Switch, Paragraph } from 'react-native-paper';
 import { actions } from '../../store';
 import AppVersion from '../Version';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
-  navigation: any;
   darkMode: boolean;
 }
 
-const Drawler: React.FC<Props> = ({ navigation, darkMode }) => {
+const Drawler: React.FC<Props> = ({ darkMode }) => {
   const [isDarkMode, setDarkMode] = useState<boolean>(darkMode);
+  const navigation = useNavigation();
 
   const toggleDarkMode = (): void => {
     setDarkMode(!isDarkMode);
@@ -20,13 +21,12 @@ const Drawler: React.FC<Props> = ({ navigation, darkMode }) => {
 
   return (
     <View style={styles.container}>
-      {/* @ts-ignore */}
       <Drawer.Section title="Navigation">
         <Drawer.Item
           accessibilityStates={[]}
           label="Create new playlist"
           icon="folder-plus"
-          onPress={() => navigation.navigate('Playlist')}
+          onPress={() => navigation.navigate('Playlists')}
         />
         <Drawer.Item
           accessibilityStates={[]}

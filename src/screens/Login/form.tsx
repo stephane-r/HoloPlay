@@ -6,13 +6,16 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
 import { PUBLIC_INVIDIOUS_INSTANCES } from '../../constants';
+import DashboardScreen from '../Dashboard';
+import { CommonActions } from '@react-navigation/native';
+import fetchPlaylists from '../../utils/fetchPlaylists';
 
 interface Props {
-  navigation: any;
-  loginIsFetching: boolean;
+  onSuccess: () => void;
 }
 
-const LoginForm: React.FC<Props> = ({ navigation, loginIsFetching }) => {
+const LoginForm: React.FC<Props> = ({ onSuccess }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [instance, setInstance] = useState<string>(
     PUBLIC_INVIDIOUS_INSTANCES[0].value
   );
@@ -30,21 +33,24 @@ const LoginForm: React.FC<Props> = ({ navigation, loginIsFetching }) => {
   const login = async (): Promise<any> => {
     try {
       if (token !== '' && token !== null) {
+        setIsLoading(true);
+
         await Promise.all([
           AsyncStorage.setItem('instance', instance),
           AsyncStorage.setItem('token', token)
         ]);
+        await fetchPlaylists();
         actions.setLoginIsFetched();
         actions.setConnected();
-        return goToDashboard();
+        setIsLoading(false);
+        return onSuccess(token);
       }
     } catch (error) {
-      await actions.setLoginIsFetched();
+      console.log(error);
+      actions.setLoginIsFetched();
       actions.setFlashMessage(error.message);
     }
   };
-
-  const goToDashboard = (): void => navigation.navigate('Dashboard');
 
   return (
     <>
@@ -74,15 +80,15 @@ const LoginForm: React.FC<Props> = ({ navigation, loginIsFetching }) => {
         </>
       )}
       {/* @ts-ignore */}
-      <Button mode="contained" onPress={login} loading={loginIsFetching}>
+      <Button mode="contained" onPress={login} loading={isLoading}>
         Save token
       </Button>
       <Spacer height={20} />
       <View style={{ justifyContent: 'flex-end' }}>
         {/* @ts-ignore */}
-        <Button mode="outlined" onPress={goToDashboard}>
+        {/* <Button mode="outlined" onPress={goToDashboard}>
           Skip
-        </Button>
+        </Button> */}
       </View>
     </>
   );

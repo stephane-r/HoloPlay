@@ -2,29 +2,20 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LoginFormContainer from '../../containers/Login';
 import AppVersion from '../../components/Version';
+import LoginForm from './form';
 
 interface Props {
-  navigation: any;
+  setToken: () => void;
 }
 
-const LoginScreen: React.FC<Props> = ({ navigation }) => (
+const LoginScreen: React.FC<Props> = ({ route }) => (
   <View style={styles.container}>
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <LoginFormContainer navigation={navigation} />
+      <LoginForm onSuccess={route.params.setToken} />
     </View>
     <AppVersion customStyle={{ alignSelf: 'center' }} />
   </View>
 );
-
-// @ts-ignore
-LoginScreen.path = '';
-
-// @ts-ignore
-LoginScreen.navigationOptions = () => ({
-  title: 'Login',
-  linkName: 'Login',
-  header: null
-});
 
 const styles = StyleSheet.create({
   container: {
