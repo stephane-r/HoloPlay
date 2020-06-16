@@ -13,8 +13,7 @@
     "prettify": "prettier --write src/**/*.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "lint": "eslint src",
-    "flow": "./node_modules/.bin/flow",
-    "static-analysis": "yarn flow && yarn lint",
+    "static-analysis": "yarn lint",
     "storybook": "storybook start"
   },
   "dependencies": {
@@ -66,7 +65,6 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-airbnb-typescript": "^8.0.2",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-flowtype": "^3.2.1",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.0.1",
@@ -83,7 +81,6 @@
   },
   "pre-commit": [
     "precommit-msg",
-    "lint",
-    "flow"
+    "lint"
   ]
 }

@@ -20,7 +20,7 @@ const appState: AppState = {
 };
 
 const appActions = {
-  appInit: (store: Store): Store => {
+  appInit: async (store: Store): Promise<Store> => {
     const [darkMode, searchHistory, instance, token] = await Promise.all([
       AsyncStorage.getItem('darkMode'),
       AsyncStorage.getItem('searchHistory'),
@@ -54,7 +54,11 @@ const appActions = {
       }
     };
   },
-  setDarkMode: (store: Store, actions: any, darkMode: boolean): Store => {
+  setDarkMode: async (
+    store: Store,
+    actions: any,
+    darkMode: boolean
+  ): Promise<Store> => {
     try {
       await AsyncStorage.setItem('darkMode', String(darkMode));
     } catch (error) {
