@@ -29,8 +29,6 @@ import {
 import fetchPlaylists from '../../utils/fetchPlaylists';
 import SettingsScreen from '../../screens/Settings';
 
-// const { STORYBOOK } = config;
-
 QuickActions.isSupported((error, supported) => {
   if (supported) {
     return QuickActions.setShortcutItems(quickActionShortcutItems);
@@ -73,7 +71,6 @@ const App: React.FC<Props> = ({ darkMode }) => {
           return setIsLoading(false);
         }
 
-        actions.setConnected();
         setToken(token);
         setIsLoading(false);
 
@@ -88,6 +85,10 @@ const App: React.FC<Props> = ({ darkMode }) => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  if (config.STORYBOOK === 'true') {
+    return <StorybookUI />;
+  }
 
   if (isLoading) {
     return <LoadingScreen />;
