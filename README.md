@@ -1,6 +1,6 @@
 # Youtube Audio Player :notes: ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/stephane-r/Youtube-Audio-Player) [![build status](https://img.shields.io/travis/stephane-r/Youtube-Audio-Player/master.svg?style=flat-square)](https://travis-ci.org/stephane-r/Youtube-Audio-Player) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 
-Youtube Audio Player (YAP) is an open source app, can stream Youtube audio with an open source [external API](https://github.com/stephane-r/Youtube-Audio-Player-Api). You can create your free account, save music to favoris and create your playlist.
+Youtube Audio Player (YAP) is an open source app, can stream Youtube audio with an open source [Invidious API](https://github.com/omarroth/invidious). You can add your Invidious token and save music to favoris or create your playlists.
 
 YAP has not been tested on iOS because i'm on a Linux environment. PR if needed are welcome.
 
@@ -62,8 +62,7 @@ See `.travis.yml` file for process.
 ## Built With
 
 - [React Native](https://facebook.github.io/react-native/)
-- [GraphQL](https://graphql.org/)
-- [React Apollo](https://github.com/apollographql/react-apollo)
+- [React Navigation](https://reactnavigation.org/)
 - [React Native Paper](https://github.com/callstack/react-native-paper)
 - [React Native Quick Actions](https://github.com/jordanbyron/react-native-quick-actions)
 - [React Waterfall](https://github.com/didierfranc/react-waterfall)
@@ -80,5 +79,7 @@ This project is licensed under the MIT License.
 
 ## TODO
 
-- Share playlist between users
-- Add tests
+- [] Settings screen
+- [] Add user preferences screen (from invidious API)
+- [] Adding search type (video, playlists)
+- [] Compile on iOS
