@@ -5,7 +5,8 @@ import {
   Headline,
   IconButton,
   ProgressBar,
-  ActivityIndicator
+  ActivityIndicator,
+  Button
 } from 'react-native-paper';
 import Video from 'react-native-video';
 import MusicControl from 'react-native-music-control';
@@ -15,6 +16,7 @@ import Spacer from '../Spacer';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
 import FavorisButtonContainer from '../../containers/Favoris/Button';
 import { Video as VideoType } from '../../types';
+import useDownloadFile from '../../hooks/useDownloadFile';
 
 interface Props {
   video: VideoType;
@@ -28,6 +30,7 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(true);
   const player = useRef(null);
+  const { loading, downloadVideo } = useDownloadFile();
 
   useEffect(() => {
     MusicControl.enableControl('play', true);
@@ -112,12 +115,31 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
         onError={onError}
       />
       <Spacer height={10} />
-      <IconButton
-        accessibilityStates={[]}
-        icon="chevron-left"
-        size={30}
-        onPress={actions.hidePlayer}
-      />
+      <View
+        style={{
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}>
+        <IconButton
+          accessibilityStates={[]}
+          icon="chevron-left"
+          size={30}
+          onPress={actions.hidePlayer}
+        />
+        <Button
+          accessibilityStates={[]}
+          icon="file-download"
+          loading={loading}
+          onPress={() =>
+            downloadVideo({
+              url: video.uri,
+              fileName: video.title
+            })
+          }>
+          download
+        </Button>
+      </View>
       <Spacer height={40} />
       <View style={styles.head}>
         <View>

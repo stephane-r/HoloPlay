@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import Card from '../Layout';
-import Menu from '../../Search/Menu';
 import FavorisButtonContainer from '../../../containers/Favoris/Button';
 import { actions } from '../../../store';
 import { SearchVideo, Video } from '../../../types';
+import { IconButton } from 'react-native-paper';
 
 interface Props {
   video: SearchVideo;
@@ -22,7 +22,6 @@ const CardSearch: React.FC<Props> = ({
   const loadVideo = async (index: number): Promise<any> => {
     await actions.setPlaylistFrom(setPlaylistFrom);
     await actions.loadVideo(index);
-
     return actions.showPlayer();
   };
 
@@ -47,9 +46,11 @@ const CardSearch: React.FC<Props> = ({
           margin: -8
         }}>
         <FavorisButtonContainer video={video} buttonWithIcon />
-        <Menu
-          addToPlaylist={(): void => addToPlaylist(video)}
-          downloadFile={(): void => console.log('download')}
+        <IconButton
+          icon="plus"
+          accessibilityStates={[]}
+          size={22}
+          onPress={() => addToPlaylist(video)}
         />
       </View>
     </Card>

@@ -15,7 +15,7 @@ const callApi = async ({ url, method, body }: Args): Promise<any> => {
   ]);
 
   const params: any = {
-    method: method ? method : 'GET',
+    method: method ?? 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
