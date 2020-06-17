@@ -27,7 +27,7 @@ const callApi = async ({ url, method, body }: Args): Promise<any> => {
   }
 
   if (__DEV__) {
-    console.log(`${params.method} - ${instance}${url}`);
+    console.log(`${params.method} - ${instance}/api/v1/${url}`);
   }
 
   const request = await fetch(`${instance}/api/v1/${url}`, params);

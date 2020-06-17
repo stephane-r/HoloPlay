@@ -69,7 +69,7 @@ const CardLayout: React.FC<CardProps> = ({
               />
               {!isHorizontal && (
                 <>
-                  {card.duration && !props.isStream && (
+                  {String(card.duration) && !props.isStream && (
                     <Label align="left" theme="#0455BF">
                       {card.duration}
                     </Label>
