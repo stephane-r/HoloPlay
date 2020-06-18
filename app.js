@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const App: React.FC = () => {
+const App = () => {
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       codePush.sync({

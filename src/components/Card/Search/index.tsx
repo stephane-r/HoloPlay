@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import Card from '../Layout';
 import FavorisButtonContainer from '../../../containers/Favoris/Button';
@@ -19,10 +19,19 @@ const CardSearch: React.FC<Props> = ({
   setPlaylistFrom,
   loopIndex
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const loadVideo = async (index: number): Promise<any> => {
-    await actions.setPlaylistFrom(setPlaylistFrom);
-    await actions.loadVideo(index);
-    return actions.showPlayer();
+    try {
+      setLoading(true);
+      await actions.setPlaylistFrom(setPlaylistFrom);
+      await actions.loadVideo(index);
+      actions.showPlayer();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const card = {
@@ -36,7 +45,8 @@ const CardSearch: React.FC<Props> = ({
     <Card
       card={card}
       onPress={() => loadVideo(video.index || loopIndex)}
-      alignment="vertical">
+      alignment="vertical"
+      isLoading={loading}>
       <View
         style={{
           flexDirection: 'row',

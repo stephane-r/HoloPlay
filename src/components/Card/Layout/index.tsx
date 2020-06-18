@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { Subheading } from 'react-native-paper';
+import { Subheading, ActivityIndicator } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import Label from '../../Label';
 
@@ -20,6 +20,7 @@ interface CardProps {
   rightContent?: any;
   itemsRenderer?: any;
   showItems?: boolean;
+  isLoading?: boolean;
   // TODO: refactoring
   isStream?: boolean;
 }
@@ -34,6 +35,7 @@ const CardLayout: React.FC<CardProps> = ({
   rightContent,
   itemsRenderer,
   showItems,
+  isLoading,
   ...props
 }) => {
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
@@ -98,6 +100,20 @@ const CardLayout: React.FC<CardProps> = ({
               </View>
               {rightContent && rightContent}
             </View>
+            {isLoading && (
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  width: '100%',
+                  height: isHorizontal ? '100%' : '120%',
+                  top: isHorizontal ? 0 : -25,
+                  backgroundColor: 'rgba(255, 255, 255, .6)'
+                }}>
+                <ActivityIndicator />
+              </View>
+            )}
           </View>
         </TouchableNativeFeedback>
         {itemsRenderer && showItems && itemsRenderer}

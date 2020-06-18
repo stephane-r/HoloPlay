@@ -12,10 +12,10 @@ export interface Playlist {
   viewCount: 0;
   updated: number;
   isListed: boolean;
-  videos: Video[];
+  videos: VideoPlaylist[];
 }
 
-export interface Video {
+export interface VideoPlaylist {
   title: string;
   videoId: string;
   author: string;
@@ -33,13 +33,6 @@ export interface Video {
     url: string;
   };
   uri: string;
-}
-
-export interface VideoThumbnail {
-  quality: string;
-  url: string;
-  width: number;
-  height: number;
 }
 
 export interface SearchVideo {
@@ -89,4 +82,97 @@ export interface SearchChannel {
   videoCount: number;
   description: string;
   descriptionHtml: string;
+}
+
+export interface Video {
+  title: string;
+  videoId: string;
+  videoThumbnails: VideoThumbnail[];
+  description: string;
+  descriptionHtml: string;
+  published: number;
+  publishedText: string;
+  keywords: string[];
+  viewCount: number;
+  likeCount: number;
+  dislikeCount: number;
+  paid: boolean;
+  premium: boolean;
+  isFamilyFriendly: boolean;
+  allowedRegions: string[];
+  genre: string;
+  genreUrl: string;
+  author: string;
+  authorId: string;
+  authorUrl: string;
+  authorThumbnails: [
+    {
+      url: string;
+      width: number;
+      height: number;
+    }
+  ];
+  subCountText: string;
+  lengthSeconds: number;
+  allowRatings: boolean;
+  rating: Float32;
+  isListed: boolean;
+  liveNow: boolean;
+  isUpcoming: boolean;
+  premiereTimestamp: ?number;
+  hlsUrl?: string;
+  adaptiveFormats: [
+    {
+      index: string;
+      bitrate: string;
+      init: string;
+      url: string;
+      itag: string;
+      type: string;
+      clen: string;
+      lmt: string;
+      projectionType: number;
+      container: string;
+      encoding: string;
+      qualityLabel?: string;
+      resolution?: string;
+    }
+  ];
+  formatStreams: FormatStreams[];
+  captions: Captions[];
+  recommendedVideos: [
+    {
+      videoId: string;
+      title: string;
+      videoThumbnails: VideoThumbnail[];
+      author: string;
+      lengthSeconds: number;
+      viewCountText: string;
+    }
+  ];
+}
+
+export interface VideoThumbnail {
+  quality: string;
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface FormatStreams {
+  url: string;
+  itag: string;
+  type: string;
+  quality: string;
+  container: string;
+  encoding: string;
+  qualityLabel: string;
+  resolution: string;
+  size: string;
+}
+
+interface Captions {
+  label: string;
+  languageCode: string;
+  url: string;
 }
