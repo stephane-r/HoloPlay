@@ -11,12 +11,15 @@ import {
 import Video from 'react-native-video';
 import MusicControl from 'react-native-music-control';
 import TimeFormat from 'hh-mm-ss';
+import LinearGradient from 'react-native-linear-gradient';
+import { getColorFromURL } from 'rn-dominant-color';
 import { actions } from '../../store';
 import Spacer from '../Spacer';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
 import FavorisButtonContainer from '../../containers/Favoris/Button';
 import { Video as VideoType } from '../../types';
 import useDownloadFile from '../../hooks/useDownloadFile';
+import hex2rgba from '../../utils/hex2rgba';
 
 interface Props {
   video: VideoType;
@@ -29,8 +32,14 @@ interface Props {
 const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [color, setColor] = useState('#FFFFFF');
+  const [background, setBackground] = useState('#FFFFFF');
   const player = useRef(null);
   const { loading, downloadVideo } = useDownloadFile();
+
+  getColorFromURL(video?.thumbnail.url).then((colors) =>
+    setBackground(colors.primary)
+  );
 
   useEffect(() => {
     MusicControl.enableControl('play', true);
@@ -40,19 +49,14 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
     MusicControl.enableControl('previousTrack', true);
     MusicControl.enableBackgroundMode(true);
     // MusicControl.handleAudioInterruptions(true);
-    // @ts-ignore
     MusicControl.on('play', actions.paused);
-    // @ts-ignore
     MusicControl.on('pause', actions.paused);
-    // @ts-ignore
     MusicControl.on('stop', actions.paused);
     MusicControl.on(
-      // @ts-ignore
       'nextTrack',
       () => props.nextVideoIndex && actions.loadVideo(props.nextVideoIndex)
     );
     MusicControl.on(
-      // @ts-ignore
       'previousTrack',
       (): void =>
         props.previousVideoIndex && actions.loadVideo(props.previousVideoIndex)
@@ -99,7 +103,7 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
   const percentage = Math.floor((100 / duration) * currentTime);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: background }]}>
       <Video
         ref={player}
         source={{
@@ -114,33 +118,6 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
         onEnd={onEnd}
         onError={onError}
       />
-      <Spacer height={10} />
-      <View
-        style={{
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center'
-        }}>
-        <IconButton
-          accessibilityStates={[]}
-          icon="chevron-left"
-          size={30}
-          onPress={actions.hidePlayer}
-        />
-        <Button
-          accessibilityStates={[]}
-          icon="file-download"
-          loading={loading}
-          onPress={() =>
-            downloadVideo({
-              url: video.uri,
-              fileName: video.title
-            })
-          }>
-          download
-        </Button>
-      </View>
-      <Spacer height={40} />
       <View style={styles.head}>
         <View>
           {isLoading && (
@@ -149,21 +126,76 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
           <Image
             source={{ uri: video.thumbnail.url }}
             style={{
-              width: video.thumbnail.width,
-              height: video.thumbnail.height
+              width: video.thumbnail.width + 100,
+              height: video.thumbnail.height + 100
             }}
           />
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              width: video.thumbnail.width + 100
+            }}>
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0)', hex2rgba(background, 1)]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              style={{
+                height: 200
+              }}
+            />
+          </View>
+          <View
+            style={{
+              position: 'absolute',
+              top: 12,
+              left: 16,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
+            <IconButton
+              accessibilityStates={[]}
+              icon="arrow-left"
+              color="white"
+              size={20}
+              onPress={actions.hidePlayer}
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, .3)'
+              }}
+            />
+          </View>
         </View>
-        <Spacer height={30} />
-        <Headline numberOfLines={2} style={{ textAlign: 'center' }}>
+        <Spacer height={50} />
+        <Headline numberOfLines={2} style={{ textAlign: 'center', color }}>
           {video.title}
         </Headline>
-        <Spacer height={10} />
-        <Text accessibilityStates={[]}>{video.author}</Text>
+        <Text accessibilityStates={[]} style={{ color }}>
+          {video.author}
+        </Text>
       </View>
       <View style={styles.content}>
+        <View style={{ flexDirection: 'row', height: 57 }}>
+          {loading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <IconButton
+              accessibilityStates={[]}
+              icon="download"
+              color="white"
+              size={30}
+              loading={loading}
+              onPress={() =>
+                downloadVideo({
+                  url: video.uri,
+                  fileName: video.title
+                })
+              }
+            />
+          )}
+        </View>
         <View style={styles.progress}>
-          <Text accessibilityStates={[]}>
+          <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
             {currentTime
               ? TimeFormat.fromS(
                   currentTime,
@@ -173,68 +205,83 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
           </Text>
           <View style={styles.progressBar}>
             <ProgressBar
+              style={{ height: 2, backgroundColor: hex2rgba(color, 0.1) }}
+              color={color}
               accessibilityStates={[]}
               progress={percentage / 100}
-              color="#2575f4"
             />
           </View>
-          <Text accessibilityStates={[]}>
+          <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
             {TimeFormat.fromS(video.lengthSeconds)}
           </Text>
-          <Spacer height={30} />
         </View>
-        <Spacer width={10} />
-        <IconButton
-          accessibilityStates={[]}
-          icon={repeat ? 'repeat-one' : 'repeat'}
-          size={25}
-          onPress={actions.repeat}
-          animated
-        />
-        <View style={styles.actionsContainer}>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: 4 // 16 + 4
+          }}>
+          <IconButton
+            accessibilityStates={[]}
+            icon={repeat ? 'repeat-once' : 'repeat'}
+            size={25}
+            color={color}
+            onPress={actions.repeat}
+            animated
+          />
           <IconButton
             accessibilityStates={[]}
             icon="skip-previous"
+            color={color}
             onPress={() => actions.loadVideo(props.previousVideoIndex)}
-            size={30}
+            size={25}
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, .3)',
+              marginLeft: 'auto'
+            }}
           />
-          <IconButton
+          {/* <IconButton
             accessibilityStates={[]}
             icon="rewind-30"
             // @ts-ignore
             onPress={() => player.current?.seek(30)}
-            size={30}
+            size={40}
             animated
-          />
-          <Spacer width={10} />
+          /> */}
           <IconButton
             accessibilityStates={[]}
-            icon={paused ? 'play-circle-outline' : 'pause-circle-outline'}
+            icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
             onPress={actions.paused}
-            style={{ width: 80, margin: 0 }}
+            color={color}
+            style={{ width: 80, margin: 0, marginHorizontal: 20 }}
             size={80}
             animated
           />
-          <IconButton
+          {/* <IconButton
             accessibilityStates={[]}
             icon="fast-forward-30"
             // @ts-ignore
             onPress={(): void => player.current?.seek(currentTime + 30)}
-            size={30}
+            size={40}
             animated
-          />
+          /> */}
           <IconButton
             accessibilityStates={[]}
+            color={color}
             icon="skip-next"
             onPress={() => actions.loadVideo(props.nextVideoIndex)}
-            size={30}
+            size={25}
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, .3)',
+              marginRight: 'auto'
+            }}
           />
+          <FavorisButtonContainer video={video} color={color} />
         </View>
-        <Spacer width={10} />
-        <FavorisButtonContainer video={video} />
-        <Spacer width={10} />
       </View>
-      <Spacer height={30} />
+      <Spacer height={20} />
     </View>
   );
 };
@@ -255,7 +302,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     zIndex: 2
   },
   content: {
@@ -267,10 +313,9 @@ const styles = StyleSheet.create({
   progress: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    marginBottom: 40
+    paddingHorizontal: 20
   },
-  progressBar: { flex: 1, marginHorizontal: 20 },
+  progressBar: { flex: 1, marginHorizontal: 10 },
   actionsContainer: {
     flexDirection: 'row',
     flex: 1,

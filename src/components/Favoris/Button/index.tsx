@@ -10,13 +10,15 @@ interface Props {
   favorisIds: string[];
   video: Video;
   buttonWithIcon: boolean;
+  color?: string;
 }
 
 const Favoris: React.FC<Props> = ({
   favorisPlaylist,
   favorisIds,
   video,
-  buttonWithIcon
+  buttonWithIcon,
+  color
 }) => {
   useEffect(() => {}, []);
 
@@ -66,7 +68,7 @@ const Favoris: React.FC<Props> = ({
 
   const iconColor = {
     icon: isFavoris ? 'heart' : 'heart-outline',
-    color: isFavoris ? '#EE05F2' : '#607D8B'
+    color: color ?? (isFavoris ? '#EE05F2' : '#607D8B')
   };
 
   if (buttonWithIcon) {

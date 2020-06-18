@@ -26,7 +26,7 @@ const SearchResult: React.FC<Props> = ({
       : 'popular'
   );
   const [dialogIsShow, toggleDialog] = useState<boolean>(false);
-  const [video, setVideo] = useState<null | Video>(null);
+  const [video, setVideo] = useState<null | SearchVideo>(null);
 
   useEffect(() => {
     if (data) {
@@ -50,7 +50,7 @@ const SearchResult: React.FC<Props> = ({
           />
         ))}
       </CardList>
-      {playlists && (
+      {video !== null && (
         <DialogAddVideoToPlaylist
           visible={dialogIsShow}
           toggleDialog={() => toggleDialog(!dialogIsShow)}

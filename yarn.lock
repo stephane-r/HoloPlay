@@ -7227,6 +7227,11 @@ react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
 
+react-native-linear-gradient@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
+  integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
+
 react-native-music-control@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-native-music-control/-/react-native-music-control-0.11.0.tgz#571a8907843968478a8d4122d678c991e85cb3f9"
@@ -7754,6 +7759,11 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-dominant-color@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/rn-dominant-color/-/rn-dominant-color-1.5.0.tgz#01ec47ecdd9304974ad2638867c7015168a64408"
+  integrity sha512-DQbEhPnJr/NovCO9sx4CSt9vRi8ose5Bk5ijKVjQYSXl/f9sUs9tc6lV4fVBVqDz9TJvZG57v5hSCzBRlblYEA==
 
 rn-fetch-blob@^0.12.0:
   version "0.12.0"
