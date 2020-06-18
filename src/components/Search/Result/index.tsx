@@ -32,7 +32,7 @@ const SearchResult: React.FC<Props> = ({
     if (data) {
       actions.setSearchResult(data);
     }
-  }, [data]);
+  }, [data, searchType]);
 
   return (
     <>

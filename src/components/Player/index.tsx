@@ -155,9 +155,11 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
           />
         </View>
         <Spacer height={30} />
-        <Headline numberOfLines={2}>{video.title}</Headline>
+        <Headline numberOfLines={2} style={{ textAlign: 'center' }}>
+          {video.title}
+        </Headline>
         <Spacer height={10} />
-        <Text accessibilityStates={[]}>video.channelTitle</Text>
+        <Text accessibilityStates={[]}>{video.author}</Text>
       </View>
       <View style={styles.content}>
         <View style={styles.progress}>
@@ -176,7 +178,9 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
               color="#2575f4"
             />
           </View>
-          <Text accessibilityStates={[]}>{video.lengthSeconds}</Text>
+          <Text accessibilityStates={[]}>
+            {TimeFormat.fromS(video.lengthSeconds)}
+          </Text>
           <Spacer height={30} />
         </View>
         <Spacer width={10} />

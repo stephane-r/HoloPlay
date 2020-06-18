@@ -10,6 +10,7 @@ import SearchResultContainer from '../../containers/Search/Result';
 import PlaceholderSearchList from '../../components/Placeholder/Search';
 import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
 import CarouselSpacerContainer from '../../containers/CarouselSpacer';
+import SearchPickerTypeContainer from '../../containers/Search/PickerType';
 
 const DashboardScreen: React.FC = () => {
   const userPlaylistsEmpty = false;
@@ -27,7 +28,10 @@ const DashboardScreen: React.FC = () => {
         <PlaylistsCarouselContainer />
       </View>
       <CarouselSpacerContainer />
-      <Title style={{ fontSize: 27 }}>Search</Title>
+      <View style={styles.searchHeader}>
+        <Title style={{ fontSize: 27 }}>Search</Title>
+        <SearchPickerTypeContainer />
+      </View>
       <Spacer height={15} />
       <Suspense fallback={<PlaceholderSearchList />}>
         <SearchResultContainer />
@@ -41,6 +45,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#2575f4',
     marginHorizontal: -16,
     paddingHorizontal: 16
+  },
+  searchHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 });
 

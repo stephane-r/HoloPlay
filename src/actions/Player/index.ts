@@ -68,31 +68,32 @@ const playerActions = {
     actions: any,
     videoIndex: number
   ): Promise<PlayerState> => {
-    try {
-      const { playlist } = store;
-      const isLastVideo = playlist.length === videoIndex;
-      // If is last video, we restart the playlist from first index
-      const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
-      const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
-      const videoUpdated = {
-        ...video,
-        ...data,
-        uri: data.adaptiveFormats.find(
-          ({ type }: any) => type === 'audio/webm; codecs="opus"'
-        ).url,
-        thumbnail: data.videoThumbnails.find(
-          ({ quality }: VideoThumbnail) => quality === 'medium'
-        )
-      };
+    const { playlist } = store;
+    const isLastVideo = playlist.length === videoIndex;
+    // If is last video, we restart the playlist from first index
+    const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
+    const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
 
-      return {
-        ...store,
-        video: videoUpdated,
-        videoIndex: videoIndex
-      };
-    } catch (error) {
-      return store;
+    if (data.error) {
+      return actions.setFlashMessage('Error on load video');
     }
+
+    const videoUpdated = {
+      ...video,
+      ...data,
+      uri: data.adaptiveFormats.find(
+        ({ type }: any) => type === 'audio/webm; codecs="opus"'
+      ).url,
+      thumbnail: data.videoThumbnails.find(
+        ({ quality }: VideoThumbnail) => quality === 'medium'
+      )
+    };
+
+    return {
+      ...store,
+      video: videoUpdated,
+      videoIndex: videoIndex
+    };
   },
   paused: async (store: Store): Promise<Store> => ({
     ...store,

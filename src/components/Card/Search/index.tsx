@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
+import timeFormat from 'hh-mm-ss';
 import Card from '../Layout';
 import FavorisButtonContainer from '../../../containers/Favoris/Button';
 import { actions } from '../../../store';
@@ -38,7 +39,8 @@ const CardSearch: React.FC<Props> = ({
     title: video.title,
     picture:
       video.videoThumbnails.find((q) => q.quality === 'medium')?.url ?? '',
-    duration: video.lengthSeconds
+    duration: timeFormat.fromS(video.lengthSeconds),
+    liveNow: video.liveNow
   };
 
   return (

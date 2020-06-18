@@ -71,14 +71,13 @@ const CardLayout: React.FC<CardProps> = ({
               />
               {!isHorizontal && (
                 <>
-                  {String(card.duration) && !props.isStream && (
-                    <Label align="left" theme="#0455BF">
-                      {card.duration}
-                    </Label>
-                  )}
-                  {props.isStream && (
+                  {card.liveNow ? (
                     <Label align="right" theme="#2575f4">
                       LIVE
+                    </Label>
+                  ) : (
+                    <Label align="left" theme="#0455BF">
+                      {card.duration}
                     </Label>
                   )}
                 </>

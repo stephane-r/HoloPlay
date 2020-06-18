@@ -2,9 +2,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { SearchVideo } from '../../types';
 import { Store } from '../../store';
 
+export type SearchTypeTypes = 'video' | 'playlist';
+
 export interface SearchState {
   searchValue: string;
-  searchType: 'video';
+  searchType: SearchTypeTypes;
   results: SearchVideo[];
   isSearching: boolean;
   history: string[];
@@ -44,6 +46,14 @@ const searchActions = {
       results
     };
   },
+  setSearchType: (
+    store: Store,
+    actions: any,
+    searchType: SearchTypeTypes
+  ): Store => ({
+    ...store,
+    searchType
+  }),
   setIsSearching: (store: Store): Store => {
     return {
       ...store,
