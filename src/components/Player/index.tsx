@@ -4,7 +4,6 @@ import {
   Text,
   Headline,
   IconButton,
-  ProgressBar,
   ActivityIndicator,
   Button
 } from 'react-native-paper';
@@ -20,6 +19,7 @@ import FavorisButtonContainer from '../../containers/Favoris/Button';
 import { Video as VideoType } from '../../types';
 import useDownloadFile from '../../hooks/useDownloadFile';
 import hex2rgba from '../../utils/hex2rgba';
+import Progress from '../Progress';
 
 interface Props {
   video: VideoType;
@@ -44,14 +44,26 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
   useEffect(() => {
     MusicControl.enableControl('play', true);
     MusicControl.enableControl('pause', true);
-    MusicControl.enableControl('stop', true);
+    MusicControl.enableControl('stop', false);
     MusicControl.enableControl('nextTrack', true);
     MusicControl.enableControl('previousTrack', true);
+    MusicControl.enableControl('changePlaybackPosition', true);
+    MusicControl.enableControl('seek', true);
+    MusicControl.enableControl('skipBackward', true, { interval: 15 });
+    MusicControl.enableControl('skipForward', true, { interval: 30 });
     MusicControl.enableBackgroundMode(true);
-    // MusicControl.handleAudioInterruptions(true);
-    MusicControl.on('play', actions.paused);
-    MusicControl.on('pause', actions.paused);
-    MusicControl.on('stop', actions.paused);
+    MusicControl.on('play', () => {
+      actions.paused();
+      MusicControl.updatePlayback({
+        state: MusicControl.STATE_PLAYING
+      });
+    });
+    MusicControl.on('pause', () => {
+      actions.paused();
+      MusicControl.updatePlayback({
+        state: MusicControl.STATE_PAUSED
+      });
+    });
     MusicControl.on(
       'nextTrack',
       () => props.nextVideoIndex && actions.loadVideo(props.nextVideoIndex)
@@ -61,11 +73,21 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
       (): void =>
         props.previousVideoIndex && actions.loadVideo(props.previousVideoIndex)
     );
+    MusicControl.on('skipBackward', (): void =>
+      player.current?.seek(duration - 30)
+    );
+    MusicControl.on('skipForward', (): void =>
+      player.current?.seek(duration + 30)
+    );
   }, [video]);
 
   const onProgress = ({ currentTime }: { currentTime: number }): void => {
     setLoading(false);
     setCurrentTime(Math.round(currentTime));
+
+    MusicControl.updatePlayback({
+      state: MusicControl.STATE_PLAYING
+    });
   };
 
   const onLoadStart = (): void => {
@@ -79,8 +101,11 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
       title,
       artwork: thumbnail.url,
       artist: author,
-      duration: lengthSeconds,
-      description: 'TODO'
+      duration: lengthSeconds
+    });
+
+    MusicControl.updatePlayback({
+      state: MusicControl.STATE_BUFFERING
     });
   };
 
@@ -176,6 +201,14 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
       </View>
       <View style={styles.content}>
         <View style={{ flexDirection: 'row', height: 57 }}>
+          <IconButton
+            accessibilityStates={[]}
+            icon="rewind-30"
+            onPress={() => player.current?.seek(currentTime - 30)}
+            color="white"
+            size={28}
+            animated
+          />
           {loading ? (
             <ActivityIndicator color="white" />
           ) : (
@@ -193,6 +226,14 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
               }
             />
           )}
+          <IconButton
+            accessibilityStates={[]}
+            icon="fast-forward-30"
+            onPress={(): void => player.current?.seek(currentTime + 30)}
+            color="white"
+            size={28}
+            animated
+          />
         </View>
         <View style={styles.progress}>
           <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
@@ -204,12 +245,7 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
               : '00:00'}
           </Text>
           <View style={styles.progressBar}>
-            <ProgressBar
-              style={{ height: 2, backgroundColor: hex2rgba(color, 0.1) }}
-              color={color}
-              accessibilityStates={[]}
-              progress={percentage / 100}
-            />
+            <Progress color={color} progress={percentage} />
           </View>
           <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
             {TimeFormat.fromS(video.lengthSeconds)}
@@ -242,31 +278,20 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
               marginLeft: 'auto'
             }}
           />
-          {/* <IconButton
-            accessibilityStates={[]}
-            icon="rewind-30"
-            // @ts-ignore
-            onPress={() => player.current?.seek(30)}
-            size={40}
-            animated
-          /> */}
           <IconButton
             accessibilityStates={[]}
             icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
-            onPress={actions.paused}
+            onPress={() => {
+              MusicControl.updatePlayback({
+                state: MusicControl.STATE_STOPPED
+              });
+              actions.paused();
+            }}
             color={color}
             style={{ width: 80, margin: 0, marginHorizontal: 20 }}
             size={80}
             animated
           />
-          {/* <IconButton
-            accessibilityStates={[]}
-            icon="fast-forward-30"
-            // @ts-ignore
-            onPress={(): void => player.current?.seek(currentTime + 30)}
-            size={40}
-            animated
-          /> */}
           <IconButton
             accessibilityStates={[]}
             color={color}
