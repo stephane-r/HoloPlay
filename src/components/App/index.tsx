@@ -1,6 +1,5 @@
 import React, { useState, memo, useRef, useEffect } from 'react';
 import config from 'react-native-config';
-import GestureRecognizer from 'react-native-swipe-gestures';
 import QuickActions from 'react-native-quick-actions';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -96,34 +95,24 @@ const App: React.FC<Props> = ({ darkMode }) => {
 
   return (
     <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
-      <GestureRecognizer
-        onSwipeLeft={actions.showPlayer}
-        config={{
-          velocityThreshold: 0.3,
-          directionalOffsetThreshold: 80
-        }}
-        style={{
-          flex: 1
-        }}>
-        <SidebarContainer />
-        <NavigationContainer ref={navigation}>
-          {appToken === null ? (
-            <Stack.Navigator headerMode="none">
-              <Stack.Screen
-                name="Auth"
-                component={LoginScreen}
-                initialParams={{ setToken }}
-              />
-            </Stack.Navigator>
-          ) : (
-            <Stack.Navigator headerMode="none">
-              <Stack.Screen name="Test" component={AppScreen} />
-              <Stack.Screen name="Settings" component={SettingsScreen} />
-            </Stack.Navigator>
-          )}
-        </NavigationContainer>
-        <SnackbarContainer />
-      </GestureRecognizer>
+      <SidebarContainer />
+      <NavigationContainer ref={navigation}>
+        {appToken === null ? (
+          <Stack.Navigator headerMode="none">
+            <Stack.Screen
+              name="Auth"
+              component={LoginScreen}
+              initialParams={{ setToken }}
+            />
+          </Stack.Navigator>
+        ) : (
+          <Stack.Navigator headerMode="none">
+            <Stack.Screen name="Test" component={AppScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+          </Stack.Navigator>
+        )}
+      </NavigationContainer>
+      <SnackbarContainer />
     </PaperProvider>
   );
 };

@@ -1,23 +1,22 @@
-import React from 'react';
-import {
-  ScrollView,
-  View,
-  StyleSheet,
-  DrawerLayoutAndroid
-} from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { ScrollView, View, StyleSheet } from 'react-native';
+import Drawer from 'react-native-drawer-menu';
 import DrawlerContainer from '../../containers/Drawler';
+import { Text, Button } from 'react-native-paper';
+import { actions } from '../../store';
 
 const Layout: React.FC = ({ children }) => (
-  <DrawerLayoutAndroid
+  <Drawer
     drawerWidth={300}
-    drawerPosition="left"
-    renderNavigationView={() => <DrawlerContainer />}>
+    type={Drawer.types.Overlay}
+    leftDrawerContent={<DrawlerContainer />}
+    drawerPosition={Drawer.positions.Left}>
     <View style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.container}>{children}</View>
       </ScrollView>
     </View>
-  </DrawerLayoutAndroid>
+  </Drawer>
 );
 
 const styles = StyleSheet.create({
