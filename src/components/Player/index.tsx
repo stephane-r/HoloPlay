@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Button
 } from 'react-native-paper';
-import Slider from 'react-native-slider';
+import Slider from '@react-native-community/slider';
 import Video from 'react-native-video';
 import MusicControl from 'react-native-music-control';
 import TimeFormat from 'hh-mm-ss';
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20
   },
-  progressBar: { flex: 1, marginHorizontal: 10 },
+  progressBar: { flex: 1 },
   actionsContainer: {
     flexDirection: 'row',
     flex: 1,
