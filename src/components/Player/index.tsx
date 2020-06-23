@@ -146,13 +146,17 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
       <View style={styles.head}>
         <View>
           {isLoading && (
-            <ActivityIndicator accessibilityStates={[]} style={styles.loader} />
+            <ActivityIndicator
+              accessibilityStates={[]}
+              style={styles.loader}
+              color={color}
+            />
           )}
           <Image
             source={{ uri: video.thumbnail.url }}
             style={{
               width: video.thumbnail.width + 100,
-              height: video.thumbnail.height + 100
+              height: video.thumbnail.height + 40
             }}
           />
           <View
@@ -170,28 +174,8 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
               }}
             />
           </View>
-          <View
-            style={{
-              position: 'absolute',
-              top: 12,
-              left: 16,
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}>
-            <IconButton
-              accessibilityStates={[]}
-              icon="arrow-left"
-              color="white"
-              size={20}
-              onPress={actions.hidePlayer}
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, .3)'
-              }}
-            />
-          </View>
         </View>
-        <Spacer height={50} />
+        <Spacer height={30} />
         <Headline numberOfLines={2} style={{ textAlign: 'center', color }}>
           {video.title}
         </Headline>
@@ -306,15 +290,14 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
           <FavorisButtonContainer video={video} color={color} />
         </View>
       </View>
-      <Spacer height={20} />
+      <Spacer height={10} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    maxHeight: Dimensions.get('window').height - 10
+    height: Dimensions.get('window').height - 24
   },
   head: {
     alignItems: 'center',

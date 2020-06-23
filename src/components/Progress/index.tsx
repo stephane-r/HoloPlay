@@ -13,7 +13,11 @@ interface Props {
   progress: number;
 }
 
-const Progress: React.FC<Props> = ({ height = 2, color, progress }) => {
+const Progress: React.FC<Props> = ({
+  height = 2,
+  color = 'white',
+  progress
+}) => {
   const animation = useRef(new Animated.Value(0));
   const width = animation.current.interpolate({
     inputRange: [0, 100],

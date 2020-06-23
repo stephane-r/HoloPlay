@@ -4,7 +4,7 @@ import QuickActions from 'react-native-quick-actions';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { Provider as PaperProvider, Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import StorybookUI from '../../../storybook';
@@ -27,6 +27,11 @@ import {
 } from '../../../config/quickAction';
 import fetchPlaylists from '../../utils/fetchPlaylists';
 import SettingsScreen from '../../screens/Settings';
+import { Animated, Dimensions, View } from 'react-native';
+import AppPlayer from '../AppPlayer';
+
+// :troll:
+console.disableYellowBox = true;
 
 QuickActions.isSupported((error, supported) => {
   if (supported) {
@@ -95,7 +100,6 @@ const App: React.FC<Props> = ({ darkMode }) => {
 
   return (
     <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
-      <SidebarContainer />
       <NavigationContainer ref={navigation}>
         {appToken === null ? (
           <Stack.Navigator headerMode="none">
@@ -107,12 +111,13 @@ const App: React.FC<Props> = ({ darkMode }) => {
           </Stack.Navigator>
         ) : (
           <Stack.Navigator headerMode="none">
-            <Stack.Screen name="Test" component={AppScreen} />
+            <Stack.Screen name="App" component={AppScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
           </Stack.Navigator>
         )}
       </NavigationContainer>
       <SnackbarContainer />
+      <AppPlayer />
     </PaperProvider>
   );
 };
