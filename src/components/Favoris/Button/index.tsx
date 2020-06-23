@@ -8,7 +8,7 @@ import { Video, Playlist } from '../../../types';
 interface Props {
   favorisPlaylist: Playlist;
   favorisIds: string[];
-  video: Video;
+  videoId: string;
   buttonWithIcon: boolean;
   color?: string;
 }
@@ -16,7 +16,7 @@ interface Props {
 const Favoris: React.FC<Props> = ({
   favorisPlaylist,
   favorisIds,
-  video,
+  videoId,
   buttonWithIcon,
   color
 }) => {
@@ -26,7 +26,7 @@ const Favoris: React.FC<Props> = ({
     if (isFavoris) {
       try {
         const video: Video = favorisPlaylist.videos.find(
-          (v) => v.videoId === video.videoId
+          (v) => v.videoId === videoId
         );
 
         if (video.indexId) {
@@ -64,7 +64,7 @@ const Favoris: React.FC<Props> = ({
     }
   };
 
-  const isFavoris: boolean = favorisIds.includes(video.videoId);
+  const isFavoris: boolean = favorisIds.includes(videoId);
 
   const iconColor = {
     icon: isFavoris ? 'heart' : 'heart-outline',

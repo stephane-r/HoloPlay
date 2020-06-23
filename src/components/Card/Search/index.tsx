@@ -57,7 +57,7 @@ const CardSearch: React.FC<Props> = ({
           flex: 1,
           margin: -8
         }}>
-        <FavorisButtonContainer video={video} buttonWithIcon />
+        <FavorisButtonContainer videoId={video.videoId} buttonWithIcon />
         <IconButton
           icon="plus"
           accessibilityStates={[]}

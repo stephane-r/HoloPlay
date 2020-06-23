@@ -287,7 +287,7 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
               marginRight: 'auto'
             }}
           />
-          <FavorisButtonContainer video={video} color={color} />
+          <FavorisButtonContainer videoId={video.videoId} color={color} />
         </View>
       </View>
       <Spacer height={10} />
