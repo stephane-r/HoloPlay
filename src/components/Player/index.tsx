@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Button
 } from 'react-native-paper';
+import Slider from 'react-native-slider';
 import Video from 'react-native-video';
 import MusicControl from 'react-native-music-control';
 import TimeFormat from 'hh-mm-ss';
@@ -19,7 +20,6 @@ import FavorisButtonContainer from '../../containers/Favoris/Button';
 import { Video as VideoType } from '../../types';
 import useDownloadFile from '../../hooks/useDownloadFile';
 import hex2rgba from '../../utils/hex2rgba';
-import Progress from '../Progress';
 
 interface Props {
   video: VideoType;
@@ -229,7 +229,19 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
               : '00:00'}
           </Text>
           <View style={styles.progressBar}>
-            <Progress color={color} progress={percentage} />
+            <Slider
+              value={currentTime}
+              maximumValue={video.lengthSeconds}
+              onValueChange={(value) => player.current?.seek(Math.floor(value))}
+              minimumTrackTintColor={color}
+              thumbTintColor={color}
+              thumbStyle={{ width: 15, height: 15 }}
+              thumbTouchSize={{ width: 40, height: 40 }}
+              animationType="spring"
+              trackStyle={{ height: 2 }}
+              maximumTrackTintColor="rgba(255, 255, 255, .3)"
+              animateTransitions
+            />
           </View>
           <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
             {TimeFormat.fromS(video.lengthSeconds)}

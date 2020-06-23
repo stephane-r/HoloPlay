@@ -41,6 +41,7 @@
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.5",
     "react-native-screens": "^2.8.0",
+    "react-native-slider": "^0.11.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.1.0",
     "react-native-svg-icon": "^0.8.1",
