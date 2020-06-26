@@ -80,4 +80,5 @@ This project is licensed under the MIT License.
 - [] Settings screen
 - [] Add user preferences screen (from invidious API)
 - [x] Adding search type (video, playlists)
+- [] Show playlist on player view
 - [] Compile on iOS

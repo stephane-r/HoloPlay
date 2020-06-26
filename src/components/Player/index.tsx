@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Dimensions,
+  TouchableNativeFeedback
+} from 'react-native';
 import {
   Text,
   Headline,
@@ -13,6 +19,7 @@ import MusicControl from 'react-native-music-control';
 import TimeFormat from 'hh-mm-ss';
 import LinearGradient from 'react-native-linear-gradient';
 import { getColorFromURL } from 'rn-dominant-color';
+import ViewPager from '@react-native-community/viewpager';
 import { actions } from '../../store';
 import Spacer from '../Spacer';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
@@ -20,6 +27,9 @@ import FavorisButtonContainer from '../../containers/Favoris/Button';
 import { Video as VideoType } from '../../types';
 import useDownloadFile from '../../hooks/useDownloadFile';
 import hex2rgba from '../../utils/hex2rgba';
+import PlaylistContainer from '../../containers/Playlist';
+import { ScrollView } from 'react-native-gesture-handler';
+import Dot from '../Dot';
 
 interface Props {
   video: VideoType;
@@ -34,7 +44,9 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [color, setColor] = useState('#FFFFFF');
   const [background, setBackground] = useState('#FFFFFF');
+  const [page, setPage] = useState<boolean>(0);
   const player = useRef(null);
+  const pager = useRef(null);
   const { loading, downloadVideo } = useDownloadFile();
 
   getColorFromURL(video?.thumbnail.url).then((colors) =>
@@ -143,47 +155,86 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
         onEnd={onEnd}
         onError={onError}
       />
-      <View style={styles.head}>
-        <View>
-          {isLoading && (
-            <ActivityIndicator
-              accessibilityStates={[]}
-              style={styles.loader}
-              color={color}
-            />
-          )}
-          <Image
-            source={{ uri: video.thumbnail.url }}
-            style={{
-              width: video.thumbnail.width + 100,
-              height: video.thumbnail.height + 40
-            }}
-          />
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              width: video.thumbnail.width + 100
-            }}>
-            <LinearGradient
-              colors={['rgba(255, 255, 255, 0)', hex2rgba(background, 1)]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
+      <ViewPager
+        style={styles.head}
+        initialPage={0}
+        scrollEnabled={false}
+        orientation="horizontal"
+        transitionStyle="scroll"
+        ref={pager}>
+        <View key="1" style={styles.head}>
+          <View>
+            {isLoading && (
+              <ActivityIndicator
+                accessibilityStates={[]}
+                style={styles.loader}
+                color={color}
+              />
+            )}
+            <Image
+              source={{ uri: video.thumbnail.url }}
               style={{
-                height: 200
+                width: video.thumbnail.width + 100,
+                height: video.thumbnail.height + 40
               }}
             />
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                width: video.thumbnail.width + 100
+              }}>
+              <LinearGradient
+                colors={['rgba(255, 255, 255, 0)', hex2rgba(background, 1)]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={{
+                  height: 100
+                }}
+              />
+            </View>
           </View>
+          <Spacer height={30} />
+          <Text
+            numberOfLines={2}
+            style={{
+              textAlign: 'center',
+              color,
+              fontSize: 20
+            }}>
+            {video.title}
+          </Text>
+          <Spacer height={10} />
+          <Text accessibilityStates={[]} style={{ color }}>
+            {video.author}
+          </Text>
         </View>
-        <Spacer height={30} />
-        <Headline numberOfLines={2} style={{ textAlign: 'center', color }}>
-          {video.title}
-        </Headline>
-        <Text accessibilityStates={[]} style={{ color }}>
-          {video.author}
-        </Text>
-      </View>
+        <View key="2" style={{ paddingHorizontal: 20 }}>
+          <ScrollView keyboardShouldPersistTaps>
+            <PlaylistContainer color={color} />
+          </ScrollView>
+          <Spacer height={20} />
+        </View>
+      </ViewPager>
       <View style={styles.content}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Dot
+            isActive={page === 0}
+            color={color}
+            onPress={() => {
+              pager.current?.setPage(0);
+              setPage(0);
+            }}
+          />
+          <Dot
+            isActive={page === 1}
+            color={color}
+            onPress={() => {
+              pager.current?.setPage(1);
+              setPage(1);
+            }}
+          />
+        </View>
         <View style={{ flexDirection: 'row', height: 57 }}>
           <IconButton
             accessibilityStates={[]}
@@ -325,10 +376,7 @@ const styles = StyleSheet.create({
     zIndex: 2
   },
   content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexWrap: 'wrap'
+    alignItems: 'center'
   },
   progress: {
     flexDirection: 'row',

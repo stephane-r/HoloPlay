@@ -1,48 +1,86 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { Text, IconButton, Divider } from 'react-native-paper';
 import Spacer from '../Spacer';
 import { Video as VideoTypes } from '../../types';
+import { actions } from '../../store';
 
 interface Props {
   videos: VideoTypes[];
-  playlistId: string;
+  showRemoveButton?: boolean;
   onRemove: (videoIndexId: string) => void;
   onPlay: (videoIndex: number) => void;
+  color?: null | string;
 }
 
-const Video: React.FC<Props> = ({ videos, onPlay, onRemove }) => (
+const DEFAULT_ICON_BUTTON_PROPS = (color: string) => ({
+  size: 25,
+  animated: true,
+  accessibilityStates: [],
+  style: {
+    margin: 6,
+    marginRight: color ? 0 : 6
+  },
+  color
+});
+
+const Video: React.FC<Props> = ({
+  videos,
+  onPlay,
+  showRemoveButton = true,
+  playingVideoId,
+  paused,
+  onRemove,
+  color = null
+}) => (
   <>
-    {videos.map((video) => (
-      <View key={video.videoId} style={styles.container}>
-        <View style={styles.line}>
-          <Text
-            accessibilityStates={[]}
-            numberOfLines={1}
-            style={{ width: '75%', flex: 1 }}>
-            {video.title}
-          </Text>
-          <IconButton
-            accessibilityStates={[]}
-            icon="play-circle-outline"
-            size={25}
-            style={{ margin: 6 }}
-            onPress={(): void => onPlay(video.index)}
-          />
-          <IconButton
-            accessibilityStates={[]}
-            icon="delete"
-            size={20}
-            style={{ margin: 0 }}
-            onPress={(): void => onRemove(video.indexId ?? null)}
-          />
-        </View>
-        {video.index + 1 < videos.length && (
-          <View style={{ width: '100%', height: 1 }}>
-            <Divider accessibilityStates={[]} />
+    {videos.map((video, index) => (
+      <TouchableNativeFeedback onPress={() => onPlay(video.index || index)}>
+        <View key={video.videoId} style={styles.container}>
+          <View style={styles.line}>
+            <Text
+              accessibilityStates={[]}
+              numberOfLines={1}
+              style={{ width: '75%', flex: 1, color }}>
+              {video.title}
+            </Text>
+            {playingVideoId === video.videoId ? (
+              <IconButton
+                icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
+                onPress={(): void => actions.paused()}
+                {...DEFAULT_ICON_BUTTON_PROPS(color)}
+              />
+            ) : (
+              <IconButton
+                icon="play-circle-outline"
+                {...DEFAULT_ICON_BUTTON_PROPS(color)}
+              />
+            )}
+            {showRemoveButton && (
+              <IconButton
+                accessibilityStates={[]}
+                icon="delete"
+                size={20}
+                style={{ margin: 0 }}
+                onPress={(): void => onRemove(video.indexId ?? null)}
+              />
+            )}
           </View>
-        )}
-      </View>
+          {video.index + 1 < videos.length && (
+            <View style={{ width: '100%', height: 1 }}>
+              {color ? (
+                <Divider
+                  style={{ backgroundColor: color }}
+                  accessibilityStates={[]}
+                  color="black"
+                />
+              ) : (
+                <Divider accessibilityStates={[]} color="black" />
+              )}
+            </View>
+          )}
+        </View>
+      </TouchableNativeFeedback>
     ))}
     <View style={{ width: '100%' }}>
       <Spacer height={10} />
@@ -56,7 +94,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   line: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
   }

@@ -69,24 +69,24 @@ const CardSearch: React.FC<Props> = ({
       }}
       alignment="vertical"
       isLoading={loading}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flex: 1,
-          margin: -8
-        }}>
-        <FavorisButtonContainer videoId={video.videoId} buttonWithIcon />
-        {video.type !== 'playlist' && (
+      {video.type !== 'playlist' && (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flex: 1,
+            margin: -8
+          }}>
+          <FavorisButtonContainer videoId={video.videoId} buttonWithIcon />
           <IconButton
             icon="plus"
             accessibilityStates={[]}
             size={22}
             onPress={() => addToPlaylist(video)}
           />
-        )}
-      </View>
+        </View>
+      )}
     </Card>
   );
 };
