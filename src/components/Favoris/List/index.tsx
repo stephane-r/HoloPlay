@@ -13,11 +13,6 @@ interface Props {
   setPlaylistFrom: string;
 }
 
-const defaultValue = {
-  value: null,
-  name: 'Choose playlist'
-};
-
 const ResultList: React.FC<Props> = ({ videos, ...props }) => {
   const [dialogIsShow, toggleDialog] = useState<boolean>(false);
   const [video, setVideo] = useState<null | Video>(null);
@@ -43,7 +38,7 @@ const ResultList: React.FC<Props> = ({ videos, ...props }) => {
           visible={dialogIsShow}
           toggleDialog={() => toggleDialog(!dialogIsShow)}
           video={video}
-          playlists={[defaultValue, ...props.playlists]}
+          playlists={props.playlists}
         />
       )}
     </>

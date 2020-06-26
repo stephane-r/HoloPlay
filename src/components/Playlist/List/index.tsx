@@ -8,10 +8,15 @@ import { Playlist as PlaylistType } from '../../../types';
 
 interface Props {
   playlists: PlaylistType[];
+  playingVideoId: string;
   toggleModal: () => void;
 }
 
-const Playlist: React.FC<Props> = ({ playlists, toggleModal }) => {
+const Playlist: React.FC<Props> = ({
+  playlists,
+  playingVideoId,
+  toggleModal
+}) => {
   if (playlists.length === 0) {
     return <DataEmpty text="No playlist." />;
   }
@@ -25,6 +30,7 @@ const Playlist: React.FC<Props> = ({ playlists, toggleModal }) => {
           playlist={playlist}
           toggleModal={toggleModal}
           totalSongs={playlist.videos?.length ?? 0}
+          playingVideoId={playingVideoId}
         />
       ))}
     </View>

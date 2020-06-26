@@ -14,6 +14,11 @@ interface Props {
   playlists: Playlist[];
 }
 
+const EMPTY_VALUE = {
+  playlistId: null,
+  title: 'Choose playlist'
+};
+
 const DialogAddVideoToPlaylist: React.FC<Props> = ({
   toggleDialog,
   visible,
@@ -62,7 +67,6 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={toggleDialog}>
-        {/* @ts-ignore */}
         <Dialog.Title>Add to playlist</Dialog.Title>
         <Dialog.Content>
           <Paragraph>
@@ -72,15 +76,13 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
             selectedValue={playlistId}
             style={{ height: 50 }}
             onValueChange={(value) => setPlaylistId(value)}>
-            {playlists.map(({ title, playlistId }, index) => (
+            {[EMPTY_VALUE, ...playlists].map(({ title, playlistId }, index) => (
               <Picker.Item key={index} label={title} value={playlistId} />
             ))}
           </Picker>
         </Dialog.Content>
         <Dialog.Actions>
-          {/* @ts-ignore */}
           <Button onPress={toggleDialog}>Cancel</Button>
-          {/* @ts-ignore */}
           <Button onPress={addSourceToPlaylist} loading={isLoading}>
             Done
           </Button>

@@ -16,12 +16,14 @@ import { Playlist } from '../../../types';
 interface Props {
   totalSongs: number;
   playlist: Playlist;
+  playingVideoId: string;
   toggleModal: (playlist: Playlist) => void;
 }
 
 const CardPlaylist: React.FC<Props> = ({
   totalSongs,
   playlist,
+  playingVideoId,
   toggleModal
 }) => {
   const store: Store = useStore();
@@ -96,6 +98,7 @@ const CardPlaylist: React.FC<Props> = ({
             }}
             onRemove={removeVideo}
             playlistId={playlist.playlistId}
+            playingVideoId={playingVideoId}
           />
         }
         showItems={showItems}
