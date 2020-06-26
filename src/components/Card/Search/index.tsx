@@ -65,7 +65,7 @@ const CardSearch: React.FC<Props> = ({
           return loadPlaylistVideo();
         }
 
-        return loadVideo(video.index || loopIndex);
+        return loadVideo(video.index ?? loopIndex);
       }}
       alignment="vertical"
       isLoading={loading}>
