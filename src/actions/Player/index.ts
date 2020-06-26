@@ -102,7 +102,17 @@ const playerActions = {
   repeat: async (store: Store): Promise<Store> => ({
     ...store,
     repeat: !store.repeat
-  })
+  }),
+  loadPlaylist: async (store: Store, actions: any, playlistId: string) => {
+    const playlist: Playlist = await callApi({
+      url: ApiRoutes.PlaylistId(playlistId)
+    });
+
+    return {
+      ...store,
+      playlist: playlist.videos
+    };
+  }
 };
 
 export { playerActions, playerState };

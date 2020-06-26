@@ -27,7 +27,18 @@ const CardSearch: React.FC<Props> = ({
       setLoading(true);
       await actions.setPlaylistFrom(setPlaylistFrom);
       await actions.loadVideo(index);
-      actions.showPlayer();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadPlaylistVideo = async (): Promise<any> => {
+    try {
+      setLoading(true);
+      await actions.loadPlaylist(video.playlistId);
+      await actions.loadVideo(loopIndex);
     } catch (error) {
       console.log(error);
     } finally {
@@ -38,15 +49,24 @@ const CardSearch: React.FC<Props> = ({
   const card = {
     title: video.title,
     picture:
-      video.videoThumbnails.find((q) => q.quality === 'medium')?.url ?? '',
-    duration: timeFormat.fromS(video.lengthSeconds),
+      video.videoThumbnails?.find((q) => q.quality === 'medium').url ||
+      video?.playlistThumbnail,
+    duration: video.lengthSeconds
+      ? timeFormat.fromS(video?.lengthSeconds)
+      : `${video?.videoCount} videos`,
     liveNow: video.liveNow
   };
 
   return (
     <Card
       card={card}
-      onPress={() => loadVideo(video.index || loopIndex)}
+      onPress={async () => {
+        if (video.type === 'playlist') {
+          return loadPlaylistVideo();
+        }
+
+        return loadVideo(video.index || loopIndex);
+      }}
       alignment="vertical"
       isLoading={loading}>
       <View
@@ -58,12 +78,14 @@ const CardSearch: React.FC<Props> = ({
           margin: -8
         }}>
         <FavorisButtonContainer videoId={video.videoId} buttonWithIcon />
-        <IconButton
-          icon="plus"
-          accessibilityStates={[]}
-          size={22}
-          onPress={() => addToPlaylist(video)}
-        />
+        {video.type !== 'playlist' && (
+          <IconButton
+            icon="plus"
+            accessibilityStates={[]}
+            size={22}
+            onPress={() => addToPlaylist(video)}
+          />
+        )}
       </View>
     </Card>
   );
