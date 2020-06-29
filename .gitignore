@@ -48,7 +48,6 @@ build/
 .idea
 .gradle
 local.properties
-gradle.properties
 *.iml
 *.bundle
 
@@ -56,6 +55,7 @@ gradle.properties
 buck-out/
 \.buckd/
 *.keystore
+!debug.keystore
 
 # fastlane
 #
