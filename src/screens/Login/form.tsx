@@ -7,7 +7,7 @@ import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
 import { PUBLIC_INVIDIOUS_INSTANCES } from '../../constants';
 import DashboardScreen from '../Dashboard';
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import fetchPlaylists from '../../utils/fetchPlaylists';
 
 interface Props {
@@ -21,6 +21,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   );
   const [customInstance, setCustomInstance] = useState<boolean>(false);
   const [token, setToken] = useState<null | string>(null);
+  const navigation = useNavigation();
 
   const onValueChange = (value: string): void => {
     if (value === 'other') {
@@ -43,6 +44,21 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
         setIsLoading(false);
         return onSuccess(token);
       }
+    } catch (error) {
+      console.log(error);
+      actions.setFlashMessage(error.message);
+    }
+  };
+
+  const loginWithoutToken = async (): Promise<any> => {
+    try {
+      setIsLoading(true);
+      await Promise.all([
+        AsyncStorage.setItem('instance', instance),
+        AsyncStorage.setItem('token', 'null')
+      ]);
+      setIsLoading(false);
+      return onSuccess('null');
     } catch (error) {
       console.log(error);
       actions.setFlashMessage(error.message);
@@ -76,16 +92,14 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
           <Spacer height={20} />
         </>
       )}
-      {/* @ts-ignore */}
       <Button mode="contained" onPress={login} loading={isLoading}>
         Save token
       </Button>
       <Spacer height={20} />
       <View style={{ justifyContent: 'flex-end' }}>
-        {/* @ts-ignore */}
-        {/* <Button mode="outlined" onPress={goToDashboard}>
+        <Button mode="outlined" onPress={loginWithoutToken}>
           Skip
-        </Button> */}
+        </Button>
       </View>
     </>
   );

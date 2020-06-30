@@ -68,7 +68,9 @@ const App: React.FC<Props> = ({ darkMode }) => {
         }
 
         try {
-          await fetchPlaylists();
+          if (token !== 'null') {
+            await fetchPlaylists();
+          }
         } catch (error) {
           // TODO: Add sentry exception
           console.log(error);

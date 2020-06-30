@@ -8,6 +8,10 @@ interface Args {
   };
 }
 
+const DEFAULT_HEADERS = {
+  'Content-Type': 'application/json'
+};
+
 const callApi = async ({ url, method, body }: Args): Promise<any> => {
   const [instance, token] = await Promise.all([
     AsyncStorage.getItem('instance'),
@@ -16,11 +20,15 @@ const callApi = async ({ url, method, body }: Args): Promise<any> => {
 
   const params: any = {
     method: method ?? 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
+    headers: DEFAULT_HEADERS
   };
+
+  if (token !== 'null') {
+    params.headers = {
+      ...params.headers,
+      Authorization: `Bearer ${token}`
+    };
+  }
 
   if (body) {
     params.body = JSON.stringify(body);

@@ -4,11 +4,7 @@ import { SearchVideo } from '../types';
 
 const useCallApi = (url: string): SearchVideo[] => {
   const store = useStore();
-  const data = useFetch(`${store.instance}/api/v1/${url}`, {
-    headers: {
-      Authorization: `Bearer ${store.token}`
-    }
-  });
+  const data = useFetch(`${store.instance}/api/v1/${url}`);
 
   // @ts-ignore
   return data;
