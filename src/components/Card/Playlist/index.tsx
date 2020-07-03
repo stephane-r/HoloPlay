@@ -61,9 +61,9 @@ const CardPlaylist: React.FC<Props> = ({
                 try {
                   await actions.setPlaylistFrom(playlist.videos);
                   await actions.loadVideo(videoIndex);
-                  actions.showPlayer();
                 } catch (error) {
                   console.log(error);
+                  actions.setFlashMessage('Can not load video.');
                 }
               }
             }}

@@ -31,7 +31,7 @@ const AppPlayer: React.FC<Props> = () => {
       <PlayerSmallContainer showPlayer={showPlayer} />
       <BottomSheet
         ref={bottomSheet}
-        height={Dimensions.get('window').height - 24}
+        height={Dimensions.get('window').height}
         onClose={onClose}>
         <PlayerContainer />
       </BottomSheet>

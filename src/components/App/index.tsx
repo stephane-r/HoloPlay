@@ -54,9 +54,9 @@ const App: React.FC<Props> = ({ darkMode }) => {
   const [appLogoutMode, setLogoutMode] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  actions.appInit();
-
   useEffect(() => {
+    actions.appInit();
+
     QuickActions.popInitialAction()
       .then(async (action: QuickAction) => {
         const [instance, token, logoutMode] = await Promise.all([
@@ -65,9 +65,9 @@ const App: React.FC<Props> = ({ darkMode }) => {
           AsyncStorage.getItem('logoutMode')
         ]);
 
-        setLogoutMode(JSON.parse(logoutMode));
+        const logoutModeParsed = JSON.parse(logoutMode);
 
-        if (token && !logoutMode) {
+        if (token && !logoutModeParsed) {
           try {
             await fetchPlaylists();
           } catch (error) {
@@ -77,8 +77,10 @@ const App: React.FC<Props> = ({ darkMode }) => {
           }
         }
 
-        setToken(token);
-        setLogoutMode(JSON.parse(logoutMode));
+        if (token) {
+          setToken(token);
+        }
+        setLogoutMode(logoutModeParsed);
         setIsLoading(false);
 
         if (action?.title) {

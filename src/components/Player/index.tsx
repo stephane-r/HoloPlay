@@ -360,7 +360,7 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: Dimensions.get('window').height - 24
+    height: Dimensions.get('window').height
   },
   head: {
     alignItems: 'center',
@@ -381,7 +381,8 @@ const styles = StyleSheet.create({
   progress: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    paddingTop: 15
   },
   progressBar: { flex: 1 },
   actionsContainer: {

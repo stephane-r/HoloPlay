@@ -89,7 +89,7 @@ const Item = ({
             <View
               style={{
                 paddingVertical: 15,
-                paddingHorizontal: 8
+                paddingHorizontal: 15
               }}>
               <ActivityIndicator color={color} size={20} />
             </View>
