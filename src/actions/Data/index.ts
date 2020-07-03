@@ -17,6 +17,10 @@ const dataState: DataState = {
 };
 
 const dataActions = {
+  clearData: (store: Store): Store => ({
+    ...store,
+    ...dataState
+  }),
   receivePlaylists: (
     store: Store,
     actions: any,

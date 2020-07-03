@@ -6,13 +6,19 @@ interface Args {
   body?: {
     [key: string]: string;
   };
+  customToken: string;
 }
 
 const DEFAULT_HEADERS = {
   'Content-Type': 'application/json'
 };
 
-const callApi = async ({ url, method, body }: Args): Promise<any> => {
+const callApi = async ({
+  url,
+  method,
+  body,
+  customToken
+}: Args): Promise<any> => {
   const [instance, token, logoutMode] = await Promise.all([
     AsyncStorage.getItem('instance'),
     AsyncStorage.getItem('token'),
@@ -24,10 +30,10 @@ const callApi = async ({ url, method, body }: Args): Promise<any> => {
     headers: DEFAULT_HEADERS
   };
 
-  if (!JSON.parse(logoutMode)) {
+  if (!JSON.parse(logoutMode) || customToken) {
     params.headers = {
       ...params.headers,
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token || customToken}`
     };
   }
 

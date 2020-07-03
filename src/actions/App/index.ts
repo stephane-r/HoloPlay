@@ -52,10 +52,24 @@ const appActions = {
       logoutMode: JSON.parse(logoutMode) ?? appState.logoutMode
     };
   },
-  setLogoutMode: (store: Store, actions: any, logoutMode: boolean) => ({
-    ...store,
-    logoutMode
-  }),
+  setToken: (store: Store, actions: any, token: string) => {
+    AsyncStorage.setItem('token', token);
+    AsyncStorage.setItem('logoutMode', JSON.stringify(false));
+
+    return {
+      ...store,
+      token,
+      logoutMode: false
+    };
+  },
+  setLogoutMode: (store: Store, actions: any, logoutMode: boolean) => {
+    AsyncStorage.setItem('logoutMode', JSON.stringify(logoutMode));
+
+    return {
+      ...store,
+      logoutMode
+    };
+  },
   setFlashMessage: (store: Store, actions: any, message: any): Store => {
     return {
       ...store,
