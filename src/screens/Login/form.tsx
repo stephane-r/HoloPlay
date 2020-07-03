@@ -3,9 +3,14 @@ import { TextInput, Button } from 'react-native-paper';
 import { View } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import AsyncStorage from '@react-native-community/async-storage';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
-import { PUBLIC_INVIDIOUS_INSTANCES } from '../../constants';
+import {
+  PUBLIC_INVIDIOUS_INSTANCES,
+  FAVORIS_PLAYLIST_TITLE
+} from '../../constants';
 import DashboardScreen from '../Dashboard';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import fetchPlaylists from '../../utils/fetchPlaylists';
@@ -35,7 +40,6 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
     try {
       if (token !== '' && token !== null) {
         setIsLoading(true);
-
         await Promise.all([
           AsyncStorage.setItem('instance', instance),
           AsyncStorage.setItem('token', token)
@@ -51,12 +55,23 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   };
 
   const loginWithoutToken = async (): Promise<any> => {
+    const favorisPlaylist = {
+      title: FAVORIS_PLAYLIST_TITLE,
+      videos: [],
+      playlistId: uuidv4()
+    };
+
     try {
       setIsLoading(true);
       await Promise.all([
         AsyncStorage.setItem('instance', instance),
-        AsyncStorage.setItem('token', 'null')
+        AsyncStorage.setItem('logoutMode', JSON.stringify(true))
       ]);
+
+      actions.setLogoutMode(true);
+      actions.addPlaylist(favorisPlaylist);
+      actions.receiveFavorisPlaylist(favorisPlaylist);
+
       setIsLoading(false);
       return onSuccess('null');
     } catch (error) {

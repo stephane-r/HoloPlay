@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import timeFormat from 'hh-mm-ss';
 import Card from '../Layout';
 import FavorisButtonContainer from '../../../containers/Favoris/Button';
@@ -78,7 +78,7 @@ const CardSearch: React.FC<Props> = ({
             flex: 1,
             margin: -8
           }}>
-          <FavorisButtonContainer videoId={video.videoId} buttonWithIcon />
+          <FavorisButtonContainer video={video} buttonWithIcon />
           <IconButton
             icon="plus"
             accessibilityStates={[]}

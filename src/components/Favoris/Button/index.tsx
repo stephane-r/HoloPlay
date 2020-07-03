@@ -4,6 +4,8 @@ import { actions } from '../../../store';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
 import { Video, Playlist } from '../../../types';
+import useFavoris from '../../../hooks/useFavoris';
+import { Alert, CheckBox } from 'react-native';
 
 interface Props {
   favorisPlaylist: Playlist;
@@ -16,55 +18,31 @@ interface Props {
 const Favoris: React.FC<Props> = ({
   favorisPlaylist,
   favorisIds,
-  videoId,
+  video,
   buttonWithIcon,
   color
 }) => {
+  const { addToFavoris, removeFromFavoris } = useFavoris();
+
   useEffect(() => {}, []);
 
-  const addOrRemoveToFavoris = async (): Promise<any> => {
+  const addOrRemoveToFavoris = (): void => {
     if (isFavoris) {
-      try {
-        const video: Video = favorisPlaylist.videos.find(
-          (v) => v.videoId === videoId
-        );
+      const videoFinded: Video = favorisPlaylist.videos.find(
+        (v) => v.videoId === video.videoId
+      );
 
-        if (video.indexId) {
-          actions.removeFromFavoris(video.videoId);
-          actions.setFlashMessage('Removed from favoris');
-          await callApi({
-            url: ApiRoutes.VideoIndexId(
-              favorisPlaylist.playlistId,
-              video.indexId
-            ),
-            method: 'DELETE'
-          });
-        }
-
-        return actions.setFlashMessage('Removed from favoris');
-      } catch (error) {
-        return console.log(error);
+      if (videoFinded.indexId) {
+        return removeFromFavoris(favorisPlaylist.playlistId, videoFinded);
+      } else {
+        return null;
       }
     }
 
-    try {
-      await callApi({
-        url: ApiRoutes.Videos(favorisPlaylist.playlistId),
-        method: 'POST',
-        body: {
-          videoId: video.videoId
-        }
-      });
-
-      actions.addToFavoris(video);
-
-      return actions.setFlashMessage('Added from favoris');
-    } catch (error) {
-      return console.log(error);
-    }
+    return addToFavoris(favorisPlaylist.playlistId, video);
   };
 
-  const isFavoris: boolean = favorisIds.includes(videoId);
+  const isFavoris: boolean = favorisIds.includes(video.videoId);
 
   const iconColor = {
     icon: isFavoris ? 'heart' : 'heart-outline',
@@ -73,7 +51,6 @@ const Favoris: React.FC<Props> = ({
 
   if (buttonWithIcon) {
     return (
-      // @ts-ignore
       <Button {...iconColor} uppercase={false} onPress={addOrRemoveToFavoris}>
         Favoris
       </Button>

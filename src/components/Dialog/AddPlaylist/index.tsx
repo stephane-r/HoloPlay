@@ -6,6 +6,7 @@ import { Playlist } from '../../../types';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
 import { Alert } from 'react-native';
+import usePlaylist from '../../../hooks/usePlaylist';
 
 interface Props {
   toggleDialog: (value: null | Playlist) => void;
@@ -26,6 +27,7 @@ const DialogAddPlaylist: React.FC<Props> = ({
   const store = useStore();
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(props.playlist ?? playlistProps);
+  const { createPlaylist, updatePlaylist } = usePlaylist();
 
   useEffect(() => {
     if (props.playlist) {
@@ -36,70 +38,15 @@ const DialogAddPlaylist: React.FC<Props> = ({
   const setPlaylistName = (name: string): void =>
     setPlaylist({ ...playlist, title: name });
 
-  const createPlaylist = async (): Promise<any> => {
-    const playlistName = playlist.title;
-
-    try {
-      await callApi({
-        url: ApiRoutes.Playlists,
-        method: 'POST',
-        body: {
-          title: playlist.title,
-          privacy: 'public'
-        }
-      });
-
-      actions.addPlaylist({
-        title: playlist.title,
-        privacy: 'public',
-        videos: []
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    closeDialog();
-
-    return setTimeout(
-      () => actions.setFlashMessage(`${playlistName} was created.`),
-      500
-    );
-  };
-
-  const updatePlaylist = async () => {
-    try {
-      // Updating store before because this callApi return an error if success ...
-      actions.updatePlaylist({
-        ...playlist,
-        title: playlist.title
-      });
-      actions.setFlashMessage(`${playlist.title} was updated.`);
-
-      await callApi({
-        url: ApiRoutes.PlaylistId(playlist.playlistId),
-        method: 'PATCH',
-        body: {
-          title: playlist.title,
-          privacy: 'public'
-        }
-      });
-    } catch (error) {
-      console.log(error);
-      // actions.setFlashMessage(`Error : ${playlist.title} not updated.`);
-    } finally {
-      closeDialog();
-    }
-  };
-
   const submit = async (): Promise<any> => {
     if (playlist.title && playlist.title !== '') {
       setLoading(true);
 
       if (playlist.playlistId) {
-        return updatePlaylist();
+        return updatePlaylist(playlist, closeDialog);
       }
 
-      return createPlaylist();
+      return createPlaylist(playlist, closeDialog);
     }
 
     return actions.setFlashMessage('You must name your playlist.');
@@ -114,7 +61,6 @@ const DialogAddPlaylist: React.FC<Props> = ({
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={closeDialog}>
-        {/* @ts-ignore */}
         <Dialog.Title>
           {playlist?.playlistId ? 'Update' : 'Create'} playlist
         </Dialog.Title>
@@ -128,9 +74,7 @@ const DialogAddPlaylist: React.FC<Props> = ({
           />
         </Dialog.Content>
         <Dialog.Actions>
-          {/* @ts-ignore */}
           <Button onPress={closeDialog}>Cancel</Button>
-          {/* @ts-ignore */}
           <Button onPress={submit} loading={loading}>
             {playlist?.playlistId ? 'Update' : 'Create'}
           </Button>

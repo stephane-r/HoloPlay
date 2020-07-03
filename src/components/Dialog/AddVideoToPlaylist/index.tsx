@@ -6,6 +6,7 @@ import useStore from '../../../hooks/useStore';
 import { Video, Playlist } from '../../../types';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
+import useVideo from '../../../hooks/useVideo';
 
 interface Props {
   toggleDialog: () => void;
@@ -32,36 +33,17 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
   const store: Store = useStore();
   const [playlistId, setPlaylistId] = useState<null | string>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const { addVideoToPlaylist } = useVideo();
 
-  const addSourceToPlaylist = async (): Promise<any> => {
+  const onPress = () => {
     if (playlistId) {
       setLoading(true);
 
-      try {
-        await callApi({
-          url: ApiRoutes.Videos(playlistId),
-          method: 'POST',
-          body: {
-            videoId: video.videoId
-          }
-        });
-      } catch (error) {
-        console.log(error);
-      }
-
-      actions.addToPlaylist({
-        playlistId,
-        video
+      addVideoToPlaylist(playlistId, video, () => {
+        setLoading(false);
+        toggleDialog();
       });
-
-      setLoading(false);
-      toggleDialog();
-      return actions.setFlashMessage(
-        `${video.title} has been added to your playlist.`
-      );
     }
-
-    return actions.setFlashMessage('You need to select a playlist.');
   };
 
   return (
@@ -83,7 +65,7 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
         </Dialog.Content>
         <Dialog.Actions>
           <Button onPress={toggleDialog}>Cancel</Button>
-          <Button onPress={addSourceToPlaylist} loading={isLoading}>
+          <Button onPress={onPress} loading={isLoading}>
             Done
           </Button>
         </Dialog.Actions>

@@ -5,6 +5,7 @@ import { FlashMessage } from '../../types/FlashMessage';
 export interface AppState {
   instance: null | string;
   token: null | string;
+  logoutMode: boolean;
   flashMessage: FlashMessage;
   darkMode: boolean;
 }
@@ -12,6 +13,7 @@ export interface AppState {
 const appState: AppState = {
   instance: null,
   token: null,
+  logoutMode: false,
   flashMessage: {
     message: null,
     visible: false
@@ -21,21 +23,39 @@ const appState: AppState = {
 
 const appActions = {
   appInit: async (store: Store): Promise<Store> => {
-    const [darkMode, searchHistory, instance, token] = await Promise.all([
+    const [
+      darkMode,
+      searchHistory,
+      instance,
+      token,
+      playlists,
+      favorisPlaylist,
+      logoutMode
+    ] = await Promise.all([
       AsyncStorage.getItem('darkMode'),
       AsyncStorage.getItem('searchHistory'),
       AsyncStorage.getItem('instance'),
-      AsyncStorage.getItem('token')
+      AsyncStorage.getItem('token'),
+      AsyncStorage.getItem('playlists'),
+      AsyncStorage.getItem('favorisPlaylist'),
+      AsyncStorage.getItem('logoutMode')
     ]);
 
     return {
       ...store,
-      darkMode: darkMode === 'true',
-      history: searchHistory ? JSON.parse(searchHistory) : [],
       instance,
-      token
+      token,
+      darkMode: JSON.parse(darkMode) ?? appState.darkMode,
+      history: JSON.parse(searchHistory) ?? [],
+      playlists: JSON.parse(playlists) ?? [],
+      favorisPlaylist: JSON.parse(favorisPlaylist) ?? null,
+      logoutMode: JSON.parse(logoutMode) ?? appState.logoutMode
     };
   },
+  setLogoutMode: (store: Store, actions: any, logoutMode: boolean) => ({
+    ...store,
+    logoutMode
+  }),
   setFlashMessage: (store: Store, actions: any, message: any): Store => {
     return {
       ...store,

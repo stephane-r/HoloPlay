@@ -72,6 +72,7 @@ const playerActions = {
     const isLastVideo = playlist.length === videoIndex;
     // If is last video, we restart the playlist from first index
     const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
+    console.log(playlist.length);
     const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
 
     if (data.error) {

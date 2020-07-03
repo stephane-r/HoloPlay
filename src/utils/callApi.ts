@@ -13,9 +13,10 @@ const DEFAULT_HEADERS = {
 };
 
 const callApi = async ({ url, method, body }: Args): Promise<any> => {
-  const [instance, token] = await Promise.all([
+  const [instance, token, logoutMode] = await Promise.all([
     AsyncStorage.getItem('instance'),
-    AsyncStorage.getItem('token')
+    AsyncStorage.getItem('token'),
+    AsyncStorage.getItem('logoutMode')
   ]);
 
   const params: any = {
@@ -23,7 +24,7 @@ const callApi = async ({ url, method, body }: Args): Promise<any> => {
     headers: DEFAULT_HEADERS
   };
 
-  if (token !== 'null') {
+  if (!JSON.parse(logoutMode)) {
     params.headers = {
       ...params.headers,
       Authorization: `Bearer ${token}`

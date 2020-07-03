@@ -27,7 +27,7 @@ import {
 } from '../../../config/quickAction';
 import fetchPlaylists from '../../utils/fetchPlaylists';
 import SettingsScreen from '../../screens/Settings';
-import { Animated, Dimensions, View } from 'react-native';
+import { Animated, Dimensions, View, Alert } from 'react-native';
 import AppPlayer from '../AppPlayer';
 
 // :troll:
@@ -51,6 +51,7 @@ interface Props {
 const App: React.FC<Props> = ({ darkMode }) => {
   const navigation = useRef(null);
   const [appToken, setToken] = useState<null | string>(null);
+  const [appLogoutMode, setLogoutMode] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   actions.appInit();
@@ -58,26 +59,26 @@ const App: React.FC<Props> = ({ darkMode }) => {
   useEffect(() => {
     QuickActions.popInitialAction()
       .then(async (action: QuickAction) => {
-        const [instance, token] = await Promise.all([
+        const [instance, token, logoutMode] = await Promise.all([
           AsyncStorage.getItem('instance'),
-          AsyncStorage.getItem('token')
+          AsyncStorage.getItem('token'),
+          AsyncStorage.getItem('logoutMode')
         ]);
 
-        if (!instance || !token) {
-          return setIsLoading(false);
-        }
+        setLogoutMode(JSON.parse(logoutMode));
 
-        try {
-          if (token !== 'null') {
+        if (token && !logoutMode) {
+          try {
             await fetchPlaylists();
+          } catch (error) {
+            // TODO: Add sentry exception
+            console.log(error);
+            return setIsLoading(false);
           }
-        } catch (error) {
-          // TODO: Add sentry exception
-          console.log(error);
-          return setIsLoading(false);
         }
 
         setToken(token);
+        setLogoutMode(JSON.parse(logoutMode));
         setIsLoading(false);
 
         if (action?.title) {
@@ -100,10 +101,13 @@ const App: React.FC<Props> = ({ darkMode }) => {
     return <LoadingScreen />;
   }
 
+  console.log(appToken);
+  console.log(appLogoutMode);
+
   return (
     <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
       <NavigationContainer ref={navigation}>
-        {appToken === null ? (
+        {appToken === null && !appLogoutMode ? (
           <Stack.Navigator headerMode="none">
             <Stack.Screen
               name="Auth"

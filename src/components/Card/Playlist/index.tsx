@@ -12,6 +12,8 @@ import useStore from '../../../hooks/useStore';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
 import { Playlist } from '../../../types';
+import usePlaylist from '../../../hooks/usePlaylist';
+import useVideo from '../../../hooks/useVideo';
 
 interface Props {
   totalSongs: number;
@@ -30,50 +32,19 @@ const CardPlaylist: React.FC<Props> = ({
   const [dialogIsOpen, setToggleDialog] = useState(false);
   const [showItems, setToggleItems] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { removePlaylist } = usePlaylist();
+  const { removeVideo } = useVideo();
+
+  const onPress = () => {
+    setIsLoading(true);
+    removePlaylist(playlist, () => {
+      toggleDialog();
+      setIsLoading(false);
+    });
+  };
 
   const toggleDialog = () => setToggleDialog(!dialogIsOpen);
   const toggleItems = () => setToggleItems(!showItems);
-
-  const removePlaylist = async () => {
-    setIsLoading(true);
-
-    try {
-      // Updating store before because this callApi return an error if success ...
-      actions.removePlaylist(playlist.playlistId);
-      actions.setFlashMessage(`${playlist.title} has been removed.`);
-
-      await callApi({
-        url: ApiRoutes.PlaylistId(playlist.playlistId),
-        method: 'DELETE'
-      });
-    } catch (error) {
-      console.log(error);
-      // actions.setFlashMessage(
-      //   `Error : ${playlist.title} has not been removed.`
-      // );
-    } finally {
-      toggleDialog();
-      setIsLoading(false);
-    }
-  };
-
-  const removeVideo = async (videoIndexId: string) => {
-    try {
-      await callApi({
-        url: ApiRoutes.VideoIndexId(playlist.playlistId, videoIndexId),
-        method: 'DELETE'
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    actions.removeFromPlaylist({
-      playlistId: playlist.playlistId,
-      indexId: videoIndexId
-    });
-
-    return actions.setFlashMessage(`${videoIndexId} has been removed.`);
-  };
 
   const card = setCardItem(playlist);
 
@@ -96,7 +67,9 @@ const CardPlaylist: React.FC<Props> = ({
                 }
               }
             }}
-            onRemove={removeVideo}
+            onRemove={(videoIndexId: string) =>
+              removeVideo(videoIndexId, playlist.playlistId)
+            }
             playlistId={playlist.playlistId}
             playingVideoId={playingVideoId}
           />
@@ -135,7 +108,7 @@ const CardPlaylist: React.FC<Props> = ({
       <DialogRemovePlaylist
         visible={dialogIsOpen}
         toggleDialog={toggleDialog}
-        onPress={removePlaylist}
+        onPress={onPress}
         playlistName={playlist.title}
         loading={isLoading}
       />
