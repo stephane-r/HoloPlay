@@ -48,7 +48,6 @@ build/
 .idea
 .gradle
 local.properties
-gradle.properties
 *.iml
 *.bundle
 
