@@ -1,4 +1,7 @@
 language: android
+before_install: #1.1
+  - nvm install 12
+  - node --version
 dist: trusty
 android:
   components:
