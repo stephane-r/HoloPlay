@@ -1,7 +1,8 @@
 language: android
 before_install: #1.1
   - nvm install 12
-  - node --version
+  - node -v
+  - yarn -v
 dist: trusty
 android:
   components:
@@ -31,7 +32,7 @@ jobs:
     - stage: install
       name: Project dependencies
       script:
-        - make yarn-install
+        - yarn install
     # - stage: static-analysis
     #   name: Static analysis (ESLint and Flow)
     #   script:
