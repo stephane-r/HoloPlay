@@ -1,7 +1,9 @@
 language: android
-before_install: #1.1
+before_install:
   - nvm install 12
   - node -v
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
   - yarn -v
 dist: trusty
 android:
