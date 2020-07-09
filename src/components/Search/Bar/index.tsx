@@ -6,7 +6,9 @@ import {
   TouchableRipple,
   IconButton
 } from 'react-native-paper';
+import { useAnimation } from 'react-native-animation-hooks';
 import { actions } from '../../../store';
+import SearchSubmenu from '../Submenu';
 
 const SEARCH_INPUT_PLACEHOLDER = 'Search music';
 const SEARCH_EMPTY_VALUE = 'Add search value';
@@ -57,9 +59,9 @@ const Search: React.FC<SearchProps> = ({ history }) => {
             size={30}
             onPress={toggleSubmenu}
           />
-          <Submenu
+          <SearchSubmenu
             items={history}
-            selectValue={(value: string) => {
+            selectValue={(value: string): void => {
               setValue(value);
               toggleSubmenu();
             }}
@@ -71,56 +73,10 @@ const Search: React.FC<SearchProps> = ({ history }) => {
   );
 };
 
-const Submenu: React.FC<SearchSubmenuProps> = ({
-  isOpen,
-  selectValue,
-  items
-}) => {
-  const opacity = new Animated.Value(0);
-
-  useEffect(() => {
-    Animated.timing(opacity, {
-      toValue: isOpen ? 1 : 0,
-      duration: 300,
-      useNativeDriver: true
-    }).start();
-  });
-
-  return (
-    <Animated.View
-      style={[styles.submenu, { opacity }]}
-      pointerEvents={isOpen ? 'auto' : 'none'}>
-      {items.map((text, index) => (
-        // @ts-ignore
-        <TouchableRipple key={index} onPress={() => selectValue(text)}>
-          <View
-            style={{
-              borderTopColor: '#bdc3c7',
-              borderTopWidth: index === 0 ? 0 : 1,
-              padding: 7
-            }}>
-            <Text accessibilityStates={[]}>{text}</Text>
-          </View>
-        </TouchableRipple>
-      ))}
-    </Animated.View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 16,
     flexDirection: 'row'
-  },
-  submenu: {
-    position: 'absolute',
-    top: 70,
-    left: 0,
-    right: 0,
-    elevation: 2,
-    backgroundColor: 'white',
-    zIndex: 2,
-    borderRadius: 4
   }
 });
 
