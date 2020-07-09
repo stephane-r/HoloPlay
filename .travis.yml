@@ -1,17 +1,12 @@
-matrix:
-  include:
-    - language: android
-      android:
-        components:
-          - tools
-          - platform-tools
-        sudo: true
-        before_install:
-          - echo "android before_install"
-        install:
-          - echo "android install"
-        script:
-          - echo "android script"
+language: android
+dist: trusty
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-28.0.3
+    - android-28
+    - extra
 
 stages:
   - install
