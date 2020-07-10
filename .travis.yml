@@ -1,31 +1,37 @@
 language: android
-before_install:
-- openssl aes-256-cbc -K $encrypted_4562a431234b_key -iv $encrypted_4562a431234b_iv
-  -in app.keystore.enc -out android/app/app.keystore -d
-- nvm install 12
-- node -v
-- curl -o- -L https://yarnpkg.com/install.sh | bash
-- export PATH="$HOME/.yarn/bin:$PATH"
-- yarn -v
 dist: trusty
 android:
   components:
-  - tools
-  - platform-tools
-  - build-tools-28.0.3
-  - android-28
-  - extra
+    - tools
+    - platform-tools
+    - build-tools-28.0.3
+    - android-28
+    - extra
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_4562a431234b_key -iv $encrypted_4562a431234b_iv
+    -in app.keystore.enc -out android/app/app.keystore -d
+  - nvm install 12
+  - node -v
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - yarn -v
+before_script:
+  - cp.env.dist .env
+  - yarn install
+
 stages:
-- install
-- build
-- release
+  - install
+  - build
+  - release
+
 jobs:
   include:
-  - stage: install
-    name: Project dependencies
-    script:
-    - make setup-production-env
-    - make setup
-    - make android-release
-    - make code-push-prepare
-    - make code-push-production
+    - stage: install
+      name: Project dependencies
+      script:
+        - make setup-production-env
+        - make setup
+        - make android-release
+        - make code-push-prepare
+        - make code-push-production

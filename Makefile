@@ -25,13 +25,11 @@ help: ## Display this help
 #################
 setup-production-env:
 	@echo "--> Setup production env file"
-	cp .env.dist .env
 	node ./scripts/env-production.js
 setup:
 	@echo "--> Setup project env files"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(ANDROID_PATH)/gradle.properties.dist > $(ANDROID_PATH)/gradle.properties
 	sed s/CODE_PUSH_DEPLOY_KEY/$(CODE_PUSH_DEPLOY_KEY)/g $(ANDROID_PATH)/app/src/main/res/values/.strings.xml.dist > $(ANDROID_PATH)/.strings.xml
-	yarn install
 
 
 ##############
