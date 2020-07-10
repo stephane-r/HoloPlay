@@ -33,5 +33,4 @@ jobs:
         - make setup-production-env
         - make setup
         - make android-release
-        - make code-push-prepare
         - make code-push-production
