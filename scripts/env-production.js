@@ -1,7 +1,5 @@
 const shell = require('shelljs');
 
-shell.exec('cp .env.dist .env');
-
 const envs = [
   {
     value: 'KEYSTORE_PASSWORD',

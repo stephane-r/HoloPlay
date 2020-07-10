@@ -25,6 +25,7 @@ help: ## Display this help
 #################
 setup-production-env:
 	@echo "--> Setup production env file"
+	cp .env.dist .env
 	node ./scripts/env-production.js
 setup:
 	@echo "--> Setup project env files"
