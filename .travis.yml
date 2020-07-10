@@ -35,21 +35,21 @@ jobs:
       name: Project dependencies
       script:
         - yarn install
-    # - stage: static-analysis
-    #   name: Static analysis (ESLint and Flow)
-    #   script:
-    #     - make yarn-static-analysis
-    - stage: build
-      #   if: tag IS present
-      name: Build Android app
-      script:
-        - rm -rf .cache
+        # - stage: static-analysis
+        #   name: Static analysis (ESLint and Flow)
+        #   script:
+        #     - make yarn-static-analysis
+        # - stage: build
+        #   if: tag IS present
+        # name: Build Android app
+        # script:
+        # - rm -rf .cache
         - make set-env-production
         - make android-prepare
         - make android-release
-    - stage: release
-      #   if: tag IS present
-      name: Release Android app
-      script:
+        # - stage: release
+        #   if: tag IS present
+        # name: Release Android app
+        # script:
         - make code-push-prepare
         - make code-push-production
