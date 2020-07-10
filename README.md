@@ -2,7 +2,7 @@
 
 Youtube Audio Player (YAP) is an open source app, can stream Youtube audio with an open source [Invidious API](https://github.com/omarroth/invidious). You can add your Invidious token and save music to favoris or create your playlists.
 
-YAP has not been tested on iOS because i'm on a Linux environment. PR if needed are welcome.
+YAP has not been tested on iOS because i'm on a Linux environment. PR needed are welcome :)
 
 ![Dashboard screen](./docs/dashboard.jpg)
 ![Playlist screen](./docs/playlists.jpg)
@@ -17,43 +17,25 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-YAP has [Docker image](https://github.com/stephane-r/react-native-docker) with all software and dependencies. Just run with the commands below :rocket:
-
-Docker is not required. You can use default React-Native CLI for run/build the project.
+TODO
 
 ### Installing
 
-First, copy environment file :
+First, setup environment file :
 
 `cp .env.dist .env`
 
-Build Dockerfile :
+Use correct Node version (>= 12) :
 
-```
-make docker-build
-```
+`nvm use`
 
-Then, install project dependencies :
+Then, install dependencies :
 
-```
-make yarn-install
-```
-
-Running React-Native app on your device :
-
-```
-make android-run // or react-native run-android/ios
-```
-
-Add new dependency :
-
-```
-make yarn-add $DEP
-```
+`yarn install`
 
 ## Deployment
 
-YAP is updated with [Code-Push](https://github.com/Microsoft/code-push/tree/master/cli) on every tags.
+YAP bundle JS is updated with [Code-Push](https://github.com/Microsoft/code-push/tree/master/cli) on every tags.
 
 See `.travis.yml` file for process.
 
@@ -64,6 +46,7 @@ See `.travis.yml` file for process.
 - [React Native Paper](https://github.com/callstack/react-native-paper)
 - [React Native Quick Actions](https://github.com/jordanbyron/react-native-quick-actions)
 - [React Waterfall](https://github.com/didierfranc/react-waterfall)
+- [TypeScript](https://www.typescriptlang.org/)
 
 And more.
 
@@ -77,8 +60,8 @@ This project is licensed under the MIT License.
 
 ## TODO
 
+- [x] Adding search type (video, playlists)
+- [x] Show playlist on player view
 - [] Settings screen
 - [] Add user preferences screen (from invidious API)
-- [x] Adding search type (video, playlists)
-- [] Show playlist on player view
 - [] Compile on iOS

@@ -5,10 +5,9 @@
   "scripts": {
     "start": "react-native start -- --reset-cache",
     "android:run": "./scripts/android-run.sh",
-    "android:run:emulator": "./scripts/android-run-emulator.sh",
     "android:release": "cd android && ./gradlew assembleRelease",
     "android:release:debug": "cd android && ./gradlew assembleDebug",
-    "push:production": "code-push release-react Youtube-Audio-Player android --deploymentName Production --targetBinaryVersion '*'",
+    "code-push:release": "code-push release-react Youtube-Audio-Player android --deploymentName Production --targetBinaryVersion '*'",
     "clean:log": "rm *.log",
     "prettify": "prettier --write src/**/*.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
@@ -27,6 +26,7 @@
     "@react-navigation/native": "^5.5.1",
     "@react-navigation/stack": "^5.5.1",
     "@sentry/react-native": "^1.4.5",
+    "dotenv": "^8.2.0",
     "fetch-suspense": "^1.2.2",
     "hh-mm-ss": "^1.2.0",
     "react": "16.11.0",
@@ -54,6 +54,7 @@
     "rn-dominant-color": "^1.5.0",
     "rn-fetch-blob": "^0.12.0",
     "rn-placeholder": "^3.0.0-alpha.4",
+    "shelljs": "^0.8.4",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
@@ -83,7 +84,6 @@
     "prettier": "^2.0.5",
     "react-native-storybook-loader": "^1.8.1",
     "react-test-renderer": "16.9.0",
-    "shelljs": "^0.8.3",
     "typescript": "^3.9.5",
     "xml2js": "^0.4.19"
   },

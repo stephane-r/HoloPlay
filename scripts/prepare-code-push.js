@@ -58,7 +58,7 @@ async function upgradeStringsXml() {
             _: process.env.CODE_PUSH_DEPLOY_KEY,
             $: {
               moduleConfig: 'true',
-              name: 'reactNativeCodePush_androidDeploymentKey'
+              name: 'CodePushDeploymentKey'
             }
           }
         ]

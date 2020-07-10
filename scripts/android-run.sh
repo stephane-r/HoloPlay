@@ -8,4 +8,3 @@ export ANDROID_HOME
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 node ./node_modules/react-native/local-cli/cli.js run-android
-# node ./node_modules/react-native/local-cli/cli.js start -- --reset-cache

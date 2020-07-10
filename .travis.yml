@@ -1,48 +1,43 @@
-sudo: required
+language: android
 
-services:
-  - docker
+dist: trusty
 
-language: minimal
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-28.0.3
+    - android-28
+    - extra
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_4562a431234b_key -iv $encrypted_4562a431234b_iv
+    -in android/app/app.keystore.enc -out android/app/app.keystore -d
+  - nvm install 12
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - yarn global add code-push-cli
+before_script:
+  - yarn install
 
 stages:
-  - install
-  - static-analysis
-  - build
   - release
-
-before_script:
-  - cp .env.production.dist .env
-  - make setup
-  - rm docker-compose.override.yml
-
-cache:
-  directories:
-    - node_modules
-    - android/app/build/outputs/apk
-    - .code-push
 
 jobs:
   include:
-    - stage: install
-      name: Project dependencies
-      script:
-        - make yarn-install
-    - stage: static-analysis
-      name: Static analysis (ESLint and Flow)
-      script:
-        - make yarn-static-analysis
-    - stage: build
-      if: tag IS present
-      name: Build Android app
-      script:
-        - rm -rf .cache
-        - make set-env-production
-        - make android-prepare
-        - make android-release-debug
     - stage: release
       if: tag IS present
-      name: Release Android app
+      name: Release app
       script:
-        - make push-prepare
-        - make push-production
+        - make setup-production-env
+        - make setup
+        - make android-release
+        - make code-push-production
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: android/app/build/outputs/apk/release/app-release.apk
+  skip_cleanup: true
+  on:
+    tags: true

@@ -5,13 +5,7 @@ USER_ID=`id -u`
 -include .env
 export $(shell sed 's/=.*//' .env)
 
-DOCKERCOMPO = USER_ID=$(USER_ID) docker-compose -p $(COMPOSE_PROJECT_NAME)
-DOCKERRM = ${DOCKERCOMPO} run --rm --service-ports
-DOCKERYAP = $(DOCKERRM) yap
-DOCKEREMULATOR = $(DOCKERRM) -d emulator
-DOCKERYARN = $(DOCKERYAP) yarn
-
-DOCKERANDROIDPATH = android
+ANDROID_PATH = android
 
 # Help
 .SILENT:
@@ -24,49 +18,13 @@ help: ## Display this help
 #################
 # Project Setup #
 #################
+setup-production-env:
+	@echo "--> Setup production env file"
+	node ./scripts/env-production.js
 setup:
 	@echo "--> Setup project env files"
-	cp $(DOCKERANDROIDPATH)/app/src/main/res/values/.strings.xml.dist $(DOCKERANDROIDPATH)/app/src/main/res/values/strings.xml
-
-
-##########
-# Docker #
-##########
-docker-down:
-	@echo "--> Stopping docker services"
-	$(DOCKERCOMPO) down
-docker-run:
-	@echo "--> Run Docker container"
-	$(DOCKERYAP) bash
-
-
-########
-# Yarn #
-########
-yarn-install:
-	@echo "--> Install project dependencies"
-	$(DOCKERYARN)
-yarn-add:
-	@echo "--> Add dependency"
-	$(DOCKERYARN) add ${DEP} # Example : make web-add DEP="lodash"
-yarn-add-dev:
-	@echo "--> Add dev dependency"
-	$(DOCKERYARN) add -D ${DEP} # Example : make yarn-add-dev DEP="lodash"
-yarn-remove:
-	@echo "--> Remove dependency"
-	$(DOCKERYARN) remove ${DEP} # Example : make yarn-remove DEP="lodash"
-yarn-static-analysis:
-	@echo "--> Remove dependency"
-	$(DOCKERYARN) static-analysis
-
-
-##############
-# FLOW TYPED #
-##############
-flow-install:
-	@echo "--> Add flow-typed libdefs"
-	# https://github.com/flow-typed/flow-typed
-	$(DOCKERFLOW) install ${DEP} # Example : make flow-install DEP="react-navigation"
+	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g android/.gradle.properties.dist > android/gradle.properties
+	sed s/CODE_PUSH_DEPLOY_KEY/$(CODE_PUSH_DEPLOY_KEY)/g android/app/src/main/res/values/.strings.xml.dist > android/app/src/main/res/values/strings.xml
 
 
 ##############
@@ -74,31 +32,16 @@ flow-install:
 ##############
 android-run:
 	@echo "--> Run app on Android devices"
-	$(DOCKERYARN) android:run
-android-run-emulator:
-	@echo "--> Run Docker container"
-	$(DOCKEREMULATOR)
-set-env-production:
-	@echo "--> Set production env file"
-	$(DOCKERYAP) node ./scripts/env-production.js
-android-prepare:
-	@echo "--> Prepare Android App for relase"
-	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(DOCKERANDROIDPATH)/gradle.properties.dist > $(DOCKERANDROIDPATH)/gradle.properties
-	$(DOCKERYAP) node ./scripts/prepare.js
+	yarn android:run
 android-release:
 	@echo "--> Release Android App"
-	$(DOCKERYARN) android:release
-android-release-debug:
-	@echo "--> Release debug Android App"
-	$(DOCKERYAP) ./scripts/android-build-debug.sh
+	yarn android:release
 
 
 ##########
 # Deploy #
 ##########
-push-prepare:
-	@echo "--> Set code-push config"
-	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > ./.code-push.config
-push-production:
+code-push-production:
 	@echo "--> Push bundle to code-push"
-	$(DOCKERYARN) push:production
+	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > $(HOME)/.code-push.config
+	yarn code-push:release
