@@ -26,6 +26,7 @@ stages:
 jobs:
   include:
     - stage: release
+      if: tag IS present
       name: Release app
       script:
         - make setup-production-env
@@ -38,5 +39,5 @@ deploy:
   api_key: $GITHUB_TOKEN
   file: android/app/build/outputs/apk/release/app-release.apk
   skip_cleanup: true
-#   on:
-#     tags: true
+  on:
+    tags: true
