@@ -5,6 +5,7 @@ Youtube Audio Player (YAP) is an open source app, can stream Youtube audio with 
 YAP has not been tested on iOS because i'm on a Linux environment. PR needed are welcome :)
 
 ![Dashboard screen](./docs/dashboard.jpg)
+![Player](./docs/player.jpg)
 ![Playlist screen](./docs/playlists.jpg)
 ![Favoris screen](./docs/favoris.jpg)
 ![Quick Actions](./docs/quick-actions.jpg)
