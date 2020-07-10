@@ -13,14 +13,11 @@ android:
 before_install:
   - openssl aes-256-cbc -K $encrypted_4562a431234b_key -iv $encrypted_4562a431234b_iv
     -in android/app/app.keystore.enc -out android/app/app.keystore -d
-  - ls -la android/app
   - nvm install 12
-  - node -v
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
-  - yarn -v
+  - rm .env.dist
 before_script:
-  - cp .env.dist .env
   - yarn install
 
 stages:
