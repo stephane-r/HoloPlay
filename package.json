@@ -89,9 +89,5 @@
     "react-test-renderer": "16.9.0",
     "typescript": "^3.9.5",
     "xml2js": "^0.4.19"
-  },
-  "pre-commit": [
-    "precommit-msg",
-    "lint"
-  ]
+  }
 }
