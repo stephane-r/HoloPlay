@@ -7,7 +7,7 @@
     "android:run": "./scripts/android-run.sh",
     "android:release": "cd android && ./gradlew assembleRelease",
     "android:release:debug": "cd android && ./gradlew assembleDebug",
-    "push:production": "code-push release-react Youtube-Audio-Player android --deploymentName Production --targetBinaryVersion '*'",
+    "code-push:release": "code-push release-react Youtube-Audio-Player android --deploymentName Production --targetBinaryVersion '*'",
     "clean:log": "rm *.log",
     "prettify": "prettier --write src/**/*.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
