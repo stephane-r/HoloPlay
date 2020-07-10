@@ -21,37 +21,21 @@ TODO
 
 ### Installing
 
-First, setup all files :
+First, setup environment file :
 
 `cp .env.dist .env`
 
-Build Dockerfile :
+Use correct Node version (>= 12) :
 
-```
-make docker-build
-```
+`nvm use`
 
-Then, install project dependencies :
+Then, install dependencies :
 
-```
-make yarn-install
-```
-
-Running React-Native app on your device :
-
-```
-make android-run // or react-native run-android/ios
-```
-
-Add new dependency :
-
-```
-make yarn-add $DEP
-```
+`yarn install`
 
 ## Deployment
 
-YAP is updated with [Code-Push](https://github.com/Microsoft/code-push/tree/master/cli) on every tags.
+YAP bundle JS is updated with [Code-Push](https://github.com/Microsoft/code-push/tree/master/cli) on every tags.
 
 See `.travis.yml` file for process.
 
@@ -62,6 +46,7 @@ See `.travis.yml` file for process.
 - [React Native Paper](https://github.com/callstack/react-native-paper)
 - [React Native Quick Actions](https://github.com/jordanbyron/react-native-quick-actions)
 - [React Waterfall](https://github.com/didierfranc/react-waterfall)
+- [TypeScript](https://www.typescriptlang.org/)
 
 And more.
 
@@ -75,8 +60,8 @@ This project is licensed under the MIT License.
 
 ## TODO
 
-- [] Settings screen
-- [] Add user preferences screen (from invidious API)
 - [x] Adding search type (video, playlists)
 - [x] Show playlist on player view
+- [] Settings screen
+- [] Add user preferences screen (from invidious API)
 - [] Compile on iOS

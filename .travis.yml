@@ -16,7 +16,6 @@ before_install:
   - nvm install 12
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
-  - rm .env.dist
 before_script:
   - yarn install
 
