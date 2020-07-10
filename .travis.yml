@@ -31,3 +31,11 @@ jobs:
         - make setup
         - make android-release
         - make code-push-production
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: android/app/build/outputs/apk/release/app-release.apk
+  skip_cleanup: true
+#   on:
+#     tags: true

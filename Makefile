@@ -44,4 +44,4 @@ android-release:
 code-push-production:
 	@echo "--> Push bundle to code-push"
 	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > ./.code-push.config
-	# $(DOCKERYARN) push:production
+	yarn push:production
