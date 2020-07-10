@@ -24,6 +24,7 @@ setup-production-env:
 setup:
 	@echo "--> Setup project env files"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g android/.gradle.properties.dist > android/gradle.properties
+	echo $(KEYSTORE_PASSWORD)
 	cat android/gradle.properties
 	sed s/CODE_PUSH_DEPLOY_KEY/$(CODE_PUSH_DEPLOY_KEY)/g android/app/src/main/res/values/.strings.xml.dist > android/app/src/main/res/values/strings.xml
 	cat android/app/src/main/res/values/strings.xml
