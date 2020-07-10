@@ -23,11 +23,14 @@ help: ## Display this help
 #################
 # Project Setup #
 #################
+setup-production-env:
+	@echo "--> Setup production env file"
+	node ./scripts/env-production.js
 setup:
 	@echo "--> Setup project env files"
-	cp .env.dist .env
-	cp $(ANDROID_PATH)/app/src/main/res/values/.strings.xml.dist $(ANDROID_PATH)/app/src/main/res/values/strings.xml
-	cp $(ANDROID_PATH)/gradle.properties.dist $(ANDROID_PATH)/gradle.properties
+	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(ANDROID_PATH)/gradle.properties.dist > $(ANDROID_PATH)/gradle.properties
+	sed s/CODE_PUSH_DEPLOY_KEY/$(CODE_PUSH_DEPLOY_KEY)/g $(ANDROID_PATH)/app/src/main/res/values/.strings.xml.dist > $(ANDROID_PATH)/.strings.xml
+	yarn install
 
 
 ##############
@@ -36,13 +39,6 @@ setup:
 android-run:
 	@echo "--> Run app on Android devices"
 	$(DOCKERYARN) android:run
-set-env-production:
-	@echo "--> Set production env file"
-	node ./scripts/env-production.js
-android-prepare:
-	@echo "--> Prepare Android App for relase"
-	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(ANDROID_PATH)/gradle.properties.dist > $(ANDROID_PATH)/gradle.properties
-	node ./scripts/prepare-code-push.js
 android-release:
 	@echo "--> Release Android App"
 	yarn android:release

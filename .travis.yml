@@ -16,40 +16,16 @@ android:
 
 stages:
   - install
-  #   - static-analysis
   - build
   - release
-
-before_script:
-  - make setup
-
-cache:
-  directories:
-    - node_modules
-    - android/app/build/outputs/apk
-    - .code-push
 
 jobs:
   include:
     - stage: install
       name: Project dependencies
       script:
-        - yarn install
-        # - stage: static-analysis
-        #   name: Static analysis (ESLint and Flow)
-        #   script:
-        #     - make yarn-static-analysis
-        # - stage: build
-        #   if: tag IS present
-        # name: Build Android app
-        # script:
-        # - rm -rf .cache
-        - make set-env-production
-        - make android-prepare
+        - make setup-production-env
+        - make setup
         - make android-release
-        # - stage: release
-        #   if: tag IS present
-        # name: Release Android app
-        # script:
         - make code-push-prepare
         - make code-push-production
