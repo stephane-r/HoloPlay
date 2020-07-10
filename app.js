@@ -14,6 +14,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const App = () => {
   useEffect(() => {
+    console.log('test');
     if (process.env.NODE_ENV === 'production') {
       codePush.sync({
         updateDialog: true,
