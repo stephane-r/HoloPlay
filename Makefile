@@ -23,9 +23,10 @@ setup-production-env:
 	node ./scripts/env-production.js
 setup:
 	@echo "--> Setup project env files"
-	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g $(ANDROID_PATH)/gradle.properties.dist > $(ANDROID_PATH)/gradle.properties
-	cat $(ANDROID_PATH)/gradle.properties
-	sed s/CODE_PUSH_DEPLOY_KEY/$(CODE_PUSH_DEPLOY_KEY)/g $(ANDROID_PATH)/app/src/main/res/values/.strings.xml.dist > $(ANDROID_PATH)/app/src/main/res/values/strings.xml
+	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g android/.gradle.properties.dist > android/gradle.properties
+	cat android/gradle.properties
+	sed s/CODE_PUSH_DEPLOY_KEY/$(CODE_PUSH_DEPLOY_KEY)/g android/app/src/main/res/values/.strings.xml.dist > android/app/src/main/res/values/strings.xml
+	cat android/app/src/main/res/values/strings.xml
 
 
 ##############
