@@ -5,11 +5,6 @@ USER_ID=`id -u`
 -include .env
 export $(shell sed 's/=.*//' .env)
 
-DOCKERCOMPO = USER_ID=$(USER_ID) docker-compose -p $(COMPOSE_PROJECT_NAME)
-DOCKERRM = ${DOCKERCOMPO} run --rm --service-ports
-DOCKERYAP = $(DOCKERRM) yap
-DOCKERYARN = $(DOCKERYAP) yarn
-
 ANDROID_PATH = android
 
 # Help
@@ -37,7 +32,7 @@ setup:
 ##############
 android-run:
 	@echo "--> Run app on Android devices"
-	$(DOCKERYARN) android:run
+	yarn android:run
 android-release:
 	@echo "--> Release Android App"
 	yarn android:release
@@ -46,9 +41,7 @@ android-release:
 ##########
 # Deploy #
 ##########
-code-push-prepare:
-	@echo "--> Set code-push config"
-	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > ./.code-push.config
 code-push-production:
 	@echo "--> Push bundle to code-push"
-	$(DOCKERYARN) push:production
+	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > ./.code-push.config
+	# $(DOCKERYARN) push:production
