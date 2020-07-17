@@ -11,6 +11,7 @@ import PlaceholderSearchList from '../../components/Placeholder/Search';
 import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
 import CarouselSpacerContainer from '../../containers/CarouselSpacer';
 import SearchPickerTypeContainer from '../../containers/Search/PickerType';
+import { DASHBOARD_COLOR } from '../../../config/theme';
 
 const DashboardScreen: React.FC = () => {
   const userPlaylistsEmpty = false;
@@ -42,7 +43,7 @@ const DashboardScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#2575f4',
+    backgroundColor: DASHBOARD_COLOR,
     marginHorizontal: -16,
     paddingHorizontal: 16
   },

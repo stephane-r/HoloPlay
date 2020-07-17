@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { Subheading, ActivityIndicator } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import Label from '../../Label';
+import { DASHBOARD_COLOR } from '../../../../config/theme';
 
 interface CardType {
   title: string;
@@ -72,7 +73,7 @@ const CardLayout: React.FC<CardProps> = ({
               {!isHorizontal && (
                 <>
                   {card.liveNow ? (
-                    <Label align="right" theme="#2575f4">
+                    <Label align="right" theme={DASHBOARD_COLOR}>
                       LIVE
                     </Label>
                   ) : (

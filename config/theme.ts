@@ -17,3 +17,7 @@ export const defaultTheme = {
     accent: '#0455BF'
   }
 };
+
+export const DASHBOARD_COLOR = '#2575f4';
+export const PLAYLISTS_COLOR = '#fe5f55';
+export const FAVORIS_COLOR = '#EE05F2';

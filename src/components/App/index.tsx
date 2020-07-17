@@ -19,7 +19,13 @@ import LoginScreen from '../../screens/Login';
 import callApi from '../../utils/callApi';
 import { Playlist, QuickAction } from '../../types';
 import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../../constants';
-import { darkTheme, defaultTheme } from '../../../config/theme';
+import {
+  darkTheme,
+  defaultTheme,
+  FAVORIS_COLOR,
+  PLAYLISTS_COLOR,
+  DASHBOARD_COLOR
+} from '../../../config/theme';
 import {
   quickActionShortcutItems,
   QUICK_ACTION_PLAYLISTS,
@@ -135,17 +141,17 @@ const AppScreen = () => (
     <Tab.Screen
       name="Dashboard"
       component={DashboardScreen}
-      options={tabOptions('home', '#2575f4')}
+      options={tabOptions('home', DASHBOARD_COLOR)}
     />
     <Tab.Screen
       name="Playlists"
       component={PlaylistsScreen}
-      options={tabOptions('headset', '#0455BF')}
+      options={tabOptions('headset', PLAYLISTS_COLOR)}
     />
     <Tab.Screen
       name="Favoris"
       component={FavorisScreen}
-      options={tabOptions('heart', '#EE05F2')}
+      options={tabOptions('heart', FAVORIS_COLOR)}
     />
   </Tab.Navigator>
 );

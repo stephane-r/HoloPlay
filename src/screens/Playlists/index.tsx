@@ -7,6 +7,8 @@ import Playlist from '../../components/Playlist/List';
 import PlaylistsContainer from '../../containers/Playlists/List';
 import { Playlist as PlaylistType } from '../../types/Api';
 import { useIsFocused } from '@react-navigation/native';
+import { PLAYLISTS_COLOR } from '../../../config/theme';
+import { StyleSheet } from 'react-native';
 
 const PlaylistScreen: React.FC = () => {
   const [modalIsOpen, setToggleModal] = useState<boolean>(false);
@@ -24,7 +26,7 @@ const PlaylistScreen: React.FC = () => {
 
   return (
     <Layout>
-      <Header title="Playlist" backgroundColor="#0455BF" />
+      <Header title="Playlists" backgroundColor={PLAYLISTS_COLOR} />
       <PlaylistsContainer
         toggleModal={(item: PlaylistType): void => {
           setPlaylist(item);
@@ -49,11 +51,19 @@ const PlaylistScreen: React.FC = () => {
             }
           ]}
           onStateChange={({ open }): void => toggleFab(open)}
-          fabStyle={{ marginBottom: 70 }}
+          fabStyle={style.fab}
+          color="white"
         />
       </Portal>
     </Layout>
   );
 };
+
+const style = StyleSheet.create({
+  fab: {
+    marginBottom: 70,
+    backgroundColor: PLAYLISTS_COLOR
+  }
+});
 
 export default PlaylistScreen;
