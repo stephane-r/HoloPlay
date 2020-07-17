@@ -27,7 +27,6 @@ import {
   DASHBOARD_COLOR
 } from '../../../config/theme';
 import {
-  quickActionShortcutItems,
   QUICK_ACTION_PLAYLISTS,
   QUICK_ACTION_FAVORIS
 } from '../../../config/quickAction';
@@ -38,14 +37,6 @@ import AppPlayer from '../AppPlayer';
 
 // :troll:
 console.disableYellowBox = true;
-
-QuickActions.isSupported((error, supported) => {
-  if (supported) {
-    return QuickActions.setShortcutItems(quickActionShortcutItems);
-  }
-
-  return error;
-});
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
