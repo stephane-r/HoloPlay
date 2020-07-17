@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
-// @ts-ignore
-// import { version } from '../../../packages';
+import { version } from '../../../package';
 
 interface Props {
   customStyle?: {
@@ -12,7 +11,7 @@ interface Props {
 
 const AppVersion: React.FC<Props> = ({ customStyle }) => (
   <Text accessibilityStates={[]} style={[styles.text, customStyle]}>
-    Version [version]
+    Version {version}
   </Text>
 );
 
