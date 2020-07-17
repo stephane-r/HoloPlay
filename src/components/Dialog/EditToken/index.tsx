@@ -34,7 +34,6 @@ const DialogEditToken: React.FC<Props> = ({
           url: ApiRoutes.Preferences,
           customToken: token
         });
-        console.log(token);
         actions.setToken(token);
         actions.clearData();
         await fetchPlaylists();

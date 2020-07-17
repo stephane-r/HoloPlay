@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Dialog, Button, TextInput } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
-import { PUBLIC_INVIDIOUS_INSTANCES } from '../../../constants';
+import { PUBLIC_INVIDIOUS_INSTANCES, ApiRoutes } from '../../../constants';
 import { View } from 'react-native';
 import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
+import callApi from '../../../utils/callApi';
 
 interface Props {
   value: string;
@@ -37,6 +38,9 @@ const DialogEditApiInstance: React.FC<Props> = ({
     try {
       await actions.setInstance(instance);
       actions.clearData();
+      await callApi({
+        url: ApiRoutes.Preferences
+      });
       await fetchPlaylists();
       toggleDialog();
 
@@ -48,6 +52,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
         500
       );
     } catch (error) {
+      console.log(error);
       actions.clearData();
       return setTimeout(
         () =>

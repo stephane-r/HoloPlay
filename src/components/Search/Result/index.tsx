@@ -6,6 +6,7 @@ import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
 import Playlist from '../../Playlist/List';
 import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
+import { Text } from 'react-native-paper';
 
 interface Props {
   playlists: PlaylistType[];
@@ -33,6 +34,10 @@ const SearchResult: React.FC<Props> = ({
       actions.setSearchResult(data);
     }
   }, [data, searchType]);
+
+  if (!Array.isArray(data)) {
+    return <Text>No result. Maybe instance is down ?</Text>;
+  }
 
   return (
     <>
