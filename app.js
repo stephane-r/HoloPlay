@@ -14,12 +14,10 @@ if (process.env.NODE_ENV === 'production') {
 
 const App = () => {
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      codePush.sync({
-        updateDialog: true,
-        installMode: codePush.InstallMode.IMMEDIATE
-      });
-    }
+    codePush.sync({
+      updateDialog: true,
+      installMode: codePush.InstallMode.IMMEDIATE
+    });
   });
 
   return (
