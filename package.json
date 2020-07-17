@@ -1,6 +1,6 @@
 {
   "name": "youtube-audio-player",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "private": false,
   "scripts": {
     "start": "react-native start -- --reset-cache",
