@@ -57,7 +57,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         value={store.instance as string}
         visible={showDialogApiInstance}
         onDismiss={toggleDialogApiInstance}
-        onSubmit={(): void => console.log('TODO')}
+        toggleDialog={toggleDialogApiInstance}
       />
     </View>
   );

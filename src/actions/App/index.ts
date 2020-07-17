@@ -62,6 +62,14 @@ const appActions = {
       logoutMode: false
     };
   },
+  setInstance: async (store: Store, actions: any, instance) => {
+    await AsyncStorage.setItem('instance', instance);
+
+    return {
+      ...store,
+      instance
+    };
+  },
   setLogoutMode: (store: Store, actions: any, logoutMode: boolean) => {
     AsyncStorage.setItem('logoutMode', JSON.stringify(logoutMode));
 

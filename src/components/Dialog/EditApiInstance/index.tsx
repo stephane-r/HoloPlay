@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import { Dialog, Button, TextInput } from 'react-native-paper';
-import { Picker, View } from '@react-native-community/picker';
+import { Picker } from '@react-native-community/picker';
 import { PUBLIC_INVIDIOUS_INSTANCES } from '../../../constants';
+import { View } from 'react-native';
+import { actions } from '../../../store';
+import fetchPlaylists from '../../../utils/fetchPlaylists';
 
 interface Props {
   value: string;
   visible: boolean;
   onDismiss: () => void;
-  onSubmit: () => void;
+  toggleDialog: () => void;
 }
 
 const DialogEditApiInstance: React.FC<Props> = ({
   value,
   visible,
   onDismiss,
-  onSubmit
+  toggleDialog
 }) => {
   const [instance, setInstance] = useState<string>(value);
+  const [isLoading, setIsLoading] = useState<string>(false);
   const [customInstance, setCustomInstance] = useState<boolean>(false);
 
   const onValueChange = (value: string): void => {
@@ -27,30 +31,63 @@ const DialogEditApiInstance: React.FC<Props> = ({
     return setInstance(value);
   };
 
+  const submit = async () => {
+    setIsLoading(true);
+
+    try {
+      await actions.setInstance(instance);
+      actions.clearData();
+      await fetchPlaylists();
+      toggleDialog();
+
+      return setTimeout(
+        () =>
+          actions.setFlashMessage(
+            'Invidous instance updated. Playlists are updated.'
+          ),
+        500
+      );
+    } catch (error) {
+      actions.clearData();
+      return setTimeout(
+        () =>
+          actions.setFlashMessage(
+            'Invidous instance updated. Consider changing your token.'
+          ),
+        500
+      );
+    } finally {
+      toggleDialog();
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Dialog visible={visible} onDismiss={onDismiss}>
       <Dialog.Title>Edit API instance</Dialog.Title>
       <Dialog.Content>
         <Picker selectedValue={instance} onValueChange={onValueChange}>
-          {PUBLIC_INVIDIOUS_INSTANCES.map(({ value, label }, index) => (
-            <Picker.Item key={index} label={label} value={value} />
+          {PUBLIC_INVIDIOUS_INSTANCES.map(({ value, label }) => (
+            <Picker.Item key={value} label={label} value={value} />
           ))}
-          <View>
-            {customInstance && (
-              <TextInput
-                accessibilityStates={[]}
-                mode="outlined"
-                label="Instance"
-                value={instance}
-                onChangeText={setInstance}
-              />
-            )}
-          </View>
         </Picker>
+        <View>
+          {customInstance && (
+            <TextInput
+              accessibilityStates={[]}
+              mode="outlined"
+              label="Instance"
+              value={instance}
+              onChangeText={setInstance}
+            />
+          )}
+        </View>
       </Dialog.Content>
       <Dialog.Actions>
         <Button onPress={onDismiss}>Cancel</Button>
-        <Button onPress={onSubmit}>Submit</Button>
+        <Button loading={isLoading} onPress={submit}>
+          Submit
+        </Button>
       </Dialog.Actions>
     </Dialog>
   );
