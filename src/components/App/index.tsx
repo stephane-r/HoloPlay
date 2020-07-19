@@ -100,9 +100,6 @@ const App: React.FC<Props> = ({ darkMode }) => {
     return <LoadingScreen />;
   }
 
-  console.log(appToken);
-  console.log(appLogoutMode);
-
   return (
     <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
       <NavigationContainer ref={navigation}>
