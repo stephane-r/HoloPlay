@@ -1,4 +1,4 @@
-package com.youtubeaudioplayer;
+package com.holoplay;
 
 import android.app.Application;
 import android.content.Context;
