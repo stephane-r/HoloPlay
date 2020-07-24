@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'YoutubeAudioPlayer' do
-  # Pods for YoutubeAudioPlayer
+target 'HoloPlay' do
+  # Pods for HoloPlay
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,7 @@ target 'YoutubeAudioPlayer' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'YoutubeAudioPlayerTests' do
+  target 'HoloPlayTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,10 +94,10 @@ target 'YoutubeAudioPlayer' do
   end
 end
 
-target 'YoutubeAudioPlayer-tvOS' do
-  # Pods for YoutubeAudioPlayer-tvOS
+target 'HoloPlay-tvOS' do
+  # Pods for HoloPlay-tvOS
 
-  target 'YoutubeAudioPlayer-tvOSTests' do
+  target 'HoloPlay-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
