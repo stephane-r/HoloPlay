@@ -7,7 +7,7 @@
     "android:run": "./scripts/android-run.sh",
     "android:release": "cd android && ./gradlew assembleRelease",
     "android:release:debug": "cd android && ./gradlew assembleDebug",
-    "code-push:release": "code-push release-react HoloPlay android --deploymentName Production --targetBinaryVersion '*'",
+    "code-push:release": "code-push release-react Youtube-Audio-Player android --deploymentName Production --targetBinaryVersion '*'",
     "version:major": "node ./scripts/git-push-tag major",
     "version:minor": "node ./scripts/git-push-tag minor",
     "version:patch": "node ./scripts/git-push-tag patch",
