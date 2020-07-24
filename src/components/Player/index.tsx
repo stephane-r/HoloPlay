@@ -235,41 +235,43 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
             }}
           />
         </View>
-        <View style={{ flexDirection: 'row', height: 57 }}>
-          <IconButton
-            accessibilityStates={[]}
-            icon="rewind-30"
-            onPress={() => player.current?.seek(currentTime - 30)}
-            color="white"
-            size={28}
-            animated
-          />
-          {loading ? (
-            <ActivityIndicator color="white" />
-          ) : (
+        {!video.liveNow && (
+          <View style={{ flexDirection: 'row', height: 57 }}>
             <IconButton
               accessibilityStates={[]}
-              icon="download"
+              icon="rewind-30"
+              onPress={() => player.current?.seek(currentTime - 30)}
               color="white"
-              size={30}
-              loading={loading}
-              onPress={() =>
-                downloadVideo({
-                  url: video.uri,
-                  fileName: video.title
-                })
-              }
+              size={28}
+              animated
             />
-          )}
-          <IconButton
-            accessibilityStates={[]}
-            icon="fast-forward-30"
-            onPress={(): void => player.current?.seek(currentTime + 30)}
-            color="white"
-            size={28}
-            animated
-          />
-        </View>
+            {loading ? (
+              <ActivityIndicator color="white" />
+            ) : (
+              <IconButton
+                accessibilityStates={[]}
+                icon="download"
+                color="white"
+                size={30}
+                loading={loading}
+                onPress={() =>
+                  downloadVideo({
+                    url: video.uri,
+                    fileName: video.title
+                  })
+                }
+              />
+            )}
+            <IconButton
+              accessibilityStates={[]}
+              icon="fast-forward-30"
+              onPress={(): void => player.current?.seek(currentTime + 30)}
+              color="white"
+              size={28}
+              animated
+            />
+          </View>
+        )}
         <View style={styles.progress}>
           <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
             {currentTime
