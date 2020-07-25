@@ -157,6 +157,7 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
         onLoadStart={onLoadStart}
         onEnd={onEnd}
         onError={onError}
+        onAudioBecomingNoisy={() => pauseVideo(MusicControl.STATE_STOPPED)}
       />
       <ViewPager
         style={styles.head}
