@@ -47,6 +47,7 @@ const Search: React.FC<SearchProps> = ({ history }) => {
           placeholder={SEARCH_INPUT_PLACEHOLDER}
           onChangeText={setValue}
           onIconPress={searchThroughApi}
+          onSubmitEditing={searchThroughApi}
           value={value ?? ''}
         />
       </View>
