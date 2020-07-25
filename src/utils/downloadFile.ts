@@ -12,7 +12,7 @@ const downloadFile = async ({
 }: DownloadFileParams): Promise<any> =>
   RNFetchBlob.config({
     fileCache: true,
-    path: `${RNFetchBlob.fs.dirs.MusicDir}/${slugify(fileName)}.mp4`
+    path: `${RNFetchBlob.fs.dirs.DocumentDir}/${slugify(fileName)}.mp4`
   })
     .fetch('GET', url)
     .then((res) => {
