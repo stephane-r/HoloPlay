@@ -4,6 +4,7 @@ import { Appbar, Subheading, List, Divider } from 'react-native-paper';
 import useStore from '../../hooks/useStore';
 import DialogEditToken from '../../components/Dialog/EditToken';
 import DialogEditApiInstance from '../../components/Dialog/EditApiInstance';
+import DialogEditUsername from '../../components/Dialog/EditUsername';
 
 interface Props {
   navigation: any;
@@ -13,10 +14,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const store = useStore();
   const [showDialogToken, setShowDialogToken] = useState(false);
   const [showDialogApiInstance, setShowDialogApiInstance] = useState(false);
+  const [showDialogUsername, setShowDialogUsername] = useState(false);
 
   const toggleDialogToken = () => setShowDialogToken(!showDialogToken);
   const toggleDialogApiInstance = () =>
     setShowDialogApiInstance(!showDialogApiInstance);
+  const toggleDialogUsername = () => setShowDialogUsername(!showDialogUsername);
 
   return (
     <View style={styles.container}>
@@ -46,6 +49,17 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           onPress={toggleDialogToken}
         />
       </View>
+      <View style={styles.content}>
+        <Subheading style={styles.subheading}>APPLICATION</Subheading>
+        <View style={{ height: 15 }} />
+        <Divider accessibilityStates={[]} />
+        <List.Item
+          accessibilityStates={[]}
+          title="Username"
+          description={store.username}
+          onPress={toggleDialogUsername}
+        />
+      </View>
       <DialogEditToken
         label="Edit token"
         value={store.token as string}
@@ -58,6 +72,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         visible={showDialogApiInstance}
         onDismiss={toggleDialogApiInstance}
         toggleDialog={toggleDialogApiInstance}
+      />
+      <DialogEditUsername
+        value={store.username as string}
+        visible={showDialogUsername}
+        onDismiss={toggleDialogUsername}
+        toggleDialog={toggleDialogUsername}
       />
     </View>
   );

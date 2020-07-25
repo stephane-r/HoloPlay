@@ -26,6 +26,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   );
   const [customInstance, setCustomInstance] = useState<boolean>(false);
   const [token, setToken] = useState<null | string>(null);
+  const [username, setUsername] = useState<string>('User');
   const navigation = useNavigation();
 
   const onValueChange = (value: string): void => {
@@ -42,7 +43,8 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
         setIsLoading(true);
         await Promise.all([
           AsyncStorage.setItem('instance', instance),
-          AsyncStorage.setItem('token', token)
+          AsyncStorage.setItem('token', token),
+          AsyncStorage.setItem('username', username)
         ]);
         await fetchPlaylists();
         setIsLoading(false);
@@ -65,7 +67,8 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       setIsLoading(true);
       await Promise.all([
         AsyncStorage.setItem('instance', instance),
-        AsyncStorage.setItem('logoutMode', JSON.stringify(true))
+        AsyncStorage.setItem('logoutMode', JSON.stringify(true)),
+        AsyncStorage.setItem('username', username)
       ]);
 
       actions.setLogoutMode(true);
@@ -93,6 +96,14 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
         label="Token"
         value={token as string}
         onChangeText={setToken}
+      />
+      <Spacer height={20} />
+      <TextInput
+        accessibilityStates={[]}
+        mode="outlined"
+        label="Username (optional)"
+        value={username}
+        onChangeText={setUsername}
       />
       <Spacer height={20} />
       {customInstance && (
