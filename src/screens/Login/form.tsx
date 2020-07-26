@@ -43,10 +43,10 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
         setIsLoading(true);
         await Promise.all([
           AsyncStorage.setItem('instance', instance),
-          AsyncStorage.setItem('token', token),
-          AsyncStorage.setItem('username', username)
+          AsyncStorage.setItem('token', token)
         ]);
         await fetchPlaylists();
+        actions.setUsername(username);
         setIsLoading(false);
         return onSuccess(token);
       }
@@ -67,11 +67,11 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       setIsLoading(true);
       await Promise.all([
         AsyncStorage.setItem('instance', instance),
-        AsyncStorage.setItem('logoutMode', JSON.stringify(true)),
-        AsyncStorage.setItem('username', username)
+        AsyncStorage.setItem('logoutMode', JSON.stringify(true))
       ]);
 
       actions.setLogoutMode(true);
+      actions.setUsername(username);
       actions.addPlaylist(favorisPlaylist);
       actions.receiveFavorisPlaylist(favorisPlaylist);
 
