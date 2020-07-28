@@ -2,8 +2,6 @@
 
 Youtube Audio Player (YAP) is an open source app, can stream Youtube audio with an open source [Invidious API](https://github.com/omarroth/invidious). You can add your Invidious token and save music to favoris or create your playlists.
 
-YAP has not been tested on iOS because i'm on a Linux environment. PR needed are welcome :)
-
 ![Dashboard screen](./docs/dashboard.jpg)
 ![Player](./docs/player.jpg)
 ![Playlist screen](./docs/playlists.jpg)
@@ -12,13 +10,25 @@ YAP has not been tested on iOS because i'm on a Linux environment. PR needed are
 
 Interface based on beautiful free [Music Song](https://www.uplabs.com/posts/music-song).
 
+## Features
+
+- **Search by video and playlist**
+- **Create your playlists**
+- **Save on favoris**
+- **Background mode**
+- **Offline**
+- **Work on Android Auto**
+- **Respect your privacy**
+- **Open Source**
+- **Cloud Syncing**
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-TODO
+[See React Native doc prerequisites](https://reactnative.dev/docs/getting-started#prerequisites)
 
 ### Installing
 

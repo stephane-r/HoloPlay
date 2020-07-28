@@ -10,12 +10,7 @@
     "statusBar.foreground": "#e7e7e7",
     "activityBar.activeBackground": "#5694f6",
     "activityBar.activeBorder": "#b60a4c",
-    "statusBar.border": "#2575f4",
-    "titleBar.activeBackground": "#2575f4",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.border": "#2575f4",
-    "titleBar.inactiveBackground": "#2575f499",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "statusBar.border": "#2575f4"
   },
   "javascript.validate.enable": false,
   "peacock.color": "#2575f4",
