@@ -8,6 +8,6 @@ configure(() => {
 
 const StorybookUI = getStorybookUI();
 
-AppRegistry.registerComponent('YoutubeAudioPlayer', () => StorybookUI);
+AppRegistry.registerComponent('HoloPlay', () => StorybookUI);
 
 export default StorybookUI;

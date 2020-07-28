@@ -1,6 +1,6 @@
 {
-  "name": "youtube-audio-player",
-  "version": "1.4.3",
+  "name": "holoplay",
+  "version": "1.4.5",
   "private": false,
   "scripts": {
     "start": "react-native start -- --reset-cache",
