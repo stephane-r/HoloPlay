@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Appbar, Subheading, List, Divider } from 'react-native-paper';
+import {
+  Appbar,
+  Subheading,
+  List,
+  Divider,
+  Button,
+  Text
+} from 'react-native-paper';
 import useStore from '../../hooks/useStore';
 import DialogEditToken from '../../components/Dialog/EditToken';
 import DialogEditApiInstance from '../../components/Dialog/EditApiInstance';
 import DialogEditUsername from '../../components/Dialog/EditUsername';
+import useBackup from '../../hooks/useBackup';
 
 interface Props {
   navigation: any;
@@ -15,6 +23,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const [showDialogToken, setShowDialogToken] = useState(false);
   const [showDialogApiInstance, setShowDialogApiInstance] = useState(false);
   const [showDialogUsername, setShowDialogUsername] = useState(false);
+  const { backupData, importData } = useBackup();
 
   const toggleDialogToken = () => setShowDialogToken(!showDialogToken);
   const toggleDialogApiInstance = () =>
@@ -29,12 +38,10 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           icon="archive"
           onPress={(): void => navigation.goBack()}
         />
-        <Appbar.Content title="App Settings" accessibilityStates={[]} />
+        <Appbar.Content title="Settings" accessibilityStates={[]} />
       </Appbar>
       <View style={styles.content}>
         <Subheading style={styles.subheading}>API</Subheading>
-        <View style={{ height: 15 }} />
-        <Divider accessibilityStates={[]} />
         <List.Item
           accessibilityStates={[]}
           title="Invidious instance"
@@ -48,17 +55,47 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           description={store.token}
           onPress={toggleDialogToken}
         />
+        <Divider accessibilityStates={[]} />
       </View>
       <View style={styles.content}>
         <Subheading style={styles.subheading}>APPLICATION</Subheading>
-        <View style={{ height: 15 }} />
-        <Divider accessibilityStates={[]} />
         <List.Item
           accessibilityStates={[]}
           title="Username"
           description={store.username}
           onPress={toggleDialogUsername}
         />
+        <Divider accessibilityStates={[]} />
+      </View>
+      <View style={styles.content}>
+        <Subheading style={styles.subheading}>DATA</Subheading>
+        <View style={{ height: 15 }} />
+        <View
+          style={{
+            paddingHorizontal: 15
+          }}>
+          <Text>Import or export your playlists and favoris</Text>
+        </View>
+        <View style={{ height: 15 }} />
+        <View
+          style={{
+            paddingHorizontal: 9,
+            flexDirection: 'row',
+            width: '100%'
+          }}>
+          <Button
+            style={{ flex: 1, marginHorizontal: 7 }}
+            mode="contained"
+            onPress={backupData}>
+            Export
+          </Button>
+          <Button
+            style={{ flex: 1, marginHorizontal: 7 }}
+            mode="contained"
+            onPress={importData}>
+            Import
+          </Button>
+        </View>
       </View>
       <DialogEditToken
         label="Edit token"
@@ -103,15 +140,6 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 0
   }
-});
-
-// @ts-ignore
-SettingsScreen.path = 'settings';
-
-// @ts-ignore
-SettingsScreen.navigationOptions = () => ({
-  title: 'Settings',
-  linkName: 'Settings'
 });
 
 export default SettingsScreen;
