@@ -1,12 +1,20 @@
 import RNFS from 'react-native-fs';
 import useStore from './useStore';
 import { actions } from '../store';
+import { PermissionsAndroid, Alert } from 'react-native';
+
+const fileName = 'holoplay-backup.json';
+const path = `${RNFS.DownloadDirectoryPath}/${fileName}`;
 
 const useBackup = () => {
   const store = useStore();
 
-  const backupData = (fileName?: string = 'backup.json'): Promise<any> => {
-    const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+  const backupData = async (): Promise<any> => {
+    await requestWriteExternalStoragePermission();
+
+    if (await RNFS.exists(path)) {
+      await RNFS.unlink(path);
+    }
 
     RNFS.writeFile(
       path,
@@ -16,29 +24,51 @@ const useBackup = () => {
       }),
       'utf8'
     )
-      .then((success) => actions.setFlashMessage('Your data are exported.'))
-      .catch(() =>
-        actions.setFlashMessage('Error : your data can not be exported.')
-      );
+      .then(() => actions.setFlashMessage('Your data are exported.'))
+      .catch((error) => {
+        console.log(error);
+        actions.setFlashMessage('Error : your data can not be exported.');
+      });
   };
 
-  const importData = (): Promise<any> => {
-    RNFS.readDir(RNFS.DocumentDirectoryPath)
-      .then((result) => {
-        const backupFile = result.find((file) => file.name === 'backup.json');
-        console.log(backupFile);
+  const importData = async (): Promise<any> => {
+    await requestWriteExternalStoragePermission();
+
+    RNFS.readDir(RNFS.DownloadDirectoryPath)
+      .then((files) => {
+        const backupFile = files.find((file) => file.name === fileName);
         return RNFS.readFile(backupFile.path, 'utf8');
       })
-      .then((success) => actions.setFlashMessage('Your data are imported.'))
-      .catch(() =>
-        actions.setFlashMessage('Error : your data can not be imported.')
-      );
+      .then(async (data) => {
+        await actions.importData(JSON.parse(data));
+        actions.setFlashMessage('Your data are imported.');
+      })
+      .catch((error) => {
+        console.log(error);
+        actions.setFlashMessage('Error : your data can not be imported.');
+      });
   };
 
   return {
     backupData,
     importData
   };
+};
+
+const requestWriteExternalStoragePermission = async () => {
+  try {
+    const test = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+    );
+
+    if (test === PermissionsAndroid.RESULTS.GRANTED) {
+      return Promise.resolve(PermissionsAndroid.RESULTS.GRANTED);
+    }
+
+    return Promise.reject('Reject');
+  } catch (error) {
+    console.logo(error);
+  }
 };
 
 export default useBackup;
