@@ -1,5 +1,7 @@
+import RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
 import slugify from './slugify';
+import { requestWriteExternalStoragePermission } from '../hooks/useBackup';
 
 export interface DownloadFileParams {
   url: string;
@@ -9,14 +11,20 @@ export interface DownloadFileParams {
 const downloadFile = async ({
   url,
   fileName
-}: DownloadFileParams): Promise<any> =>
-  RNFetchBlob.config({
+}: DownloadFileParams): Promise<any> => {
+  await requestWriteExternalStoragePermission();
+
+  return RNFetchBlob.config({
     fileCache: true,
-    path: `${RNFetchBlob.fs.dirs.DocumentDir}/${slugify(fileName)}.mp4`
+    path: `${RNFS.DownloadDirectoryPath}/${slugify(fileName)}.mp4`
   })
     .fetch('GET', url)
     .then((res) => {
+      console.log('**********************');
       console.log(res.path());
-    });
+      console.log('**********************');
+    })
+    .catch(console.log);
+};
 
 export default downloadFile;

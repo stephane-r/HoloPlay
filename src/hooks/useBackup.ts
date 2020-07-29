@@ -55,7 +55,7 @@ const useBackup = () => {
   };
 };
 
-const requestWriteExternalStoragePermission = async () => {
+export const requestWriteExternalStoragePermission = async () => {
   try {
     const test = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
