@@ -17,10 +17,20 @@ const dataState: DataState = {
 };
 
 const dataActions = {
-  importData: async (store: Store, actions: any, data: any) => ({
-    ...store,
-    ...data
-  }),
+  importData: async (store: Store, actions: any, data: any) => {
+    if (store.logoutMode) {
+      AsyncStorage.setItem('playlists', JSON.stringify(data.playlists));
+      AsyncStorage.setItem(
+        'favorisPlaylist',
+        JSON.stringify(data.favorisPlaylist)
+      );
+    }
+
+    return {
+      ...store,
+      ...data
+    };
+  },
   clearData: (store: Store): Store => {
     AsyncStorage.setItem('playlists', JSON.stringify(dataState.playlists));
     AsyncStorage.setItem(
