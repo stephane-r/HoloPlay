@@ -12,6 +12,7 @@ node_modules
 .code-push.config
 strings.xml
 .npm
+.vscode
 
 # Core
 env.js
