@@ -3,7 +3,8 @@ import { Store } from '../../store';
 import { FlashMessage } from '../../types/FlashMessage';
 
 export interface AppState {
-  instance: null | string;
+  username: null | string;
+  instance: string;
   token: null | string;
   logoutMode: boolean;
   flashMessage: FlashMessage;
@@ -11,6 +12,7 @@ export interface AppState {
 }
 
 const appState: AppState = {
+  username: 'User',
   instance: null,
   token: null,
   logoutMode: false,
@@ -30,7 +32,8 @@ const appActions = {
       token,
       playlists,
       favorisPlaylist,
-      logoutMode
+      logoutMode,
+      username
     ] = await Promise.all([
       AsyncStorage.getItem('darkMode'),
       AsyncStorage.getItem('searchHistory'),
@@ -38,13 +41,15 @@ const appActions = {
       AsyncStorage.getItem('token'),
       AsyncStorage.getItem('playlists'),
       AsyncStorage.getItem('favorisPlaylist'),
-      AsyncStorage.getItem('logoutMode')
+      AsyncStorage.getItem('logoutMode'),
+      AsyncStorage.getItem('username')
     ]);
 
     return {
       ...store,
       instance,
       token,
+      username,
       darkMode: JSON.parse(darkMode) ?? appState.darkMode,
       history: JSON.parse(searchHistory) ?? [],
       playlists: JSON.parse(playlists) ?? [],
@@ -76,6 +81,14 @@ const appActions = {
     return {
       ...store,
       logoutMode
+    };
+  },
+  setUsername: (store: Store, actions: any, username: string) => {
+    AsyncStorage.setItem('username', username);
+
+    return {
+      ...store,
+      username
     };
   },
   setFlashMessage: (store: Store, actions: any, message: any): Store => {

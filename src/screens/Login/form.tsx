@@ -26,6 +26,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   );
   const [customInstance, setCustomInstance] = useState<boolean>(false);
   const [token, setToken] = useState<null | string>(null);
+  const [username, setUsername] = useState<string>('User');
   const navigation = useNavigation();
 
   const onValueChange = (value: string): void => {
@@ -45,6 +46,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
           AsyncStorage.setItem('token', token)
         ]);
         await fetchPlaylists();
+        actions.setUsername(username);
         setIsLoading(false);
         return onSuccess(token);
       }
@@ -69,6 +71,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       ]);
 
       actions.setLogoutMode(true);
+      actions.setUsername(username);
       actions.addPlaylist(favorisPlaylist);
       actions.receiveFavorisPlaylist(favorisPlaylist);
 
@@ -93,6 +96,14 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
         label="Token"
         value={token as string}
         onChangeText={setToken}
+      />
+      <Spacer height={20} />
+      <TextInput
+        accessibilityStates={[]}
+        mode="outlined"
+        label="Username (optional)"
+        value={username}
+        onChangeText={setUsername}
       />
       <Spacer height={20} />
       {customInstance && (

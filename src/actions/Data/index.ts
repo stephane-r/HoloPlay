@@ -17,6 +17,10 @@ const dataState: DataState = {
 };
 
 const dataActions = {
+  importData: async (store: Store, actions: any, data: any) => ({
+    ...store,
+    ...data
+  }),
   clearData: (store: Store): Store => {
     AsyncStorage.setItem('playlists', JSON.stringify(dataState.playlists));
     AsyncStorage.setItem(

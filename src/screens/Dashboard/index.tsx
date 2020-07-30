@@ -4,7 +4,6 @@ import { Title } from 'react-native-paper';
 import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
 import SearchbarContainer from '../../containers/Search/Bar';
-import Profil from '../../components/Profil';
 import Carousel from '../../components/Carousel';
 import SearchResultContainer from '../../containers/Search/Result';
 import PlaceholderSearchList from '../../components/Placeholder/Search';
@@ -12,6 +11,7 @@ import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
 import CarouselSpacerContainer from '../../containers/CarouselSpacer';
 import SearchPickerTypeContainer from '../../containers/Search/PickerType';
 import { DASHBOARD_COLOR } from '../../../config/theme';
+import ProfilContainer from '../../containers/Profil';
 
 const DashboardScreen: React.FC = () => {
   const userPlaylistsEmpty = false;
@@ -24,7 +24,7 @@ const DashboardScreen: React.FC = () => {
       <View style={styles.header}>
         <SearchbarContainer />
         <Spacer height={15} />
-        <Profil />
+        <ProfilContainer />
         <Spacer height={30} />
         <PlaylistsCarouselContainer />
       </View>

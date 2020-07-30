@@ -3,10 +3,10 @@ import { View, Image, StyleSheet } from 'react-native';
 import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
 
-const Profil: React.FC = () => (
+const Profil: React.FC = ({ username }) => (
   <View style={styles.container}>
     <View style={styles.textContainer}>
-      <Title style={styles.title}>Hey Stéphane</Title>
+      <Title style={styles.title}>Hey {username}</Title>
       <Spacer height={5} />
       <Text accessibilityStates={[]} style={styles.text}>
         Welcome home

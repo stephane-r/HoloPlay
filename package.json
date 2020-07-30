@@ -1,6 +1,6 @@
 {
   "name": "holoplay",
-  "version": "1.4.5",
+  "version": "1.6.1",
   "private": false,
   "scripts": {
     "start": "react-native start -- --reset-cache",
@@ -38,6 +38,7 @@
     "react-native-code-push": "^6.2.1",
     "react-native-config": "^1.2.1",
     "react-native-drawer-layout": "^2.0.0",
+    "react-native-fs": "^2.16.6",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-get-random-values": "^1.4.0",
     "react-native-linear-gradient": "^2.5.6",

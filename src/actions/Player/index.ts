@@ -1,4 +1,5 @@
 import callApi from '../../utils/callApi';
+import config from 'react-native-config';
 import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../../constants';
 import { Video, Playlist, VideoThumbnail } from '../../types';
 import { Store } from '../../store';
@@ -82,9 +83,11 @@ const playerActions = {
     const videoUpdated = {
       ...video,
       ...data,
-      uri: data.adaptiveFormats.find(
-        ({ type }: any) => type === 'audio/webm; codecs="opus"'
-      ).url,
+      uri: data.liveNow
+        ? `${config.YOUTUBE_AUDIO_SERVER_API_URL}/${data.videoId}`
+        : data.adaptiveFormats.find(
+            ({ type }: any) => type === 'audio/webm; codecs="opus"'
+          ).url,
       thumbnail: data.videoThumbnails.find(
         ({ quality }: VideoThumbnail) => quality === 'medium'
       )

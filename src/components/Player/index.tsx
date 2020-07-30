@@ -60,30 +60,15 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
     MusicControl.enableControl('nextTrack', true);
     MusicControl.enableControl('previousTrack', true);
     MusicControl.enableControl('changePlaybackPosition', true);
-    MusicControl.enableControl('seek', true);
     MusicControl.enableControl('skipBackward', true, { interval: 15 });
     MusicControl.enableControl('skipForward', true, { interval: 30 });
     MusicControl.enableBackgroundMode(true);
-    MusicControl.on('play', () => {
-      actions.paused();
-      MusicControl.updatePlayback({
-        state: MusicControl.STATE_PLAYING
-      });
-    });
-    MusicControl.on('pause', () => {
-      actions.paused();
-      MusicControl.updatePlayback({
-        state: MusicControl.STATE_PAUSED
-      });
-    });
-    MusicControl.on(
-      'nextTrack',
-      () => props.nextVideoIndex && actions.loadVideo(props.nextVideoIndex)
-    );
+    MusicControl.on('play', () => pauseVideo(MusicControl.STATE_PLAYING));
+    MusicControl.on('pause', () => pauseVideo(MusicControl.STATE_PAUSED));
+    MusicControl.on('nextTrack', () => loadNextVideo);
     MusicControl.on(
       'previousTrack',
-      (): void =>
-        props.previousVideoIndex && actions.loadVideo(props.previousVideoIndex)
+      (): void => props.previousVideoIndex && loadPreviousVideo
     );
     MusicControl.on('skipBackward', (): void =>
       player.current?.seek(duration - 30)
@@ -123,13 +108,31 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
 
   const onEnd = (): void => {
     if (props.nextVideoIndex) {
-      actions.loadVideo(props.nextVideoIndex);
+      setLoading(true);
+      loadNextVideo();
     }
   };
 
   const onError = (): void => {
+    actions.setFlashMessage('Error from Stream API. Loading next video.');
     setLoading(false);
-    actions.setFlashMessage('Error from Stream API');
+  };
+
+  const loadNextVideo = () => {
+    if (props.nextVideoIndex) {
+      actions.loadVideo(props.nextVideoIndex);
+    }
+  };
+  const loadPreviousVideo = () => {
+    if (previousVideoIndex) {
+      actions.loadVideo(props.previousVideoIndex);
+    }
+  };
+  const pauseVideo = (state: string) => {
+    MusicControl.updatePlayback({
+      state
+    });
+    actions.paused();
   };
 
   if (!video) {
@@ -154,6 +157,7 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
         onLoadStart={onLoadStart}
         onEnd={onEnd}
         onError={onError}
+        onAudioBecomingNoisy={() => pauseVideo(MusicControl.STATE_STOPPED)}
       />
       <ViewPager
         style={styles.head}
@@ -164,13 +168,6 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
         ref={pager}>
         <View key="1" style={styles.head}>
           <View>
-            {isLoading && (
-              <ActivityIndicator
-                accessibilityStates={[]}
-                style={styles.loader}
-                color={color}
-              />
-            )}
             <Image
               source={{ uri: video.thumbnail.url }}
               style={{
@@ -235,41 +232,43 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
             }}
           />
         </View>
-        <View style={{ flexDirection: 'row', height: 57 }}>
-          <IconButton
-            accessibilityStates={[]}
-            icon="rewind-30"
-            onPress={() => player.current?.seek(currentTime - 30)}
-            color="white"
-            size={28}
-            animated
-          />
-          {loading ? (
-            <ActivityIndicator color="white" />
-          ) : (
+        {!video.liveNow && (
+          <View style={{ flexDirection: 'row', height: 57 }}>
             <IconButton
               accessibilityStates={[]}
-              icon="download"
+              icon="rewind-30"
+              onPress={() => player.current?.seek(currentTime - 30)}
               color="white"
-              size={30}
-              loading={loading}
-              onPress={() =>
-                downloadVideo({
-                  url: video.uri,
-                  fileName: video.title
-                })
-              }
+              size={28}
+              animated
             />
-          )}
-          <IconButton
-            accessibilityStates={[]}
-            icon="fast-forward-30"
-            onPress={(): void => player.current?.seek(currentTime + 30)}
-            color="white"
-            size={28}
-            animated
-          />
-        </View>
+            {loading ? (
+              <ActivityIndicator color="white" />
+            ) : (
+              <IconButton
+                accessibilityStates={[]}
+                icon="download"
+                color="white"
+                size={30}
+                loading={loading}
+                onPress={() =>
+                  downloadVideo({
+                    url: video.uri,
+                    fileName: video.title
+                  })
+                }
+              />
+            )}
+            <IconButton
+              accessibilityStates={[]}
+              icon="fast-forward-30"
+              onPress={(): void => player.current?.seek(currentTime + 30)}
+              color="white"
+              size={28}
+              animated
+            />
+          </View>
+        )}
         <View style={styles.progress}>
           <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
             {currentTime
@@ -318,32 +317,33 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
             accessibilityStates={[]}
             icon="skip-previous"
             color={color}
-            onPress={() => actions.loadVideo(props.previousVideoIndex)}
+            onPress={loadPreviousVideo}
             size={25}
             style={{
               backgroundColor: 'rgba(255, 255, 255, .3)',
               marginLeft: 'auto'
             }}
           />
-          <IconButton
-            accessibilityStates={[]}
-            icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
-            onPress={() => {
-              MusicControl.updatePlayback({
-                state: MusicControl.STATE_STOPPED
-              });
-              actions.paused();
-            }}
-            color={color}
-            style={{ width: 80, margin: 0, marginHorizontal: 20 }}
-            size={80}
-            animated
-          />
+          {isLoading ? (
+            <View style={{ padding: 35 }}>
+              <ActivityIndicator color="white" size={50} />
+            </View>
+          ) : (
+            <IconButton
+              accessibilityStates={[]}
+              icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
+              onPress={() => pauseVideo(MusicControl.STATE_STOPPED)}
+              color={color}
+              style={{ width: 80, margin: 0, marginHorizontal: 20 }}
+              size={80}
+              animated
+            />
+          )}
           <IconButton
             accessibilityStates={[]}
             color={color}
             icon="skip-next"
-            onPress={() => actions.loadVideo(props.nextVideoIndex)}
+            onPress={loadNextVideo}
             size={25}
             style={{
               backgroundColor: 'rgba(255, 255, 255, .3)',
