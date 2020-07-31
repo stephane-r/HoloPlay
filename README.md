@@ -48,12 +48,6 @@ Then, install dependencies :
 
 `yarn install`
 
-## Deployment
-
-HoP bundle JS is updated with [Code-Push](https://github.com/Microsoft/code-push/tree/master/cli) on every tags.
-
-See `.travis.yml` file for process.
-
 ## Built With
 
 - [React Native](https://facebook.github.io/react-native/)

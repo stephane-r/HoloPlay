@@ -17,7 +17,6 @@ before_install:
   - nvm install 12
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
-  - yarn global add code-push-cli
 before_script:
   - yarn install
 
@@ -33,7 +32,6 @@ jobs:
         - make setup-production-env
         - make setup
         - make android-release
-        - make code-push-production
 
 deploy:
   provider: releases

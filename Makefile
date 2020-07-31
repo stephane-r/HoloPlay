@@ -24,7 +24,6 @@ setup-production-env:
 setup:
 	@echo "--> Setup project env files"
 	sed s/KEYSTORE_PASSWORD/$(KEYSTORE_PASSWORD)/g android/.gradle.properties.dist > android/gradle.properties
-	sed s/CODE_PUSH_DEPLOY_KEY/$(CODE_PUSH_DEPLOY_KEY)/g android/app/src/main/res/values/.strings.xml.dist > android/app/src/main/res/values/strings.xml
 
 
 ##############
@@ -36,12 +35,3 @@ android-run:
 android-release:
 	@echo "--> Release Android App"
 	yarn android:release
-
-
-##########
-# Deploy #
-##########
-code-push-production:
-	@echo "--> Push bundle to code-push"
-	sed s/CODE_PUSH_LOGIN_KEY/$(CODE_PUSH_LOGIN_KEY)/g ./.code-push.config.dist > $(HOME)/.code-push.config
-	yarn code-push:release

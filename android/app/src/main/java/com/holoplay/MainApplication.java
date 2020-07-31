@@ -13,24 +13,12 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 
-import com.microsoft.codepush.react.CodePush;
-
 import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-
-            //   @Override
-            // public boolean getUseDeveloperSupport() {
-            //   return BuildConfig.DEBUG;
-            // }
-
-        @Override
-        protected String getJSBundleFile() {
-            return CodePush.getJSBundleFile();
-        }
 
         @Override
         public boolean getUseDeveloperSupport() {
