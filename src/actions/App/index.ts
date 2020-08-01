@@ -9,6 +9,7 @@ export interface AppState {
   logoutMode: boolean;
   flashMessage: FlashMessage;
   darkMode: boolean;
+  sendErrorMonitoring: boolean;
 }
 
 const appState: AppState = {
@@ -20,7 +21,8 @@ const appState: AppState = {
     message: null,
     visible: false
   },
-  darkMode: false
+  darkMode: false,
+  sendErrorMonitoring: false
 };
 
 const appActions = {
@@ -33,7 +35,8 @@ const appActions = {
       playlists,
       favorisPlaylist,
       logoutMode,
-      username
+      username,
+      sendErrorMonitoring
     ] = await Promise.all([
       AsyncStorage.getItem('darkMode'),
       AsyncStorage.getItem('searchHistory'),
@@ -42,7 +45,8 @@ const appActions = {
       AsyncStorage.getItem('playlists'),
       AsyncStorage.getItem('favorisPlaylist'),
       AsyncStorage.getItem('logoutMode'),
-      AsyncStorage.getItem('username')
+      AsyncStorage.getItem('username'),
+      AsyncStorage.getItem('sendErrorMonitoring')
     ]);
 
     return {
@@ -54,7 +58,9 @@ const appActions = {
       history: JSON.parse(searchHistory) ?? [],
       playlists: JSON.parse(playlists) ?? [],
       favorisPlaylist: JSON.parse(favorisPlaylist) ?? null,
-      logoutMode: JSON.parse(logoutMode) ?? appState.logoutMode
+      logoutMode: JSON.parse(logoutMode) ?? appState.logoutMode,
+      sendErrorMonitoring:
+        JSON.parse(sendErrorMonitoring) ?? appState.sendErrorMonitoring
     };
   },
   setToken: (store: Store, actions: any, token: string) => {
@@ -89,6 +95,14 @@ const appActions = {
     return {
       ...store,
       username
+    };
+  },
+  setSendErrorMonitoring: (store: Store, actions: any, value: boolean) => {
+    AsyncStorage.setItem('sendErrorMonitoring', String(value));
+
+    return {
+      ...store,
+      sendErrorMonitoring: value
     };
   },
   setFlashMessage: (store: Store, actions: any, message: any): Store => {

@@ -7,12 +7,7 @@ import { Provider } from './src/store';
 import AppContainer from './src/containers/App';
 import { quickActionShortcutItems } from './config/quickAction';
 import { Button } from 'react-native-paper';
-
-if (process.env.NODE_ENV === 'production') {
-  Sentry.init({
-    dsn: config.SENTRY_DSN_KEY
-  });
-}
+import useStore from './src/hooks/useStore';
 
 QuickActions.isSupported((error, supported) => {
   if (supported) {
@@ -22,10 +17,20 @@ QuickActions.isSupported((error, supported) => {
   return error;
 });
 
-const App = () => (
-  <Provider>
-    <AppContainer />
-  </Provider>
-);
+const App = () => {
+  const store = useStore();
+
+  if (store.sendErrorMonitoring) {
+    Sentry.init({
+      dsn: config.SENTRY_DSN_KEY
+    });
+  }
+
+  return (
+    <Provider>
+      <AppContainer />
+    </Provider>
+  );
+};
 
 export default App;

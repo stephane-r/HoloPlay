@@ -6,13 +6,15 @@ import {
   List,
   Divider,
   Button,
-  Text
+  Text,
+  Checkbox
 } from 'react-native-paper';
 import useStore from '../../hooks/useStore';
 import DialogEditToken from '../../components/Dialog/EditToken';
 import DialogEditApiInstance from '../../components/Dialog/EditApiInstance';
 import DialogEditUsername from '../../components/Dialog/EditUsername';
 import useBackup from '../../hooks/useBackup';
+import DialogErrorMonitoring from '../../components/Dialog/ErrorMonitoring';
 
 interface Props {
   navigation: any;
@@ -23,12 +25,17 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const [showDialogToken, setShowDialogToken] = useState(false);
   const [showDialogApiInstance, setShowDialogApiInstance] = useState(false);
   const [showDialogUsername, setShowDialogUsername] = useState(false);
+  const [showDialogErrorMonitoring, setShowDialogErrorMonitoring] = useState(
+    false
+  );
   const { backupData, importData } = useBackup();
 
   const toggleDialogToken = () => setShowDialogToken(!showDialogToken);
   const toggleDialogApiInstance = () =>
     setShowDialogApiInstance(!showDialogApiInstance);
   const toggleDialogUsername = () => setShowDialogUsername(!showDialogUsername);
+  const toggleDialogErrorMoniroting = () =>
+    setShowDialogErrorMonitoring(!showDialogErrorMonitoring);
 
   return (
     <View style={styles.container}>
@@ -65,6 +72,15 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           description={store.username}
           onPress={toggleDialogUsername}
         />
+        <Divider accessibilityStates={[]} />
+        <View>
+          <List.Item
+            accessibilityStates={[]}
+            title="Error and Performance Monitoring"
+            description={store.sendErrorMonitoring ? 'Enabled' : 'Disabled'}
+            onPress={toggleDialogErrorMoniroting}
+          />
+        </View>
         <Divider accessibilityStates={[]} />
       </View>
       <View style={styles.content}>
@@ -115,6 +131,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         visible={showDialogUsername}
         onDismiss={toggleDialogUsername}
         toggleDialog={toggleDialogUsername}
+      />
+      <DialogErrorMonitoring
+        value={store.sendErrorMonitoring as string}
+        visible={showDialogErrorMonitoring}
+        onDismiss={toggleDialogErrorMoniroting}
+        toggleDialog={toggleDialogErrorMoniroting}
       />
     </View>
   );
