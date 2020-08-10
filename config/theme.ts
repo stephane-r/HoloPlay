@@ -24,7 +24,7 @@ export const defaultTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: DefaultTheme.text,
+    primary: DASHBOARD_COLOR,
     background: '#f5f6f9',
     favoris: FAVORIS_COLOR,
     fabGroup: PLAYLISTS_COLOR,

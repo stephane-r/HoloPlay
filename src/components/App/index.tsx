@@ -1,17 +1,16 @@
+import {
+  Provider as PaperProvider,
+  Button,
+  useTheme
+} from 'react-native-paper';
 import React, { useState, memo, useRef, useEffect } from 'react';
 import config from 'react-native-config';
 import QuickActions from 'react-native-quick-actions';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import {
-  Provider as PaperProvider,
-  Button,
-  useTheme
-} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import StorybookUI from '../../../storybook';
 import SnackbarContainer from '../../containers/Snackbar';
 import { actions } from '../../store';
 import SidebarContainer from '../../containers/Sidebar';
@@ -36,11 +35,11 @@ import {
 } from '../../../config/quickAction';
 import fetchPlaylists from '../../utils/fetchPlaylists';
 import SettingsScreen from '../../screens/Settings';
-import { Animated, Dimensions, View, Alert } from 'react-native';
+import { Animated, Dimensions, View, LogBox } from 'react-native';
 import AppPlayer from '../AppPlayer';
 
 // :troll:
-console.disableYellowBox = true;
+LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -104,10 +103,6 @@ const App: React.FC<Props> = () => {
       })
       .catch((error) => console.log(error));
   }, []);
-
-  if (config.STORYBOOK === 'true') {
-    return <StorybookUI />;
-  }
 
   if (isLoading) {
     return <LoadingScreen />;

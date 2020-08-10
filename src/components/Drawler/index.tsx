@@ -43,7 +43,7 @@ const Drawler: React.FC<Props> = ({ setTheme, darkMode }) => {
         <Drawer.Item
           accessibilityStates={[]}
           label="Settings"
-          icon="settings"
+          icon="cog"
           onPress={() => navigation.navigate('Settings')}
         />
         <View style={styles.switchContainer}>
