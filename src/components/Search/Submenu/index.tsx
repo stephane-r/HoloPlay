@@ -4,7 +4,8 @@ import {
   Searchbar,
   Text,
   TouchableRipple,
-  IconButton
+  IconButton,
+  useTheme
 } from 'react-native-paper';
 import { useAnimation } from 'react-native-animation-hooks';
 import { actions } from '../../../store';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const SearchSubmenu: React.FC<Props> = ({ isOpen, selectValue, items }) => {
+  const { colors } = useTheme();
   const opacity = useAnimation({
     toValue: isOpen ? 1 : 0,
     type: 'timing',
@@ -25,7 +27,7 @@ const SearchSubmenu: React.FC<Props> = ({ isOpen, selectValue, items }) => {
 
   return (
     <Animated.View
-      style={[styles.submenu, { opacity }]}
+      style={[styles.submenu, { backgroundColor: colors.surface, opacity }]}
       pointerEvents={isOpen ? 'auto' : 'none'}>
       {items.map((text, index) => (
         <TouchableRipple key={index} onPress={() => selectValue(text)}>
@@ -33,6 +35,7 @@ const SearchSubmenu: React.FC<Props> = ({ isOpen, selectValue, items }) => {
             style={[
               styles.item,
               {
+                borderTopColor: colors.placeholder,
                 borderTopWidth: index === 0 ? 0 : 1
               }
             ]}>
@@ -51,12 +54,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     elevation: 2,
-    backgroundColor: 'white',
     zIndex: 2,
     borderRadius: 4
   },
   item: {
-    borderTopColor: '#bdc3c7',
     padding: 7
   }
 });

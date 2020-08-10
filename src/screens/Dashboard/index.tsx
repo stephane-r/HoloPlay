@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Title } from 'react-native-paper';
+import { Title, useTheme } from 'react-native-paper';
 import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
 import SearchbarContainer from '../../containers/Search/Bar';
@@ -13,15 +13,18 @@ import SearchPickerTypeContainer from '../../containers/Search/PickerType';
 import { DASHBOARD_COLOR } from '../../../config/theme';
 import ProfilContainer from '../../containers/Profil';
 
-const DashboardScreen: React.FC = () => {
-  const userPlaylistsEmpty = false;
-  const carouselContainerStyles = {
-    marginBottom: userPlaylistsEmpty ? 0 : -60
-  };
+const DashboardScreen: React.FC = ({ route }) => {
+  const { colors } = useTheme();
 
   return (
-    <Layout>
-      <View style={styles.header}>
+    <Layout setTheme={route.params.toggleTheme}>
+      <View
+        style={[
+          styles.header,
+          {
+            backgroundColor: colors.screens.dashboard
+          }
+        ]}>
         <SearchbarContainer />
         <Spacer height={15} />
         <ProfilContainer />
@@ -43,7 +46,6 @@ const DashboardScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: DASHBOARD_COLOR,
     marginHorizontal: -16,
     paddingHorizontal: 16
   },

@@ -4,7 +4,11 @@ import QuickActions from 'react-native-quick-actions';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Provider as PaperProvider, Button } from 'react-native-paper';
+import {
+  Provider as PaperProvider,
+  Button,
+  useTheme
+} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import StorybookUI from '../../../storybook';
@@ -45,22 +49,33 @@ interface Props {
   darkMode: boolean;
 }
 
-const App: React.FC<Props> = ({ darkMode }) => {
+const App: React.FC<Props> = () => {
   const navigation = useRef(null);
   const [appToken, setToken] = useState<null | string>(null);
   const [appLogoutMode, setLogoutMode] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleTheme = (value: boolean): void => {
+    setDarkMode(value);
+    AsyncStorage.setItem('darkMode', JSON.stringify(value));
+  };
+
+  const theme = darkMode ? darkTheme : defaultTheme;
 
   useEffect(() => {
     actions.appInit();
 
     QuickActions.popInitialAction()
       .then(async (action: QuickAction) => {
-        const [instance, token, logoutMode] = await Promise.all([
+        const [instance, token, logoutMode, isDarkmode] = await Promise.all([
           AsyncStorage.getItem('instance'),
           AsyncStorage.getItem('token'),
-          AsyncStorage.getItem('logoutMode')
+          AsyncStorage.getItem('logoutMode'),
+          AsyncStorage.getItem('darkMode')
         ]);
+
+        setDarkMode(JSON.parse(isDarkmode));
 
         const logoutModeParsed = JSON.parse(logoutMode);
 
@@ -68,8 +83,6 @@ const App: React.FC<Props> = ({ darkMode }) => {
           try {
             await fetchPlaylists();
           } catch (error) {
-            // TODO: Add sentry exception
-            console.log(error);
             return setIsLoading(false);
           }
         }
@@ -101,7 +114,7 @@ const App: React.FC<Props> = ({ darkMode }) => {
   }
 
   return (
-    <PaperProvider theme={darkMode ? darkTheme : defaultTheme}>
+    <PaperProvider theme={theme}>
       <NavigationContainer ref={navigation}>
         {appToken === null && !appLogoutMode ? (
           <Stack.Navigator headerMode="none">
@@ -113,7 +126,11 @@ const App: React.FC<Props> = ({ darkMode }) => {
           </Stack.Navigator>
         ) : (
           <Stack.Navigator headerMode="none">
-            <Stack.Screen name="App" component={AppScreen} />
+            <Stack.Screen
+              name="App"
+              component={AppScreen}
+              initialParams={{ toggleTheme }}
+            />
             <Stack.Screen name="Settings" component={SettingsScreen} />
           </Stack.Navigator>
         )}
@@ -124,25 +141,32 @@ const App: React.FC<Props> = ({ darkMode }) => {
   );
 };
 
-const AppScreen = () => (
-  <Tab.Navigator shifting>
-    <Tab.Screen
-      name="Dashboard"
-      component={DashboardScreen}
-      options={tabOptions('home', DASHBOARD_COLOR)}
-    />
-    <Tab.Screen
-      name="Playlists"
-      component={PlaylistsScreen}
-      options={tabOptions('headset', PLAYLISTS_COLOR)}
-    />
-    <Tab.Screen
-      name="Favoris"
-      component={FavorisScreen}
-      options={tabOptions('heart', FAVORIS_COLOR)}
-    />
-  </Tab.Navigator>
-);
+const AppScreen = ({ route }) => {
+  const { colors } = useTheme();
+
+  return (
+    <Tab.Navigator shifting>
+      <Tab.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={tabOptions('home', colors.screens.dashboard)}
+        initialParams={route.params}
+      />
+      <Tab.Screen
+        name="Playlists"
+        component={PlaylistsScreen}
+        options={tabOptions('headset', colors.screens.playlists)}
+        initialParams={route.params}
+      />
+      <Tab.Screen
+        name="Favoris"
+        component={FavorisScreen}
+        options={tabOptions('heart', colors.screens.favoris)}
+        initialParams={route.params}
+      />
+    </Tab.Navigator>
+  );
+};
 
 const tabOptions = (iconName: string, tabBarColor: string): any => ({
   tabBarIcon: ({ tintColor }: any): any => (

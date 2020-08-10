@@ -7,7 +7,8 @@ import {
   Divider,
   Button,
   Text,
-  Checkbox
+  Checkbox,
+  useTheme
 } from 'react-native-paper';
 import useStore from '../../hooks/useStore';
 import DialogEditToken from '../../components/Dialog/EditToken';
@@ -22,6 +23,7 @@ interface Props {
 
 const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const store = useStore();
+  const { colors } = useTheme();
   const [showDialogToken, setShowDialogToken] = useState(false);
   const [showDialogApiInstance, setShowDialogApiInstance] = useState(false);
   const [showDialogUsername, setShowDialogUsername] = useState(false);
@@ -38,7 +40,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
     setShowDialogErrorMonitoring(!showDialogErrorMonitoring);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Appbar accessibilityStates={[]}>
         <Appbar.BackAction
           accessibilityStates={[]}
@@ -144,12 +146,10 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f6f9',
     flex: 1
   },
   content: {
-    flexDirection: 'column',
-    backgroundColor: '#f5f6f9'
+    flexDirection: 'column'
   },
   switchContainer: {
     flexDirection: 'row',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Alert } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import Card from '../Layout';
 import { actions, Store } from '../../../store';
 import Spacer from '../../Spacer';
@@ -34,6 +34,7 @@ const CardPlaylist: React.FC<Props> = ({
   const [isLoading, setIsLoading] = useState(false);
   const { removePlaylist } = usePlaylist();
   const { removeVideo } = useVideo();
+  const { colors } = useTheme();
 
   const onPress = () => {
     setIsLoading(true);
@@ -67,6 +68,7 @@ const CardPlaylist: React.FC<Props> = ({
                 }
               }
             }}
+            color={colors.text}
             onRemove={(videoIndexId: string) =>
               removeVideo(videoIndexId, playlist.playlistId)
             }

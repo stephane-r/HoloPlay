@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { IconButton, Button } from 'react-native-paper';
+import { IconButton, Button, useTheme } from 'react-native-paper';
 import { actions } from '../../../store';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
@@ -22,6 +22,7 @@ const Favoris: React.FC<Props> = ({
   buttonWithIcon,
   color
 }) => {
+  const { colors } = useTheme();
   const { addToFavoris, removeFromFavoris } = useFavoris();
 
   useEffect(() => {}, []);
@@ -46,7 +47,7 @@ const Favoris: React.FC<Props> = ({
 
   const iconColor = {
     icon: isFavoris ? 'heart' : 'heart-outline',
-    color: color ?? (isFavoris ? '#EE05F2' : '#607D8B')
+    color: color ?? (isFavoris ? colors.favoris : colors.primary)
   };
 
   if (buttonWithIcon) {

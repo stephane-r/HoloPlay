@@ -4,7 +4,7 @@ import QuickActions from 'react-native-quick-actions';
 import React, { useEffect } from 'react';
 import * as Sentry from '@sentry/react-native';
 import { Provider } from './src/store';
-import AppContainer from './src/containers/App';
+import App from './src/components/App';
 import { quickActionShortcutItems } from './config/quickAction';
 import { Button } from 'react-native-paper';
 import useStore from './src/hooks/useStore';
@@ -17,7 +17,7 @@ QuickActions.isSupported((error, supported) => {
   return error;
 });
 
-const App = () => {
+export default () => {
   const store = useStore();
 
   if (store.sendErrorMonitoring) {
@@ -28,9 +28,7 @@ const App = () => {
 
   return (
     <Provider>
-      <AppContainer />
+      <App />
     </Provider>
   );
 };
-
-export default App;

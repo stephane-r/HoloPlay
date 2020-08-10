@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Drawer, Switch, Paragraph } from 'react-native-paper';
+import {
+  Drawer,
+  Switch,
+  Paragraph,
+  useTheme,
+  IconButton
+} from 'react-native-paper';
 import { actions } from '../../store';
 import AppVersion from '../Version';
 import { useNavigation } from '@react-navigation/native';
@@ -9,17 +15,24 @@ interface Props {
   darkMode: boolean;
 }
 
-const Drawler: React.FC<Props> = ({ darkMode }) => {
+const Drawler: React.FC<Props> = ({ setTheme, darkMode }) => {
   const [isDarkMode, setDarkMode] = useState<boolean>(darkMode);
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
-  const toggleDarkMode = (): void => {
+  const toggleDarkMode = (value): void => {
     setDarkMode(!isDarkMode);
-    actions.setDarkMode(!isDarkMode);
+    setTheme(value);
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.background
+        }
+      ]}>
       <Drawer.Section title="Navigation">
         <Drawer.Item
           accessibilityStates={[]}
@@ -34,12 +47,23 @@ const Drawler: React.FC<Props> = ({ darkMode }) => {
           onPress={() => navigation.navigate('Settings')}
         />
         <View style={styles.switchContainer}>
-          <Paragraph style={styles.paragraph}>Dark theme (soon)</Paragraph>
-          <Switch
+          <Drawer.Item
             accessibilityStates={[]}
-            value={isDarkMode}
-            onValueChange={toggleDarkMode}
+            label="Dark theme"
+            icon="lightbulb-on"
           />
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'flex-end',
+              justifyContent: 'center'
+            }}>
+            <Switch
+              accessibilityStates={[]}
+              value={isDarkMode}
+              onValueChange={toggleDarkMode}
+            />
+          </View>
         </View>
       </Drawer.Section>
       <AppVersion />
@@ -49,13 +73,9 @@ const Drawler: React.FC<Props> = ({ darkMode }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-  switchContainer: { flexDirection: 'row', padding: 16 },
-  paragraph: {
     flex: 1
-  }
+  },
+  switchContainer: { flexDirection: 'row', paddingRight: 16 }
 });
 
 export default Drawler;

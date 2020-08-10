@@ -65,6 +65,7 @@ const Search: React.FC<SearchProps> = ({ history }) => {
             selectValue={(value: string): void => {
               setValue(value);
               toggleSubmenu();
+              searchThroughApi();
             }}
             isOpen={showSubmenu}
           />

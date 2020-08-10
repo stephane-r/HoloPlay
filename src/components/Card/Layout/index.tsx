@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { Subheading, ActivityIndicator } from 'react-native-paper';
+import { Subheading, ActivityIndicator, useTheme } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import Label from '../../Label';
 import { DASHBOARD_COLOR } from '../../../../config/theme';
@@ -39,6 +39,8 @@ const CardLayout: React.FC<CardProps> = ({
   isLoading,
   ...props
 }) => {
+  const { colors } = useTheme();
+
   const isHorizontal = alignment === HORIZONTAL_ALIGNMENT;
   const containerStyles = isHorizontal
     ? stylesHorizontal.container
@@ -56,7 +58,14 @@ const CardLayout: React.FC<CardProps> = ({
 
   return (
     <View style={containerStyles}>
-      <View style={[cardStyles, customStyle]}>
+      <View
+        style={[
+          cardStyles,
+          {
+            backgroundColor: colors.surface
+          },
+          customStyle
+        ]}>
         <TouchableNativeFeedback
           onPress={() => props.onPress && props.onPress(props.index)}>
           <View
@@ -137,7 +146,6 @@ const stylesVertical = StyleSheet.create({
   card: {
     elevation: 2,
     flex: 1,
-    backgroundColor: 'white',
     borderRadius: 4,
     padding: 10
   },
@@ -165,7 +173,7 @@ const stylesHorizontal = StyleSheet.create({
     paddingBottom: 20
   },
   card: {
-    elevation: 2,
+    elevation: 4,
     flexDirection: 'row',
     flexWrap: 'wrap',
     backgroundColor: 'white',
