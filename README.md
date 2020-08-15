@@ -1,10 +1,10 @@
-<div style="text-align: center;">
+<p style="text-align: center;">
     <img src="./docs/logo.png" width="150" />
     <h2>HoloPlay</h2>
     <a href="https://travis-ci.org/stephane-r/HoloPlay"><img src="https://img.shields.io/github/v/tag/stephane-r/HoloPlay" alt="Build Status"></a>
     <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://travis-ci.org/google/clasp.svg?branch=master" alt="Build Status"></a>
     <a href="https://github.com/stephane-r/HoloPlay/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="Build Status"></a>
-</div>
+</p>
 
 <hr>
 
