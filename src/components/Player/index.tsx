@@ -39,7 +39,13 @@ interface Props {
   nextVideoIndex: () => void;
 }
 
-const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
+const Player: React.FC<Props> = ({
+  video,
+  paused,
+  repeat,
+  closePlayer,
+  ...props
+}) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [color, setColor] = useState('#FFFFFF');
@@ -188,6 +194,24 @@ const Player: React.FC<Props> = ({ video, paused, repeat, ...props }) => {
                 style={{
                   height: 100
                 }}
+              />
+            </View>
+            <View
+              style={{
+                position: 'absolute',
+                top: 15,
+                left: 15,
+                backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                borderRadius: 50
+              }}>
+              <IconButton
+                accessibilityStates={[]}
+                icon="chevron-left"
+                color="white"
+                style={{ margin: 0 }}
+                onPress={() => setTimeout(() => closePlayer(), 200)}
+                size={28}
+                animated
               />
             </View>
           </View>

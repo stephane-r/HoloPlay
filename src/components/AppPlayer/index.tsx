@@ -33,7 +33,7 @@ const AppPlayer: React.FC<Props> = () => {
         ref={bottomSheet}
         height={Dimensions.get('window').height}
         onClose={onClose}>
-        <PlayerContainer />
+        <PlayerContainer closePlayer={() => bottomSheet.current.close()} />
       </BottomSheet>
     </>
   );
