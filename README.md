@@ -8,6 +8,7 @@ HoP has not been tested on iOS because i'm on a Linux environment. PR needed are
 ![Player](./docs/player.jpg)
 ![Playlist screen](./docs/playlists.jpg)
 ![Favoris screen](./docs/favoris.jpg)
+![Dashboard dark screen](./docs/dashboard-dark.jpg)
 ![Quick Actions](./docs/quick-actions.jpg)
 
 Interface based on beautiful free [Music Song](https://www.uplabs.com/posts/music-song).
@@ -25,6 +26,7 @@ Interface based on beautiful free [Music Song](https://www.uplabs.com/posts/musi
 - **Respect your privacy**
 - **Open Source**
 - **Cloud Syncing**
+- **Dark Theme**
 
 ## Getting Started
 
