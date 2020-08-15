@@ -1,6 +1,6 @@
+<p align="center"><img src="./docs/logo.png" width="150" /></p>
+<h2 align="center">HoloPlay</h2>
 <p align="center">
-    <img src="./docs/logo.png" width="150" />
-    <h2>HoloPlay</h2>
     <a href="https://travis-ci.org/stephane-r/HoloPlay"><img src="https://img.shields.io/github/v/tag/stephane-r/HoloPlay" alt="Build Status"></a>
     <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://travis-ci.org/google/clasp.svg?branch=master" alt="Build Status"></a>
     <a href="https://github.com/stephane-r/HoloPlay/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="Build Status"></a>
@@ -12,12 +12,12 @@ HoloPlay (HoP) is an open source app, can stream Youtube audio with an open sour
 
 HoP has not been tested on iOS because i'm on a Linux environment. PR needed are welcome :)
 
-![Dashboard screen](./docs/dashboard.jpg)
-![Player](./docs/player.jpg)
-![Playlist screen](./docs/playlists.jpg)
-![Favoris screen](./docs/favoris.jpg)
-![Dashboard dark screen](./docs/dashboard-dark.jpg)
-![Quick Actions](./docs/quick-actions.jpg)
+[<img src="docs/dashboard.jpg" width=250>](./docs/dashboard.jpg)
+[<img src="docs/player.jpg" width=250>](./docs/player.jpg)
+[<img src="docs/playlists.jpg" width=250>](./docs/playlists.jpg)
+[<img src="docs/favoris.jpg" width=250>](./docs/favoris.jpg)
+[<img src="docs/dashboard-dark.jpg" width=250>](./docs/dashboard-dark.jpg)
+[<img src="docs/quick-actions.jpg" width=250>](./docs/quick-actions.jpg)
 
 Interface based on beautiful free [Music Song](https://www.uplabs.com/posts/music-song).
 
