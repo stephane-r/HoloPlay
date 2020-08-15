@@ -1,4 +1,4 @@
-<p style="text-align: center;">
+<p align="center">
     <img src="./docs/logo.png" width="150" />
     <h2>HoloPlay</h2>
     <a href="https://travis-ci.org/stephane-r/HoloPlay"><img src="https://img.shields.io/github/v/tag/stephane-r/HoloPlay" alt="Build Status"></a>
