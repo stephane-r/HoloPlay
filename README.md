@@ -1,4 +1,12 @@
-# HoloPlay :notes: ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/stephane-r/HoloPlay) [![build status](https://img.shields.io/travis/stephane-r/HoloPlay/master.svg?style=flat-square)](https://travis-ci.org/stephane-r/HoloPlay) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
+<div style="text-align: center;">
+    <img src="./docs/logo.png" width="150" />
+    <h2>HoloPlay</h2>
+    <a href="https://travis-ci.org/stephane-r/HoloPlay"><img src="https://img.shields.io/github/v/tag/stephane-r/HoloPlay" alt="Build Status"></a>
+    <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://travis-ci.org/google/clasp.svg?branch=master" alt="Build Status"></a>
+    <a href="https://github.com/stephane-r/HoloPlay/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="Build Status"></a>
+</div>
+
+<hr>
 
 HoloPlay (HoP) is an open source app, can stream Youtube audio with an open source [Invidious API](https://github.com/omarroth/invidious). You can add your Invidious token and save music to favoris or create your playlists.
 
