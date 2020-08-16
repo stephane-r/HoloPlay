@@ -1,0 +1,18 @@
+HoloPlay is a Youtube alternative app using Invidious API. You can add your Invidious token and save music to favoris or create your playlists.
+
+Features :
+
+- Search by video and playlist
+- Live video
+- Create your playlists
+- Save on favoris
+- Downloading video
+- Background mode
+- Offline
+- Work on Android Auto
+- Respect your privacy
+- Open Source
+- Cloud Syncing
+- Dark Theme
+
+HoloPlay is an open source project and can be found at https://github.com/stephane-r/HoloPlay.
