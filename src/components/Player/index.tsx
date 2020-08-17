@@ -122,7 +122,9 @@ const Player: React.FC<Props> = ({
   };
 
   const onError = (): void => {
-    actions.setFlashMessage('Error from Stream API. Loading next video.');
+    actions.setFlashMessage({
+      message: 'Error from Stream API. Loading next video'
+    });
     setLoading(false);
   };
 

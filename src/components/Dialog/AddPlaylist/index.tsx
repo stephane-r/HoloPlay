@@ -49,7 +49,7 @@ const DialogAddPlaylist: React.FC<Props> = ({
       return createPlaylist(playlist, closeDialog);
     }
 
-    return actions.setFlashMessage('You must name your playlist.');
+    return actions.setFlashMessage({ message: 'You must name your playlist' });
   };
 
   const closeDialog = (): void => {

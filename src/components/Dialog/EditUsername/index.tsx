@@ -33,17 +33,24 @@ const DialogEditUsername: React.FC<Props> = ({
         actions.setUsername(username);
         toggleDialog();
         return setTimeout(
-          () => actions.setFlashMessage('Your username is updated.'),
+          () =>
+            actions.setFlashMessage({
+              message: 'Your username is updated'
+            }),
           500
         );
       } catch (error) {
         console.log(error);
-        actions.setFlashMessage('Error');
+        actions.setFlashMessage({
+          message: 'Error'
+        });
       } finally {
         setLoading(false);
       }
     } else {
-      actions.setFlashMessage('You can not set empty username.');
+      actions.setFlashMessage({
+        message: 'You can not set empty username'
+      });
     }
   };
 

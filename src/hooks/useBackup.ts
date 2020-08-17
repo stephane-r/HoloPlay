@@ -24,10 +24,14 @@ const useBackup = () => {
       }),
       'utf8'
     )
-      .then(() => actions.setFlashMessage('Your data are exported.'))
+      .then(() =>
+        actions.setFlashMessage({ message: 'Your data are exported' })
+      )
       .catch((error) => {
         console.log(error);
-        actions.setFlashMessage('Error : your data can not be exported.');
+        actions.setFlashMessage({
+          message: 'Error : your data can not be exported.'
+        });
       });
   };
 
@@ -41,11 +45,13 @@ const useBackup = () => {
       })
       .then(async (data) => {
         await actions.importData(JSON.parse(data));
-        actions.setFlashMessage('Your data are imported.');
+        actions.setFlashMessage({ message: 'Your data are imported.' });
       })
       .catch((error) => {
         console.log(error);
-        actions.setFlashMessage('Error : your data can not be imported.');
+        actions.setFlashMessage({
+          message: 'Error : your data can not be imported.'
+        });
       });
   };
 

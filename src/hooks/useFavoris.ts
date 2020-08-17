@@ -31,12 +31,14 @@ const useFavoris = () => {
       });
 
       return setTimeout(
-        () => actions.setFlashMessage(`Playlist Favoris was created.`),
+        () =>
+          actions.setFlashMessage({ message: `Playlist Favoris was created.` }),
         500
       );
     } catch (error) {
       return setTimeout(
-        () => actions.setFlashMessage(`Playlist Favoris not created.`),
+        () =>
+          actions.setFlashMessage({ message: `Playlist Favoris not created.` }),
         500
       );
     }
@@ -61,7 +63,7 @@ const useFavoris = () => {
         });
       }
 
-      return actions.setFlashMessage('Added from favoris');
+      return actions.setFlashMessage({ message: 'Added from favoris' });
     } catch (error) {
       return console.log(error);
     }
@@ -70,7 +72,7 @@ const useFavoris = () => {
   const removeFromFavoris = async (playlistId: string, video: Video) => {
     try {
       actions.removeFromFavoris(video.videoId);
-      actions.setFlashMessage('Removed from favoris');
+      actions.setFlashMessage({ message: 'Removed from favoris' });
 
       if (!store.logoutMode) {
         await callApi({
@@ -79,7 +81,7 @@ const useFavoris = () => {
         });
       }
 
-      return actions.setFlashMessage('Removed from favoris');
+      return actions.setFlashMessage({ message: 'Removed from favoris' });
     } catch (error) {
       return console.log(error);
     }

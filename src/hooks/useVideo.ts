@@ -35,11 +35,13 @@ const useVideo = () => {
       callback();
     }
 
-    return actions.setFlashMessage(
-      `${video.title} has been added to your playlist.`
-    );
+    return actions.setFlashMessage({
+      message: `${video.title} has been added to your playlist`
+    });
 
-    return actions.setFlashMessage('You need to select a playlist.');
+    return actions.setFlashMessage({
+      message: 'You need to select a playlist'
+    });
   };
 
   const removeVideo = async (
@@ -62,7 +64,9 @@ const useVideo = () => {
       indexId: videoIndexId
     });
 
-    return actions.setFlashMessage(`${videoIndexId} has been removed.`);
+    return actions.setFlashMessage({
+      message: `${videoIndexId} has been removed`
+    });
   };
 
   return {

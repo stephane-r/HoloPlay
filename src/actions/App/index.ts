@@ -19,7 +19,11 @@ const appState: AppState = {
   logoutMode: false,
   flashMessage: {
     message: null,
-    visible: false
+    visible: false,
+    action: {
+      label: 'Close',
+      onPress: (): null => null
+    }
   },
   darkMode: false,
   sendErrorMonitoring: false
@@ -105,24 +109,34 @@ const appActions = {
       sendErrorMonitoring: value
     };
   },
-  setFlashMessage: (store: Store, actions: any, message: any): Store => {
-    return {
-      ...store,
-      flashMessage: {
-        message,
-        visible: true
-      }
-    };
-  },
-  hideFlashMessage: (store: Store): Store => {
+  setFlashMessage: (store: Store, actions: any, flashMessage: any): Store => {
+    if (flashMessage.action) {
+      setTimeout((): void => actions.setDefaultFlashMessageAction(), 7000);
+    }
+
     return {
       ...store,
       flashMessage: {
         ...store.flashMessage,
-        visible: false
+        ...flashMessage,
+        visible: true
       }
     };
   },
+  hideFlashMessage: (store: Store): Store => ({
+    ...store,
+    flashMessage: {
+      ...store.flashMessage,
+      visible: false
+    }
+  }),
+  setDefaultFlashMessageAction: (store: Store): Store => ({
+    ...store,
+    flashMessage: {
+      ...store.flashMessage,
+      action: appState.flashMessage.action
+    }
+  }),
   setDarkMode: async (
     store: Store,
     actions: any,

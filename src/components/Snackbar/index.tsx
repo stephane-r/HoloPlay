@@ -11,16 +11,12 @@ interface Props {
 const SNACKBAR_DURATION: number = 5000;
 
 const Snackbar: React.FC<Props> = ({ flashMessage }) => (
-  // @ts-ignore
   <PaperSnackBar
     visible={flashMessage.visible}
     duration={SNACKBAR_DURATION}
     style={{ width: Dimensions.get('window').width - 32, margin: 16 }}
     onDismiss={(): void => actions.hideFlashMessage(false)}
-    action={{
-      label: 'Close',
-      onPress: (): null => null
-    }}>
+    action={flashMessage.action}>
     {flashMessage.message}
   </PaperSnackBar>
 );

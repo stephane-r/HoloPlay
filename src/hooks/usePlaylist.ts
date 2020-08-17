@@ -45,7 +45,8 @@ const usePlaylist = (): void => {
     }
 
     return setTimeout(
-      () => actions.setFlashMessage(`${playlistName} was created.`),
+      () =>
+        actions.setFlashMessage({ message: `${playlistName} was created.` }),
       500
     );
   };
@@ -60,7 +61,7 @@ const usePlaylist = (): void => {
         ...playlist,
         title: playlist.title
       });
-      actions.setFlashMessage(`${playlist.title} was updated.`);
+      actions.setFlashMessage({ message: `${playlist.title} was updated.` });
 
       if (!store.logoutMode) {
         await callApi({
@@ -74,7 +75,7 @@ const usePlaylist = (): void => {
       }
     } catch (error) {
       console.log(error);
-      // actions.setFlashMessage(`Error : ${playlist.title} not updated.`);
+      // actions.setFlashMessage({message: `Error : ${playlist.title} not updated.`});
     } finally {
       if (callback) {
         callback();
@@ -89,7 +90,9 @@ const usePlaylist = (): void => {
     try {
       // Updating store before because this callApi return an error if success ...
       actions.removePlaylist(playlist.playlistId);
-      actions.setFlashMessage(`${playlist.title} has been removed.`);
+      actions.setFlashMessage({
+        message: `${playlist.title} has been removed.`
+      });
 
       if (!store.logoutMode) {
         await callApi({
@@ -99,9 +102,6 @@ const usePlaylist = (): void => {
       }
     } catch (error) {
       console.log(error);
-      // actions.setFlashMessage(
-      //   `Error : ${playlist.title} has not been removed.`
-      // );
     } finally {
       if (callback) {
         callback();

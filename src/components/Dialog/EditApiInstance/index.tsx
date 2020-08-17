@@ -46,9 +46,9 @@ const DialogEditApiInstance: React.FC<Props> = ({
 
       return setTimeout(
         () =>
-          actions.setFlashMessage(
-            'Invidous instance updated. Playlists are updated.'
-          ),
+          actions.setFlashMessage({
+            message: 'Invidous instance updated. Playlists are updated.'
+          }),
         500
       );
     } catch (error) {
@@ -56,9 +56,9 @@ const DialogEditApiInstance: React.FC<Props> = ({
       actions.clearData();
       return setTimeout(
         () =>
-          actions.setFlashMessage(
-            'Invidous instance updated. Consider changing your token.'
-          ),
+          actions.setFlashMessage({
+            message: 'Invidous instance updated. Consider changing your token.'
+          }),
         500
       );
     } finally {

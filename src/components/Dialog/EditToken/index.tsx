@@ -40,12 +40,16 @@ const DialogEditToken: React.FC<Props> = ({
         toggleDialog();
         return setTimeout(
           () =>
-            actions.setFlashMessage('Your playlists and favoris are imported.'),
+            actions.setFlashMessage({
+              message: 'Your playlists and favoris are imported'
+            }),
           500
         );
       } catch (error) {
         console.log(error);
-        actions.setFlashMessage('Error');
+        actions.setFlashMessage({
+          message: 'Error'
+        });
       } finally {
         setLoading(false);
       }

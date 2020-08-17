@@ -33,12 +33,17 @@ const DialogErrorMonitoring: React.FC<Props> = ({
       actions.setSendErrorMonitoring(checked);
       toggleDialog();
       return setTimeout(
-        () => actions.setFlashMessage('Monitoring setting is updated.'),
+        () =>
+          actions.setFlashMessage({
+            message: 'Monitoring setting is updated'
+          }),
         500
       );
     } catch (error) {
       console.log(error);
-      actions.setFlashMessage('Error');
+      actions.setFlashMessage({
+        message: 'Error'
+      });
     } finally {
       setLoading(false);
     }

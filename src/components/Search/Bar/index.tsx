@@ -34,7 +34,7 @@ const Search: React.FC<SearchProps> = ({ history }) => {
       return actions.search(value);
     }
 
-    return actions.setFlashMessage(SEARCH_EMPTY_VALUE);
+    return actions.setFlashMessage({ message: SEARCH_EMPTY_VALUE });
   };
 
   const toggleSubmenu = (): void => setShowSubmenu(!showSubmenu);

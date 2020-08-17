@@ -77,7 +77,7 @@ const playerActions = {
     const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
 
     if (data.error) {
-      return actions.setFlashMessage('Error on load video');
+      return actions.setFlashMessage({ message: 'Error on load video' });
     }
 
     const videoUpdated = {
