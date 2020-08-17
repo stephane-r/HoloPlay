@@ -52,7 +52,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       }
     } catch (error) {
       console.log(error);
-      actions.setFlashMessage(error.message);
+      actions.setFlashMessage(error);
     }
   };
 
@@ -79,7 +79,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       return onSuccess('null');
     } catch (error) {
       console.log(error);
-      actions.setFlashMessage(error.message);
+      actions.setFlashMessage(error);
     }
   };
 

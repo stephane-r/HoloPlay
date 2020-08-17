@@ -37,6 +37,7 @@ import fetchPlaylists from '../../utils/fetchPlaylists';
 import SettingsScreen from '../../screens/Settings';
 import { Animated, Dimensions, View, LogBox } from 'react-native';
 import AppPlayer from '../AppPlayer';
+import useUpdateRelease from '../../hooks/useUpdateRelease';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -54,6 +55,8 @@ const App: React.FC<Props> = () => {
   const [appLogoutMode, setLogoutMode] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [darkMode, setDarkMode] = useState(false);
+
+  useUpdateRelease(true);
 
   const toggleTheme = (value: boolean): void => {
     setDarkMode(value);
