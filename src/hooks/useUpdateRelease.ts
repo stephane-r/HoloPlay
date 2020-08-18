@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
+import RNFetchBlob from 'rn-fetch-blob';
 import { version } from '../../package';
 import fetchHopRelease from '../utils/fetchGithubAppVersion';
-import useLinking from './useLinking';
 import { actions } from '../store';
+import downloadApk from '../utils/downloadApk';
 
 interface UseUpdateReleaseHook {
   updateAvailable: boolean;
-  openUrl: () => void;
+  downloadApk: () => void;
 }
 
 const useUpdateRelease = (
   showFlashMessage: boolean = false
 ): UseUpdateReleaseHook => {
-  const { openUrl } = useLinking();
-  const [url, setUrl] = useState(null);
-  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [url, setUrl] = useState<null | string>(null);
+  const [fileName, setFileName] = useState<null | string>(null);
+  const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
 
   useEffect(() => {
     fetchHopRelease().then(({ tagName, browserDownloadUrl }) => {
       if (tagName > version) {
         setUrl(browserDownloadUrl);
+        setFileName(`holoplay-${tagName}.apk`);
         setUpdateAvailable(true);
 
         if (showFlashMessage) {
@@ -36,7 +38,7 @@ const useUpdateRelease = (
           message: 'A new update is available',
           action: {
             label: 'Download',
-            onPress: () => openUrl(url)
+            onPress: () => downloadApk(url, fileName)
           }
         }),
       1000
@@ -45,8 +47,7 @@ const useUpdateRelease = (
 
   return {
     updateAvailable,
-    openUrl: () => openUrl(url)
+    downloadApk: () => downloadApk(url, fileName)
   };
 };
-
 export default useUpdateRelease;

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const AppVersion: React.FC<Props> = ({ customStyle }) => {
-  const { updateAvailable, openUrl } = useUpdateRelease();
+  const { updateAvailable, downloadApk } = useUpdateRelease();
 
   return (
     <View
@@ -23,7 +23,7 @@ const AppVersion: React.FC<Props> = ({ customStyle }) => {
         Version {version}
       </Text>
       {updateAvailable && (
-        <TouchableRipple onPress={openUrl}>
+        <TouchableRipple onPress={downloadApk}>
           <Text
             accessibilityStates={[]}
             style={[styles.text, customStyle, { fontWeight: 'bold' }]}>
