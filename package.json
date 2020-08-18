@@ -36,7 +36,6 @@
     "react-native": "0.63.2",
     "react-native-animation-hooks": "^1.0.1",
     "react-native-config": "^1.2.1",
-    "react-native-drawer-layout": "^2.0.0",
     "react-native-fs": "^2.16.6",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-get-random-values": "^1.4.0",
