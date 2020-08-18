@@ -8,21 +8,23 @@ interface Props {
   customStyle?: {
     [key: string]: string | number;
   };
+  showUpdate: boolean;
 }
 
-const AppVersion: React.FC<Props> = ({ customStyle }) => {
+const AppVersion: React.FC<Props> = ({ customStyle, showUpdate = true }) => {
   const { updateAvailable, downloadApk } = useUpdateRelease();
 
   return (
     <View
       style={{
         marginTop: 'auto',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: showUpdate ? 'flex-start' : 'center'
       }}>
       <Text accessibilityStates={[]} style={[styles.text, customStyle]}>
         Version {version}
       </Text>
-      {updateAvailable && (
+      {updateAvailable && showUpdate && (
         <TouchableRipple onPress={downloadApk}>
           <Text
             accessibilityStates={[]}

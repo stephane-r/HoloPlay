@@ -12,7 +12,7 @@ const LoginScreen: React.FC<Props> = ({ route }) => (
     <View style={{ flex: 1, justifyContent: 'center' }}>
       <LoginForm onSuccess={route.params.setToken} />
     </View>
-    <AppVersion customStyle={{ alignSelf: 'center' }} />
+    <AppVersion showUpdate={false} customStyle={{ alignSelf: 'center' }} />
   </View>
 );
 

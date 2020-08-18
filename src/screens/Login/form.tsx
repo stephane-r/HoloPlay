@@ -7,22 +7,21 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
-import {
-  PUBLIC_INVIDIOUS_INSTANCES,
-  FAVORIS_PLAYLIST_TITLE
-} from '../../constants';
+import { FAVORIS_PLAYLIST_TITLE } from '../../constants';
 import DashboardScreen from '../Dashboard';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import fetchPlaylists from '../../utils/fetchPlaylists';
+import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 
 interface Props {
   onSuccess: () => void;
 }
 
 const LoginForm: React.FC<Props> = ({ onSuccess }) => {
+  const { instances } = useInvidiousInstances();
   const [isLoading, setIsLoading] = useState(false);
   const [instance, setInstance] = useState<string>(
-    PUBLIC_INVIDIOUS_INSTANCES[0].value
+    instances[0]?.monitor?.name ?? instances[0]?.uri
   );
   const [customInstance, setCustomInstance] = useState<boolean>(false);
   const [token, setToken] = useState<null | string>(null);
@@ -86,8 +85,8 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   return (
     <>
       <Picker selectedValue={instance} onValueChange={onValueChange}>
-        {PUBLIC_INVIDIOUS_INSTANCES.map(({ value, label }, index) => (
-          <Picker.Item key={index} label={label} value={value} />
+        {instances.map(({ uri, monitor }) => (
+          <Picker.Item key={uri} label={monitor?.name ?? uri} value={uri} />
         ))}
       </Picker>
       <TextInput

@@ -176,3 +176,42 @@ interface Captions {
   languageCode: string;
   url: string;
 }
+
+export interface Instance {
+  flag: null | string;
+  region: string;
+  stats: {
+    version: string;
+    software: {
+      name: string;
+      version: string;
+      branch: string;
+    };
+    openRegistrations: boolean;
+    usage: {
+      users: {
+        total: number;
+        activeHalfyear: number;
+        activeMonth: number;
+      };
+    };
+    metadata: {
+      updatedAt: number;
+      lastChannelRefreshedAt: number;
+    };
+  };
+  type: string;
+  uri: string;
+  monitor?: null | InstanceMonitor;
+}
+
+interface InstanceMonitor {
+  monitorId: number;
+  statusClass: string;
+  weeklyRatio: {
+    ratio: string;
+    label: string;
+  };
+  name: string;
+  type: string;
+}

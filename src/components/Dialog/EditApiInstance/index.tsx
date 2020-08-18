@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Dialog, Button, TextInput } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
-import { PUBLIC_INVIDIOUS_INSTANCES, ApiRoutes } from '../../../constants';
+import { ApiRoutes } from '../../../constants';
 import { View } from 'react-native';
 import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
 import callApi from '../../../utils/callApi';
+import useInvidiousInstances from '../../../hooks/useInvidiousInstances';
 
 interface Props {
   value: string;
@@ -23,6 +24,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
   const [instance, setInstance] = useState<string>(value);
   const [isLoading, setIsLoading] = useState<string>(false);
   const [customInstance, setCustomInstance] = useState<boolean>(false);
+  const { instances } = useInvidiousInstances();
 
   const onValueChange = (value: string): void => {
     if (value === 'other') {
@@ -72,8 +74,8 @@ const DialogEditApiInstance: React.FC<Props> = ({
       <Dialog.Title>Edit API instance</Dialog.Title>
       <Dialog.Content>
         <Picker selectedValue={instance} onValueChange={onValueChange}>
-          {PUBLIC_INVIDIOUS_INSTANCES.map(({ value, label }) => (
-            <Picker.Item key={value} label={label} value={value} />
+          {instances.map(({ uri, monitor }) => (
+            <Picker.Item key={uri} label={monitor?.name ?? uri} value={uri} />
           ))}
         </Picker>
         <View>
