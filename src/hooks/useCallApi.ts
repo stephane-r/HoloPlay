@@ -6,7 +6,11 @@ import useInvidiousInstances from './useInvidiousInstances';
 const useCallApi = (url: string): SearchVideo[] => {
   const store = useStore();
   const { instances } = useInvidiousInstances();
-  const data = useFetch(`${store.instance ?? instances[0].uri}/api/v1/${url}`);
+  const data = useFetch(
+    `${
+      store.instance ?? instances[0]?.uri ?? 'https://invidio.us/'
+    }/api/v1/${url}`
+  );
 
   return data;
 };
