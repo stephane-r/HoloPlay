@@ -13,7 +13,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SnackbarContainer from '../../containers/Snackbar';
 import { actions } from '../../store';
-import SidebarContainer from '../../containers/Sidebar';
 import LoadingScreen from '../../screens/Loading';
 import DashboardScreen from '../../screens/Dashboard';
 import PlaylistsScreen from '../../screens/Playlists';
