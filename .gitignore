@@ -8,7 +8,6 @@ node_modules
 .android
 .travis
 *.timestamp
-strings.xml
 .npm
 .vscode
 
