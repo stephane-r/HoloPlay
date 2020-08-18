@@ -6,25 +6,31 @@ import { requestWriteExternalStoragePermission } from '../hooks/useBackup';
 export interface DownloadFileParams {
   url: string;
   fileName: string;
+  dir?: string;
 }
 
 const downloadFile = async ({
   url,
-  fileName
+  fileName,
+  dir = RNFetchBlob.fs.dirs.MusicDir
 }: DownloadFileParams): Promise<any> => {
   await requestWriteExternalStoragePermission();
 
   return RNFetchBlob.config({
-    fileCache: true,
-    path: `${RNFS.DownloadDirectoryPath}/${slugify(fileName)}.mp4`
+    addAndroidDownloads: {
+      useDownloadManager: true,
+      title: fileName,
+      path: `${dir}/${slugify(fileName)}.mp4`,
+      mime: 'video/mp4',
+      notification: true
+    }
   })
     .fetch('GET', url)
     .then((res) => {
-      console.log('**********************');
-      console.log(res.path());
-      console.log('**********************');
-    })
-    .catch(console.log);
+      actions.setFlashMessage({
+        message: `File has been download in your Music folder`
+      });
+    });
 };
 
 export default downloadFile;
