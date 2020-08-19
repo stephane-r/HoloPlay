@@ -1,15 +1,13 @@
 import useFetch from 'fetch-suspense';
 import useStore from './useStore';
 import { SearchVideo } from '../types';
-import useInvidiousInstances from './useInvidiousInstances';
+// import useInvidiousInstances from './useInvidiousInstances';
 
 const useCallApi = (url: string): SearchVideo[] => {
   const store = useStore();
-  const { instances } = useInvidiousInstances();
+  // const { instances } = useInvidiousInstances();
   const data = useFetch(
-    `${
-      store.instance ?? instances[0]?.uri ?? 'https://invidio.us/'
-    }/api/v1/${url}`
+    `${store.instance ?? 'https://invidio.us/'}/api/v1/${url}`
   );
 
   return data;
