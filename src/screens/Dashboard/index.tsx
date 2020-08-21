@@ -12,9 +12,11 @@ import CarouselSpacerContainer from '../../containers/CarouselSpacer';
 import SearchPickerTypeContainer from '../../containers/Search/PickerType';
 import { DASHBOARD_COLOR } from '../../../config/theme';
 import ProfilContainer from '../../containers/Profil';
+import { useTranslation } from 'react-i18next';
 
 const DashboardScreen: React.FC = ({ route }) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Layout setTheme={route.params.toggleTheme}>
@@ -33,7 +35,7 @@ const DashboardScreen: React.FC = ({ route }) => {
       </View>
       <CarouselSpacerContainer />
       <View style={styles.searchHeader}>
-        <Title style={{ fontSize: 27 }}>Search</Title>
+        <Title style={{ fontSize: 27 }}>{t('search')}</Title>
         <SearchPickerTypeContainer />
       </View>
       <Spacer height={15} />

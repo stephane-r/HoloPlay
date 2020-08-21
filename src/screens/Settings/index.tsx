@@ -11,15 +11,31 @@ import {
   useTheme
 } from 'react-native-paper';
 import useStore from '../../hooks/useStore';
+import useBackup from '../../hooks/useBackup';
 import DialogEditToken from '../../components/Dialog/EditToken';
 import DialogEditApiInstance from '../../components/Dialog/EditApiInstance';
 import DialogEditUsername from '../../components/Dialog/EditUsername';
-import useBackup from '../../hooks/useBackup';
 import DialogErrorMonitoring from '../../components/Dialog/ErrorMonitoring';
+import DialogLanguage from '../../components/Dialog/Language';
 
 interface Props {
   navigation: any;
 }
+
+const getLanguageName = (lng: 'en' | 'fr'): string => {
+  let language;
+
+  switch (true) {
+    case lng === 'fr':
+      language = 'Français';
+      break;
+    default:
+      language = 'English';
+      break;
+  }
+
+  return language;
+};
 
 const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const store = useStore();
@@ -30,6 +46,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const [showDialogErrorMonitoring, setShowDialogErrorMonitoring] = useState(
     false
   );
+  const [showDialogLanguage, setShowDialogLanguage] = useState(false);
   const { backupData, importData } = useBackup();
 
   const toggleDialogToken = () => setShowDialogToken(!showDialogToken);
@@ -38,6 +55,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const toggleDialogUsername = () => setShowDialogUsername(!showDialogUsername);
   const toggleDialogErrorMoniroting = () =>
     setShowDialogErrorMonitoring(!showDialogErrorMonitoring);
+  const toggleDialogLanguage = () => setShowDialogLanguage(!showDialogLanguage);
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -81,6 +99,15 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             title="Error and Performance Monitoring"
             description={store.sendErrorMonitoring ? 'Enabled' : 'Disabled'}
             onPress={toggleDialogErrorMoniroting}
+          />
+        </View>
+        <Divider accessibilityStates={[]} />
+        <View>
+          <List.Item
+            accessibilityStates={[]}
+            title="Language"
+            description={getLanguageName(store.language)}
+            onPress={toggleDialogLanguage}
           />
         </View>
         <Divider accessibilityStates={[]} />
@@ -139,6 +166,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         visible={showDialogErrorMonitoring}
         onDismiss={toggleDialogErrorMoniroting}
         toggleDialog={toggleDialogErrorMoniroting}
+      />
+      <DialogLanguage
+        value={store.language}
+        visible={showDialogLanguage}
+        onDismiss={toggleDialogLanguage}
+        toggleDialog={toggleDialogLanguage}
       />
     </View>
   );

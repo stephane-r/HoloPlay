@@ -10,6 +10,7 @@ export interface AppState {
   flashMessage: FlashMessage;
   darkMode: boolean;
   sendErrorMonitoring: boolean;
+  language: 'en' | 'fr';
 }
 
 const appState: AppState = {
@@ -26,7 +27,8 @@ const appState: AppState = {
     }
   },
   darkMode: false,
-  sendErrorMonitoring: false
+  sendErrorMonitoring: false,
+  language: 'en'
 };
 
 const appActions = {
@@ -40,7 +42,8 @@ const appActions = {
       favorisPlaylist,
       logoutMode,
       username,
-      sendErrorMonitoring
+      sendErrorMonitoring,
+      language
     ] = await Promise.all([
       AsyncStorage.getItem('darkMode'),
       AsyncStorage.getItem('searchHistory'),
@@ -50,7 +53,8 @@ const appActions = {
       AsyncStorage.getItem('favorisPlaylist'),
       AsyncStorage.getItem('logoutMode'),
       AsyncStorage.getItem('username'),
-      AsyncStorage.getItem('sendErrorMonitoring')
+      AsyncStorage.getItem('sendErrorMonitoring'),
+      AsyncStorage.getItem('language')
     ]);
 
     return {
@@ -64,7 +68,8 @@ const appActions = {
       favorisPlaylist: JSON.parse(favorisPlaylist) ?? null,
       logoutMode: JSON.parse(logoutMode) ?? appState.logoutMode,
       sendErrorMonitoring:
-        JSON.parse(sendErrorMonitoring) ?? appState.sendErrorMonitoring
+        JSON.parse(sendErrorMonitoring) ?? appState.sendErrorMonitoring,
+      language: language ?? appState.language
     };
   },
   setToken: (store: Store, actions: any, token: string) => {
@@ -151,6 +156,18 @@ const appActions = {
     return {
       ...store,
       darkMode
+    };
+  },
+  setLanguage: async (
+    store: Store,
+    actions: any,
+    language: 'en' | 'fr'
+  ): Promise<Store> => {
+    await AsyncStorage.setItem('language', language);
+
+    return {
+      ...store,
+      language
     };
   }
 };
