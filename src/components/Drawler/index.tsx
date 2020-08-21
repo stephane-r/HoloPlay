@@ -10,6 +10,7 @@ import {
 import { actions } from '../../store';
 import AppVersion from '../Version';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   darkMode: boolean;
@@ -19,6 +20,7 @@ const Drawler: React.FC<Props> = ({ setTheme, darkMode }) => {
   const [isDarkMode, setDarkMode] = useState<boolean>(darkMode);
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   const toggleDarkMode = (value): void => {
     setDarkMode(!isDarkMode);
@@ -33,23 +35,23 @@ const Drawler: React.FC<Props> = ({ setTheme, darkMode }) => {
           backgroundColor: colors.background
         }
       ]}>
-      <Drawer.Section title="Navigation">
+      <Drawer.Section title={t('drawler.title')}>
         <Drawer.Item
           accessibilityStates={[]}
-          label="Create new playlist"
+          label={t('drawler.createPlaylist')}
           icon="folder-plus"
           onPress={() => navigation.navigate('Playlists')}
         />
         <Drawer.Item
           accessibilityStates={[]}
-          label="Settings"
+          label={t('drawler.settings')}
           icon="cog"
           onPress={() => navigation.navigate('Settings')}
         />
         <View style={styles.switchContainer}>
           <Drawer.Item
             accessibilityStates={[]}
-            label="Dark theme"
+            label={t('drawler.darkMode')}
             icon="lightbulb-on"
           />
           <View

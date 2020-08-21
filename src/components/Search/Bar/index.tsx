@@ -9,9 +9,9 @@ import {
 import { useAnimation } from 'react-native-animation-hooks';
 import { actions } from '../../../store';
 import SearchSubmenu from '../Submenu';
+import { useTranslation } from 'react-i18next';
 
 const SEARCH_INPUT_PLACEHOLDER = 'Search music';
-const SEARCH_EMPTY_VALUE = 'Add search value';
 
 type History = string;
 
@@ -26,16 +26,11 @@ interface SearchSubmenuProps {
 }
 
 const Search: React.FC<SearchProps> = ({ history }) => {
-  const [value, setValue] = useState<null | string>(null);
+  const [value, setValue] = useState<string>('');
   const [showSubmenu, setShowSubmenu] = useState<boolean>(false);
+  const { t } = useTranslation();
 
-  const searchThroughApi = (): void => {
-    if (value !== '' && value !== null) {
-      return actions.search(value);
-    }
-
-    return actions.setFlashMessage({ message: SEARCH_EMPTY_VALUE });
-  };
+  const searchThroughApi = (): void => actions.search(value);
 
   const toggleSubmenu = (): void => setShowSubmenu(!showSubmenu);
 
@@ -44,7 +39,7 @@ const Search: React.FC<SearchProps> = ({ history }) => {
       <View style={{ flex: 1, paddingRight: 8 }}>
         <Searchbar
           accessibilityStates={[]}
-          placeholder={SEARCH_INPUT_PLACEHOLDER}
+          placeholder={t('searchBar.placeholder')}
           onChangeText={setValue}
           onIconPress={searchThroughApi}
           onSubmitEditing={searchThroughApi}

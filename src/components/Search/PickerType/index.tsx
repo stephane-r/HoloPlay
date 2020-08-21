@@ -4,17 +4,9 @@ import { View } from 'react-native';
 import { actions } from '../../../store';
 import { SearchTypeTypes } from '../../../store/Search';
 import { Text, useTheme } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
 
-const SEARCH_TYPES = [
-  {
-    value: 'video',
-    label: 'Video'
-  },
-  {
-    value: 'playlist',
-    label: 'Playlist'
-  }
-];
+const SEARCH_TYPES = ['video', 'playlist'];
 
 interface Props {
   searchType: SearchTypeTypes;
@@ -22,6 +14,7 @@ interface Props {
 
 const SearchPickerType = ({ searchType }: Props) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <View style={{ width: 122 }}>
@@ -29,8 +22,12 @@ const SearchPickerType = ({ searchType }: Props) => {
         selectedValue={searchType}
         onValueChange={actions.setSearchType}
         style={{ color: colors.text }}>
-        {SEARCH_TYPES.map(({ value, label }, index) => (
-          <Picker.Item key={index} label={label} value={value} />
+        {SEARCH_TYPES.map((value, index) => (
+          <Picker.Item
+            key={index}
+            label={t(`search.type.${value}`)}
+            value={value}
+          />
         ))}
       </Picker>
     </View>

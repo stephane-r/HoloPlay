@@ -8,6 +8,7 @@ import DataEmpty from '../../Data/Empty';
 import { Text, Button } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import useFavoris from '../../../hooks/useFavoris';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   videos: Video[];
@@ -21,21 +22,25 @@ const ResultList: React.FC<Props> = ({ videos, ...props }) => {
   const [dialogIsShow, toggleDialog] = useState<boolean>(false);
   const [video, setVideo] = useState<null | Video>(null);
   const { createFavorisPlaylist } = useFavoris();
+  const { t } = useTranslation();
 
   if (!videos) {
     return (
       <DataEmpty>
-        <Text accessibilityStates={[]}>Your favoris playlist is not set.</Text>
+        <Text accessibilityStates={[]}>{t('data.empty.favorisNotSet')}</Text>
         <Spacer height={20} />
-        <Button onPress={createFavorisPlaylist} theme="#EE05F2">
-          Set Favoris playlist
+        <Button
+          onPress={createFavorisPlaylist}
+          mode="contained"
+          theme="#EE05F2">
+          {t('data.empty.favorisButtonSet')}
         </Button>
       </DataEmpty>
     );
   }
 
   if (videos.length === 0) {
-    return <DataEmpty text="No favoris." />;
+    return <DataEmpty text={t('data.empty.favoris')} />;
   }
 
   return (

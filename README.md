@@ -80,7 +80,8 @@ This project is licensed under the MIT License.
 ## TODO
 
 - [ ] Submit on f-droid store
-- [ ] Add update alert
+- [ ] Add i18n with EN and FR translation (EN default language)
+- [x] Add update alert
 - [x] Adding search type (video, playlists)
 - [x] Show playlist on player view
 - [x] Settings screen

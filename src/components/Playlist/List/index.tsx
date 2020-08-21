@@ -5,6 +5,7 @@ import Spacer from '../../Spacer';
 import { setCardItem } from '../../Carousel';
 import DataEmpty from '../../Data/Empty';
 import { Playlist as PlaylistType } from '../../../types';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   playlists: PlaylistType[];
@@ -17,8 +18,10 @@ const Playlist: React.FC<Props> = ({
   playingVideoId,
   toggleModal
 }) => {
+  const { t } = useTranslation();
+
   if (playlists.length === 0) {
-    return <DataEmpty text="No playlist." />;
+    return <DataEmpty text={t('data.empty.playlist')} />;
   }
 
   return (

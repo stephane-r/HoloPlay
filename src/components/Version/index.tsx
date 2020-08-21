@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Text, TouchableRipple } from 'react-native-paper';
 import { version } from '../../../package';
 import useUpdateRelease from '../../hooks/useUpdateRelease';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   customStyle?: {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const AppVersion: React.FC<Props> = ({ customStyle, showUpdate = true }) => {
+  const { t } = useTranslation();
   const { updateAvailable, downloadApk } = useUpdateRelease();
 
   return (
@@ -22,14 +24,14 @@ const AppVersion: React.FC<Props> = ({ customStyle, showUpdate = true }) => {
         justifyContent: showUpdate ? 'flex-start' : 'center'
       }}>
       <Text accessibilityStates={[]} style={[styles.text, customStyle]}>
-        Version {version}
+        {t('drawler.version')} {version}
       </Text>
       {updateAvailable && showUpdate && (
         <TouchableRipple onPress={downloadApk}>
           <Text
             accessibilityStates={[]}
             style={[styles.text, customStyle, { fontWeight: 'bold' }]}>
-            New update available
+            {t('drawler.updateAvailable')}
           </Text>
         </TouchableRipple>
       )}

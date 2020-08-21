@@ -9,6 +9,7 @@ import { Playlist as PlaylistType } from '../../types/Api';
 import { useIsFocused } from '@react-navigation/native';
 import { PLAYLISTS_COLOR } from '../../../config/theme';
 import { StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const PlaylistScreen: React.FC = ({ route }) => {
   const [modalIsOpen, setToggleModal] = useState<boolean>(false);
@@ -16,6 +17,7 @@ const PlaylistScreen: React.FC = ({ route }) => {
   const [fabIsOpen, toggleFab] = useState<boolean>(false);
   const isFocused = useIsFocused();
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   const toggleModal = (item: null | PlaylistType = null): void => {
     if (item?.playlistId) {
@@ -47,7 +49,7 @@ const PlaylistScreen: React.FC = ({ route }) => {
           actions={[
             {
               icon: 'headset',
-              label: 'New playlist',
+              label: t('fab.newPlaylist'),
               onPress: (): void => setToggleModal(true)
             }
           ]}

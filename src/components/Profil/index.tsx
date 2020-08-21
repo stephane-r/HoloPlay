@@ -2,22 +2,29 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
+import { useTranslation } from 'react-i18next';
 
-const Profil: React.FC = ({ username }) => (
-  <View style={styles.container}>
-    <View style={styles.textContainer}>
-      <Title style={styles.title}>Hey {username}</Title>
-      <Spacer height={5} />
-      <Text accessibilityStates={[]} style={styles.text}>
-        Welcome home
-      </Text>
+const Profil: React.FC = ({ username }) => {
+  const { t } = useTranslation();
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Title style={styles.title}>
+          {t('profil.hey', { userName: username })}
+        </Title>
+        <Spacer height={5} />
+        <Text accessibilityStates={[]} style={styles.text}>
+          {t('profil.welcom')}
+        </Text>
+      </View>
+      <Image
+        source={{ uri: 'https://picsum.photos/60/60' }}
+        style={styles.image}
+      />
     </View>
-    <Image
-      source={{ uri: 'https://picsum.photos/60/60' }}
-      style={styles.image}
-    />
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -1,8 +1,54 @@
 {
   "translation": {
-    "search": "Recherche",
+    "navigation": {
+      "dashboard": "Accueil",
+      "playlists": "Playlists",
+      "favoris": "Favoris"
+    },
+    "drawler": {
+      "title": "Navigation",
+      "createPlaylist": "Ajouter une nouvelle playlist",
+      "settings": "Paramètres",
+      "darkMode": "Mode sombre",
+      "version": "Version",
+      "updateAvailable": "Nouvelle mise à jour disponible" // New update available
+    },
+    "profil": {
+      "hey": "Hey {{userName}}",
+      "welcom": "Bienvenue à la maison"
+    },
+    "search": {
+      "title": "Recherche",
+      "type": {
+        "video": "Video",
+        "playlist": "Playlist"
+      }
+    },
+    "playlists": {
+      "song": "titre"
+    },
+    "searchBar": {
+      "placeholder": "Rechercher une musique"
+    },
+    "menu": {
+      "edit": "Editer",
+      "delete": "Supprimer"
+    },
+    "fab": {
+      "newPlaylist": "Ajouté une playlist"
+    },
+    "data": {
+      "empty": {
+        "playlist": "Vous n'avez pas encore créé de playlist",
+        "favoris": "Vous n'avez aucune musique favorite",
+        "favorisNotSet": "Votre playlist favoris n'est pas encore configurée.",
+        "favorisButtonSet": "Créer la playlist Favoris."
+      }
+    },
     "flashMessage": {
-      "updateLanguage": "Langage mis à jour"
+      "updateLanguage": "Langage mis à jour",
+      "updateAvailable": "Une nouvelle mise à jour est disponible",
+      "buttonUpdateAvailable": "Télécharger"
     }
   }
 }

@@ -37,6 +37,7 @@ import SettingsScreen from '../../screens/Settings';
 import { Animated, Dimensions, View, LogBox } from 'react-native';
 import AppPlayer from '../AppPlayer';
 import useUpdateRelease from '../../hooks/useUpdateRelease';
+import { useTranslation } from 'react-i18next';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -140,23 +141,24 @@ const App: React.FC<Props> = () => {
 
 const AppScreen = ({ route }) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Tab.Navigator shifting>
       <Tab.Screen
-        name="Dashboard"
+        name={t('navigation.dashboard')}
         component={DashboardScreen}
         options={tabOptions('home', colors.screens.dashboard)}
         initialParams={route.params}
       />
       <Tab.Screen
-        name="Playlists"
+        name={t('navigation.playlists')}
         component={PlaylistsScreen}
         options={tabOptions('headset', colors.screens.playlists)}
         initialParams={route.params}
       />
       <Tab.Screen
-        name="Favoris"
+        name={t('navigation.favoris')}
         component={FavorisScreen}
         options={tabOptions('heart', colors.screens.favoris)}
         initialParams={route.params}

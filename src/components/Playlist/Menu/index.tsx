@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IconButton, Menu } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onEdit: () => void;
@@ -8,6 +9,7 @@ interface Props {
 
 const PlaylistMenu: React.FC<Props> = ({ onEdit, onRemove }) => {
   const [menuIsOpen, setToggleMenu] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const toggleMenu = (): void => setToggleMenu(!menuIsOpen);
 
@@ -29,7 +31,7 @@ const PlaylistMenu: React.FC<Props> = ({ onEdit, onRemove }) => {
           toggleMenu();
         }}
         icon="pencil"
-        title="Edit"
+        title={t('menu.edit')}
       />
       <Menu.Item
         onPress={() => {
@@ -37,7 +39,7 @@ const PlaylistMenu: React.FC<Props> = ({ onEdit, onRemove }) => {
           toggleMenu();
         }}
         icon="delete"
-        title="Remove"
+        title={t('menu.delete')}
       />
     </Menu>
   );

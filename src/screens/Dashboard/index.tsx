@@ -35,7 +35,7 @@ const DashboardScreen: React.FC = ({ route }) => {
       </View>
       <CarouselSpacerContainer />
       <View style={styles.searchHeader}>
-        <Title style={{ fontSize: 27 }}>{t('search')}</Title>
+        <Title style={{ fontSize: 27 }}>{t('search.title')}</Title>
         <SearchPickerTypeContainer />
       </View>
       <Spacer height={15} />
