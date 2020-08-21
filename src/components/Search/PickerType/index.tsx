@@ -2,7 +2,7 @@ import React from 'react';
 import { Picker } from '@react-native-community/picker';
 import { View } from 'react-native';
 import { actions } from '../../../store';
-import { SearchTypeTypes } from '../../../actions/Search';
+import { SearchTypeTypes } from '../../../store/Search';
 import { Text, useTheme } from 'react-native-paper';
 
 const SEARCH_TYPES = [
