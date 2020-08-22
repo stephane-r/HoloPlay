@@ -6,6 +6,7 @@ import { ApiRoutes } from '../../../constants';
 import AsyncStorage from '@react-native-community/async-storage';
 import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   label: string;
@@ -22,8 +23,9 @@ const DialogEditToken: React.FC<Props> = ({
   onDismiss,
   toggleDialog
 }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState(value ?? 'Token is empty');
+  const [token, setToken] = useState(value ?? '');
 
   const onSubmit = async () => {
     if (token !== null && token !== '') {
@@ -41,14 +43,14 @@ const DialogEditToken: React.FC<Props> = ({
         return setTimeout(
           () =>
             actions.setFlashMessage({
-              message: 'Your playlists and favoris are imported'
+              message: t('flashMessage.importData')
             }),
           500
         );
       } catch (error) {
         console.log(error);
         actions.setFlashMessage({
-          message: 'Error'
+          message: error.message
         });
       } finally {
         setLoading(false);
@@ -58,20 +60,20 @@ const DialogEditToken: React.FC<Props> = ({
 
   return (
     <Dialog visible={visible} onDismiss={onDismiss}>
-      <Dialog.Title>Edit token</Dialog.Title>
+      <Dialog.Title>{t('dialog.editToken.title')}</Dialog.Title>
       <Dialog.Content>
         <TextInput
           accessibilityStates={[]}
           mode="outlined"
-          label={label}
+          label="Token"
           onChangeText={setToken}
           value={token}
         />
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={onDismiss}>Cancel</Button>
-        <Button onPress={onSubmit} loading={loading}>
-          Submit
+        <Button onPress={onDismiss}>{t('common.button.cancel')}</Button>
+        <Button onPress={onSubmit} loading={loading} disabled={token === ''}>
+          {t('common.button.done')}
         </Button>
       </Dialog.Actions>
     </Dialog>

@@ -6,6 +6,7 @@ import { ApiRoutes } from '../../../constants';
 import AsyncStorage from '@react-native-community/async-storage';
 import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   label: string;
@@ -24,39 +25,33 @@ const DialogEditUsername: React.FC<Props> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState(value);
+  const { t } = useTranslation();
 
   const onSubmit = () => {
-    if (username !== '') {
-      setLoading(true);
+    setLoading(true);
 
-      try {
-        actions.setUsername(username);
-        toggleDialog();
-        return setTimeout(
-          () =>
-            actions.setFlashMessage({
-              message: 'Your username is updated'
-            }),
-          500
-        );
-      } catch (error) {
-        console.log(error);
-        actions.setFlashMessage({
-          message: 'Error'
-        });
-      } finally {
-        setLoading(false);
-      }
-    } else {
+    try {
+      actions.setUsername(username);
+      toggleDialog();
+      return setTimeout(
+        () =>
+          actions.setFlashMessage({
+            message: t('flashMessage.usernameUpdated')
+          }),
+        500
+      );
+    } catch (error) {
       actions.setFlashMessage({
-        message: 'You can not set empty username'
+        message: error.message
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <Dialog visible={visible} onDismiss={onDismiss}>
-      <Dialog.Title>Edit Username</Dialog.Title>
+      <Dialog.Title>{t('dialog.editUsername.title')}</Dialog.Title>
       <Dialog.Content>
         <TextInput
           accessibilityStates={[]}
@@ -67,9 +62,9 @@ const DialogEditUsername: React.FC<Props> = ({
         />
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={onDismiss}>Cancel</Button>
-        <Button onPress={onSubmit} loading={loading}>
-          Submit
+        <Button onPress={onDismiss}>{t('common.button.cancel')}</Button>
+        <Button onPress={onSubmit} loading={loading} disabled={username === ''}>
+          {t('common.button.done')}
         </Button>
       </Dialog.Actions>
     </Dialog>

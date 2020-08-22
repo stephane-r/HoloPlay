@@ -1,5 +1,13 @@
 {
   "translation": {
+    "common": {
+      "button": {
+        "done": "Valider",
+        "cancel": "Annuler",
+        "add": "Ajouter",
+        "close": "Fermer"
+      }
+    },
     "navigation": {
       "dashboard": "Accueil",
       "playlists": "Playlists",
@@ -7,11 +15,11 @@
     },
     "drawler": {
       "title": "Navigation",
-      "createPlaylist": "Ajouter une nouvelle playlist",
+      "createPlaylist": "Créer une nouvelle playlist",
       "settings": "Paramètres",
       "darkMode": "Mode sombre",
       "version": "Version",
-      "updateAvailable": "Nouvelle mise à jour disponible" // New update available
+      "updateAvailable": "Nouvelle mise à jour disponible"
     },
     "profil": {
       "hey": "Hey {{userName}}",
@@ -20,22 +28,25 @@
     "search": {
       "title": "Recherche",
       "type": {
-        "video": "Video",
+        "video": "Vidéo",
         "playlist": "Playlist"
       }
     },
     "playlists": {
-      "song": "titre"
+      "song": "musique"
     },
     "searchBar": {
       "placeholder": "Rechercher une musique"
     },
     "menu": {
-      "edit": "Editer",
+      "edit": "Éditer",
       "delete": "Supprimer"
     },
     "fab": {
-      "newPlaylist": "Ajouté une playlist"
+      "newPlaylist": "Créer une playlist"
+    },
+    "player": {
+      "errorLoadVideo": "Une erreur est survenue. Chargement de la vidéo suivante"
     },
     "data": {
       "empty": {
@@ -45,10 +56,77 @@
         "favorisButtonSet": "Créer la playlist Favoris."
       }
     },
+    "settings": {
+      "title": "Paramètres",
+      "api": "API",
+      "invidiousInstance": "Instance Invidious",
+      "token": "Token",
+      "application": "APPLICATION",
+      "username": "Nom d'utilisateur",
+      "monitoring": "Monitoring d'erreur et de performance",
+      "enabled": "Activer",
+      "disabled": "Désactiver",
+      "language": "Langage",
+      "data": "DONNÉES",
+      "importExportText": "Exporter ou importer mes playlists et mes favoris",
+      "exportButton": "Expoter",
+      "importButton": "Importer"
+    },
+    "dialog": {
+      "addToPlaylist": {
+        "title": "Ajouter dans une playlist",
+        "text": "Sélectionnez la playlist dans laquelle vous souhaitez ajouté cette musique.",
+        "selectPlaylist": "Sélectionner"
+      },
+      "createPlaylist": {
+        "titleAdd": "Créer une playlist",
+        "titleUpdate": "Éditer une playlist",
+        "placeholder": "Nom de la playlist"
+      },
+      "removePlaylist": {
+        "title": "Supprimer la playlist {{playlistName}} ?"
+      },
+      "editApiInstance": {
+        "title": "Changer d'instance Invidious"
+      },
+      "editToken": {
+        "title": "Éditer le token Invidious"
+      },
+      "editUsername": {
+        "title": "Éditer mon nom d'utilisateur"
+      },
+      "monitoring": {
+        "title": "Monitoring",
+        "text1": "HoloPlay inclue un outil de monitoring d'erreur et de performance qui est désactivé par défaut. Aucune erreur ou donnée de performance n'est envoyée sans votre consentement.",
+        "text2": "En activant le monitoring, toutes éventuelles erreurs seront transmises sur une application Sentry self-hosted.",
+        "label": "Activer"
+      },
+      "editLanguage": {
+        "title": "Changer de langue"
+      }
+    },
     "flashMessage": {
       "updateLanguage": "Langage mis à jour",
       "updateAvailable": "Une nouvelle mise à jour est disponible",
-      "buttonUpdateAvailable": "Télécharger"
+      "buttonUpdateAvailable": "Télécharger",
+      "createPlaylist": "La playlist {{playlistName}} a été créée",
+      "updatePlaylist": "La playlist {{playlistName}} a été éditée",
+      "removePlaylist": "La playlist {{playlistName}} a été supprimée",
+      "canNotLoadVideo": "Impossible de charger la vidéo",
+      "invidiousInstanceUpdated": "L'instance Invidious a été changée et vos playlist ont été mise à jour",
+      "invidiousInstanceTokenUpdated": "L'instance Invidious a été changée. Pensez à modifier votre Token",
+      "importData": "Vos playlist et vos favoris ont été importés",
+      "usernameUpdated": "Le nom d'utilisateur a été édité",
+      "monitoringSettingsUpdated": "Les paramètres de monitoring ont été mise à jour",
+      "dataExportSuccess": "Vos playlists et vos favoris ont été exportées",
+      "dataExportError": "Erreur : vos données n'ont pas pu être exportées. Veuillez vérifier les permissions de l'application",
+      "dataImportSuccess": "Vos playlists et vos favoris ont été importées",
+      "dataImportError": "Erreur : vos données n'ont pas pu être importées. Veuillez vérifier les permissions de l'application",
+      "playlistFavorisCreateSuccess": "Votre playlist Favoris a été créée",
+      "addFavorisSuccess": "Titre ajoutée à vos favoris",
+      "removeFavorisSuccess": "Titre supprimée de vos favoris",
+      "addVideoToPlaylistSuccess": "{{videoName}} a été ajoutée dans votre playlist",
+      "removeVideoFromPlaylistSuccess": "{{videoName}} a été supprimée de votre playlist"
     }
   }
 }

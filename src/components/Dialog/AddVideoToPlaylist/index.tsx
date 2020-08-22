@@ -7,6 +7,7 @@ import { Video, Playlist } from '../../../types';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
 import useVideo from '../../../hooks/useVideo';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   toggleDialog: () => void;
@@ -14,11 +15,6 @@ interface Props {
   video: Video;
   playlists: Playlist[];
 }
-
-const EMPTY_VALUE = {
-  playlistId: null,
-  title: 'Choose playlist'
-};
 
 const DialogAddVideoToPlaylist: React.FC<Props> = ({
   toggleDialog,
@@ -30,10 +26,16 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
     return null;
   }
 
+  const { t } = useTranslation();
   const store: Store = useStore();
   const [playlistId, setPlaylistId] = useState<null | string>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
   const { addVideoToPlaylist } = useVideo();
+
+  const EMPTY_VALUE = {
+    playlistId: null,
+    title: t('dialog.addToPlaylist.selectPlaylist')
+  };
 
   const onPress = () => {
     if (playlistId) {
@@ -49,11 +51,9 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={toggleDialog}>
-        <Dialog.Title>Add to playlist</Dialog.Title>
+        <Dialog.Title>{t('dialog.addToPlaylist.title')}</Dialog.Title>
         <Dialog.Content>
-          <Paragraph>
-            Select the playlist to which you want to add your music.
-          </Paragraph>
+          <Paragraph>{t('dialog.addToPlaylist.text')}</Paragraph>
           <Picker
             selectedValue={playlistId}
             style={{ height: 50 }}
@@ -64,9 +64,12 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
           </Picker>
         </Dialog.Content>
         <Dialog.Actions>
-          <Button onPress={toggleDialog}>Cancel</Button>
-          <Button onPress={onPress} loading={isLoading}>
-            Done
+          <Button onPress={toggleDialog}>{t('common.button.cancel')}</Button>
+          <Button
+            onPress={onPress}
+            loading={isLoading}
+            disabled={playlistId === null}>
+            {t('common.button.add')}
           </Button>
         </Dialog.Actions>
       </Dialog>

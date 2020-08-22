@@ -3,9 +3,11 @@ import callApi from '../utils/callApi';
 import { actions } from '../store';
 import Video from 'react-native-video';
 import useStore from './useStore';
+import { useTranslation } from 'react-i18next';
 
 const useVideo = () => {
   const store = useStore();
+  const { t } = useTranslation();
 
   const addVideoToPlaylist = async (
     playlistId: string,
@@ -36,11 +38,9 @@ const useVideo = () => {
     }
 
     return actions.setFlashMessage({
-      message: `${video.title} has been added to your playlist`
-    });
-
-    return actions.setFlashMessage({
-      message: 'You need to select a playlist'
+      message: t('flashMessage.addVideoToPlaylistSuccess', {
+        videoName: video.title
+      })
     });
   };
 
@@ -65,7 +65,9 @@ const useVideo = () => {
     });
 
     return actions.setFlashMessage({
-      message: `${videoIndexId} has been removed`
+      message: t('flashMessage.removeVideoFromPlaylistSuccess', {
+        videoName: videoIndexId
+      })
     });
   };
 

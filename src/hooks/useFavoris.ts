@@ -5,9 +5,11 @@ import { actions } from '../store';
 import useStore from './useStore';
 import { Playlist } from '../types';
 import Video from 'react-native-video';
+import { useTranslation } from 'react-i18next';
 
 const useFavoris = () => {
   const store = useStore();
+  const { t } = useTranslation();
 
   const createFavorisPlaylist = async () => {
     const favorisPlaylist = {
@@ -32,13 +34,14 @@ const useFavoris = () => {
 
       return setTimeout(
         () =>
-          actions.setFlashMessage({ message: `Playlist Favoris was created.` }),
+          actions.setFlashMessage({
+            message: t('flashMessage.playlistFavorisCreateSuccess')
+          }),
         500
       );
     } catch (error) {
       return setTimeout(
-        () =>
-          actions.setFlashMessage({ message: `Playlist Favoris not created.` }),
+        () => actions.setFlashMessage({ message: error.message }),
         500
       );
     }
@@ -63,7 +66,9 @@ const useFavoris = () => {
         });
       }
 
-      return actions.setFlashMessage({ message: 'Added from favoris' });
+      return actions.setFlashMessage({
+        message: t('flashMessage.addFavorisSuccess')
+      });
     } catch (error) {
       return console.log(error);
     }
@@ -72,7 +77,6 @@ const useFavoris = () => {
   const removeFromFavoris = async (playlistId: string, video: Video) => {
     try {
       actions.removeFromFavoris(video.videoId);
-      actions.setFlashMessage({ message: 'Removed from favoris' });
 
       if (!store.logoutMode) {
         await callApi({
@@ -81,7 +85,9 @@ const useFavoris = () => {
         });
       }
 
-      return actions.setFlashMessage({ message: 'Removed from favoris' });
+      return actions.setFlashMessage({
+        message: t('flashMessage.removeFavorisSuccess')
+      });
     } catch (error) {
       return console.log(error);
     }

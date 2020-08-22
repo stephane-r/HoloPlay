@@ -2,12 +2,14 @@ import RNFS from 'react-native-fs';
 import useStore from './useStore';
 import { actions } from '../store';
 import { PermissionsAndroid, Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const fileName = 'holoplay-backup.json';
 const path = `${RNFS.DownloadDirectoryPath}/${fileName}`;
 
 const useBackup = () => {
   const store = useStore();
+  const { t } = useTranslation();
 
   const backupData = async (): Promise<any> => {
     await requestWriteExternalStoragePermission();
@@ -25,13 +27,12 @@ const useBackup = () => {
       'utf8'
     )
       .then(() =>
-        actions.setFlashMessage({ message: 'Your data are exported' })
-      )
-      .catch((error) => {
-        console.log(error);
         actions.setFlashMessage({
-          message: 'Error : your data can not be exported.'
-        });
+          message: t('flashMessage.dataExportSuccess')
+        })
+      )
+      .catch(() => {
+        actions.setFlashMessage({ message: t('flashMessage.dataExportError') });
       });
   };
 
@@ -45,12 +46,13 @@ const useBackup = () => {
       })
       .then(async (data) => {
         await actions.importData(JSON.parse(data));
-        actions.setFlashMessage({ message: 'Your data are imported.' });
-      })
-      .catch((error) => {
-        console.log(error);
         actions.setFlashMessage({
-          message: 'Error : your data can not be imported.'
+          message: t('flashMessage.dataImportSuccess')
+        });
+      })
+      .catch(() => {
+        actions.setFlashMessage({
+          message: t('flashMessage.dataImportError')
         });
       });
   };

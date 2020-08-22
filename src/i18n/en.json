@@ -1,5 +1,13 @@
 {
   "translation": {
+    "common": {
+      "button": {
+        "done": "Done",
+        "cancel": "Cancel",
+        "add": "Add",
+        "close": "Close"
+      }
+    },
     "navigation": {
       "dashboard": "Dashboard",
       "playlists": "Playlists",
@@ -37,6 +45,9 @@
     "fab": {
       "newPlaylist": "Add new playlist"
     },
+    "player": {
+      "errorLoadVideo": "Error from Steam API. Loading next video"
+    },
     "data": {
       "empty": {
         "playlist": "No playlist",
@@ -45,10 +56,77 @@
         "favorisButtonSet": "Set Favoris playlist."
       }
     },
+    "settings": {
+      "title": "Settings",
+      "api": "API",
+      "invidiousInstance": "Invidious instance",
+      "token": "Token",
+      "application": "APPLICATION",
+      "username": "Username",
+      "monitoring": "Error and Performance Moniroting",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "language": "Language",
+      "data": "DATA",
+      "importExportText": "Export or import my playlists and my favoris",
+      "exportButton": "Expot",
+      "importButton": "Import"
+    },
+    "dialog": {
+      "addToPlaylist": {
+        "title": "Add to playlist",
+        "text": "Select the playlist to which you want to add your music",
+        "selectPlaylist": "Select"
+      },
+      "createPlaylist": {
+        "titleAdd": "Create playlist",
+        "titleUpdate": "Update playlist",
+        "placeholder": "Playlist name"
+      },
+      "removePlaylist": {
+        "title": "Remove playlist {{playlistName}} ?"
+      },
+      "editApiInstance": {
+        "title": "Edit Invidious instance"
+      },
+      "editToken": {
+        "title": "Edit Invidious token"
+      },
+      "editUsername": {
+        "title": "Edit username"
+      },
+      "monitoring": {
+        "title": "Monitoring",
+        "text1": "HoloPlay includes an error and performance monitoring tool that is disabled by default. No data is retrieved without your consent",
+        "text2": "By activating it, any errors will be sent to a self-hosted instance of Sentry",
+        "label": "Enable"
+      },
+      "editLanguage": {
+        "title": "Edit language"
+      }
+    },
     "flashMessage": {
       "updateLanguage": "Language updated",
       "updateAvailable": "A new update is available",
-      "buttonUpdateAvailable": "Download"
+      "buttonUpdateAvailable": "Download",
+      "createPlaylist": "Playlist {{playlistName}} has been created",
+      "updatePlaylist": "Playlist {{playlistName}} has been updated",
+      "removePlaylist": "Playlist {{playlistName}} has been removed",
+      "canNotLoadVideo": "Can not load video",
+      "invidiousInstanceUpdated": "Invidious instance and playlist are updated",
+      "invidiousInstanceTokenUpdated": "Invidious instance updated. Consider changing your token",
+      "importData": "Your playlist and your favoris has been imported",
+      "usernameUpdated": "Username updated",
+      "monitoringSettingsUpdated": "Monitoring settings are updated",
+      "dataExportSuccess": "Your playlist and your favoris has been exported",
+      "dataExportError": "Error : your data can not been exported. Pleas check the app permission",
+      "dataImportSuccess": "Your playlist and your favoris has been imported",
+      "dataImportError": "Error : your data can not been imported. Pleas check the app permission",
+      "playlistFavorisCreateSuccess": "Favorite playlist has been created",
+      "addFavorisSuccess": "Add to favoris",
+      "removeFavorisSuccess": "Remove from favoris",
+      "addVideoToPlaylistSuccess": "{{videoName}} has been added to playlist",
+      "removeVideoFromPlaylistSuccess": "{{videoName}} has been removed from playlist"
     }
   }
 }

@@ -1,6 +1,7 @@
 //
 import React from 'react';
 import { Dialog, Button, Portal } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   toggleDialog: () => void;
@@ -16,21 +17,24 @@ const DialogRemovePlaylist: React.FC<Props> = ({
   onPress,
   playlistName,
   loading
-}) => (
-  <Portal>
-    <Dialog visible={visible} onDismiss={toggleDialog}>
-      {/* @ts-ignore */}
-      <Dialog.Title>Remove {playlistName} playlist ?</Dialog.Title>
-      <Dialog.Actions>
-        {/* @ts-ignore */}
-        <Button onPress={toggleDialog}>Cancel</Button>
-        {/* @ts-ignore */}
-        <Button onPress={onPress} loading={loading}>
-          Remove
-        </Button>
-      </Dialog.Actions>
-    </Dialog>
-  </Portal>
-);
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <Portal>
+      <Dialog visible={visible} onDismiss={toggleDialog}>
+        <Dialog.Title>
+          {t('dialog.removePlaylist.title', { playlistName })}
+        </Dialog.Title>
+        <Dialog.Actions>
+          <Button onPress={toggleDialog}>{t('common.button.cancel')}</Button>
+          <Button onPress={onPress} loading={loading}>
+            {t('common.button.done')}
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
+  );
+};
 
 export default DialogRemovePlaylist;

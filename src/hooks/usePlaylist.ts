@@ -6,9 +6,11 @@ import { actions } from '../store';
 import { Playlist } from '../types';
 import { useState } from 'react';
 import useStore from './useStore';
+import { useTranslation } from 'react-i18next';
 
 const usePlaylist = (): void => {
   const store = useStore();
+  const { t } = useTranslation();
 
   const createPlaylist = async (
     playlist: Playlist,
@@ -46,7 +48,9 @@ const usePlaylist = (): void => {
 
     return setTimeout(
       () =>
-        actions.setFlashMessage({ message: `${playlistName} was created.` }),
+        actions.setFlashMessage({
+          message: t('flashMessage.createPlaylist', { playlistName })
+        }),
       500
     );
   };
@@ -61,7 +65,11 @@ const usePlaylist = (): void => {
         ...playlist,
         title: playlist.title
       });
-      actions.setFlashMessage({ message: `${playlist.title} was updated.` });
+      actions.setFlashMessage({
+        message: t('flashMessage.updatePlaylist', {
+          playlistName: playlist.title
+        })
+      });
 
       if (!store.logoutMode) {
         await callApi({
@@ -91,7 +99,9 @@ const usePlaylist = (): void => {
       // Updating store before because this callApi return an error if success ...
       actions.removePlaylist(playlist.playlistId);
       actions.setFlashMessage({
-        message: `${playlist.title} has been removed.`
+        message: t('flashMessage.removePlaylist', {
+          playlistName: playlist.title
+        })
       });
 
       if (!store.logoutMode) {

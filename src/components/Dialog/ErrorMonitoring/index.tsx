@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
 import Spacer from '../../Spacer';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   label: string;
@@ -25,6 +26,7 @@ const DialogErrorMonitoring: React.FC<Props> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = React.useState(value);
+  const { t } = useTranslation();
 
   const onSubmit = () => {
     setLoading(true);
@@ -35,14 +37,13 @@ const DialogErrorMonitoring: React.FC<Props> = ({
       return setTimeout(
         () =>
           actions.setFlashMessage({
-            message: 'Monitoring setting is updated'
+            message: t('flashMessage.monitoringSettingsUpdated')
           }),
         500
       );
     } catch (error) {
-      console.log(error);
       actions.setFlashMessage({
-        message: 'Error'
+        message: error.message
       });
     } finally {
       setLoading(false);
@@ -51,17 +52,11 @@ const DialogErrorMonitoring: React.FC<Props> = ({
 
   return (
     <Dialog visible={visible} onDismiss={onDismiss}>
-      <Dialog.Title>Monitoring</Dialog.Title>
+      <Dialog.Title>{t('dialog.monitoring.title')}</Dialog.Title>
       <Dialog.Content>
-        <Text>
-          HoloPlay includes an error and performance monitoring tool that is
-          disabled by default. No data is retrieved without your consent.
-        </Text>
+        <Text>{t('dialog.monitoring.text1')}</Text>
         <Spacer height={10} />
-        <Text>
-          By activating it, any errors will be sent to a self-hosted instance of
-          Sentry.
-        </Text>
+        <Text>{t('dialog.monitoring.text2')}</Text>
         <Spacer height={10} />
         <TouchableNativeFeedback onPress={() => setChecked(!checked)}>
           <View
@@ -75,14 +70,14 @@ const DialogErrorMonitoring: React.FC<Props> = ({
               ]
             }}>
             <Checkbox status={checked ? 'checked' : 'unchecked'} />
-            <Text>Send Error and Performance Monitoring</Text>
+            <Text>{t('dialog.monitoring.label')}</Text>
           </View>
         </TouchableNativeFeedback>
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={onDismiss}>Cancel</Button>
+        <Button onPress={onDismiss}>{t('common.button.cancel')}</Button>
         <Button onPress={onSubmit} loading={loading}>
-          Submit
+          {t('common.button.done')}
         </Button>
       </Dialog.Actions>
     </Dialog>

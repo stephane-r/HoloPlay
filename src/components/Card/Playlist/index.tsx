@@ -14,6 +14,7 @@ import { ApiRoutes } from '../../../constants';
 import { Playlist } from '../../../types';
 import usePlaylist from '../../../hooks/usePlaylist';
 import useVideo from '../../../hooks/useVideo';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   totalSongs: number;
@@ -35,6 +36,7 @@ const CardPlaylist: React.FC<Props> = ({
   const { removePlaylist } = usePlaylist();
   const { removeVideo } = useVideo();
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   const onPress = () => {
     setIsLoading(true);
@@ -64,7 +66,9 @@ const CardPlaylist: React.FC<Props> = ({
                   await actions.loadVideo(videoIndex);
                 } catch (error) {
                   console.log(error);
-                  actions.setFlashMessage({ message: 'Can not load video' });
+                  actions.setFlashMessage({
+                    message: t('flashMessage.canNotLoadVideo')
+                  });
                 }
               }
             }}
@@ -102,7 +106,8 @@ const CardPlaylist: React.FC<Props> = ({
           </View>
         }>
         <Text accessibilityStates={[]}>
-          {totalSongs} song{totalSongs > 1 && 's'}
+          {totalSongs} {t('playlists.song')}
+          {totalSongs > 1 && 's'}
         </Text>
       </Card>
       <Spacer height={10} />

@@ -30,6 +30,7 @@ import hex2rgba from '../../utils/hex2rgba';
 import PlaylistContainer from '../../containers/Playlist';
 import { ScrollView } from 'react-native-gesture-handler';
 import Dot from '../Dot';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   video: VideoType;
@@ -54,6 +55,7 @@ const Player: React.FC<Props> = ({
   const player = useRef(null);
   const pager = useRef(null);
   const { loading, downloadVideo } = useDownloadFile();
+  const { t } = useTranslation();
 
   getColorFromURL(video?.thumbnail.url).then((colors) =>
     setBackground(colors.primary)
@@ -123,7 +125,7 @@ const Player: React.FC<Props> = ({
 
   const onError = (): void => {
     actions.setFlashMessage({
-      message: 'Error from Stream API. Loading next video'
+      message: t('player.errorLoadVideo')
     });
     setLoading(false);
   };

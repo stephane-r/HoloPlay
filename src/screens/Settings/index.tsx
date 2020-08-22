@@ -17,6 +17,7 @@ import DialogEditApiInstance from '../../components/Dialog/EditApiInstance';
 import DialogEditUsername from '../../components/Dialog/EditUsername';
 import DialogErrorMonitoring from '../../components/Dialog/ErrorMonitoring';
 import DialogLanguage from '../../components/Dialog/Language';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   navigation: any;
@@ -38,6 +39,7 @@ const getLanguageName = (lng: 'en' | 'fr'): string => {
 };
 
 const SettingsScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   const store = useStore();
   const { colors } = useTheme();
   const [showDialogToken, setShowDialogToken] = useState(false);
@@ -65,30 +67,32 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           icon="archive"
           onPress={(): void => navigation.goBack()}
         />
-        <Appbar.Content title="Settings" accessibilityStates={[]} />
+        <Appbar.Content title={t('settings.title')} accessibilityStates={[]} />
       </Appbar>
       <View style={styles.content}>
-        <Subheading style={styles.subheading}>API</Subheading>
+        <Subheading style={styles.subheading}>{t('settings.api')}</Subheading>
         <List.Item
           accessibilityStates={[]}
-          title="Invidious instance"
+          title={t('settings.invidiousInstance')}
           description={store.instance}
           onPress={toggleDialogApiInstance}
         />
         <Divider accessibilityStates={[]} />
         <List.Item
           accessibilityStates={[]}
-          title="Token"
+          title={t('settings.token')}
           description={store.token}
           onPress={toggleDialogToken}
         />
         <Divider accessibilityStates={[]} />
       </View>
       <View style={styles.content}>
-        <Subheading style={styles.subheading}>APPLICATION</Subheading>
+        <Subheading style={styles.subheading}>
+          {t('settings.application')}
+        </Subheading>
         <List.Item
           accessibilityStates={[]}
-          title="Username"
+          title={t('settings.username')}
           description={store.username}
           onPress={toggleDialogUsername}
         />
@@ -96,8 +100,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         <View>
           <List.Item
             accessibilityStates={[]}
-            title="Error and Performance Monitoring"
-            description={store.sendErrorMonitoring ? 'Enabled' : 'Disabled'}
+            title={t('settings.monitoring')}
+            description={t(
+              store.sendErrorMonitoring
+                ? 'settings.enabled'
+                : 'settings.disabled'
+            )}
             onPress={toggleDialogErrorMoniroting}
           />
         </View>
@@ -105,7 +113,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         <View>
           <List.Item
             accessibilityStates={[]}
-            title="Language"
+            title={t('settings.language')}
             description={getLanguageName(store.language)}
             onPress={toggleDialogLanguage}
           />
@@ -113,13 +121,13 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         <Divider accessibilityStates={[]} />
       </View>
       <View style={styles.content}>
-        <Subheading style={styles.subheading}>DATA</Subheading>
+        <Subheading style={styles.subheading}>{t('settings.data')}</Subheading>
         <View style={{ height: 15 }} />
         <View
           style={{
             paddingHorizontal: 15
           }}>
-          <Text>Import or export your playlists and favoris</Text>
+          <Text>{t('settings.importExportText')}</Text>
         </View>
         <View style={{ height: 15 }} />
         <View
@@ -132,18 +140,17 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             style={{ flex: 1, marginHorizontal: 7 }}
             mode="contained"
             onPress={backupData}>
-            Export
+            {t('settings.exportButton')}
           </Button>
           <Button
             style={{ flex: 1, marginHorizontal: 7 }}
             mode="contained"
             onPress={importData}>
-            Import
+            {t('settings.importButton')}
           </Button>
         </View>
       </View>
       <DialogEditToken
-        label="Edit token"
         value={store.token as string}
         visible={showDialogToken}
         onDismiss={toggleDialogToken}

@@ -7,6 +7,7 @@ import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
 import callApi from '../../../utils/callApi';
 import useInvidiousInstances from '../../../hooks/useInvidiousInstances';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   value: string;
@@ -25,6 +26,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
   const [isLoading, setIsLoading] = useState<string>(false);
   const [customInstance, setCustomInstance] = useState<boolean>(false);
   const { instances } = useInvidiousInstances();
+  const { t } = useTranslation();
 
   const onValueChange = (value: string): void => {
     if (value === 'other') {
@@ -49,7 +51,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
       return setTimeout(
         () =>
           actions.setFlashMessage({
-            message: 'Invidous instance updated. Playlists are updated.'
+            message: t('flashMessage.invidiousInstanceUpdated')
           }),
         500
       );
@@ -59,7 +61,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
       return setTimeout(
         () =>
           actions.setFlashMessage({
-            message: 'Invidous instance updated. Consider changing your token.'
+            message: t('flashMessage.invidiousInstanceTokenUpdated')
           }),
         500
       );
@@ -71,7 +73,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
 
   return (
     <Dialog visible={visible} onDismiss={onDismiss}>
-      <Dialog.Title>Edit API instance</Dialog.Title>
+      <Dialog.Title>{t('dialog.editApiInstance.title')}</Dialog.Title>
       <Dialog.Content>
         <Picker selectedValue={instance} onValueChange={onValueChange}>
           {instances.map(({ uri, monitor }) => (
@@ -91,9 +93,9 @@ const DialogEditApiInstance: React.FC<Props> = ({
         </View>
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={onDismiss}>Cancel</Button>
+        <Button onPress={onDismiss}>{t('common.button.cancel')}</Button>
         <Button loading={isLoading} onPress={submit}>
-          Submit
+          {t('common.button.done')}
         </Button>
       </Dialog.Actions>
     </Dialog>

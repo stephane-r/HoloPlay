@@ -42,11 +42,10 @@ const DialogLanguage: React.FC<Props> = ({
         500
       );
     } catch (error) {
-      console.log(error);
       return setTimeout(
         () =>
           actions.setFlashMessage({
-            message: 'Error'
+            message: error.message
           }),
         500
       );
@@ -58,18 +57,19 @@ const DialogLanguage: React.FC<Props> = ({
 
   return (
     <Dialog visible={visible} onDismiss={onDismiss}>
-      <Dialog.Title>Edit language</Dialog.Title>
+      <Dialog.Title>{t('dialog.editLanguage.title')}</Dialog.Title>
       <Dialog.Content>
         <Picker selectedValue={language} onValueChange={setLanguage}>
+          {/* TODO: Adding EN/FR array on constance with utils function for show full language name */}
           {['en', 'fr'].map((lng) => (
             <Picker.Item key={lng} label={lng} value={lng} />
           ))}
         </Picker>
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={onDismiss}>Cancel</Button>
+        <Button onPress={onDismiss}>{t('common.button.cancel')}</Button>
         <Button loading={isLoading} onPress={submit}>
-          Submit
+          {t('common.button.done')}
         </Button>
       </Dialog.Actions>
     </Dialog>
