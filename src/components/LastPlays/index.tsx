@@ -9,6 +9,7 @@ import { Text, Title } from 'react-native-paper';
 import Spacer from '../Spacer';
 import { View, Dimensions } from 'react-native';
 import CardScrollList from '../Card/ScrollList';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   setPlaylistFrom: string;
@@ -19,13 +20,15 @@ interface Props {
 const LastPlays: React.FC<Props> = ({ setPlaylistFrom, videos, title }) => {
   const [dialogIsShow, toggleDialog] = useState<boolean>(false);
   const [video, setVideo] = useState<null | SearchVideo>(null);
+  const { t } = useTranslation();
 
-  if (videos.length === 0) {
+  if (!videos || videos.length === 0) {
     return null;
   }
 
   return (
     <>
+      <Title style={{ fontSize: 27 }}>{t('search.lastPlays')}</Title>
       <CardScrollList>
         {videos.map((video, index) => (
           <CardSearch

@@ -37,10 +37,7 @@ const DashboardScreen: React.FC = ({ route }) => {
         <PlaylistsCarouselContainer />
       </View>
       <CarouselSpacerContainer />
-      <Suspense fallback={<PlaceholderCardHorizontalList />}>
-        <Title style={{ fontSize: 27 }}>{t('search.lastPlays')}</Title>
-        <LastPlaysContainer />
-      </Suspense>
+      <LastPlaysContainer />
       <Spacer height={15} />
       <Suspense fallback={<PlaceholderCardHorizontalList />}>
         <Title style={{ fontSize: 27 }}>{t('search.popular')}</Title>

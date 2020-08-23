@@ -72,7 +72,7 @@ const appActions = {
       sendErrorMonitoring:
         JSON.parse(sendErrorMonitoring) ?? appState.sendErrorMonitoring,
       language: language ?? appState.language,
-      lastPlays: JSON.parse(lastPlays)
+      lastPlays: JSON.parse(lastPlays) ?? []
     };
   },
   setToken: (store: Store, actions: any, token: string) => {
