@@ -132,8 +132,8 @@ android {
         applicationId "com.holoplay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 12
-        versionName "1.8.13"
+        versionCode 13
+        versionName "1.8.14"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
