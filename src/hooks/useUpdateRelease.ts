@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import semverCompare from 'semver-compare';
 import RNFetchBlob from 'rn-fetch-blob';
 import { version } from '../../package';
 import fetchHopRelease from '../utils/fetchGithubAppVersion';
@@ -19,7 +20,7 @@ const useUpdateRelease = (
 
   useEffect(() => {
     fetchHopRelease().then(({ tagName, browserDownloadUrl }) => {
-      if (tagName > version) {
+      if (semverCompare(tagName, version) === 1) {
         setUrl(browserDownloadUrl);
         setFileName(`holoplay-${tagName}.apk`);
         setUpdateAvailable(true);

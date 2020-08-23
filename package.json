@@ -59,6 +59,7 @@
     "rn-dominant-color": "^1.5.0",
     "rn-fetch-blob": "^0.12.0",
     "rn-placeholder": "^3.0.0-alpha.4",
+    "semver-compare": "^1.0.0",
     "shelljs": "^0.8.4",
     "uuid": "^8.2.0"
   },
