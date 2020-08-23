@@ -43,7 +43,8 @@ const appActions = {
       logoutMode,
       username,
       sendErrorMonitoring,
-      language
+      language,
+      lastPlays
     ] = await Promise.all([
       AsyncStorage.getItem('darkMode'),
       AsyncStorage.getItem('searchHistory'),
@@ -54,7 +55,8 @@ const appActions = {
       AsyncStorage.getItem('logoutMode'),
       AsyncStorage.getItem('username'),
       AsyncStorage.getItem('sendErrorMonitoring'),
-      AsyncStorage.getItem('language')
+      AsyncStorage.getItem('language'),
+      AsyncStorage.getItem('lastPlays')
     ]);
 
     return {
@@ -69,7 +71,8 @@ const appActions = {
       logoutMode: JSON.parse(logoutMode) ?? appState.logoutMode,
       sendErrorMonitoring:
         JSON.parse(sendErrorMonitoring) ?? appState.sendErrorMonitoring,
-      language: language ?? appState.language
+      language: language ?? appState.language,
+      lastPlays: JSON.parse(lastPlays)
     };
   },
   setToken: (store: Store, actions: any, token: string) => {

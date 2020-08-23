@@ -4,6 +4,7 @@ import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../../constants';
 import { Video, Playlist, VideoThumbnail } from '../../types';
 import { Store } from '../../store';
 import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export interface PlayerState {
   playerIsOpened: boolean;
@@ -13,6 +14,7 @@ export interface PlayerState {
   paused: boolean;
   duration: number;
   playlist: null | Video[];
+  lastPlays: Video[];
 }
 
 const playerState: PlayerState = {
@@ -22,7 +24,8 @@ const playerState: PlayerState = {
   repeat: false,
   paused: false,
   duration: 0,
-  playlist: null
+  playlist: null,
+  lastPlays: []
 };
 
 const playerActions = {
@@ -44,6 +47,15 @@ const playerActions = {
     switch (true) {
       case origin === 'searchResults':
         playlistList = store.results;
+        break;
+      case origin === 'popular':
+        playlistList = store.popular;
+        break;
+      case origin === 'trending':
+        playlistList = store.trending;
+        break;
+      case origin === 'lastPlays':
+        playlistList = store.lastPlays;
         break;
       case origin === 'favoris':
         playlistList = store.playlists.find(
@@ -73,7 +85,6 @@ const playerActions = {
     const isLastVideo = playlist.length === videoIndex;
     // If is last video, we restart the playlist from first index
     const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
-    console.log(playlist.length);
     const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
 
     if (data.error) {
@@ -93,10 +104,15 @@ const playerActions = {
       )
     };
 
+    const lastPlays = [video, ...store.lastPlays.slice(0, 9)];
+
+    AsyncStorage.setItem('lastPlays', JSON.stringify(lastPlays));
+
     return {
       ...store,
       video: videoUpdated,
-      videoIndex: videoIndex
+      videoIndex: videoIndex,
+      lastPlays
     };
   },
   paused: async (store: Store): Promise<Store> => ({

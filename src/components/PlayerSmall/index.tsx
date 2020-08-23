@@ -17,6 +17,7 @@ import Spacer from '../Spacer';
 import { Video as VideoType } from '../../types';
 import Progress from '../Progress';
 import hex2rgba from '../../utils/hex2rgba';
+import useKeyboard from '../../hooks/useKeyboard';
 
 interface Props {
   video: VideoType;
@@ -28,12 +29,12 @@ const PLAYER_SMALL_HEIGHT = 60;
 const WHITE_COLOR = '#FFFFFF';
 
 const PlayerSmall: React.FC<Props> = ({ video, paused, showPlayer }) => {
+  const [visible] = useKeyboard();
   const [color, setColor] = useState<string>(WHITE_COLOR);
   const [background, setBackground] = useState<string>(WHITE_COLOR);
   const bottom = useAnimation({
-    toValue: background !== WHITE_COLOR ? PLAYER_SMALL_HEIGHT : 0,
+    toValue: background !== WHITE_COLOR && !visible ? PLAYER_SMALL_HEIGHT : 0,
     type: 'timing',
-    delay: 300,
     useNativeDriver: false
   });
 

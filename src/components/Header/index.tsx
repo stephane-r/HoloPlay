@@ -7,14 +7,18 @@ interface Props {
   backgroundColor: string;
 }
 
-const Header: React.FC<Props> = ({ title, backgroundColor }) => (
+const Header: React.FC<Props> = ({ title, backgroundColor, children }) => (
   <View style={[styles.header, { backgroundColor }]}>
     <Title style={styles.title}>{title}</Title>
+    {children && children}
   </View>
 );
 
 const styles = StyleSheet.create({
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginHorizontal: -16,
     paddingHorizontal: 16,
     paddingTop: 20,

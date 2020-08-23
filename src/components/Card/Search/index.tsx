@@ -12,13 +12,22 @@ interface Props {
   addToPlaylist: (video: SearchVideo) => void;
   setPlaylistFrom: string;
   loopIndex?: number;
+  favorisButtonColor: null | string;
+  containerCustomStyle?: {
+    [key: string]: string | number;
+  };
+  pictureCustomStyle?: {
+    [key: string]: string | number;
+  };
 }
 
 const CardSearch: React.FC<Props> = ({
   video,
   addToPlaylist,
   setPlaylistFrom,
-  loopIndex
+  loopIndex,
+  favorisButtonColor = null,
+  ...props
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +77,8 @@ const CardSearch: React.FC<Props> = ({
         return loadVideo(video.index ?? loopIndex);
       }}
       alignment="vertical"
-      isLoading={loading}>
+      isLoading={loading}
+      {...props}>
       {video.type !== 'playlist' && (
         <View
           style={{
@@ -78,7 +88,11 @@ const CardSearch: React.FC<Props> = ({
             flex: 1,
             margin: -8
           }}>
-          <FavorisButtonContainer video={video} buttonWithIcon />
+          <FavorisButtonContainer
+            video={video}
+            buttonWithIcon
+            color={favorisButtonColor}
+          />
           <IconButton
             icon="plus"
             accessibilityStates={[]}

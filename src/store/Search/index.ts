@@ -8,6 +8,8 @@ export interface SearchState {
   searchValue: string;
   searchType: SearchTypeTypes;
   results: SearchVideo[];
+  popular: SearchVideo[];
+  top: SearchVideo[];
   isSearching: boolean;
   history: string[];
 }
@@ -16,6 +18,8 @@ const searchState: SearchState = {
   searchValue: '',
   searchType: 'video',
   results: [],
+  popular: [],
+  top: [],
   isSearching: true,
   history: []
 };
@@ -40,12 +44,18 @@ const searchActions = {
     store: Store,
     actions: any,
     results: SearchVideo[]
-  ): Promise<Store> => {
-    return {
-      ...store,
-      results
-    };
-  },
+  ): Promise<Store> => ({
+    ...store,
+    results
+  }),
+  receiveData: (
+    store: Store,
+    actions: any,
+    { key, data }: { key: string; data: SearchVideo[] }
+  ) => ({
+    ...store,
+    [key]: data
+  }),
   setSearchType: (
     store: Store,
     actions: any,
@@ -54,18 +64,14 @@ const searchActions = {
     ...store,
     searchType
   }),
-  setIsSearching: (store: Store): Store => {
-    return {
-      ...store,
-      isSearching: true
-    };
-  },
-  setIsSearched: (store: Store): Store => {
-    return {
-      ...store,
-      isSearching: false
-    };
-  }
+  setIsSearching: (store: Store): Store => ({
+    ...store,
+    isSearching: true
+  }),
+  setIsSearched: (store: Store): Store => ({
+    ...store,
+    isSearching: false
+  })
 };
 
 export { searchActions, searchState };

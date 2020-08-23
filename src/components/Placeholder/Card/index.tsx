@@ -3,8 +3,8 @@ import { View } from 'react-native';
 import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder';
 import { stylesVertical } from '../../Card/Layout';
 
-const PlaceholderCardSearchItem: React.FC = () => (
-  <View style={stylesVertical.container}>
+const PlaceholderCardSearchItem: React.FC = ({ containerCustomStyle = {} }) => (
+  <View style={[stylesVertical.container, containerCustomStyle]}>
     <View style={stylesVertical.card}>
       <View
         style={{
@@ -15,7 +15,6 @@ const PlaceholderCardSearchItem: React.FC = () => (
           <PlaceholderLine
             width={100}
             height={100}
-            // @ts-ignore
             style={{ borderRadius: 0, ...stylesVertical.picture }}
           />
         </Placeholder>

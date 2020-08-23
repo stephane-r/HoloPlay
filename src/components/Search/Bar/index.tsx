@@ -10,6 +10,7 @@ import { useAnimation } from 'react-native-animation-hooks';
 import { actions } from '../../../store';
 import SearchSubmenu from '../Submenu';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 
 const SEARCH_INPUT_PLACEHOLDER = 'Search music';
 
@@ -23,20 +24,32 @@ interface SearchSubmenuProps {
   isOpen: boolean;
   selectValue: Function;
   items: string[];
+  showButtonHistory: boolean;
 }
 
-const Search: React.FC<SearchProps> = ({ history }) => {
+const Search: React.FC<SearchProps> = ({
+  history,
+  showButtonHistory = false
+}) => {
   const [value, setValue] = useState<string>('');
   const [showSubmenu, setShowSubmenu] = useState<boolean>(false);
   const { t } = useTranslation();
+  const navigation = useNavigation();
 
-  const searchThroughApi = (): void => actions.search(value);
+  const searchThroughApi = async (): void => {
+    await actions.search(value);
+    setTimeout(() => navigation.navigate(t('navigation.search')), 200);
+  };
 
   const toggleSubmenu = (): void => setShowSubmenu(!showSubmenu);
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 1, paddingRight: 8 }}>
+    <View
+      style={[
+        styles.container,
+        { paddingVertical: showButtonHistory ? 16 : 0 }
+      ]}>
+      <View style={{ flex: 1, paddingRight: showButtonHistory ? 8 : 0 }}>
         <Searchbar
           accessibilityStates={[]}
           placeholder={t('searchBar.placeholder')}
@@ -46,7 +59,7 @@ const Search: React.FC<SearchProps> = ({ history }) => {
           value={value ?? ''}
         />
       </View>
-      {history.length > 0 && (
+      {showButtonHistory && history.length > 0 && (
         <>
           <IconButton
             accessibilityStates={[]}
@@ -72,7 +85,6 @@ const Search: React.FC<SearchProps> = ({ history }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 16,
     flexDirection: 'row'
   }
 });

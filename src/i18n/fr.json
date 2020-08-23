@@ -10,6 +10,7 @@
     },
     "navigation": {
       "dashboard": "Accueil",
+      "search": "Recherche",
       "playlists": "Playlists",
       "favoris": "Favoris"
     },
@@ -30,7 +31,10 @@
       "type": {
         "video": "Vidéo",
         "playlist": "Playlist"
-      }
+      },
+      "popular": "Plus populaires",
+      "trending": "Tendances",
+      "lastPlays": "Dernières écoutes"
     },
     "playlists": {
       "song": "musique"
