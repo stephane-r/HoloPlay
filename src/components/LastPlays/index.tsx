@@ -29,7 +29,7 @@ const LastPlays: React.FC<Props> = ({ setPlaylistFrom, videos, title }) => {
       <CardScrollList>
         {videos.map((video, index) => (
           <CardSearch
-            key={video.videoId}
+            key={`last-plays-${video.videoId}-${index}`}
             loopIndex={index}
             video={video}
             setPlaylistFrom="lastPlays"

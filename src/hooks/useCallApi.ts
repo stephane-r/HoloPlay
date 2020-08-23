@@ -3,7 +3,6 @@ import useStore from './useStore';
 import { SearchVideo } from '../types';
 
 const useCallApi = (url: string, slice: number = 40): SearchVideo[] => {
-  console.log(url);
   const store = useStore();
   const data = useFetch(
     `${store.instance ?? 'https://invidio.us/'}/api/v1/${url}`
