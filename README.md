@@ -84,6 +84,7 @@ This project is licensed under the MIT License.
 
 - [ ] Submit on f-droid store
 - [ ] UI for tablet ?
+- [x] Add popular/trending videos and search screen
 - [x] Add i18n with EN and FR translation (EN default language)
 - [x] Add update alert
 - [x] Adding search type (video, playlists)
