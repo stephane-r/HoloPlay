@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  TouchableNativeFeedback,
+  Dimensions
+} from 'react-native';
 import { Subheading, ActivityIndicator, useTheme } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import Label from '../../Label';
@@ -37,6 +43,8 @@ const CardLayout: React.FC<CardProps> = ({
   itemsRenderer,
   showItems,
   isLoading,
+  containerCustomStyle = {},
+  pictureCustomStyle = {},
   ...props
 }) => {
   const { colors } = useTheme();
@@ -57,7 +65,7 @@ const CardLayout: React.FC<CardProps> = ({
     : stylesVertical.title;
 
   return (
-    <View style={containerStyles}>
+    <View style={[containerStyles, containerCustomStyle]}>
       <View
         style={[
           cardStyles,
@@ -76,7 +84,7 @@ const CardLayout: React.FC<CardProps> = ({
             <View style={{ position: 'relative' }}>
               <Image
                 resizeMode="cover"
-                style={pictureStyles}
+                style={[pictureStyles, pictureCustomStyle]}
                 source={{ uri: card.picture }}
               />
               {!isHorizontal && (

@@ -10,6 +10,7 @@
     },
     "navigation": {
       "dashboard": "Dashboard",
+      "search": "Search",
       "playlists": "Playlists",
       "favoris": "Favoris"
     },
@@ -30,7 +31,10 @@
       "type": {
         "video": "Video",
         "playlist": "Playlist"
-      }
+      },
+      "popular": "Most popular",
+      "trending": "Trending",
+      "lastPlays": "Last plays"
     },
     "playlists": {
       "song": "song"
@@ -69,7 +73,7 @@
       "language": "Language",
       "data": "DATA",
       "importExportText": "Export or import my playlists and my favoris",
-      "exportButton": "Expot",
+      "exportButton": "Export",
       "importButton": "Import"
     },
     "dialog": {

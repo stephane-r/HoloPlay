@@ -38,6 +38,7 @@ import { Animated, Dimensions, View, LogBox } from 'react-native';
 import AppPlayer from '../AppPlayer';
 import useUpdateRelease from '../../hooks/useUpdateRelease';
 import { useTranslation } from 'react-i18next';
+import SearchScreen from '../../screens/Search';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -149,6 +150,12 @@ const AppScreen = ({ route }) => {
         name={t('navigation.dashboard')}
         component={DashboardScreen}
         options={tabOptions('home', colors.screens.dashboard)}
+        initialParams={route.params}
+      />
+      <Tab.Screen
+        name={t('navigation.search')}
+        component={SearchScreen}
+        options={tabOptions('magnify', colors.screens.search)}
         initialParams={route.params}
       />
       <Tab.Screen

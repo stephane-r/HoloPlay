@@ -1,41 +1,36 @@
 import React, { useState, memo, useEffect } from 'react';
-import CardList from '../../Card/List';
 import useCallApi from '../../../hooks/useCallApi';
 import CardSearch from '../../Card/Search';
 import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
 import Playlist from '../../Playlist/List';
 import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
-import { Text, useTheme } from 'react-native-paper';
+import { Text, Title } from 'react-native-paper';
+import Spacer from '../../Spacer';
+import { View, Dimensions } from 'react-native';
+import CardScrollList from '../../Card/ScrollList';
 
 interface Props {
   playlists: PlaylistType[];
-  searchValue: string;
-  searchType: string;
   setPlaylistFrom: string;
+  apiUrl: string;
+  title: string;
 }
 
-const SearchResult: React.FC<Props> = ({
-  playlists,
-  searchValue,
-  searchType,
+const SearchPopularTop: React.FC<Props> = ({
   setPlaylistFrom,
-  popular
+  apiUrl,
+  title
 }) => {
-  const { data }: SearchVideo[] = useCallApi(
-    `search?q=${searchValue}&type=${searchType}`
-  );
+  const { data }: SearchVideo[] = useCallApi(apiUrl, 20);
   const [dialogIsShow, toggleDialog] = useState<boolean>(false);
   const [video, setVideo] = useState<null | SearchVideo>(null);
-  const { colors } = useTheme();
-
-  const videos = data?.length > 0 ? data : popular;
 
   useEffect(() => {
-    if (videos) {
-      actions.setSearchResult(videos);
+    if (data) {
+      actions.receiveData({ key: setPlaylistFrom, data });
     }
-  }, [searchValue]);
+  }, [data]);
 
   if (!Array.isArray(data)) {
     return <Text>No result. Maybe instance is down ?</Text>;
@@ -43,31 +38,29 @@ const SearchResult: React.FC<Props> = ({
 
   return (
     <>
-      <CardList>
-        {videos.map((video, index) => (
+      <CardScrollList>
+        {data.map((video, index) => (
           <CardSearch
             key={video.videoId}
             loopIndex={index}
             video={video}
-            setPlaylistFrom="searchResults"
-            favorisButtonColor={colors.screens.search}
+            setPlaylistFrom={setPlaylistFrom}
             addToPlaylist={(item) => {
               setVideo(item);
               toggleDialog(!dialogIsShow);
             }}
+            containerCustomStyle={{
+              width: 250,
+              paddingTop: 15
+            }}
+            pictureCustomStyle={{
+              height: 130
+            }}
           />
         ))}
-      </CardList>
-      {video !== null && (
-        <DialogAddVideoToPlaylist
-          visible={dialogIsShow}
-          toggleDialog={() => toggleDialog(!dialogIsShow)}
-          video={video as Video}
-          playlists={playlists}
-        />
-      )}
+      </CardScrollList>
     </>
   );
 };
 
-export default memo(SearchResult);
+export default memo(SearchPopularTop);

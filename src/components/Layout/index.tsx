@@ -11,6 +11,7 @@ import { actions } from '../../store';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import PlayerContainer from '../../containers/Player';
 import BottomSheet from '../BottomSheet';
+import LayoutSpacerContainer from '../../containers/LayoutSpacer';
 
 const Layout: React.FC = ({ setTheme, children }) => {
   const { colors } = useTheme();
@@ -23,6 +24,7 @@ const Layout: React.FC = ({ setTheme, children }) => {
         <ScrollView style={{ flex: 1 }}>
           <View style={[styles.container]}>{children}</View>
         </ScrollView>
+        <LayoutSpacerContainer />
       </View>
     </DrawerLayoutAndroid>
   );

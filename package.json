@@ -1,6 +1,6 @@
 {
   "name": "holoplay",
-  "version": "1.8.9",
+  "version": "1.8.12",
   "private": false,
   "scripts": {
     "start": "react-native start -- --reset-cache",
@@ -15,7 +15,7 @@
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "lint": "eslint src",
     "static-analysis": "yarn lint",
-    "postversion": "react-native-version"
+    "postversion": "RNV=android react-native-version"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.11.0",

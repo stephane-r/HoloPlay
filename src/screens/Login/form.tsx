@@ -9,7 +9,6 @@ import { actions } from '../../store';
 import Spacer from '../../components/Spacer';
 import { FAVORIS_PLAYLIST_TITLE } from '../../constants';
 import DashboardScreen from '../Dashboard';
-import { CommonActions, useNavigation } from '@react-navigation/native';
 import fetchPlaylists from '../../utils/fetchPlaylists';
 import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 
@@ -26,7 +25,6 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   const [customInstance, setCustomInstance] = useState<boolean>(false);
   const [token, setToken] = useState<null | string>(null);
   const [username, setUsername] = useState<string>('User');
-  const navigation = useNavigation();
 
   const onValueChange = (value: string): void => {
     if (value === 'other') {

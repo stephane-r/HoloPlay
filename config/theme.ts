@@ -1,6 +1,7 @@
 import { DarkTheme, DefaultTheme } from 'react-native-paper';
 
 export const DASHBOARD_COLOR = '#2575f4';
+export const SEARCH_COLOR = '#558B2F';
 export const PLAYLISTS_COLOR = '#fe5f55';
 export const FAVORIS_COLOR = '#EE05F2';
 
@@ -14,6 +15,7 @@ export const darkTheme = {
     fabGroup: DarkTheme.colors.accent,
     screens: {
       dashboard: '#2d2d2d',
+      search: '#2d2d2d',
       playlists: '#2d2d2d',
       favoris: '#2d2d2d'
     }
@@ -30,6 +32,7 @@ export const defaultTheme = {
     fabGroup: PLAYLISTS_COLOR,
     screens: {
       dashboard: DASHBOARD_COLOR,
+      search: SEARCH_COLOR,
       playlists: PLAYLISTS_COLOR,
       favoris: FAVORIS_COLOR
     }
