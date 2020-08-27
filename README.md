@@ -95,7 +95,9 @@ This project is licensed under the MIT License.
 ## TODO
 
 - [ ] Submit on f-droid store
-- [ ] UI for tablet ?
+- [ ] Adding music on playlist from all screen and player
+- [ ] Can create playlist from adding music on playlist dialog
+- [ ] UI for tablet
 - [x] Add popular/trending videos and search screen
 - [x] Add i18n with EN and FR translation (EN default language)
 - [x] Add update alert

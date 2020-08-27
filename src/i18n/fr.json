@@ -76,6 +76,14 @@
       "exportButton": "Expoter",
       "importButton": "Importer"
     },
+    "login": {
+      "token": "Token",
+      "username": "Nom d'utilisateur (optionnel)",
+      "instance": "Instance",
+      "buttonSaveToken": "Ajouter le token",
+      "language": "Langue",
+      "buttonSkip": "Suivant"
+    },
     "dialog": {
       "addToPlaylist": {
         "title": "Ajouter dans une playlist",
