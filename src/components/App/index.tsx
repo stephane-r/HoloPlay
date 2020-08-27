@@ -149,36 +149,40 @@ const AppScreen = ({ route }) => {
       <Tab.Screen
         name={t('navigation.dashboard')}
         component={DashboardScreen}
-        options={tabOptions('home', colors.screens.dashboard)}
+        options={tabOptions('home', 23, colors.screens.dashboard)}
         initialParams={route.params}
       />
       <Tab.Screen
         name={t('navigation.search')}
         component={SearchScreen}
-        options={tabOptions('magnify', colors.screens.search)}
+        options={tabOptions('magnify', 25, colors.screens.search)}
         initialParams={route.params}
       />
       <Tab.Screen
         name={t('navigation.playlists')}
         component={PlaylistsScreen}
-        options={tabOptions('headset', colors.screens.playlists)}
+        options={tabOptions('headset', 23, colors.screens.playlists)}
         initialParams={route.params}
       />
       <Tab.Screen
         name={t('navigation.favoris')}
         component={FavorisScreen}
-        options={tabOptions('heart', colors.screens.favoris)}
+        options={tabOptions('heart', 23, colors.screens.favoris)}
         initialParams={route.params}
       />
     </Tab.Navigator>
   );
 };
 
-const tabOptions = (iconName: string, tabBarColor: string): any => ({
+const tabOptions = (
+  iconName: string,
+  iconSize: number,
+  tabBarColor: string
+): any => ({
   tabBarIcon: ({ tintColor }: any): any => (
     <MaterialCommunityIcons
       name={iconName}
-      size={23}
+      size={iconSize}
       style={{ color: 'white' }}
     />
   ),
