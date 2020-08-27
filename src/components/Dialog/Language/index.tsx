@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, TextInput } from 'react-native-paper';
+import { Dialog, Button, TextInput, useTheme } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import { ApiRoutes } from '../../../constants';
 import { View } from 'react-native';
@@ -8,6 +8,7 @@ import fetchPlaylists from '../../../utils/fetchPlaylists';
 import callApi from '../../../utils/callApi';
 import useInvidiousInstances from '../../../hooks/useInvidiousInstances';
 import { useTranslation } from 'react-i18next';
+import getLanguageName from '../../../utils/getLanguageName';
 
 interface Props {
   value: string;
@@ -25,6 +26,7 @@ const DialogLanguage: React.FC<Props> = ({
   const [language, setLanguage] = useState<'en' | 'fr'>(value);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
+  const { colors } = useTheme();
 
   const submit = async () => {
     setIsLoading(true);
@@ -59,10 +61,12 @@ const DialogLanguage: React.FC<Props> = ({
     <Dialog visible={visible} onDismiss={onDismiss}>
       <Dialog.Title>{t('dialog.editLanguage.title')}</Dialog.Title>
       <Dialog.Content>
-        <Picker selectedValue={language} onValueChange={setLanguage}>
-          {/* TODO: Adding EN/FR array on constance with utils function for show full language name */}
+        <Picker
+          style={{ color: colors.text }}
+          selectedValue={language}
+          onValueChange={setLanguage}>
           {['en', 'fr'].map((lng) => (
-            <Picker.Item key={lng} label={lng} value={lng} />
+            <Picker.Item key={lng} label={getLanguageName(lng)} value={lng} />
           ))}
         </Picker>
       </Dialog.Content>

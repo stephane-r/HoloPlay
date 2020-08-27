@@ -18,25 +18,11 @@ import DialogEditUsername from '../../components/Dialog/EditUsername';
 import DialogErrorMonitoring from '../../components/Dialog/ErrorMonitoring';
 import DialogLanguage from '../../components/Dialog/Language';
 import { useTranslation } from 'react-i18next';
+import getLanguageName from '../../utils/getLanguageName';
 
 interface Props {
   navigation: any;
 }
-
-const getLanguageName = (lng: 'en' | 'fr'): string => {
-  let language;
-
-  switch (true) {
-    case lng === 'fr':
-      language = 'Français';
-      break;
-    default:
-      language = 'English';
-      break;
-  }
-
-  return language;
-};
 
 const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation();

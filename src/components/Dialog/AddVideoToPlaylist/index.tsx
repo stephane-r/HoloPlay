@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Picker } from '@react-native-community/picker';
-import { Paragraph, Dialog, Button, Portal } from 'react-native-paper';
+import {
+  Paragraph,
+  Dialog,
+  Button,
+  Portal,
+  useTheme
+} from 'react-native-paper';
 import { actions, Store } from '../../../store';
 import useStore from '../../../hooks/useStore';
 import { Video, Playlist } from '../../../types';
@@ -31,6 +37,7 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
   const [playlistId, setPlaylistId] = useState<null | string>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
   const { addVideoToPlaylist } = useVideo();
+  const { colors } = useTheme();
 
   const EMPTY_VALUE = {
     playlistId: null,
@@ -56,7 +63,7 @@ const DialogAddVideoToPlaylist: React.FC<Props> = ({
           <Paragraph>{t('dialog.addToPlaylist.text')}</Paragraph>
           <Picker
             selectedValue={playlistId}
-            style={{ height: 50 }}
+            style={{ height: 50, color: colors.text }}
             onValueChange={(value) => setPlaylistId(value)}>
             {[EMPTY_VALUE, ...playlists].map(({ title, playlistId }, index) => (
               <Picker.Item key={index} label={title} value={playlistId} />

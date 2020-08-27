@@ -25,6 +25,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   const [customInstance, setCustomInstance] = useState<boolean>(false);
   const [token, setToken] = useState<null | string>(null);
   const [username, setUsername] = useState<string>('User');
+  const { colors } = useTheme();
 
   const onValueChange = (value: string): void => {
     if (value === 'other') {
@@ -82,7 +83,10 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
 
   return (
     <>
-      <Picker selectedValue={instance} onValueChange={onValueChange}>
+      <Picker
+        style={{ color: colors.text }}
+        selectedValue={instance}
+        onValueChange={onValueChange}>
         {instances.map(({ uri, monitor }) => (
           <Picker.Item key={uri} label={monitor?.name ?? uri} value={uri} />
         ))}

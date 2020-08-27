@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, TextInput } from 'react-native-paper';
+import { Dialog, Button, TextInput, useTheme } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import { ApiRoutes } from '../../../constants';
 import { View } from 'react-native';
@@ -27,6 +27,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
   const [customInstance, setCustomInstance] = useState<boolean>(false);
   const { instances } = useInvidiousInstances();
   const { t } = useTranslation();
+  const { colors } = useTheme();
 
   const onValueChange = (value: string): void => {
     if (value === 'other') {
@@ -75,7 +76,10 @@ const DialogEditApiInstance: React.FC<Props> = ({
     <Dialog visible={visible} onDismiss={onDismiss}>
       <Dialog.Title>{t('dialog.editApiInstance.title')}</Dialog.Title>
       <Dialog.Content>
-        <Picker selectedValue={instance} onValueChange={onValueChange}>
+        <Picker
+          style={{ color: colors.text }}
+          selectedValue={instance}
+          onValueChange={onValueChange}>
           {instances.map(({ uri, monitor }) => (
             <Picker.Item key={uri} label={monitor?.name ?? uri} value={uri} />
           ))}
