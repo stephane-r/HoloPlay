@@ -22,7 +22,7 @@ const Favoris: React.FC<Props> = ({
   buttonWithIcon,
   color
 }) => {
-  const { colors } = useTheme();
+  const { colors, dark } = useTheme();
   const { addToFavoris, removeFromFavoris } = useFavoris();
 
   useEffect(() => {}, []);
@@ -47,7 +47,7 @@ const Favoris: React.FC<Props> = ({
 
   const iconColor = {
     icon: isFavoris ? 'heart' : 'heart-outline',
-    color: color ?? (isFavoris ? colors.favoris : colors.primary)
+    color: isFavoris ? colors.favoris : dark ? colors.primary : color
   };
 
   if (buttonWithIcon) {

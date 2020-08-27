@@ -19,7 +19,7 @@ const SearchPickerType = ({ searchType }: Props) => {
   return (
     <View style={{ width: 122 }}>
       <Picker
-        style={{ color: colors.text, height: 30 }}
+        style={{ color: 'white', height: 30 }}
         selectedValue={searchType}
         onValueChange={actions.setSearchType}>
         {SEARCH_TYPES.map((value, index) => (
