@@ -10,6 +10,7 @@ import PlaceholderSearchList from '../../components/Placeholder/Search';
 import Header from '../../components/Header';
 import SearchValueContainer from '../../containers/Search/Value';
 import SearchbarAbsoluteContainer from '../../containers/Search/BarAbsolute';
+import SearchPickerTypeContainer from '../../containers/Search/PickerType';
 
 const SearchScreen: React.FC = ({ route }) => {
   const { colors } = useTheme();
@@ -22,7 +23,7 @@ const SearchScreen: React.FC = ({ route }) => {
         <Header
           title={t('navigation.search')}
           backgroundColor={colors.screens.search}>
-          <SearchValueContainer />
+          <SearchPickerTypeContainer />
         </Header>
         <Suspense fallback={<PlaceholderSearchList />}>
           <SearchResultContainer />
