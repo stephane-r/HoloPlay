@@ -87,7 +87,9 @@
     "dialog": {
       "addToPlaylist": {
         "title": "Ajouter dans une playlist",
-        "text": "Sélectionnez la playlist dans laquelle vous souhaitez ajouté cette musique.",
+        "newPlaylist": "Nouvelle playlist",
+        "text": "Sélectionnez la playlist dans laquelle vous souhaitez ajouté cette musique",
+        "text2": "Ou créez une nouvelle playlist",
         "selectPlaylist": "Sélectionner"
       },
       "createPlaylist": {

@@ -14,7 +14,8 @@ const usePlaylist = (): void => {
 
   const createPlaylist = async (
     playlist: Playlist,
-    callback: () => void
+    callback: () => void,
+    showFlashMessage: boolean = true
   ): Promise<any> => {
     const playlistName = playlist.title;
 
@@ -30,10 +31,8 @@ const usePlaylist = (): void => {
         });
       }
 
-      console.log(uuidv4());
-
       actions.addPlaylist({
-        playlistId: uuidv4(),
+        playlistId: playlist.playlistId ?? uuidv4(),
         title: playlist.title,
         privacy: 'public',
         videos: []
@@ -46,13 +45,17 @@ const usePlaylist = (): void => {
       callback();
     }
 
-    return setTimeout(
-      () =>
-        actions.setFlashMessage({
-          message: t('flashMessage.createPlaylist', { playlistName })
-        }),
-      500
-    );
+    if (showFlashMessage) {
+      return setTimeout(
+        () =>
+          actions.setFlashMessage({
+            message: t('flashMessage.createPlaylist', { playlistName })
+          }),
+        500
+      );
+    } else {
+      return null;
+    }
   };
 
   const updatePlaylist = async (

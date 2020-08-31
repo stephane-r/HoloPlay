@@ -15,7 +15,7 @@ interface Props {
   playlist: Playlist;
 }
 
-const playlistProps = {
+export const playlistProps = {
   title: '',
   privacy: 'public'
 };
