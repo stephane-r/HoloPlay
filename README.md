@@ -96,7 +96,7 @@ This project is licensed under the MIT License.
 
 - [ ] Submit on f-droid store
 - [ ] Adding music on playlist from all screen and player
-- [ ] Can create playlist from adding music on playlist dialog
+- [x] Can create playlist from adding music on playlist dialog
 - [ ] UI for tablet
 - [x] Add popular/trending videos and search screen
 - [x] Add i18n with EN and FR translation (EN default language)
