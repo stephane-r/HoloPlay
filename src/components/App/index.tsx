@@ -11,6 +11,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import RNBootSplash from 'react-native-bootsplash';
 import SnackbarContainer from '../../containers/Snackbar';
 import { actions } from '../../store';
 import LoadingScreen from '../../screens/Loading';
@@ -94,8 +95,11 @@ const App: React.FC<Props> = () => {
         if (token) {
           setToken(token);
         }
+
         setLogoutMode(logoutModeParsed);
         setIsLoading(false);
+
+        RNBootSplash.hide({ duration: 250 });
 
         if (action?.title) {
           switch (true) {
