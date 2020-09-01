@@ -95,7 +95,7 @@ This project is licensed under the MIT License.
 ## TODO
 
 - [ ] Submit on f-droid store
-- [ ] Adding music on playlist from all screen and player
+- [x] Adding music on playlist from all screen and player
 - [x] Can create playlist from adding music on playlist dialog
 - [ ] UI for tablet
 - [x] Add popular/trending videos and search screen

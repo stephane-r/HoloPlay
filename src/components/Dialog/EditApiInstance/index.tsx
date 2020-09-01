@@ -8,6 +8,7 @@ import fetchPlaylists from '../../../utils/fetchPlaylists';
 import callApi from '../../../utils/callApi';
 import useInvidiousInstances from '../../../hooks/useInvidiousInstances';
 import { useTranslation } from 'react-i18next';
+import useStore from '../../../hooks/useStore';
 
 interface Props {
   value: string;
@@ -22,6 +23,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
   onDismiss,
   toggleDialog
 }) => {
+  const store = useStore();
   const [instance, setInstance] = useState<string>(value);
   const [isLoading, setIsLoading] = useState<string>(false);
   const [customInstance, setCustomInstance] = useState<boolean>(false);
@@ -42,12 +44,14 @@ const DialogEditApiInstance: React.FC<Props> = ({
 
     try {
       await actions.setInstance(instance);
-      actions.clearData();
       await callApi({
         url: ApiRoutes.Preferences
       });
-      await fetchPlaylists();
-      toggleDialog();
+
+      if (!store.logoutMode) {
+        actions.clearData();
+        await fetchPlaylists();
+      }
 
       return setTimeout(
         () =>

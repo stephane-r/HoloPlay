@@ -23,8 +23,6 @@ const SearchPopularTop: React.FC<Props> = ({
   title
 }) => {
   const { data }: SearchVideo[] = useCallApi(apiUrl, 20);
-  const [dialogIsShow, toggleDialog] = useState<boolean>(false);
-  const [video, setVideo] = useState<null | SearchVideo>(null);
 
   useEffect(() => {
     if (data) {
@@ -45,10 +43,6 @@ const SearchPopularTop: React.FC<Props> = ({
             loopIndex={index}
             video={video}
             setPlaylistFrom={setPlaylistFrom}
-            addToPlaylist={(item) => {
-              setVideo(item);
-              toggleDialog(!dialogIsShow);
-            }}
             containerCustomStyle={{
               width: 250,
               paddingTop: 15

@@ -19,8 +19,6 @@ interface Props {
 }
 
 const ResultList: React.FC<Props> = ({ videos, ...props }) => {
-  const [dialogIsShow, toggleDialog] = useState<boolean>(false);
-  const [video, setVideo] = useState<null | Video>(null);
   const { createFavorisPlaylist } = useFavoris();
   const { t } = useTranslation();
 
@@ -44,31 +42,17 @@ const ResultList: React.FC<Props> = ({ videos, ...props }) => {
   }
 
   return (
-    <>
-      <CardList>
-        {videos.map((video, index) => (
-          <CardSearch
-            isFavoris
-            key={video.videoId}
-            video={video}
-            loopIndex={index}
-            setPlaylistFrom={FAVORIS_PLAYLIST_TITLE}
-            addToPlaylist={(item): void => {
-              setVideo(item);
-              toggleDialog(!dialogIsShow);
-            }}
-          />
-        ))}
-      </CardList>
-      {props.playlists && (
-        <DialogAddVideoToPlaylist
-          visible={dialogIsShow}
-          toggleDialog={() => toggleDialog(!dialogIsShow)}
+    <CardList>
+      {videos.map((video, index) => (
+        <CardSearch
+          isFavoris
+          key={video.videoId}
           video={video}
-          playlists={props.playlists}
+          loopIndex={index}
+          setPlaylistFrom={FAVORIS_PLAYLIST_TITLE}
         />
-      )}
-    </>
+      ))}
+    </CardList>
   );
 };
 

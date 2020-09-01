@@ -203,19 +203,35 @@ const Player: React.FC<Props> = ({
               />
             </View>
             <View
-              style={{
-                position: 'absolute',
-                top: 15,
-                left: 15,
-                backgroundColor: 'rgba(255, 255, 255, 0.4)',
-                borderRadius: 50
-              }}>
+              style={[
+                styles.actionsAbsolute,
+                {
+                  left: 15
+                }
+              ]}>
               <IconButton
                 accessibilityStates={[]}
                 icon="chevron-left"
                 color="white"
                 style={{ margin: 0 }}
                 onPress={() => setTimeout(() => closePlayer(), 200)}
+                size={28}
+                animated
+              />
+            </View>
+            <View
+              style={[
+                styles.actionsAbsolute,
+                {
+                  right: 15
+                }
+              ]}>
+              <IconButton
+                accessibilityStates={[]}
+                icon="plus"
+                color="white"
+                style={{ margin: 0 }}
+                onPress={() => actions.setVideoDialogAddVideoToPlaylist(video)}
                 size={28}
                 animated
               />
@@ -420,6 +436,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  actionsAbsolute: {
+    position: 'absolute',
+    top: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    borderRadius: 50
   }
 });
 

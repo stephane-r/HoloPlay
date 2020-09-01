@@ -25,8 +25,6 @@ const SearchResult: React.FC<Props> = ({
   const { data }: SearchVideo[] = useCallApi(
     `search?q=${searchValue}&type=${searchType}`
   );
-  const [dialogIsShow, toggleDialog] = useState<boolean>(false);
-  const [video, setVideo] = useState<null | SearchVideo>(null);
   const { colors } = useTheme();
 
   const videos = data?.length > 0 ? data : popular;
@@ -42,31 +40,17 @@ const SearchResult: React.FC<Props> = ({
   }
 
   return (
-    <>
-      <CardList>
-        {videos.map((video, index) => (
-          <CardSearch
-            key={video.videoId}
-            loopIndex={index}
-            video={video}
-            setPlaylistFrom="searchResults"
-            favorisButtonColor={colors.screens.search}
-            addToPlaylist={(item) => {
-              setVideo(item);
-              toggleDialog(!dialogIsShow);
-            }}
-          />
-        ))}
-      </CardList>
-      {video !== null && (
-        <DialogAddVideoToPlaylist
-          visible={dialogIsShow}
-          toggleDialog={() => toggleDialog(!dialogIsShow)}
-          video={video as Video}
-          playlists={playlists}
+    <CardList>
+      {videos.map((video, index) => (
+        <CardSearch
+          key={video.videoId}
+          loopIndex={index}
+          video={video}
+          setPlaylistFrom="searchResults"
+          favorisButtonColor={colors.screens.search}
         />
-      )}
-    </>
+      ))}
+    </CardList>
   );
 };
 

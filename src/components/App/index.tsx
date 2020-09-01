@@ -39,6 +39,7 @@ import AppPlayer from '../AppPlayer';
 import useUpdateRelease from '../../hooks/useUpdateRelease';
 import { useTranslation } from 'react-i18next';
 import SearchScreen from '../../screens/Search';
+import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoToPlaylist';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -136,6 +137,7 @@ const App: React.FC<Props> = () => {
       </NavigationContainer>
       <SnackbarContainer />
       <AppPlayer />
+      <DialogAddVideoToPlaylistContainer />
     </PaperProvider>
   );
 };

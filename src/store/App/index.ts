@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Store } from '../../store';
 import { FlashMessage } from '../../types/FlashMessage';
+import { Video } from '../../types';
 
 export interface AppState {
   username: null | string;
@@ -11,6 +12,10 @@ export interface AppState {
   darkMode: boolean;
   sendErrorMonitoring: boolean;
   language: 'en' | 'fr';
+  dialogAddVideoToPlaylist: {
+    isOpen: boolean;
+    video: null | Video;
+  };
 }
 
 const appState: AppState = {
@@ -28,7 +33,11 @@ const appState: AppState = {
   },
   darkMode: false,
   sendErrorMonitoring: false,
-  language: 'en'
+  language: 'en',
+  dialogAddVideoToPlaylist: {
+    isOpen: false,
+    video: null
+  }
 };
 
 const appActions = {
@@ -172,7 +181,26 @@ const appActions = {
       ...store,
       language
     };
-  }
+  },
+  toggleDialogAddVideoToPlaylist: (store: Store) => ({
+    ...store,
+    dialogAddVideoToPlaylist: {
+      ...store.dialogAddVideoToPlaylist,
+      isOpen: !store.dialogAddVideoToPlaylist.isOpen
+    }
+  }),
+  setVideoDialogAddVideoToPlaylist: (
+    store: Store,
+    actions: any,
+    video: Video
+  ) => ({
+    ...store,
+    dialogAddVideoToPlaylist: {
+      ...store.dialogAddVideoToPlaylist,
+      video,
+      isOpen: true
+    }
+  })
 };
 
 export { appState, appActions };

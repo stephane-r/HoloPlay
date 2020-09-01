@@ -38,12 +38,6 @@ const Drawler: React.FC<Props> = ({ setTheme, darkMode }) => {
       <Drawer.Section title={t('drawler.title')}>
         <Drawer.Item
           accessibilityStates={[]}
-          label={t('drawler.createPlaylist')}
-          icon="folder-plus"
-          onPress={() => navigation.navigate('Playlists')}
-        />
-        <Drawer.Item
-          accessibilityStates={[]}
           label={t('drawler.settings')}
           icon="cog"
           onPress={() => navigation.navigate('Settings')}

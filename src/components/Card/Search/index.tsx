@@ -9,7 +9,6 @@ import { IconButton } from 'react-native-paper';
 
 interface Props {
   video: SearchVideo;
-  addToPlaylist: (video: SearchVideo) => void;
   setPlaylistFrom: string;
   loopIndex?: number;
   favorisButtonColor: null | string;
@@ -23,7 +22,6 @@ interface Props {
 
 const CardSearch: React.FC<Props> = ({
   video,
-  addToPlaylist,
   setPlaylistFrom,
   loopIndex,
   favorisButtonColor = null,
@@ -97,7 +95,7 @@ const CardSearch: React.FC<Props> = ({
             icon="plus"
             accessibilityStates={[]}
             size={22}
-            onPress={() => addToPlaylist(video)}
+            onPress={() => actions.setVideoDialogAddVideoToPlaylist(video)}
           />
         </View>
       )}
