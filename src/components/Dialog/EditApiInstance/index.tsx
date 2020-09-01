@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dialog, Button, TextInput, useTheme } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import { ApiRoutes } from '../../../constants';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
 import callApi from '../../../utils/callApi';
@@ -44,11 +44,11 @@ const DialogEditApiInstance: React.FC<Props> = ({
 
     try {
       await actions.setInstance(instance);
-      await callApi({
-        url: ApiRoutes.Preferences
-      });
 
       if (!store.logoutMode) {
+        await callApi({
+          url: ApiRoutes.Preferences
+        });
         actions.clearData();
         await fetchPlaylists();
       }
@@ -62,7 +62,11 @@ const DialogEditApiInstance: React.FC<Props> = ({
       );
     } catch (error) {
       console.log(error);
-      actions.clearData();
+
+      if (!store.logoutMode) {
+        actions.clearData();
+      }
+
       return setTimeout(
         () =>
           actions.setFlashMessage({
