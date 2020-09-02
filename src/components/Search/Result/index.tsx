@@ -7,6 +7,8 @@ import { actions } from '../../../store';
 import Playlist from '../../Playlist/List';
 import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
 import { Text, useTheme } from 'react-native-paper';
+import Spacer from '../../Spacer';
+import DataEmpty from '../../Data/Empty';
 
 interface Props {
   playlists: PlaylistType[];
@@ -35,8 +37,15 @@ const SearchResult: React.FC<Props> = ({
     }
   }, [searchValue]);
 
-  if (!Array.isArray(data)) {
-    return <Text>No result. Maybe instance is down ?</Text>;
+  if (!Array.isArray(data) || data.length === 0) {
+    return (
+      <DataEmpty>
+        <Text>
+          No result. Maybe instance is down ? Try to change Invidious instance
+          from settings screen.
+        </Text>
+      </DataEmpty>
+    );
   }
 
   return (

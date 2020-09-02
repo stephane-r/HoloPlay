@@ -9,7 +9,7 @@ const useCallApi = (url: string, slice: number = 40): SearchVideo[] => {
   );
 
   return {
-    data: data.slice(0, slice)
+    data: Array.isArray(data) ? data.slice(0, slice) : []
   };
 };
 

@@ -30,8 +30,16 @@ const SearchPopularTop: React.FC<Props> = ({
     }
   }, [data]);
 
-  if (!Array.isArray(data)) {
-    return <Text>No result. Maybe instance is down ?</Text>;
+  if (!Array.isArray(data) || data.length === 0) {
+    return (
+      <>
+        <Text>
+          No result. Maybe instance is down ? Try to change Invidious instance
+          from settings screen.
+        </Text>
+        <Spacer height={20} />
+      </>
+    );
   }
 
   return (
