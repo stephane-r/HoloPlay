@@ -34,7 +34,8 @@
       },
       "popular": "Plus populaires",
       "trending": "Tendances",
-      "lastPlays": "Dernières écoutes"
+      "lastPlays": "Dernières écoutes",
+      "error": "Aucun résultat. L'instance Invidious est peut-être down ? Essayez de changer d'instance depuis les paramètres de l'application."
     },
     "playlists": {
       "song": "musique"

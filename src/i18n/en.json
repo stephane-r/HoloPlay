@@ -34,7 +34,8 @@
       },
       "popular": "Most popular",
       "trending": "Trending",
-      "lastPlays": "Last plays"
+      "lastPlays": "Last plays",
+      "error": "No result. Maybe instance is down ? Try to change Invidious instance from settings screen."
     },
     "playlists": {
       "song": "song"

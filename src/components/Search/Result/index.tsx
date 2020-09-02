@@ -9,6 +9,7 @@ import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
 import { Text, useTheme } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import DataEmpty from '../../Data/Empty';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   playlists: PlaylistType[];
@@ -28,6 +29,7 @@ const SearchResult: React.FC<Props> = ({
     `search?q=${searchValue}&type=${searchType}`
   );
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   const videos = data?.length > 0 ? data : popular;
 
@@ -40,10 +42,7 @@ const SearchResult: React.FC<Props> = ({
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <DataEmpty>
-        <Text>
-          No result. Maybe instance is down ? Try to change Invidious instance
-          from settings screen.
-        </Text>
+        <Text>{t('search.error')}</Text>
       </DataEmpty>
     );
   }

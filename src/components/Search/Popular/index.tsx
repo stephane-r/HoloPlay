@@ -9,6 +9,7 @@ import { Text, Title } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import { View, Dimensions } from 'react-native';
 import CardScrollList from '../../Card/ScrollList';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   playlists: PlaylistType[];
@@ -23,6 +24,7 @@ const SearchPopularTop: React.FC<Props> = ({
   title
 }) => {
   const { data }: SearchVideo[] = useCallApi(apiUrl, 20);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (data) {
@@ -33,10 +35,7 @@ const SearchPopularTop: React.FC<Props> = ({
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <>
-        <Text>
-          No result. Maybe instance is down ? Try to change Invidious instance
-          from settings screen.
-        </Text>
+        <Text>{t('search.error')}</Text>
         <Spacer height={20} />
       </>
     );
