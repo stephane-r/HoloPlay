@@ -4,7 +4,8 @@ import {
   Searchbar,
   Text,
   TouchableRipple,
-  IconButton
+  IconButton,
+  useTheme
 } from 'react-native-paper';
 import { useAnimation } from 'react-native-animation-hooks';
 import { actions } from '../../../store';
@@ -18,38 +19,46 @@ type History = string;
 
 interface SearchProps {
   history: string[];
-}
-
-interface SearchSubmenuProps {
-  isOpen: boolean;
-  selectValue: Function;
-  items: string[];
   showButtonHistory: boolean;
+  submenuPosition: 'top' | 'bottom';
 }
 
 const Search: React.FC<SearchProps> = ({
+  searchValue,
   history,
-  showButtonHistory = false
+  showButtonHistory = false,
+  submenuPosition = 'top'
 }) => {
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(searchValue);
   const [showSubmenu, setShowSubmenu] = useState<boolean>(false);
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const { dark, colors } = useTheme();
 
-  const searchThroughApi = async (): void => {
-    await actions.search(value);
+  const searchThroughApi = async (
+    selectedValue?: null | string = null
+  ): void => {
+    const wantedValue =
+      typeof selectedValue === 'string' ? selectedValue : value;
+    await actions.search(wantedValue);
     setTimeout(() => navigation.navigate(t('navigation.search')), 200);
   };
 
   const toggleSubmenu = (): void => setShowSubmenu(!showSubmenu);
 
+  useEffect(() => {
+    if (searchValue) {
+      setValue(searchValue);
+    }
+  }, [history]);
+
   return (
     <View
       style={[
         styles.container,
-        { paddingVertical: showButtonHistory ? 16 : 0 }
+        { paddingVertical: submenuPosition === 'top' ? 16 : 0 }
       ]}>
-      <View style={{ flex: 1, paddingRight: showButtonHistory ? 8 : 0 }}>
+      <View style={{ flex: 1, paddingRight: 8 }}>
         <Searchbar
           accessibilityStates={[]}
           placeholder={t('searchBar.placeholder')}
@@ -64,16 +73,20 @@ const Search: React.FC<SearchProps> = ({
           <IconButton
             accessibilityStates={[]}
             icon="history"
-            color="white"
+            color={
+              submenuPosition === 'bottom' && !dark
+                ? colors.screens.search
+                : 'white'
+            }
             size={30}
             onPress={toggleSubmenu}
           />
           <SearchSubmenu
+            position={submenuPosition}
             items={history}
-            selectValue={(value: string): void => {
-              setValue(value);
+            selectValue={(selectedValue: string): void => {
               toggleSubmenu();
-              searchThroughApi();
+              searchThroughApi(selectedValue);
             }}
             isOpen={showSubmenu}
           />

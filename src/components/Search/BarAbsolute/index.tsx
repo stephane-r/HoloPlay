@@ -15,7 +15,7 @@ const SearchbarAbsolute: React.FC = ({ video }) => {
 
   return (
     <Animated.View style={[styles.searchBarContainer, { bottom }]}>
-      <SearchbarContainer />
+      <SearchbarContainer showButtonHistory submenuPosition="bottom" />
     </Animated.View>
   );
 };
@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     position: 'absolute',
     left: 15,
-    right: 15,
-    backgroundColor: 'white'
+    right: 15
   }
 });
 

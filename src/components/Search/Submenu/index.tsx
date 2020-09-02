@@ -14,10 +14,16 @@ interface Props {
   isOpen: boolean;
   selectValue: () => void;
   items: string[];
+  position?: 'top' | 'bottom';
 }
 
-const SearchSubmenu: React.FC<Props> = ({ isOpen, selectValue, items }) => {
-  const { colors } = useTheme();
+const SearchSubmenu: React.FC<Props> = ({
+  isOpen,
+  selectValue,
+  items,
+  position = 'top'
+}) => {
+  const { colors, dark } = useTheme();
   const opacity = useAnimation({
     toValue: isOpen ? 1 : 0,
     type: 'timing',
@@ -27,7 +33,14 @@ const SearchSubmenu: React.FC<Props> = ({ isOpen, selectValue, items }) => {
 
   return (
     <Animated.View
-      style={[styles.submenu, { backgroundColor: colors.surface, opacity }]}
+      style={[
+        styles.submenu,
+        {
+          backgroundColor: colors.surface,
+          opacity,
+          [position]: 70
+        }
+      ]}
       pointerEvents={isOpen ? 'auto' : 'none'}>
       {items.map((text, index) => (
         <TouchableRipple key={index} onPress={() => selectValue(text)}>
@@ -35,7 +48,9 @@ const SearchSubmenu: React.FC<Props> = ({ isOpen, selectValue, items }) => {
             style={[
               styles.item,
               {
-                borderTopColor: colors.placeholder,
+                borderTopColor: dark
+                  ? 'rgba(255, 255, 255, .1)'
+                  : 'rgba(0, 0, 0, .2)',
                 borderTopWidth: index === 0 ? 0 : 1
               }
             ]}>
@@ -50,7 +65,6 @@ const SearchSubmenu: React.FC<Props> = ({ isOpen, selectValue, items }) => {
 const styles = StyleSheet.create({
   submenu: {
     position: 'absolute',
-    top: 70,
     left: 0,
     right: 0,
     elevation: 2,
