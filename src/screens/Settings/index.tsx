@@ -19,6 +19,8 @@ import DialogErrorMonitoring from '../../components/Dialog/ErrorMonitoring';
 import DialogLanguage from '../../components/Dialog/Language';
 import { useTranslation } from 'react-i18next';
 import getLanguageName from '../../utils/getLanguageName';
+import { ScrollView } from 'react-native-gesture-handler';
+import Spacer from '../../components/Spacer';
 
 interface Props {
   navigation: any;
@@ -46,127 +48,135 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const toggleDialogLanguage = () => setShowDialogLanguage(!showDialogLanguage);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Appbar accessibilityStates={[]}>
-        <Appbar.BackAction
-          accessibilityStates={[]}
-          icon="archive"
-          onPress={(): void => navigation.goBack()}
-        />
-        <Appbar.Content title={t('settings.title')} accessibilityStates={[]} />
-      </Appbar>
-      <View style={styles.content}>
-        <Subheading style={styles.subheading}>{t('settings.api')}</Subheading>
-        <List.Item
-          accessibilityStates={[]}
-          title={t('settings.invidiousInstance')}
-          description={store.instance}
-          onPress={toggleDialogApiInstance}
-        />
-        <Divider accessibilityStates={[]} />
-        <List.Item
-          accessibilityStates={[]}
-          title={t('settings.token')}
-          description={store.token}
-          onPress={toggleDialogToken}
-        />
-        <Divider accessibilityStates={[]} />
-      </View>
-      <View style={styles.content}>
-        <Subheading style={styles.subheading}>
-          {t('settings.application')}
-        </Subheading>
-        <List.Item
-          accessibilityStates={[]}
-          title={t('settings.username')}
-          description={store.username}
-          onPress={toggleDialogUsername}
-        />
-        <Divider accessibilityStates={[]} />
-        <View>
+    <ScrollView>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <Appbar accessibilityStates={[]}>
+          <Appbar.BackAction
+            accessibilityStates={[]}
+            icon="archive"
+            onPress={(): void => navigation.goBack()}
+          />
+          <Appbar.Content
+            title={t('settings.title')}
+            accessibilityStates={[]}
+          />
+        </Appbar>
+        <View style={styles.content}>
+          <Subheading style={styles.subheading}>{t('settings.api')}</Subheading>
           <List.Item
             accessibilityStates={[]}
-            title={t('settings.monitoring')}
-            description={t(
-              store.sendErrorMonitoring
-                ? 'settings.enabled'
-                : 'settings.disabled'
-            )}
-            onPress={toggleDialogErrorMoniroting}
+            title={t('settings.invidiousInstance')}
+            description={store.instance}
+            onPress={toggleDialogApiInstance}
           />
-        </View>
-        <Divider accessibilityStates={[]} />
-        <View>
+          <Divider accessibilityStates={[]} />
           <List.Item
             accessibilityStates={[]}
-            title={t('settings.language')}
-            description={getLanguageName(store.language)}
-            onPress={toggleDialogLanguage}
+            title={t('settings.token')}
+            description={store.token}
+            onPress={toggleDialogToken}
           />
+          <Divider accessibilityStates={[]} />
         </View>
-        <Divider accessibilityStates={[]} />
+        <View style={styles.content}>
+          <Subheading style={styles.subheading}>
+            {t('settings.application')}
+          </Subheading>
+          <List.Item
+            accessibilityStates={[]}
+            title={t('settings.username')}
+            description={store.username}
+            onPress={toggleDialogUsername}
+          />
+          <Divider accessibilityStates={[]} />
+          <View>
+            <List.Item
+              accessibilityStates={[]}
+              title={t('settings.monitoring')}
+              description={t(
+                store.sendErrorMonitoring
+                  ? 'settings.enabled'
+                  : 'settings.disabled'
+              )}
+              onPress={toggleDialogErrorMoniroting}
+            />
+          </View>
+          <Divider accessibilityStates={[]} />
+          <View>
+            <List.Item
+              accessibilityStates={[]}
+              title={t('settings.language')}
+              description={getLanguageName(store.language)}
+              onPress={toggleDialogLanguage}
+            />
+          </View>
+          <Divider accessibilityStates={[]} />
+        </View>
+        <View style={styles.content}>
+          <Subheading style={styles.subheading}>
+            {t('settings.data')}
+          </Subheading>
+          <View style={{ height: 15 }} />
+          <View
+            style={{
+              paddingHorizontal: 15
+            }}>
+            <Text>{t('settings.importExportText')}</Text>
+          </View>
+          <View style={{ height: 15 }} />
+          <View
+            style={{
+              paddingHorizontal: 9,
+              flexDirection: 'row',
+              width: '100%'
+            }}>
+            <Button
+              style={{ flex: 1, marginHorizontal: 7 }}
+              mode="contained"
+              onPress={backupData}>
+              {t('settings.exportButton')}
+            </Button>
+            <Button
+              style={{ flex: 1, marginHorizontal: 7 }}
+              mode="contained"
+              onPress={importData}>
+              {t('settings.importButton')}
+            </Button>
+          </View>
+        </View>
+        <DialogEditToken
+          value={store.token as string}
+          visible={showDialogToken}
+          onDismiss={toggleDialogToken}
+          toggleDialog={toggleDialogToken}
+        />
+        <DialogEditApiInstance
+          value={store.instance as string}
+          visible={showDialogApiInstance}
+          onDismiss={toggleDialogApiInstance}
+          toggleDialog={toggleDialogApiInstance}
+        />
+        <DialogEditUsername
+          value={store.username as string}
+          visible={showDialogUsername}
+          onDismiss={toggleDialogUsername}
+          toggleDialog={toggleDialogUsername}
+        />
+        <DialogErrorMonitoring
+          value={store.sendErrorMonitoring as string}
+          visible={showDialogErrorMonitoring}
+          onDismiss={toggleDialogErrorMoniroting}
+          toggleDialog={toggleDialogErrorMoniroting}
+        />
+        <DialogLanguage
+          value={store.language}
+          visible={showDialogLanguage}
+          onDismiss={toggleDialogLanguage}
+          toggleDialog={toggleDialogLanguage}
+        />
       </View>
-      <View style={styles.content}>
-        <Subheading style={styles.subheading}>{t('settings.data')}</Subheading>
-        <View style={{ height: 15 }} />
-        <View
-          style={{
-            paddingHorizontal: 15
-          }}>
-          <Text>{t('settings.importExportText')}</Text>
-        </View>
-        <View style={{ height: 15 }} />
-        <View
-          style={{
-            paddingHorizontal: 9,
-            flexDirection: 'row',
-            width: '100%'
-          }}>
-          <Button
-            style={{ flex: 1, marginHorizontal: 7 }}
-            mode="contained"
-            onPress={backupData}>
-            {t('settings.exportButton')}
-          </Button>
-          <Button
-            style={{ flex: 1, marginHorizontal: 7 }}
-            mode="contained"
-            onPress={importData}>
-            {t('settings.importButton')}
-          </Button>
-        </View>
-      </View>
-      <DialogEditToken
-        value={store.token as string}
-        visible={showDialogToken}
-        onDismiss={toggleDialogToken}
-        toggleDialog={toggleDialogToken}
-      />
-      <DialogEditApiInstance
-        value={store.instance as string}
-        visible={showDialogApiInstance}
-        onDismiss={toggleDialogApiInstance}
-        toggleDialog={toggleDialogApiInstance}
-      />
-      <DialogEditUsername
-        value={store.username as string}
-        visible={showDialogUsername}
-        onDismiss={toggleDialogUsername}
-        toggleDialog={toggleDialogUsername}
-      />
-      <DialogErrorMonitoring
-        value={store.sendErrorMonitoring as string}
-        visible={showDialogErrorMonitoring}
-        onDismiss={toggleDialogErrorMoniroting}
-        toggleDialog={toggleDialogErrorMoniroting}
-      />
-      <DialogLanguage
-        value={store.language}
-        visible={showDialogLanguage}
-        onDismiss={toggleDialogLanguage}
-        toggleDialog={toggleDialogLanguage}
-      />
-    </View>
+      <Spacer height={20} />
+    </ScrollView>
   );
 };
 

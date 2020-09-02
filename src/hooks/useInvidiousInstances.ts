@@ -11,7 +11,7 @@ const useInvidiousInstances = (): UseInvidiousInstancesHook => {
 
   useEffect(() => {
     fetchInvidiousInstances().then(setInstances);
-  });
+  }, []);
 
   return {
     instances
