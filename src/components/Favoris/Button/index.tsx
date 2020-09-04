@@ -12,6 +12,7 @@ interface Props {
   favorisIds: string[];
   videoId: string;
   buttonWithIcon: boolean;
+  size?: number;
   color?: string;
 }
 
@@ -20,6 +21,7 @@ const Favoris: React.FC<Props> = ({
   favorisIds,
   video,
   buttonWithIcon,
+  size = 25,
   color
 }) => {
   const { colors, dark } = useTheme();
@@ -62,7 +64,7 @@ const Favoris: React.FC<Props> = ({
     <IconButton
       {...iconColor}
       accessibilityStates={[]}
-      size={25}
+      size={size}
       onPress={addOrRemoveToFavoris}
       animated
     />

@@ -211,7 +211,7 @@ const Player: React.FC<Props> = ({
               ]}>
               <IconButton
                 accessibilityStates={[]}
-                icon="chevron-left"
+                icon="chevron-down"
                 color="white"
                 style={{ margin: 0 }}
                 onPress={() => setTimeout(() => closePlayer(), 200)}

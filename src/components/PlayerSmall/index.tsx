@@ -18,6 +18,8 @@ import { Video as VideoType } from '../../types';
 import Progress from '../Progress';
 import hex2rgba from '../../utils/hex2rgba';
 import useKeyboard from '../../hooks/useKeyboard';
+import useFavoris from '../../hooks/useFavoris';
+import FavorisButtonContainer from '../../containers/Favoris/Button';
 
 interface Props {
   video: VideoType;
@@ -37,12 +39,17 @@ const PlayerSmall: React.FC<Props> = ({ video, paused, showPlayer }) => {
     type: 'timing',
     useNativeDriver: false
   });
+  const { addToFavoris, removeFromFavoris } = useFavoris();
 
   getColorFromURL(video?.thumbnail.url).then((colors) =>
     setBackground(colors.primary)
   );
 
   useEffect(() => {}, [video]);
+
+  if (!video) {
+    return null;
+  }
 
   return (
     <Animated.View
@@ -63,6 +70,25 @@ const PlayerSmall: React.FC<Props> = ({ video, paused, showPlayer }) => {
           ]}>
           <IconButton
             accessibilityStates={[]}
+            icon={'chevron-up'}
+            onPress={showPlayer}
+            style={[styles.icon]}
+            color={color}
+            size={30}
+            animated
+          />
+          <View style={styles.content}>
+            <Text numberOfLines={1} style={{ color, textAlign: 'center' }}>
+              {video?.title}
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={[styles.author, { color, textAlign: 'center' }]}>
+              {video?.author}
+            </Text>
+          </View>
+          <IconButton
+            accessibilityStates={[]}
             icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
             onPress={actions.paused}
             style={styles.icon}
@@ -70,14 +96,6 @@ const PlayerSmall: React.FC<Props> = ({ video, paused, showPlayer }) => {
             size={40}
             animated
           />
-          <View style={styles.content}>
-            <Text numberOfLines={1} style={{ color }}>
-              {video?.title}
-            </Text>
-            <Text numberOfLines={1} style={[styles.author, { color }]}>
-              {video?.author}
-            </Text>
-          </View>
         </View>
       </TouchableNativeFeedback>
     </Animated.View>
@@ -96,12 +114,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  content: { flex: 1, paddingRight: 20, marginTop: -2 },
+  content: {
+    flex: 1,
+    marginTop: -2
+  },
   icon: {
     width: 40,
     margin: 0,
     marginTop: -2,
-    marginHorizontal: 20
+    marginHorizontal: 15
   },
   author: {
     fontSize: 10
