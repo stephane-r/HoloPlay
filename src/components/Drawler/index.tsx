@@ -9,16 +9,19 @@ import {
 } from 'react-native-paper';
 import { actions } from '../../store';
 import AppVersion from '../Version';
-import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
   darkMode: boolean;
 }
 
-const Drawler: React.FC<Props> = ({ setTheme, darkMode }) => {
+const Drawler: React.FC<Props> = ({
+  setTheme,
+  darkMode,
+  navigation,
+  drawler
+}) => {
   const [isDarkMode, setDarkMode] = useState<boolean>(darkMode);
-  const navigation = useNavigation();
   const { colors } = useTheme();
   const { t } = useTranslation();
 
@@ -40,7 +43,10 @@ const Drawler: React.FC<Props> = ({ setTheme, darkMode }) => {
           accessibilityStates={[]}
           label={t('drawler.settings')}
           icon="cog"
-          onPress={() => navigation.navigate('Settings')}
+          onPress={() => {
+            drawler.current.closeDrawer();
+            setTimeout(() => navigation.current.navigate('Settings'), 200);
+          }}
         />
         <View style={styles.switchContainer}>
           <Drawer.Item

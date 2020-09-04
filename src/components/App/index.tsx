@@ -41,6 +41,8 @@ import useUpdateRelease from '../../hooks/useUpdateRelease';
 import { useTranslation } from 'react-i18next';
 import SearchScreen from '../../screens/Search';
 import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoToPlaylist';
+import { DrawerLayoutAndroid } from 'react-native-gesture-handler';
+import DrawlerContainer from '../../containers/Drawler';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -54,6 +56,7 @@ interface Props {
 
 const App: React.FC<Props> = () => {
   const navigation = useRef(null);
+  const drawler = useRef(null);
   const [appToken, setToken] = useState<null | string>(null);
   const [appLogoutMode, setLogoutMode] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -129,14 +132,25 @@ const App: React.FC<Props> = () => {
             />
           </Stack.Navigator>
         ) : (
-          <Stack.Navigator headerMode="none">
-            <Stack.Screen
-              name="App"
-              component={AppScreen}
-              initialParams={{ toggleTheme }}
-            />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
-          </Stack.Navigator>
+          <DrawerLayoutAndroid
+            ref={drawler}
+            drawerWidth={300}
+            renderNavigationView={() => (
+              <DrawlerContainer
+                setTheme={toggleTheme}
+                navigation={navigation}
+                drawler={drawler}
+              />
+            )}>
+            <Stack.Navigator headerMode="none">
+              <Stack.Screen
+                name="App"
+                component={AppScreen}
+                initialParams={{ toggleTheme }}
+              />
+              <Stack.Screen name="Settings" component={SettingsScreen} />
+            </Stack.Navigator>
+          </DrawerLayoutAndroid>
         )}
       </NavigationContainer>
       <SnackbarContainer />
