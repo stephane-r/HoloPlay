@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import {
   Appbar,
   Subheading,
@@ -26,6 +26,8 @@ interface Props {
   navigation: any;
 }
 
+const DEVICE_HEIGHT = Dimensions.get('window').height;
+
 const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation();
   const store = useStore();
@@ -49,7 +51,11 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <ScrollView>
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: colors.background, minHeight: DEVICE_HEIGHT }
+        ]}>
         <Appbar accessibilityStates={[]}>
           <Appbar.BackAction
             accessibilityStates={[]}
