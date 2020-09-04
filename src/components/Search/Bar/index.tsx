@@ -46,6 +46,8 @@ const Search: React.FC<SearchProps> = ({
 
   const toggleSubmenu = (): void => setShowSubmenu(!showSubmenu);
 
+  const isBottomPosition = submenuPosition === 'bottom';
+
   useEffect(() => {
     if (searchValue) {
       setValue(searchValue);
@@ -70,17 +72,32 @@ const Search: React.FC<SearchProps> = ({
       </View>
       {showButtonHistory && history.length > 0 && (
         <>
-          <IconButton
-            accessibilityStates={[]}
-            icon="history"
-            color={
-              submenuPosition === 'bottom' && !dark
-                ? colors.screens.search
-                : 'white'
-            }
-            size={30}
-            onPress={toggleSubmenu}
-          />
+          <View
+            style={{
+              transform: [
+                {
+                  translateY: -4
+                }
+              ]
+            }}>
+            <IconButton
+              accessibilityStates={[]}
+              icon="history"
+              color={
+                isBottomPosition && !dark ? colors.screens.search : 'white'
+              }
+              size={30}
+              onPress={toggleSubmenu}
+              style={
+                isBottomPosition
+                  ? {
+                      backgroundColor: 'white',
+                      elevation: 4
+                    }
+                  : {}
+              }
+            />
+          </View>
           <SearchSubmenu
             position={submenuPosition}
             items={history}

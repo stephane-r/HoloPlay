@@ -31,6 +31,8 @@ const SearchSubmenu: React.FC<Props> = ({
     useNativeDriver: false
   });
 
+  const isBottomPosition = position === 'bottom';
+
   return (
     <Animated.View
       style={[
@@ -38,7 +40,7 @@ const SearchSubmenu: React.FC<Props> = ({
         {
           backgroundColor: colors.surface,
           opacity,
-          [position]: 70
+          [position]: isBottomPosition ? 62 : 70
         }
       ]}
       pointerEvents={isOpen ? 'auto' : 'none'}>
