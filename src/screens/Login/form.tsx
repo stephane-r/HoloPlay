@@ -50,7 +50,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       if (token !== '' && token !== null) {
         setIsLoading(true);
         await Promise.all([
-          AsyncStorage.setItem('instance', instance),
+          actions.setInstance(instance),
           AsyncStorage.setItem('token', token)
         ]);
         await fetchPlaylists();
@@ -74,7 +74,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
     try {
       setIsLoading(true);
       await Promise.all([
-        AsyncStorage.setItem('instance', instance),
+        actions.setInstance(instance),
         AsyncStorage.setItem('logoutMode', JSON.stringify(true))
       ]);
 

@@ -5,8 +5,6 @@ import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
 import SearchbarContainer from '../../containers/Search/Bar';
 import Carousel from '../../components/Carousel';
-import SearchPopular from '../../components/Search/Popular';
-import SearchTop from '../../components/Search/Top';
 import SearchResultContainer from '../../containers/Search/Result';
 import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
 import CarouselSpacerContainer from '../../containers/CarouselSpacer';
@@ -16,6 +14,7 @@ import ProfilContainer from '../../containers/Profil';
 import { useTranslation } from 'react-i18next';
 import LastPlaysContainer from '../../containers/LastPlays';
 import PlaceholderCardHorizontalList from '../../components/Placeholder/CardCenter';
+import SearchPopularContainer from '../../containers/Search/Popular';
 
 const DashboardScreen: React.FC = ({ route }) => {
   const { colors } = useTheme();
@@ -41,12 +40,12 @@ const DashboardScreen: React.FC = ({ route }) => {
       <Spacer height={15} />
       <Suspense fallback={<PlaceholderCardHorizontalList />}>
         <Title style={{ fontSize: 27 }}>{t('search.popular')}</Title>
-        <SearchPopular setPlaylistFrom="popular" apiUrl="popular" />
+        <SearchPopularContainer setPlaylistFrom="popular" apiUrl="popular" />
       </Suspense>
       <Spacer height={15} />
       <Suspense fallback={<PlaceholderCardHorizontalList />}>
         <Title style={{ fontSize: 27 }}>{t('search.trending')}</Title>
-        <SearchPopular setPlaylistFrom="trending" apiUrl="trending" />
+        <SearchPopularContainer setPlaylistFrom="trending" apiUrl="trending" />
       </Suspense>
     </Layout>
   );

@@ -16,6 +16,8 @@ interface Props {
   searchValue: string;
   searchType: string;
   setPlaylistFrom: string;
+  popular: PlaylistType[];
+  instance: string;
 }
 
 const SearchResult: React.FC<Props> = ({
@@ -23,9 +25,11 @@ const SearchResult: React.FC<Props> = ({
   searchValue,
   searchType,
   setPlaylistFrom,
-  popular
+  popular,
+  instance
 }) => {
   const { data }: SearchVideo[] = useCallApi(
+    instance,
     `search?q=${searchValue}&type=${searchType}`
   );
   const { colors } = useTheme();
@@ -37,7 +41,7 @@ const SearchResult: React.FC<Props> = ({
     if (videos) {
       actions.setSearchResult(videos);
     }
-  }, [searchValue]);
+  }, [searchValue, instance]);
 
   if (!Array.isArray(data)) {
     return (

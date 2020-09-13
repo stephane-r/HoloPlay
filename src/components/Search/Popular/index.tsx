@@ -16,21 +16,23 @@ interface Props {
   setPlaylistFrom: string;
   apiUrl: string;
   title: string;
+  instance: string;
 }
 
 const SearchPopularTop: React.FC<Props> = ({
   setPlaylistFrom,
   apiUrl,
-  title
+  title,
+  instance
 }) => {
-  const { data }: SearchVideo[] = useCallApi(apiUrl, 20);
+  const { data }: SearchVideo[] = useCallApi(instance, apiUrl, 20);
   const { t } = useTranslation();
 
   useEffect(() => {
     if (data) {
       actions.receiveData({ key: setPlaylistFrom, data });
     }
-  }, [data]);
+  }, [data, instance]);
 
   if (!Array.isArray(data) || data.length === 0) {
     return (

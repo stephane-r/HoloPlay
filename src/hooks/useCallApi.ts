@@ -1,12 +1,12 @@
 import useFetch from 'fetch-suspense';
-import useStore from './useStore';
 import { SearchVideo } from '../types';
 
-const useCallApi = (url: string, slice: number = 40): SearchVideo[] => {
-  const store = useStore();
-  const data = useFetch(
-    `${store.instance ?? 'https://invidio.us/'}/api/v1/${url}`
-  );
+const useCallApi = (
+  instance: string,
+  url: string,
+  slice: number = 40
+): SearchVideo[] => {
+  const data = useFetch(`${instance}/api/v1/${url}`);
 
   return {
     data: Array.isArray(data) ? data.slice(0, slice) : []
