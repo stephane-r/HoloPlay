@@ -1,6 +1,6 @@
 {
   "name": "holoplay",
-  "version": "1.8.19",
+  "version": "1.8.20",
   "private": false,
   "scripts": {
     "start": "react-native start -- --reset-cache",
