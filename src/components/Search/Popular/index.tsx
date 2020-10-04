@@ -5,11 +5,12 @@ import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
 import Playlist from '../../Playlist/List';
 import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
-import { Text, Title } from 'react-native-paper';
+import { Text, Title, Button } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import { View, Dimensions } from 'react-native';
 import CardScrollList from '../../Card/ScrollList';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   playlists: PlaylistType[];
@@ -27,6 +28,7 @@ const SearchPopularTop: React.FC<Props> = ({
 }) => {
   const { data }: SearchVideo[] = useCallApi(instance, apiUrl, 20);
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
 
   useEffect(() => {
     if (data) {
@@ -38,6 +40,10 @@ const SearchPopularTop: React.FC<Props> = ({
     return (
       <>
         <Text>{t('search.error')}</Text>
+        <Spacer height={20} />
+        <Button mode="contained" onPress={() => navigate('InvidiousInstances')}>
+          {t('search.buttonChangeInstance')}
+        </Button>
         <Spacer height={20} />
       </>
     );

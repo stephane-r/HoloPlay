@@ -18,6 +18,7 @@
       "title": "Navigation",
       "createPlaylist": "Créer une nouvelle playlist",
       "settings": "Paramètres",
+      "instances": "Instances Invidious",
       "darkMode": "Mode sombre",
       "version": "Version",
       "updateAvailable": "Nouvelle mise à jour disponible"
@@ -35,7 +36,8 @@
       "popular": "Plus populaires",
       "trending": "Tendances",
       "lastPlays": "Dernières écoutes",
-      "error": "Aucun résultat. L'instance Invidious est peut-être down ? Essayez de changer d'instance depuis les paramètres de l'application."
+      "error": "Aucun résultat. L'instance Invidious est peut-être down ? Essayez de changer d'instance depuis les paramètres de l'application.",
+      "buttonChangeInstance": "Changer d'instance"
     },
     "playlists": {
       "song": "musique"
@@ -76,6 +78,12 @@
       "importExportText": "Exporter ou importer mes playlists et mes favoris",
       "exportButton": "Expoter",
       "importButton": "Importer"
+    },
+    "instance": {
+      "title": "Instances Invidious",
+      "loading": "Chargement des instances Invidious...",
+      "use": "Utiliser",
+      "test": "Tester"
     },
     "login": {
       "token": "Token",

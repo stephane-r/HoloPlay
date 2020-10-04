@@ -43,6 +43,7 @@ import SearchScreen from '../../screens/Search';
 import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoToPlaylist';
 import { DrawerLayoutAndroid } from 'react-native-gesture-handler';
 import DrawlerContainer from '../../containers/Drawler';
+import InvidiousInstanceScreen from '../../screens/InvidiousInstances';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -149,6 +150,10 @@ const App: React.FC<Props> = () => {
                 initialParams={{ toggleTheme }}
               />
               <Stack.Screen name="Settings" component={SettingsScreen} />
+              <Stack.Screen
+                name="InvidiousInstances"
+                component={InvidiousInstanceScreen}
+              />
             </Stack.Navigator>
           </DrawerLayoutAndroid>
         )}
