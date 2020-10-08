@@ -12,15 +12,15 @@ HoloPlay (HoP) is a Youtube alternative app using [Invidious API](https://github
 
 If you want add more feature, PM or PR are welcome :)
 
-[<img src="docs/dashboard.jpg" width=250>](./docs/dashboard.jpg)
-[<img src="docs/search.jpg" width=250>](./docs/search.jpg)
-[<img src="docs/playlists.jpg" width=250>](./docs/playlists.jpg)
-[<img src="docs/favoris.jpg" width=250>](./docs/favoris.jpg)
-[<img src="docs/dashboard-dark.jpg" width=250>](./docs/dashboard-dark.jpg)
-[<img src="docs/player.jpg" width=250>](./docs/player.jpg)
-[<img src="docs/drawler.jpg" width=250>](./docs/drawler.jpg)
-[<img src="docs/settings.jpg" width=250>](./docs/settings.jpg)
-[<img src="docs/quick-actions.jpg" width=250>](./docs/quick-actions.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dashboard.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/dashboard.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/search.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/search.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/playlists.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/playlists.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/favoris.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/favoris.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/dashboard-dark.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/dashboard-dark.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/player.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/player.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/drawler.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/drawler.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/settings.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/settings.jpg)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/quick-actions.jpg" width=250>](./fastlane/metadata/android/en-US/images/phoneScreenshots/quick-actions.jpg)
 
 Interface based on beautiful free [Music Song](https://www.uplabs.com/posts/music-song).
 
