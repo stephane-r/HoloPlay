@@ -48,6 +48,18 @@ const Drawler: React.FC<Props> = ({
             setTimeout(() => navigation.current.navigate('Settings'), 200);
           }}
         />
+        <Drawer.Item
+          accessibilityStates={[]}
+          label={t('drawler.instances')}
+          icon="play-network"
+          onPress={() => {
+            drawler.current.closeDrawer();
+            setTimeout(
+              () => navigation.current.navigate('InvidiousInstances'),
+              200
+            );
+          }}
+        />
         <View style={styles.switchContainer}>
           <Drawer.Item
             accessibilityStates={[]}

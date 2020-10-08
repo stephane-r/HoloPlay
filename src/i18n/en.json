@@ -18,6 +18,7 @@
       "title": "Navigation",
       "createPlaylist": "Create new playlist",
       "settings": "Settings",
+      "instances": "Invidious instances",
       "darkMode": "Dark mode",
       "version": "Version",
       "updateAvailable": "New update available"
@@ -35,7 +36,8 @@
       "popular": "Most popular",
       "trending": "Trending",
       "lastPlays": "Last plays",
-      "error": "No result. Maybe instance is down ? Try to change Invidious instance from settings screen."
+      "error": "No result. Maybe instance is down ? Try to change Invidious instance from settings screen.",
+      "buttonChangeInstance": "Change instance"
     },
     "playlists": {
       "song": "song"
@@ -76,6 +78,12 @@
       "importExportText": "Export or import my playlists and my favoris",
       "exportButton": "Export",
       "importButton": "Import"
+    },
+    "instance": {
+      "title": "Invidious instances",
+      "loading": "Loading all Invidious instances...",
+      "use": "Use",
+      "test": "Test"
     },
     "login": {
       "token": "Token",
