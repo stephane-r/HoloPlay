@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, TextInput, useTheme } from 'react-native-paper';
+import { Dialog, Button, TextInput, useTheme, Text } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import { ApiRoutes } from '../../../constants';
 import { View, Alert } from 'react-native';
@@ -9,6 +9,7 @@ import callApi from '../../../utils/callApi';
 import useInvidiousInstances from '../../../hooks/useInvidiousInstances';
 import { useTranslation } from 'react-i18next';
 import useStore from '../../../hooks/useStore';
+import stripTrailingSlash from '../../../utils/stripTrailingSlash';
 
 interface Props {
   value: string;
@@ -27,7 +28,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
   const [instance, setInstance] = useState<string>(value);
   const [isLoading, setIsLoading] = useState<string>(false);
   const [customInstance, setCustomInstance] = useState<boolean>(false);
-  const { instances } = useInvidiousInstances();
+  const { instances, loading } = useInvidiousInstances();
   const { t } = useTranslation();
   const { colors } = useTheme();
 
@@ -36,7 +37,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
       return setCustomInstance(true);
     }
 
-    return setInstance(value);
+    return setInstance(stripTrailingSlash(value));
   };
 
   const submit = async () => {
@@ -84,14 +85,18 @@ const DialogEditApiInstance: React.FC<Props> = ({
     <Dialog visible={visible} onDismiss={onDismiss}>
       <Dialog.Title>{t('dialog.editApiInstance.title')}</Dialog.Title>
       <Dialog.Content>
-        <Picker
-          style={{ color: colors.text }}
-          selectedValue={instance}
-          onValueChange={onValueChange}>
-          {instances.map(({ uri, monitor }) => (
-            <Picker.Item key={uri} label={monitor?.name ?? uri} value={uri} />
-          ))}
-        </Picker>
+        {loading ? (
+          <Text>Loading instances...</Text>
+        ) : (
+          <Picker
+            style={{ color: colors.text }}
+            selectedValue={instance}
+            onValueChange={onValueChange}>
+            {instances.map(({ uri, monitor }) => (
+              <Picker.Item key={uri} label={monitor?.name ?? uri} value={uri} />
+            ))}
+          </Picker>
+        )}
         <View>
           {customInstance && (
             <TextInput

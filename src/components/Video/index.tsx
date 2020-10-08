@@ -33,7 +33,7 @@ const Video: React.FC<Props> = ({ videos, ...props }) => (
   <>
     {videos.map((video, index) => (
       <Item
-        key={video.videoId}
+        key={video.videoId + index}
         video={video}
         index={index}
         isLast={index + 1 === videos.length}
