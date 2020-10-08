@@ -27,7 +27,7 @@ const Instance: React.FC<Props> = ({ uri, setInstance, instance }) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingLeft: 20,
+          paddingHorizontal: 20,
           paddingVertical: 10
         }}>
         <View style={{ flex: 1 }}>
@@ -40,14 +40,13 @@ const Instance: React.FC<Props> = ({ uri, setInstance, instance }) => {
             size={20}
             onPress={() => null}
             animated
-            style={{ height: 25, width: 50 }}
+            style={{ height: 25, width: 50, marginRight: -15 }}
           />
         ) : (
-          <Button onPress={onPress} loading={isLoading}>
+          <Button mode="contained" onPress={onPress} loading={isLoading}>
             {t('instance.use')}
           </Button>
         )}
-        <Button onPress={() => alert('TODO')}>{t('instance.test')}</Button>
       </View>
     </>
   );
