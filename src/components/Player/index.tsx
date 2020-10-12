@@ -36,8 +36,8 @@ interface Props {
   video: VideoType;
   paused: boolean;
   repeat: boolean;
-  previousVideoIndex: () => void;
-  nextVideoIndex: () => void;
+  previousVideoIndex: number;
+  nextVideoIndex: number;
 }
 
 const Player: React.FC<Props> = ({
@@ -136,7 +136,7 @@ const Player: React.FC<Props> = ({
     }
   };
   const loadPreviousVideo = () => {
-    if (previousVideoIndex) {
+    if (props.previousVideoIndex) {
       actions.loadVideo(props.previousVideoIndex);
     }
   };
@@ -364,6 +364,7 @@ const Player: React.FC<Props> = ({
             icon="skip-previous"
             color={color}
             onPress={loadPreviousVideo}
+            disabled={props.previousVideoIndex === -1}
             size={25}
             style={{
               backgroundColor: 'rgba(255, 255, 255, .3)',

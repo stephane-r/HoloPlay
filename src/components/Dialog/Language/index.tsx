@@ -6,7 +6,6 @@ import { View } from 'react-native';
 import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
 import callApi from '../../../utils/callApi';
-import useInvidiousInstances from '../../../hooks/useInvidiousInstances';
 import { useTranslation } from 'react-i18next';
 import getLanguageName from '../../../utils/getLanguageName';
 

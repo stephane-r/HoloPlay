@@ -43,6 +43,7 @@ import SearchScreen from '../../screens/Search';
 import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoToPlaylist';
 import { DrawerLayoutAndroid } from 'react-native-gesture-handler';
 import DrawlerContainer from '../../containers/Drawler';
+import InvidiousInstanceScreen from '../../screens/InvidiousInstances';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -149,12 +150,15 @@ const App: React.FC<Props> = () => {
                 initialParams={{ toggleTheme }}
               />
               <Stack.Screen name="Settings" component={SettingsScreen} />
+              <Stack.Screen
+                name="InvidiousInstances"
+                component={InvidiousInstanceScreen}
+              />
             </Stack.Navigator>
           </DrawerLayoutAndroid>
         )}
       </NavigationContainer>
       <SnackbarContainer />
-      <AppPlayer />
       <DialogAddVideoToPlaylistContainer />
     </PaperProvider>
   );
@@ -165,32 +169,35 @@ const AppScreen = ({ route }) => {
   const { t } = useTranslation();
 
   return (
-    <Tab.Navigator shifting>
-      <Tab.Screen
-        name={t('navigation.dashboard')}
-        component={DashboardScreen}
-        options={tabOptions('home', 23, colors.screens.dashboard)}
-        initialParams={route.params}
-      />
-      <Tab.Screen
-        name={t('navigation.search')}
-        component={SearchScreen}
-        options={tabOptions('magnify', 25, colors.screens.search)}
-        initialParams={route.params}
-      />
-      <Tab.Screen
-        name={t('navigation.playlists')}
-        component={PlaylistsScreen}
-        options={tabOptions('headset', 23, colors.screens.playlists)}
-        initialParams={route.params}
-      />
-      <Tab.Screen
-        name={t('navigation.favoris')}
-        component={FavorisScreen}
-        options={tabOptions('heart', 23, colors.screens.favoris)}
-        initialParams={route.params}
-      />
-    </Tab.Navigator>
+    <>
+      <Tab.Navigator shifting>
+        <Tab.Screen
+          name={t('navigation.dashboard')}
+          component={DashboardScreen}
+          options={tabOptions('home', 23, colors.screens.dashboard)}
+          initialParams={route.params}
+        />
+        <Tab.Screen
+          name={t('navigation.search')}
+          component={SearchScreen}
+          options={tabOptions('magnify', 25, colors.screens.search)}
+          initialParams={route.params}
+        />
+        <Tab.Screen
+          name={t('navigation.playlists')}
+          component={PlaylistsScreen}
+          options={tabOptions('headset', 23, colors.screens.playlists)}
+          initialParams={route.params}
+        />
+        <Tab.Screen
+          name={t('navigation.favoris')}
+          component={FavorisScreen}
+          options={tabOptions('heart', 23, colors.screens.favoris)}
+          initialParams={route.params}
+        />
+      </Tab.Navigator>
+      <AppPlayer />
+    </>
   );
 };
 
