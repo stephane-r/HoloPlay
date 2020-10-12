@@ -1,6 +1,6 @@
 import React, { useState, memo, useEffect } from 'react';
+import { useQuery } from 'react-query';
 import CardList from '../../Card/List';
-import useCallApi from '../../../hooks/useCallApi';
 import CardSearch from '../../Card/Search';
 import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
@@ -11,6 +11,8 @@ import Spacer from '../../Spacer';
 import DataEmpty from '../../Data/Empty';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import search from '../../../queries/search';
+import SearchError from '../Error';
 
 interface Props {
   playlists: PlaylistType[];
@@ -29,10 +31,7 @@ const SearchResult: React.FC<Props> = ({
   popular,
   instance
 }) => {
-  const { data }: SearchVideo[] = useCallApi(
-    instance,
-    `search?q=${searchValue}&type=${searchType}`
-  );
+  const { isLoading, error, data } = useQuery('search', search);
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { navigate } = useNavigation();
@@ -45,15 +44,10 @@ const SearchResult: React.FC<Props> = ({
     }
   }, [searchValue, instance]);
 
-  if (!Array.isArray(data)) {
+  if (error || !Array.isArray(data) || data.length === 0) {
     return (
       <DataEmpty>
-        <Text>{t('search.error')}</Text>
-        <Spacer height={20} />
-        <Button mode="contained" onPress={() => navigate('InvidiousInstances')}>
-          {t('search.buttonChangeInstance')}
-        </Button>
-        <Spacer height={20} />
+        <SearchError />
       </DataEmpty>
     );
   }

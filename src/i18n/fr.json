@@ -37,6 +37,7 @@
       "trending": "Tendances",
       "lastPlays": "Dernières écoutes",
       "error": "Aucun résultat. L'instance Invidious est peut-être down ? Essayez de changer d'instance depuis les paramètres de l'application.",
+      "errorApi": "Erreur. L'instance Invidious est peut-être down ? Essayez de changer d'instance depuis les paramètres de l'application.",
       "buttonChangeInstance": "Changer d'instance"
     },
     "playlists": {
