@@ -60,7 +60,9 @@ const CardSearch: React.FC<Props> = ({
       video?.playlistThumbnail,
     duration: video.lengthSeconds
       ? timeFormat.fromS(video?.lengthSeconds)
-      : `${video?.videoCount} videos`,
+        ? video?.videoCount
+        : `${video?.videoCount} videos`
+      : null,
     liveNow: video.liveNow
   };
 

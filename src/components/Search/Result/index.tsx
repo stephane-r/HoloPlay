@@ -31,7 +31,10 @@ const SearchResult: React.FC<Props> = ({
   popular,
   instance
 }) => {
-  const { isLoading, error, data } = useQuery('search', search);
+  const { isLoading, error, data } = useQuery(
+    `search?q=${searchValue}&type=${searchType}`,
+    search
+  );
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { navigate } = useNavigation();
@@ -44,7 +47,7 @@ const SearchResult: React.FC<Props> = ({
     }
   }, [searchValue, instance]);
 
-  if (error || !Array.isArray(data) || data.length === 0) {
+  if (error || !Array.isArray(data)) {
     return (
       <DataEmpty>
         <SearchError />

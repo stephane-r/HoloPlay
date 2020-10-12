@@ -10,6 +10,7 @@ const SearchError: React.FC = () => {
 
   return (
     <>
+      <Spacer height={10} />
       <Text>{t('search.error')}</Text>
       <Spacer height={20} />
       <Button mode="contained" onPress={() => navigate('InvidiousInstances')}>
