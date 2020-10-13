@@ -87,9 +87,9 @@ const playerActions = {
     const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
     const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
 
-    if (data.error) {
-      return actions.setFlashMessage({ message: 'Error on load video' });
-    }
+    // if (data.error) {
+    //   return actions.setFlashMessage({ message: data.error });
+    // }
 
     const videoUpdated = {
       ...video,

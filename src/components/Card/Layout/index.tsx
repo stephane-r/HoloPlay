@@ -93,11 +93,11 @@ const CardLayout: React.FC<CardProps> = ({
                     <Label align="right" theme={DASHBOARD_COLOR}>
                       LIVE
                     </Label>
-                  ) : (
+                  ) : card.duration ? (
                     <Label align="left" theme="#0455BF">
                       {card.duration}
                     </Label>
-                  )}
+                  ) : null}
                 </>
               )}
             </View>

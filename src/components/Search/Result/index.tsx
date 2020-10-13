@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import search from '../../../queries/search';
 import SearchError from '../Error';
+import PlaceholderSearchList from '../../Placeholder/Search';
 
 interface Props {
   playlists: PlaylistType[];
@@ -45,7 +46,11 @@ const SearchResult: React.FC<Props> = ({
     if (videos) {
       actions.setSearchResult(videos);
     }
-  }, [searchValue, instance]);
+  }, [data, searchValue, instance]);
+
+  if (isLoading) {
+    return <PlaceholderSearchList />;
+  }
 
   if (error || !Array.isArray(data)) {
     return (
