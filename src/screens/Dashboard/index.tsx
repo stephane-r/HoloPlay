@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Title, useTheme } from 'react-native-paper';
+import { Title, useTheme, Text } from 'react-native-paper';
 import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
 import SearchbarContainer from '../../containers/Search/Bar';
@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import LastPlaysContainer from '../../containers/LastPlays';
 import PlaceholderCardHorizontalList from '../../components/Placeholder/CardCenter';
 import SearchPopularContainer from '../../containers/Search/Popular';
+import ErrorBoundary from '../../components/ErrorBoundary';
 
 const DashboardScreen: React.FC = ({ route }) => {
   const { colors } = useTheme();
@@ -38,15 +39,11 @@ const DashboardScreen: React.FC = ({ route }) => {
       <CarouselSpacerContainer />
       <LastPlaysContainer />
       <Spacer height={15} />
-      <Suspense fallback={<PlaceholderCardHorizontalList />}>
-        <Title style={{ fontSize: 27 }}>{t('search.popular')}</Title>
-        <SearchPopularContainer setPlaylistFrom="popular" apiUrl="popular" />
-      </Suspense>
+      <Title style={{ fontSize: 27 }}>{t('search.popular')}</Title>
+      <SearchPopularContainer setPlaylistFrom="popular" apiUrl="popular" />
       <Spacer height={15} />
-      <Suspense fallback={<PlaceholderCardHorizontalList />}>
-        <Title style={{ fontSize: 27 }}>{t('search.trending')}</Title>
-        <SearchPopularContainer setPlaylistFrom="trending" apiUrl="trending" />
-      </Suspense>
+      <Title style={{ fontSize: 27 }}>{t('search.trending')}</Title>
+      <SearchPopularContainer setPlaylistFrom="trending" apiUrl="trending" />
     </Layout>
   );
 };
