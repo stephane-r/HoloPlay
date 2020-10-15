@@ -6,4 +6,5 @@ const { version } = require('../package.json');
 
 shell.exec(`git tag ${version}`);
 shell.exec(`git push origin ${version}`);
+shell.exec('git push origin develop');
 shell.exec('echo New tag pushed.');
