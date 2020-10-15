@@ -58,9 +58,12 @@ const CardSearch: React.FC<Props> = ({
     picture:
       video.videoThumbnails?.find((q) => q.quality === 'medium').url ||
       video?.playlistThumbnail,
-    duration: video.lengthSeconds
-      ? timeFormat.fromS(video?.lengthSeconds)
-      : `${video?.videoCount} videos`,
+    duration:
+      video.type === 'playlist'
+        ? `${video.videos.length} videos`
+        : video.lengthSeconds
+        ? timeFormat.fromS(video?.lengthSeconds)
+        : null,
     liveNow: video.liveNow
   };
 

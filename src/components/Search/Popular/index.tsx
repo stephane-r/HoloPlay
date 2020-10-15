@@ -1,5 +1,5 @@
 import React, { useState, memo, useEffect } from 'react';
-import useCallApi from '../../../hooks/useCallApi';
+import { useQuery } from 'react-query';
 import CardSearch from '../../Card/Search';
 import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
@@ -11,6 +11,9 @@ import { View, Dimensions } from 'react-native';
 import CardScrollList from '../../Card/ScrollList';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import search from '../../../queries/search';
+import PlaceholderCardHorizontalList from '../../Placeholder/CardCenter';
+import SearchError from '../Error';
 
 interface Props {
   playlists: PlaylistType[];
@@ -26,7 +29,7 @@ const SearchPopularTop: React.FC<Props> = ({
   title,
   instance
 }) => {
-  const { data }: SearchVideo[] = useCallApi(instance, apiUrl, 20);
+  const { isLoading, error, data } = useQuery(apiUrl, search);
   const { t } = useTranslation();
   const { navigate } = useNavigation();
 
@@ -36,17 +39,12 @@ const SearchPopularTop: React.FC<Props> = ({
     }
   }, [data, instance]);
 
-  if (!Array.isArray(data) || data.length === 0) {
-    return (
-      <>
-        <Text>{t('search.error')}</Text>
-        <Spacer height={20} />
-        <Button mode="contained" onPress={() => navigate('InvidiousInstances')}>
-          {t('search.buttonChangeInstance')}
-        </Button>
-        <Spacer height={20} />
-      </>
-    );
+  if (isLoading) {
+    return <PlaceholderCardHorizontalList />;
+  }
+
+  if (error || !Array.isArray(data) || data.length === 0) {
+    return <SearchError />;
   }
 
   return (

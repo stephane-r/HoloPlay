@@ -1,14 +1,10 @@
 import React, { Suspense } from 'react';
-import { View } from 'react-native';
-import { Title, useTheme, Text, Searchbar } from 'react-native-paper';
+import { Title, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { useIsFocused } from '@react-navigation/native';
 import Layout from '../../components/Layout';
-import Spacer from '../../components/Spacer';
 import SearchResultContainer from '../../containers/Search/Result';
-import PlaceholderSearchList from '../../components/Placeholder/Search';
 import Header from '../../components/Header';
-import SearchValueContainer from '../../containers/Search/Value';
 import SearchbarAbsoluteContainer from '../../containers/Search/BarAbsolute';
 import SearchPickerTypeContainer from '../../containers/Search/PickerType';
 
@@ -25,9 +21,7 @@ const SearchScreen: React.FC = ({ route }) => {
           backgroundColor={colors.screens.search}>
           <SearchPickerTypeContainer />
         </Header>
-        <Suspense fallback={<PlaceholderSearchList />}>
-          <SearchResultContainer />
-        </Suspense>
+        <SearchResultContainer />
       </Layout>
       <SearchbarAbsoluteContainer />
     </>

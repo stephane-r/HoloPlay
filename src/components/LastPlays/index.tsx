@@ -1,5 +1,4 @@
 import React, { useState, memo, useEffect } from 'react';
-import useCallApi from '../../hooks/useCallApi';
 import CardSearch from '../Card/Search';
 import DialogAddVideoToPlaylist from '../Dialog/AddVideoToPlaylist';
 import { actions } from '../../store';
