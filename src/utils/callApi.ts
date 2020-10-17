@@ -48,8 +48,8 @@ const callApi = async ({
   const request = await fetch(`${instance}/api/v1/${url}`, params);
   const response = await request.json();
 
-  if (response.statusCode >= 400 && response.statusCode < 500) {
-    throw Error(response);
+  if (response.error || response.statusCode >= 400 && response.statusCode < 500) {
+    throw Error(response.error || response);
   }
 
   return response;

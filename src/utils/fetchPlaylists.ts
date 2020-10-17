@@ -7,6 +7,11 @@ const fetchPlaylists = async (): Promise<Playlist[]> => {
   const playlists: Playlist[] = await callApi({
     url: ApiRoutes.Playlists
   });
+
+  if (playlists.error) {
+    throw new Error(playlists.error);
+  }
+
   const favorisPlaylist = playlists.find(
     (p) => p.title === FAVORIS_PLAYLIST_TITLE
   );
