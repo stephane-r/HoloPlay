@@ -35,7 +35,9 @@ const CardSearch: React.FC<Props> = ({
       await actions.setPlaylistFrom(setPlaylistFrom);
       await actions.loadVideo(index);
     } catch (error) {
-      console.log(error);
+      actions.setFlashMessage({
+        message: error.message
+      });
     } finally {
       setLoading(false);
     }
@@ -47,7 +49,9 @@ const CardSearch: React.FC<Props> = ({
       await actions.loadPlaylist(video.playlistId);
       await actions.loadVideo(loopIndex);
     } catch (error) {
-      console.log(error);
+      actions.setFlashMessage({
+        message: error.message
+      });
     } finally {
       setLoading(false);
     }
