@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     elevation: 2,
     borderRadius: 4,
-    paddingBottom: 50
+    minHeight: 80
   }
 });
 

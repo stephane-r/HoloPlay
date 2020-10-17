@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextInput, Button, useTheme } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-community/picker';
@@ -13,6 +13,7 @@ import fetchPlaylists from '../../utils/fetchPlaylists';
 import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 import { useTranslation } from 'react-i18next';
 import getLanguageName from '../../utils/getLanguageName';
+import stripTrailingSlash from '../../utils/stripTrailingSlash';
 
 interface Props {
   onSuccess: () => void;
@@ -36,7 +37,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       return setCustomInstance(true);
     }
 
-    return setInstance(value);
+    return setInstance(stripTrailingSlash(value));
   };
 
   const onChangeLanguage = (lng: string): void => {
@@ -55,12 +56,12 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
         ]);
         await fetchPlaylists();
         actions.setUsername(username);
-        setIsLoading(false);
         return onSuccess(token);
       }
     } catch (error) {
-      console.log(error);
-      actions.setFlashMessage(error);
+      actions.setFlashMessage({ message: error.message });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,6 +74,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
 
     try {
       setIsLoading(true);
+
       await Promise.all([
         actions.setInstance(instance),
         AsyncStorage.setItem('logoutMode', JSON.stringify(true))
@@ -90,6 +92,14 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       actions.setFlashMessage(error);
     }
   };
+
+  useEffect(() => {
+    AsyncStorage.getItem('token').then((result) => {
+      if (result) {
+        setToken(result);
+      }
+    });
+  }, []);
 
   return (
     <>

@@ -14,7 +14,6 @@ import { useNavigation } from '@react-navigation/native';
 import search from '../../../queries/search';
 import SearchError from '../Error';
 import PlaceholderSearchList from '../../Placeholder/Search';
-import SearchEmpty from '../Empty';
 
 interface Props {
   playlists: PlaylistType[];
@@ -33,10 +32,9 @@ const SearchResult: React.FC<Props> = ({
   popular,
   instance
 }) => {
+  console.log(`search?q=${searchValue}&type=${searchType}`);
   const { isLoading, error, data } = useQuery(
-    searchValue === ''
-      ? `popular`
-      : `search?q=${searchValue}&type=${searchType}`,
+    `search?q=${searchValue}&type=${searchType}`,
     search
   );
   const { colors } = useTheme();
@@ -61,10 +59,12 @@ const SearchResult: React.FC<Props> = ({
     );
   }
 
+  console.log(videos.length);
+
   if (videos.length === 0) {
     return (
       <DataEmpty>
-        <SearchEmpty value={searchValue} />
+        <SearchError />
       </DataEmpty>
     );
   }

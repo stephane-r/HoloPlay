@@ -38,6 +38,12 @@ const Search: React.FC<SearchProps> = ({
   const searchThroughApi = async (
     selectedValue?: null | string = null
   ): void => {
+    if (typeof selectedValue !== 'string' && value === '') {
+      return actions.setFlashMessage({
+        message: t('search.emptyValue')
+      });
+    }
+
     const wantedValue =
       typeof selectedValue === 'string' ? selectedValue : value;
     await actions.search(wantedValue);
@@ -84,7 +90,11 @@ const Search: React.FC<SearchProps> = ({
               accessibilityStates={[]}
               icon="history"
               color={
-                isBottomPosition && !dark ? colors.screens.search : 'white'
+                isBottomPosition && !dark
+                  ? colors.screens.search
+                  : isBottomPosition && dark
+                  ? 'black'
+                  : 'white'
               }
               size={30}
               onPress={toggleSubmenu}

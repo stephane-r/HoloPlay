@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, TextInput } from 'react-native-paper';
+import { Text, Dialog, Button, TextInput } from 'react-native-paper';
 import { Alert } from 'react-native';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
 import { useTranslation } from 'react-i18next';
+import Spacer from '../../Spacer';
 
 interface Props {
   label: string;
@@ -28,33 +29,37 @@ const DialogEditToken: React.FC<Props> = ({
   const [token, setToken] = useState(value ?? '');
 
   const onSubmit = async () => {
-    if (token !== null && token !== '') {
-      setLoading(true);
+    setLoading(true);
 
-      try {
-        await callApi({
-          url: ApiRoutes.Preferences,
-          customToken: token
-        });
-        actions.setToken(token);
-        actions.clearData();
-        await fetchPlaylists();
-        toggleDialog();
-        return setTimeout(
-          () =>
-            actions.setFlashMessage({
-              message: t('flashMessage.importData')
-            }),
-          500
-        );
-      } catch (error) {
-        console.log(error);
-        actions.setFlashMessage({
-          message: error.message
-        });
-      } finally {
-        setLoading(false);
-      }
+    if (token === value) {
+      return toggleDialog();
+    }
+
+    if (token === '') {
+      actions.setToken(token);
+      return toggleDialog();
+    }
+
+    try {
+      await callApi({
+        url: ApiRoutes.Preferences,
+        customToken: token
+      });
+      await fetchPlaylists();
+      toggleDialog();
+      return setTimeout(
+        () =>
+          actions.setFlashMessage({
+            message: t('flashMessage.importData')
+          }),
+        500
+      );
+    } catch (error) {
+      actions.setFlashMessage({
+        message: error.message
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,10 +74,16 @@ const DialogEditToken: React.FC<Props> = ({
           onChangeText={setToken}
           value={token}
         />
+        {token === '' && (
+          <>
+            <Spacer height={15} />
+            <Text>{t('dialog.editToken.emptyToken')}</Text>
+          </>
+        )}
       </Dialog.Content>
       <Dialog.Actions>
         <Button onPress={onDismiss}>{t('common.button.cancel')}</Button>
-        <Button onPress={onSubmit} loading={loading} disabled={token === ''}>
+        <Button onPress={onSubmit} loading={loading}>
           {t('common.button.done')}
         </Button>
       </Dialog.Actions>

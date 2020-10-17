@@ -43,6 +43,11 @@ const DialogEditApiInstance: React.FC<Props> = ({
   const submit = async () => {
     setIsLoading(true);
 
+    if (instance === value) {
+      toggleDialog();
+      return setIsLoading(false);
+    }
+
     try {
       await actions.setInstance(instance);
 

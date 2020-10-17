@@ -18,38 +18,39 @@ const useFavoris = () => {
     };
 
     if (!store.logoutMode) {
-      return actions.addPlaylist({
-        ...favorisPlaylist,
-        playlistId: uuiv4(),
-        videos: []
-      });
-    }
+      try {
+        await callApi({
+          url: ApiRoutes.Playlists,
+          method: 'POST',
+          body: favorisPlaylist
+        });
 
-    try {
-      await callApi({
-        url: ApiRoutes.Playlists,
-        method: 'POST',
-        body: favorisPlaylist
-      });
-
-      return setTimeout(
-        () =>
+        return setTimeout(
+          () =>
           actions.setFlashMessage({
             message: t('flashMessage.playlistFavorisCreateSuccess')
           }),
-        500
-      );
-    } catch (error) {
-      return setTimeout(
-        () => actions.setFlashMessage({ message: error.message }),
-        500
-      );
+          500
+          );
+      } catch (error) {
+        return setTimeout(
+          () => actions.setFlashMessage({ message: error.message }),
+          500
+          );
+      }
     }
+
+    return actions.addPlaylist({
+      ...favorisPlaylist,
+      playlistId: uuiv4(),
+      videos: []
+    });
   };
 
   const addToFavoris = async (playlistId: Playlist, video: Video) => {
     try {
       if (!store.logoutMode) {
+        console.log(video.videoId);
         await callApi({
           url: ApiRoutes.Videos(playlistId),
           method: 'POST',
@@ -70,7 +71,9 @@ const useFavoris = () => {
         message: t('flashMessage.addFavorisSuccess')
       });
     } catch (error) {
-      return console.log(error);
+      return actions.setFlashMessage({
+        message: error.message
+      });
     }
   };
 
@@ -89,7 +92,9 @@ const useFavoris = () => {
         message: t('flashMessage.removeFavorisSuccess')
       });
     } catch (error) {
-      return console.log(error);
+      return actions.setFlashMessage({
+        message: error.message
+      });
     }
   };
 

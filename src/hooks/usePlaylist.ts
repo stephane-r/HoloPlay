@@ -39,6 +39,11 @@ const usePlaylist = (): void => {
       });
     } catch (error) {
       console.log(error);
+      actions.setFlashMessage({
+        message: t('flashMessage.removePlaylist', {
+          playlistName: error.message
+        })
+      });
     }
 
     if (callback) {
@@ -86,6 +91,11 @@ const usePlaylist = (): void => {
       }
     } catch (error) {
       console.log(error);
+      actions.setFlashMessage({
+        message: t('flashMessage.removePlaylist', {
+          playlistName: error.message
+        })
+      });
       // actions.setFlashMessage({message: `Error : ${playlist.title} not updated.`});
     } finally {
       if (callback) {
@@ -114,7 +124,11 @@ const usePlaylist = (): void => {
         });
       }
     } catch (error) {
-      console.log(error);
+      actions.setFlashMessage({
+        message: t('flashMessage.removePlaylist', {
+          playlistName: error.message
+        })
+      });
     } finally {
       if (callback) {
         callback();

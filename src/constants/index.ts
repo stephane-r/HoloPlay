@@ -3,7 +3,7 @@ export const ApiRoutes = {
   Preferences: 'auth/preferences',
   Playlists: 'auth/playlists',
   PlaylistId: (playlistId: string) => `playlists/${playlistId}`,
-  Videos: (playlistId: string) => `playlists/${playlistId}/videos`,
+  Videos: (playlistId: string) => `auth/playlists/${playlistId}/videos`,
   VideoIndexId: (playlistId: string, indexId: string) =>
     `playlists/${playlistId}/videos/${indexId}`
 };

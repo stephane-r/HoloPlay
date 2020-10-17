@@ -38,6 +38,8 @@
       "lastPlays": "Dernières écoutes",
       "error": "Aucun résultat. L'instance Invidious est peut-être down ? Essayez de changer d'instance depuis les paramètres de l'application.",
       "errorApi": "Erreur. L'instance Invidious est peut-être down ? Essayez de changer d'instance depuis les paramètres de l'application.",
+      "empty": "Aucun résultat avec",
+      "emptyValue": "Veuillez indiquer une valeur",
       "buttonChangeInstance": "Changer d'instance"
     },
     "playlists": {
@@ -114,7 +116,8 @@
         "title": "Changer d'instance Invidious"
       },
       "editToken": {
-        "title": "Éditer le token Invidious"
+        "title": "Éditer le token Invidious",
+        "emptyToken": "Avec un token vide, vous basculerez en logout mode"
       },
       "editUsername": {
         "title": "Éditer mon nom d'utilisateur"

@@ -38,6 +38,8 @@
       "lastPlays": "Last plays",
       "error": "No result. Maybe instance is down ? Try to change Invidious instance from settings screen.",
       "errorApi": "Error. Maybe instance is down ? Try to change Invidious instance from settings screen.",
+      "empty": "No result with",
+      "emptyValue": "You can't search with empty value",
       "buttonChangeInstance": "Change instance"
     },
     "playlists": {
@@ -61,7 +63,7 @@
         "playlist": "No playlist",
         "favoris": "No favoris",
         "favorisNotSet": "Your favoris playlist is not set.",
-        "favorisButtonSet": "Set Favoris playlist."
+        "favorisButtonSet": "Set Favoris playlist"
       }
     },
     "settings": {
@@ -114,7 +116,8 @@
         "title": "Edit Invidious instance"
       },
       "editToken": {
-        "title": "Edit Invidious token"
+        "title": "Edit Invidious token",
+        emptyToken: "With an empty token, you will switch to logout mode"
       },
       "editUsername": {
         "title": "Edit username"
