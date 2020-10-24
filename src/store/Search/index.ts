@@ -7,7 +7,6 @@ export type SearchTypeTypes = 'video' | 'playlist';
 export interface SearchState {
   searchValue: string;
   searchType: SearchTypeTypes;
-  results: SearchVideo[];
   popular: SearchVideo[];
   top: SearchVideo[];
   isSearching: boolean;
@@ -17,7 +16,6 @@ export interface SearchState {
 const searchState: SearchState = {
   searchValue: '',
   searchType: 'video',
-  results: [],
   popular: [],
   top: [],
   isSearching: true,
@@ -40,14 +38,6 @@ const searchActions = {
       history
     };
   },
-  setSearchResult: async (
-    store: Store,
-    actions: any,
-    results: SearchVideo[]
-  ): Promise<Store> => ({
-    ...store,
-    results
-  }),
   receiveData: (
     store: Store,
     actions: any,

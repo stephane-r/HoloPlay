@@ -17,37 +17,15 @@ import PlaceholderSearchList from '../../Placeholder/Search';
 import SearchEmpty from '../Empty';
 
 interface Props {
-  playlists: PlaylistType[];
+  apiUrl: string;
   searchValue: string;
-  searchType: string;
-  setPlaylistFrom: string;
-  popular: PlaylistType[];
-  instance: string;
 }
 
-const SearchResult: React.FC<Props> = ({
-  playlists,
-  searchValue,
-  searchType,
-  setPlaylistFrom,
-  popular,
-  instance
-}) => {
-  const { isLoading, error, data } = useQuery(
-    searchValue === ''
-      ? `popular`
-      : `search?q=${searchValue}&type=${searchType}`,
-    search
-  );
+const SearchResult: React.FC<Props> = ({ apiUrl, searchValue }) => {
+  const { isLoading, error, data } = useQuery(apiUrl, search);
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { navigate } = useNavigation();
-
-  const videos = data?.length > 0 ? data : [];
-
-  useEffect(() => {
-    actions.setSearchResult(videos);
-  }, [searchValue, instance]);
 
   if (isLoading) {
     return <PlaceholderSearchList />;
@@ -61,7 +39,7 @@ const SearchResult: React.FC<Props> = ({
     );
   }
 
-  if (videos.length === 0) {
+  if (data.length === 0) {
     return (
       <DataEmpty>
         <SearchEmpty value={searchValue} />
@@ -71,7 +49,7 @@ const SearchResult: React.FC<Props> = ({
 
   return (
     <CardList>
-      {videos.map((video, index) => (
+      {data.map((video, index) => (
         <CardSearch
           key={video.videoId}
           loopIndex={index}
