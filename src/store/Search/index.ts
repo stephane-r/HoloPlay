@@ -7,18 +7,18 @@ export type SearchTypeTypes = 'video' | 'playlist';
 export interface SearchState {
   searchValue: string;
   searchType: SearchTypeTypes;
+  results: SearchVideo[];
   popular: SearchVideo[];
   top: SearchVideo[];
-  isSearching: boolean;
   history: string[];
 }
 
 const searchState: SearchState = {
   searchValue: '',
   searchType: 'video',
+  results: [],
   popular: [],
   top: [],
-  isSearching: true,
   history: []
 };
 
@@ -33,11 +33,18 @@ const searchActions = {
 
     return {
       ...store,
-      isSearching: false,
       searchValue: value,
       history
     };
   },
+  setSearchResult: async (
+    store: Store,
+    actions: any,
+    results: SearchVideo[]
+  ): Promise<Store> => ({
+    ...store,
+    results
+  }),
   receiveData: (
     store: Store,
     actions: any,
@@ -54,14 +61,6 @@ const searchActions = {
     ...store,
     searchType
   }),
-  setIsSearching: (store: Store): Store => ({
-    ...store,
-    isSearching: true
-  }),
-  setIsSearched: (store: Store): Store => ({
-    ...store,
-    isSearching: false
-  })
 };
 
 export { searchActions, searchState };

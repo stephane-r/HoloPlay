@@ -27,6 +27,12 @@ const SearchResult: React.FC<Props> = ({ apiUrl, searchValue }) => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
 
+  useEffect(() => {
+    if (data) {
+      actions.setSearchResult(data);
+    }
+  }, [data]);
+
   if (isLoading) {
     return <PlaceholderSearchList />;
   }
