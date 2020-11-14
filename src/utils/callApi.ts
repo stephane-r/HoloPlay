@@ -6,7 +6,7 @@ interface Args {
   body?: {
     [key: string]: string;
   };
-  customToken: string;
+  customToken?: string;
 }
 
 const DEFAULT_HEADERS = {
@@ -30,7 +30,7 @@ const callApi = async ({
     headers: DEFAULT_HEADERS
   };
 
-  if (!JSON.parse(logoutMode) || customToken) {
+  if (!JSON.parse(logoutMode ?? 'false') || customToken) {
     params.headers = {
       ...params.headers,
       Authorization: `Bearer ${token || customToken}`

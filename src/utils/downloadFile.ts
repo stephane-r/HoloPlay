@@ -2,6 +2,7 @@ import RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
 import slugify from './slugify';
 import { requestWriteExternalStoragePermission } from '../hooks/useBackup';
+import { actions } from '../store';
 
 export interface DownloadFileParams {
   url: string;

@@ -13,7 +13,8 @@
     "clean:log": "rm *.log",
     "prettify": "prettier --write src/**/*.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
-    "lint": "eslint src",
+    "lint:es": "eslint src",
+    "lint:ts": "./node_modules/.bin/tsc",
     "static-analysis": "yarn lint",
     "postversion": "RNV=android react-native-version"
   },
@@ -76,6 +77,7 @@
     "@types/react-native": "^0.62.13",
     "@types/react-native-snap-carousel": "^3.8.1",
     "@types/react-native-video": "^5.0.1",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^25.1.0",

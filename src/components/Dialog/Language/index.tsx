@@ -8,6 +8,7 @@ import fetchPlaylists from '../../../utils/fetchPlaylists';
 import callApi from '../../../utils/callApi';
 import { useTranslation } from 'react-i18next';
 import getLanguageName from '../../../utils/getLanguageName';
+import { Language } from '../../../types';
 
 interface Props {
   value: string;
@@ -22,7 +23,7 @@ const DialogLanguage: React.FC<Props> = ({
   onDismiss,
   toggleDialog
 }) => {
-  const [language, setLanguage] = useState<'en' | 'fr'>(value);
+  const [language, setLanguage] = useState<Language>(value);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
   const { colors } = useTheme();

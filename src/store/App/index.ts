@@ -1,17 +1,20 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Store } from '../../store';
 import { FlashMessage } from '../../types/FlashMessage';
-import { Video } from '../../types';
+import { Language, Video } from '../../types';
+import { dataState } from '../Data';
+import { searchState } from '../Search';
+import { playerState } from '../Player';
 
 export interface AppState {
   username: null | string;
-  instance: string;
+  instance: null | string;
   token: null | string;
   logoutMode: boolean;
   flashMessage: FlashMessage;
   darkMode: boolean;
   sendErrorMonitoring: boolean;
-  language: 'en' | 'fr';
+  language: Language;
   dialogAddVideoToPlaylist: {
     isOpen: boolean;
     video: null | Video;
@@ -39,6 +42,8 @@ const appState: AppState = {
     video: null
   }
 };
+
+const getStorageOrDefaultValue = (value: string | null, defaultValue: any): any => value ? JSON.parse(value) : defaultValue;
 
 const appActions = {
   appInit: async (store: Store): Promise<Store> => {
@@ -73,15 +78,14 @@ const appActions = {
       instance,
       token,
       username,
-      darkMode: JSON.parse(darkMode) ?? appState.darkMode,
-      history: JSON.parse(searchHistory) ?? [],
-      playlists: JSON.parse(playlists) ?? [],
-      favorisPlaylist: JSON.parse(favorisPlaylist) ?? null,
-      logoutMode: JSON.parse(logoutMode) ?? appState.logoutMode,
-      sendErrorMonitoring:
-        JSON.parse(sendErrorMonitoring) ?? appState.sendErrorMonitoring,
-      language: language ?? appState.language,
-      lastPlays: JSON.parse(lastPlays) ?? []
+      darkMode: getStorageOrDefaultValue(darkMode, appState.darkMode),
+      history: getStorageOrDefaultValue(searchHistory, searchState.history),
+      playlists: getStorageOrDefaultValue(playlists, dataState.playlists),
+      favorisPlaylist: getStorageOrDefaultValue(favorisPlaylist, dataState.favorisPlaylist),
+      logoutMode: getStorageOrDefaultValue(logoutMode, appState.logoutMode),
+      sendErrorMonitoring: getStorageOrDefaultValue(sendErrorMonitoring, appState.sendErrorMonitoring),
+      language: (language as Language) ?? appState.language,
+      lastPlays: getStorageOrDefaultValue(lastPlays, playerState.lastPlays)
     };
   },
   setToken: (store: Store, actions: any, token: string) => {
@@ -94,7 +98,7 @@ const appActions = {
       logoutMode: false
     };
   },
-  setInstance: async (store: Store, actions: any, instance) => {
+  setInstance: async (store: Store, actions: any, instance: string) => {
     await AsyncStorage.setItem('instance', instance);
 
     return {
@@ -173,7 +177,7 @@ const appActions = {
   setLanguage: async (
     store: Store,
     actions: any,
-    language: 'en' | 'fr'
+    language: Language
   ): Promise<Store> => {
     await AsyncStorage.setItem('language', language);
 

@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import Spacer from '../../Spacer';
 
 interface Props {
-  label: string;
   value: string;
   visible: boolean;
   onDismiss: () => void;
@@ -18,7 +17,6 @@ interface Props {
 }
 
 const DialogEditToken: React.FC<Props> = ({
-  label,
   value,
   visible,
   onDismiss,

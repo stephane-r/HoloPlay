@@ -199,9 +199,9 @@ const dataActions = {
     };
   },
   removeFromFavoris: (store: Store, actions: any, videoId: string): Store => {
-    const favorisPlaylist = {
-      ...store.favorisPlaylist,
-      videos: store.favorisPlaylist.videos.filter((v) => v.videoId !== videoId)
+    const favorisPlaylist: Playlist = {
+      ...(store.favorisPlaylist as Playlist),
+      videos: (store.favorisPlaylist as Playlist).videos.filter((v) => v.videoId !== videoId)
     };
     let playlists = store.playlists;
 

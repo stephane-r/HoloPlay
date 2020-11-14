@@ -14,6 +14,7 @@ import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 import { useTranslation } from 'react-i18next';
 import getLanguageName from '../../utils/getLanguageName';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
+import { Language } from '../../types';
 
 interface Props {
   onSuccess: () => void;
@@ -21,7 +22,7 @@ interface Props {
 
 const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   const { instances } = useInvidiousInstances();
-  const [language, setLanguage] = useState<'en' | 'fr'>('en');
+  const [language, setLanguage] = useState<Language>('en');
   const [isLoading, setIsLoading] = useState(false);
   const [instance, setInstance] = useState<string>(
     instances[0]?.monitor?.name ?? instances[0]?.uri

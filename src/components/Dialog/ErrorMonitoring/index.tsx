@@ -10,7 +10,6 @@ import Spacer from '../../Spacer';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
-  label: string;
   value: string;
   visible: boolean;
   onDismiss: () => void;
@@ -18,7 +17,6 @@ interface Props {
 }
 
 const DialogErrorMonitoring: React.FC<Props> = ({
-  label,
   value,
   visible,
   onDismiss,

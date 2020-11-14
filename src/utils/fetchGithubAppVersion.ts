@@ -6,7 +6,7 @@ interface FetchHopRelease {
 const API_GITHUB_YAP_RELEASE =
   'https://api.github.com/repos/stephane-r/HoloPlay/releases';
 
-const fetchHopRelease = (): FetchHopRelease =>
+const fetchHopRelease = (): Promise<FetchHopRelease> =>
   fetch(API_GITHUB_YAP_RELEASE)
     .then((request) => request.json())
     .then(([repo]) => ({

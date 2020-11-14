@@ -82,9 +82,9 @@ const playerActions = {
     videoIndex: number
   ): Promise<PlayerState> => {
     const { playlist } = store;
-    const isLastVideo = playlist.length === videoIndex;
+    const isLastVideo = (playlist as Video[]).length === videoIndex;
     // If is last video, we restart the playlist from first index
-    const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
+    const video: Video = isLastVideo ? (playlist as Video[])[0] : (playlist as Video[])[videoIndex];
     const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
 
     // if (data.error) {

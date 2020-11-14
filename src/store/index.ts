@@ -1,3 +1,4 @@
+// @ts-ignore
 import createStore from 'react-waterfall';
 import { searchState, searchActions, SearchState } from './Search';
 import { playerState, playerActions, PlayerState } from './Player';

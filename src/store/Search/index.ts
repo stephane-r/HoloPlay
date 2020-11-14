@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { SearchVideo } from '../../types';
+import { SearchVideo, Video } from '../../types';
 import { Store } from '../../store';
 
 export type SearchTypeTypes = 'video' | 'playlist';
@@ -9,6 +9,7 @@ export interface SearchState {
   searchType: SearchTypeTypes;
   results: SearchVideo[];
   popular: SearchVideo[];
+  trending: Video[];
   top: SearchVideo[];
   history: string[];
 }
@@ -18,6 +19,7 @@ const searchState: SearchState = {
   searchType: 'video',
   results: [],
   popular: [],
+  trending: [],
   top: [],
   history: []
 };

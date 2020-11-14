@@ -9,7 +9,6 @@ import fetchPlaylists from '../../../utils/fetchPlaylists';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
-  label: string;
   value: string;
   visible: boolean;
   onDismiss: () => void;
@@ -17,7 +16,6 @@ interface Props {
 }
 
 const DialogEditUsername: React.FC<Props> = ({
-  label,
   value,
   visible,
   onDismiss,
@@ -56,7 +54,6 @@ const DialogEditUsername: React.FC<Props> = ({
         <TextInput
           accessibilityStates={[]}
           mode="outlined"
-          label={label}
           onChangeText={setUsername}
           value={username}
         />

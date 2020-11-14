@@ -85,6 +85,7 @@ export interface SearchChannel {
 }
 
 export interface Video {
+  indexId: string;
   title: string;
   videoId: string;
   videoThumbnails: VideoThumbnail[];
@@ -115,11 +116,11 @@ export interface Video {
   subCountText: string;
   lengthSeconds: number;
   allowRatings: boolean;
-  rating: Float32;
+  rating: number;
   isListed: boolean;
   liveNow: boolean;
   isUpcoming: boolean;
-  premiereTimestamp: ?number;
+  premiereTimestamp?: number;
   hlsUrl?: string;
   adaptiveFormats: [
     {

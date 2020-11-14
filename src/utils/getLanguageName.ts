@@ -1,4 +1,6 @@
-const getLanguageName = (lng: 'en' | 'fr'): string => {
+import { Language } from "../types";
+
+const getLanguageName = (lng: Language): string => {
   let language;
 
   switch (true) {

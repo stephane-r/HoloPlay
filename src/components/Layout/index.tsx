@@ -3,7 +3,11 @@ import { ScrollView, View, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import LayoutSpacerContainer from '../../containers/LayoutSpacer';
 
-const Layout: React.FC = ({ setTheme, children }) => {
+interface LayoutProps {
+  setTheme: (value: boolean) => void;
+}
+
+const Layout: React.FC<LayoutProps> = ({ setTheme, children }) => {
   const { colors } = useTheme();
 
   return (
