@@ -24,9 +24,10 @@ import Spacer from '../../components/Spacer';
 import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
 import InstanceContainer from '../../containers/Instance';
+import { NavigationHelpersCommon } from '@react-navigation/native';
 
 interface Props {
-  navigation: any;
+  navigation: NavigationHelpersCommon;
 }
 
 const DEVICE_HEIGHT = Dimensions.get('window').height;

@@ -44,6 +44,7 @@ import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoTo
 import { DrawerLayoutAndroid } from 'react-native-gesture-handler';
 import DrawlerContainer from '../../containers/Drawler';
 import InvidiousInstanceScreen from '../../screens/InvidiousInstances';
+import PrivacyPolicyScreen from '../../screens/PrivacyPolicy';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -153,6 +154,10 @@ const App: React.FC<Props> = () => {
               <Stack.Screen
                 name="InvidiousInstances"
                 component={InvidiousInstanceScreen}
+              />
+              <Stack.Screen
+                name="PrivacyPolicy"
+                component={PrivacyPolicyScreen}
               />
             </Stack.Navigator>
           </DrawerLayoutAndroid>

@@ -88,6 +88,22 @@
       "use": "Use",
       "test": "Test"
     },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "intro1": "This privacy policy governs your use of the software application",
+      "intro2": "for mobile devices that was create by",
+      "dataTitle": "Data collected by me",
+      "dataText": "Myself and the application do not collect any personal information whatsoever.",
+      "emailTitle": "Email communication",
+      "emailText1": "If you contact me per email",
+      "emailText2": "i will exclusively use your contact data to process your inquiry.",
+      "crashReportingTitle": "Crash reporting tool (Sentry)",
+      "crashReportingText1": "This app uses an self hosted Sentry instance crash reporting library, disabled by default",
+      "crashReportingText2": "If the application crashes and you have activated crash reporting from the settings screen (and only if), Sentry collects data relating to the context : data relating to the application crash only.",
+      "permissionsTitle": "Why HoloPlay request write external storage permissions ?",
+      "permissionsText1": "HoloPlay will ask you for permission if you want to download music (to save it) as well as to generate a backup of your playlists from the settings screen.",
+      "permissionsText2": "These are the two cases where HoloPlay will ask you for this permission. The files will be saved in the Document folder of your device."
+    },
     "login": {
       "token": "Token",
       "username": "Username (optional)",

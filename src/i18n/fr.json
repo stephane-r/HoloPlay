@@ -21,7 +21,8 @@
       "instances": "Instances Invidious",
       "darkMode": "Mode sombre",
       "version": "Version",
-      "updateAvailable": "Nouvelle mise à jour disponible"
+      "updateAvailable": "Nouvelle mise à jour disponible",
+      "privacyPolicy": "Politique de confidentialité"
     },
     "profil": {
       "hey": "Hey {{userName}}",
@@ -87,6 +88,22 @@
       "loading": "Chargement des instances Invidious...",
       "use": "Utiliser",
       "test": "Tester"
+    },
+    "privacyPolicy": {
+      "title": "Politique de confidentialité",
+      "intro1": "Cette politique de confidentialité concerne votre utilisation de l'application ",
+      "intro2": "créés par ",
+      "dataTitle": "Données collectées",
+      "dataText": "Moi-même ainsi que l'application ne collectons aucune données personnelle, quelle qu'elle soit.",
+      "emailTitle": "Contact",
+      "emailText1": "Si vous souhaitez me contacter par email",
+      "emailText2": "j'utiliserai exclusivement vos données de contact pour traiter votre demande.",
+      "crashReportingTitle": "Monitoring d'erreur (Sentry)",
+      "crashReportingText1": "Cette application utilise une bibliothèque de rapports Sentry qui est auto-hébergée. Sentry est désactivée par défaut.",
+      "crashReportingText2": "Si l'application crash et que vous avez activé le rapport d'erreur Sentry depuis l'écran Paramètres (et seulement si), Sentry recevra des données relatives au contexte : les données liées au crash de l'application uniquement.",
+      "permissionsTitle": "Pourquoi HoloPlay demande l'autorisations de stockage externe ?",
+      "permissionsText1": "HoloPlay vous demandera l'autorisations d'accès au stockage externe uniquement si vous souhaitez télécharger une musique (pour l'enregistrer) ainsi que pour générer une sauvegarde de vos listes de lecture depuis l'écran Paramètres.",
+      "permissionsText2": "Ce sont les deux uniques cas où HoloPlay vous demandera cette autorisation. Les fichiers seront enregistrés dans le dossier Document de votre téléphone."
     },
     "login": {
       "token": "Token",

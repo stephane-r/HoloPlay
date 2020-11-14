@@ -21,9 +21,10 @@ import { useTranslation } from 'react-i18next';
 import getLanguageName from '../../utils/getLanguageName';
 import { ScrollView } from 'react-native-gesture-handler';
 import Spacer from '../../components/Spacer';
+import { NavigationHelpersCommon } from '@react-navigation/native';
 
 interface Props {
-  navigation: any;
+  navigation: NavigationHelpersCommon;
 }
 
 const DEVICE_HEIGHT = Dimensions.get('window').height;

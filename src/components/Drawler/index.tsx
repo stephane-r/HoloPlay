@@ -79,6 +79,18 @@ const Drawler: React.FC<Props> = ({
             />
           </View>
         </View>
+        <Drawer.Item
+          accessibilityStates={[]}
+          label={t('drawler.privacyPolicy')}
+          icon="play-network"
+          onPress={() => {
+            drawler.current.closeDrawer();
+            setTimeout(
+              () => navigation.current.navigate('PrivacyPolicy'),
+              200
+            );
+          }}
+        />
       </Drawer.Section>
       <AppVersion />
     </View>
