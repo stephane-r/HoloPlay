@@ -115,6 +115,36 @@ const playerActions = {
       lastPlays
     };
   },
+  loadLiveVideo: async (
+    store: Store,
+    actions: any,
+    {videoIndex, data}: { videoIndex: number; data: Video }
+  ): Promise<PlayerState> => {
+    const { playlist } = store;
+    const isLastVideo = playlist.length === videoIndex;
+    // If is last video, we restart the playlist from first index
+    const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
+
+    const videoUpdated = {
+      ...video,
+      ...data,
+      uri: `${config.YOUTUBE_AUDIO_SERVER_API_URL}/${data.videoId}`,
+      thumbnail: data.videoThumbnails.find(
+        ({ quality }: VideoThumbnail) => quality === 'medium'
+      )
+    };
+
+    const lastPlays = [video, ...store.lastPlays.slice(0, 9)];
+
+    AsyncStorage.setItem('lastPlays', JSON.stringify(lastPlays));
+
+    return {
+      ...store,
+      video: videoUpdated,
+      videoIndex: videoIndex,
+      lastPlays
+    };
+  },
   paused: async (store: Store): Promise<Store> => ({
     ...store,
     paused: !store.paused

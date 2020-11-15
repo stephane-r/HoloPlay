@@ -33,7 +33,13 @@ const CardSearch: React.FC<Props> = ({
     try {
       setLoading(true);
       await actions.setPlaylistFrom(setPlaylistFrom);
-      await actions.loadVideo(index);
+
+      if (video.liveNow) {
+        await actions.loadLiveVideo({ videoIndex: index, data: video });
+      } else {
+        await actions.loadVideo(index);
+      }
+
     } catch (error) {
       actions.setFlashMessage({
         message: error.message

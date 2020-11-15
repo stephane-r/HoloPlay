@@ -123,9 +123,9 @@ const Player: React.FC<Props> = ({
     }
   };
 
-  const onError = (): void => {
+  const onError = (error): void => {
     actions.setFlashMessage({
-      message: t('player.errorLoadVideo')
+      message: error.error.errorException
     });
     setLoading(false);
   };
@@ -291,20 +291,20 @@ const Player: React.FC<Props> = ({
             {loading ? (
               <ActivityIndicator color="white" />
             ) : (
-              <IconButton
-                accessibilityStates={[]}
-                icon="download"
-                color="white"
-                size={30}
-                loading={loading}
-                onPress={() =>
-                  downloadVideo({
-                    url: video.uri,
-                    fileName: video.title
-                  })
-                }
-              />
-            )}
+                <IconButton
+                  accessibilityStates={[]}
+                  icon="download"
+                  color="white"
+                  size={30}
+                  loading={loading}
+                  onPress={() =>
+                    downloadVideo({
+                      url: video.uri,
+                      fileName: video.title
+                    })
+                  }
+                />
+              )}
             <IconButton
               accessibilityStates={[]}
               icon="fast-forward-30"
@@ -319,9 +319,9 @@ const Player: React.FC<Props> = ({
           <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
             {currentTime
               ? TimeFormat.fromS(
-                  currentTime,
-                  duration > 3600 ? 'hh:mm:ss' : 'mm:ss'
-                )
+                currentTime,
+                duration > 3600 ? 'hh:mm:ss' : 'mm:ss'
+              )
               : '00:00'}
           </Text>
           <View style={styles.progressBar}>
@@ -376,16 +376,16 @@ const Player: React.FC<Props> = ({
               <ActivityIndicator color="white" size={50} />
             </View>
           ) : (
-            <IconButton
-              accessibilityStates={[]}
-              icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
-              onPress={() => pauseVideo(MusicControl.STATE_STOPPED)}
-              color={color}
-              style={{ width: 80, margin: 0, marginHorizontal: 20 }}
-              size={80}
-              animated
-            />
-          )}
+              <IconButton
+                accessibilityStates={[]}
+                icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
+                onPress={() => pauseVideo(MusicControl.STATE_STOPPED)}
+                color={color}
+                style={{ width: 80, margin: 0, marginHorizontal: 20 }}
+                size={80}
+                animated
+              />
+            )}
           <IconButton
             accessibilityStates={[]}
             color={color}
