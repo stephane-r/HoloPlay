@@ -21,7 +21,8 @@
       "instances": "Invidious instances",
       "darkMode": "Dark mode",
       "version": "Version",
-      "updateAvailable": "New update available"
+      "updateAvailable": "New update available",
+      "privacyPolicy": "Privacy Policy"
     },
     "profil": {
       "hey": "Hey {{userName}}",
@@ -133,7 +134,7 @@
       },
       "editToken": {
         "title": "Edit Invidious token",
-        emptyToken: "With an empty token, you will switch to logout mode"
+        "emptyToken": "With an empty token, you will switch to logout mode"
       },
       "editUsername": {
         "title": "Edit username"
