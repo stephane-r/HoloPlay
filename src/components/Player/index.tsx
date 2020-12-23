@@ -409,7 +409,7 @@ const Player: React.FC<Props> = ({
           <FavorisButtonContainer video={video} color={color} />
         </View>
       </View>
-      <Spacer height={10} />
+      <Spacer height={30} />
     </View>
   );
 };
