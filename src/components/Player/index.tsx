@@ -345,13 +345,14 @@ const Player: React.FC<Props> = ({
             {TimeFormat.fromS(video.lengthSeconds)}
           </Text>
         </View>
+        <Spacer height={25} />
         <View
           style={{
             width: '100%',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            paddingHorizontal: 4 // 16 + 4
+            paddingHorizontal: 4
           }}>
           <IconButton
             accessibilityStates={[]}
@@ -383,7 +384,12 @@ const Player: React.FC<Props> = ({
               icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
               onPress={() => pauseVideo(MusicControl.STATE_STOPPED)}
               color={color}
-              style={{ width: 80, margin: 0, marginHorizontal: 20 }}
+              style={{
+                width: 80,
+                height: 80,
+                margin: 0,
+                marginHorizontal: 20
+              }}
               size={80}
               animated
             />
