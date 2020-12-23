@@ -14,7 +14,9 @@ const PlayerContainer = connect(
       previousVideoIndex,
       paused,
       repeat,
-      playerIsOpened
+      playerIsOpened,
+      isLastVideo: nextVideoIndex === (playlist && playlist.length),
+      isFirstVideo: videoIndex === 0
     };
   }
 )(Player);

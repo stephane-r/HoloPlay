@@ -117,7 +117,7 @@ const Player: React.FC<Props> = ({
   };
 
   const onEnd = (): void => {
-    if (props.nextVideoIndex) {
+    if (props.nextVideoIndex && !repeat) {
       setLoading(true);
       loadNextVideo();
     }
@@ -131,15 +131,17 @@ const Player: React.FC<Props> = ({
   };
 
   const loadNextVideo = () => {
-    if (props.nextVideoIndex) {
+    if (props.nextVideoIndex !== null) {
       actions.loadVideo(props.nextVideoIndex);
     }
   };
+
   const loadPreviousVideo = () => {
-    if (props.previousVideoIndex) {
+    if (props.previousVideoIndex !== null) {
       actions.loadVideo(props.previousVideoIndex);
     }
   };
+
   const pauseVideo = (state: string) => {
     MusicControl.updatePlayback({
       state
@@ -291,20 +293,20 @@ const Player: React.FC<Props> = ({
             {loading ? (
               <ActivityIndicator color="white" />
             ) : (
-                <IconButton
-                  accessibilityStates={[]}
-                  icon="download"
-                  color="white"
-                  size={30}
-                  loading={loading}
-                  onPress={() =>
-                    downloadVideo({
-                      url: video.uri,
-                      fileName: video.title
-                    })
-                  }
-                />
-              )}
+              <IconButton
+                accessibilityStates={[]}
+                icon="download"
+                color="white"
+                size={30}
+                loading={loading}
+                onPress={() =>
+                  downloadVideo({
+                    url: video.uri,
+                    fileName: video.title
+                  })
+                }
+              />
+            )}
             <IconButton
               accessibilityStates={[]}
               icon="fast-forward-30"
@@ -319,9 +321,9 @@ const Player: React.FC<Props> = ({
           <Text accessibilityStates={[]} style={{ fontSize: 12, color }}>
             {currentTime
               ? TimeFormat.fromS(
-                currentTime,
-                duration > 3600 ? 'hh:mm:ss' : 'mm:ss'
-              )
+                  currentTime,
+                  duration > 3600 ? 'hh:mm:ss' : 'mm:ss'
+                )
               : '00:00'}
           </Text>
           <View style={styles.progressBar}>
@@ -364,7 +366,7 @@ const Player: React.FC<Props> = ({
             icon="skip-previous"
             color={color}
             onPress={loadPreviousVideo}
-            disabled={props.previousVideoIndex === -1}
+            disabled={props.isFirstVideo}
             size={25}
             style={{
               backgroundColor: 'rgba(255, 255, 255, .3)',
@@ -376,21 +378,22 @@ const Player: React.FC<Props> = ({
               <ActivityIndicator color="white" size={50} />
             </View>
           ) : (
-              <IconButton
-                accessibilityStates={[]}
-                icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
-                onPress={() => pauseVideo(MusicControl.STATE_STOPPED)}
-                color={color}
-                style={{ width: 80, margin: 0, marginHorizontal: 20 }}
-                size={80}
-                animated
-              />
-            )}
+            <IconButton
+              accessibilityStates={[]}
+              icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
+              onPress={() => pauseVideo(MusicControl.STATE_STOPPED)}
+              color={color}
+              style={{ width: 80, margin: 0, marginHorizontal: 20 }}
+              size={80}
+              animated
+            />
+          )}
           <IconButton
             accessibilityStates={[]}
             color={color}
             icon="skip-next"
             onPress={loadNextVideo}
+            disabled={props.isLastVideo}
             size={25}
             style={{
               backgroundColor: 'rgba(255, 255, 255, .3)',
