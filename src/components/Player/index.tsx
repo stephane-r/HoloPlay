@@ -180,12 +180,12 @@ const Player: React.FC<Props> = ({
         orientation="horizontal"
         transitionStyle="scroll"
         ref={pager}>
-        <View key="1" style={styles.head}>
+        <View style={styles.head}>
           <View>
             <Image
               source={{ uri: video.thumbnail.url }}
               style={{
-                width: video.thumbnail.width + 100,
+                width: Dimensions.get('window').width,
                 height: video.thumbnail.height + 40
               }}
             />
@@ -193,7 +193,7 @@ const Player: React.FC<Props> = ({
               style={{
                 position: 'absolute',
                 bottom: 0,
-                width: video.thumbnail.width + 100
+                width: Dimensions.get('window').width
               }}>
               <LinearGradient
                 colors={['rgba(255, 255, 255, 0)', hex2rgba(background, 1)]}
@@ -254,7 +254,7 @@ const Player: React.FC<Props> = ({
             {video.author}
           </Text>
         </View>
-        <View key="2" style={{ paddingHorizontal: 20 }}>
+        <View style={{ paddingHorizontal: 20 }}>
           <ScrollView keyboardShouldPersistTaps>
             <PlaylistContainer color={color} />
           </ScrollView>
