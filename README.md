@@ -2,8 +2,11 @@
 <h2 align="center">HoloPlay</h2>
 <p align="center">
     <a href="https://travis-ci.org/stephane-r/HoloPlay"><img src="https://img.shields.io/github/v/tag/stephane-r/HoloPlay" alt="Build Status"></a>
-    <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://travis-ci.org/google/clasp.svg?branch=master" alt="Build Status"></a>
-    <a href="https://github.com/stephane-r/HoloPlay/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="Build Status"></a>
+    <a href="https://github.com/stephane-r/HoloPlay/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome"></a>
+    <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Badges"></a>
+    <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://img.shields.io/github/stars/stephane-r/HoloPlay?label=%E2%AD%90%20Stars" alt="Stars"></a>
+    <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://img.shields.io/github/forks/stephane-r/HoloPlay?color=%23ff69b4" alt="Forks"></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
 <hr>
@@ -93,14 +96,14 @@ Please read [CONTRIBUTING.md]() for details on our code of conduct, and the proc
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT.
 
 ## TODO
 
 - [ ] Submit on f-droid store
+- [ ] UI for tablet
 - [x] Adding music on playlist from all screen and player
 - [x] Can create playlist from adding music on playlist dialog
-- [ ] UI for tablet
 - [x] Add popular/trending videos and search screen
 - [x] Add i18n with EN and FR translation (EN default language)
 - [x] Add update alert
