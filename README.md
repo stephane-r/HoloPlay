@@ -90,6 +90,18 @@ And run your Android emulator :
 
 And more.
 
+## Android permissions
+
+- `INTERNET` : Connect to the network
+- `FORGROUND_SERVICE` : used by [react-native-music-control](https://github.com/tanguyantoine/react-native-music-control)
+- `READ_EXTERNAL_STORAGE`, `WRITE_EXTERNAL_STORAGE` and `DOWNLOAD_WITHOUT_NOTIFICATION` : for download and save downloaded file
+
+All **STORAGE** permissions are requested only when you need use them.
+
+## Error and performance monitoring
+
+**HoloPlay** uses an self hosted [Sentry](https://sentry.io/welcome/) instance crash reporting library, **disabled** by default. This reporting can be enabled and disabled via settings screen.
+
 ## Contributing
 
 Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.

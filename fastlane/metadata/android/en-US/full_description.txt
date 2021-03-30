@@ -15,4 +15,4 @@ Features :
 - Cloud Syncing
 - Dark Theme
 
-HoloPlay is an open source project and can be found at https://github.com/stephane-r/HoloPlay.
+HoloPlay is an open source project and can be found at https://github.com/stephane-r/HoloPlay and https://holoplay.io.
