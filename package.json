@@ -3,6 +3,8 @@
   "version": "1.9.8",
   "private": false,
   "scripts": {
+    "postinstall": "npx patch-package",
+    "postversion": "RNV=android react-native-version",
     "start": "react-native start -- --reset-cache",
     "android:run": "./scripts/android-run.sh",
     "android:release": "cd android && ./gradlew assembleRelease",
@@ -14,8 +16,7 @@
     "prettify": "prettier --write src/**/*.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "lint": "eslint src",
-    "static-analysis": "yarn lint",
-    "postversion": "RNV=android react-native-version"
+    "static-analysis": "yarn lint"
   },
   "resolutions": {
     "**/**/node-fetch": "2.6.1"
