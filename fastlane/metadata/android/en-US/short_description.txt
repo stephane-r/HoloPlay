@@ -1,1 +1,1 @@
-HoloPlay is a alternative Youtube client using Invidious API.
+HoloPlay is a audio only alternative Youtube client using Invidious API.

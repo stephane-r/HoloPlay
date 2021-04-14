@@ -11,7 +11,7 @@
 
 <hr>
 
-HoloPlay (HoP) is a Youtube alternative app using [Invidious API](https://github.com/omarroth/invidious). You can add your Invidious token and save music to favoris or create your playlists. This project is fully open source.
+HoloPlay (HoP) is a audio only Youtube alternative app using [Invidious API](https://github.com/omarroth/invidious). You can add your Invidious token and save music to favoris or create your playlists. This project is fully open source.
 
 If you want add more feature, PM or PR are welcome :)
 
@@ -113,6 +113,7 @@ This project is licensed under the MIT.
 ## TODO
 
 - [ ] Submit on f-droid store
+- [ ] Add video support
 - [ ] UI for tablet
 - [x] Adding music on playlist from all screen and player
 - [x] Can create playlist from adding music on playlist dialog
