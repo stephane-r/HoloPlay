@@ -8,6 +8,10 @@ const envs = [
   {
     value: 'YOUTUBE_AUDIO_SERVER_API_URL',
     property: process.env.YOUTUBE_AUDIO_SERVER_API_URL
+  },
+  {
+    value: 'GITHUB_RELEASE',
+    property: process.env.GITHUB_RELEASE
   }
 ];
 

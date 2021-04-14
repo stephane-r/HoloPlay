@@ -1,3 +1,4 @@
+import config from 'react-native-config';
 import { useEffect, useState } from 'react';
 import semverCompare from 'semver-compare';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -19,17 +20,19 @@ const useUpdateRelease = (
   const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchHopRelease().then(({ tagName, browserDownloadUrl }) => {
-      if (semverCompare(tagName, version) === 1) {
-        setUrl(browserDownloadUrl);
-        setFileName(`holoplay-${tagName}.apk`);
-        setUpdateAvailable(true);
+    if (config.GITHUB_RELEASE === 'true') {
+      fetchHopRelease().then(({ tagName, browserDownloadUrl }) => {
+        if (semverCompare(tagName, version) === 1) {
+          setUrl(browserDownloadUrl);
+          setFileName(`holoplay-${tagName}.apk`);
+          setUpdateAvailable(true);
 
-        if (showFlashMessage) {
-          showUpdateIsAvailable();
+          if (showFlashMessage) {
+            showUpdateIsAvailable();
+          }
         }
-      }
-    });
+      });
+    }
   });
 
   const showUpdateIsAvailable = () => {
