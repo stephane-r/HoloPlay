@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Title, Text } from 'react-native-paper';
 import Spacer from '../Spacer';
 import { useTranslation } from 'react-i18next';
@@ -18,10 +18,6 @@ const Profil: React.FC = ({ username }) => {
           {t('profil.welcom')}
         </Text>
       </View>
-      <Image
-        source={{ uri: 'https://picsum.photos/60/60' }}
-        style={styles.image}
-      />
     </View>
   );
 };
@@ -41,11 +37,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white'
-  },
-  image: {
-    width: 60,
-    height: 60,
-    borderRadius: 60
   }
 });
 
