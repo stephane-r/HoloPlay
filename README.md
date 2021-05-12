@@ -1,12 +1,13 @@
 <p align="center"><img src="./docs/logo.png" width="150" /></p>
 <h2 align="center">HoloPlay</h2>
+<p align="center" style="margin: 10px 0;"><a href="https://f-droid.org/fr/packages/com.holoplay"><img height="70" src="https://f-droid.org/wiki/images/0/06/F-Droid-button_get-it-on.png"></a></p>
 <p align="center">
     <a href="https://travis-ci.org/stephane-r/HoloPlay"><img src="https://img.shields.io/github/v/tag/stephane-r/HoloPlay" alt="Build Status"></a>
-    <a href="https://github.com/stephane-r/HoloPlay/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome"></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
     <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Badges"></a>
+    <a href="https://github.com/stephane-r/HoloPlay/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome"></a>
     <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://img.shields.io/github/stars/stephane-r/HoloPlay?label=%E2%AD%90%20Stars" alt="Stars"></a>
     <a href="https://github.com/stephane-r/HoloPlay/tags"><img src="https://img.shields.io/github/forks/stephane-r/HoloPlay?color=%23ff69b4" alt="Forks"></a>
-    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
 <hr>
@@ -112,9 +113,9 @@ This project is licensed under the MIT.
 
 ## TODO
 
-- [ ] Submit on f-droid store
 - [ ] Add video support
 - [ ] UI for tablet
+- [x] Submit on f-droid store
 - [x] Adding music on playlist from all screen and player
 - [x] Can create playlist from adding music on playlist dialog
 - [x] Add popular/trending videos and search screen
