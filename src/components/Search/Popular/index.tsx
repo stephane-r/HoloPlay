@@ -5,9 +5,9 @@ import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
 import Playlist from '../../Playlist/List';
 import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
-import { Text, Title, Button } from 'react-native-paper';
+import { Text, Title, Button, IconButton } from 'react-native-paper';
 import Spacer from '../../Spacer';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
 import CardScrollList from '../../Card/ScrollList';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -24,12 +24,16 @@ interface Props {
 }
 
 const SearchPopularTop: React.FC<Props> = ({
+  title,
   setPlaylistFrom,
   apiUrl,
-  title,
   instance
 }) => {
-  const { isLoading, error, data } = useQuery(apiUrl, search);
+  const [enabled, setRefetch] = useState(false);
+  const { isLoading, error, data } = useQuery(apiUrl, search, {
+    enabled,
+    onSuccess: () => setRefetch(false)
+  });
   const { t } = useTranslation();
   const { navigate } = useNavigation();
 
@@ -39,16 +43,29 @@ const SearchPopularTop: React.FC<Props> = ({
     }
   }, [data, instance]);
 
+  const Header = () => (
+    <View style={styles.header}>
+      <Title style={{ fontSize: 27 }}>{title}</Title>
+      <IconButton icon="sync" onPress={() => setRefetch(true)} />
+    </View>
+  );
+
   if (isLoading) {
     return <PlaceholderCardHorizontalList />;
   }
 
   if (error || !Array.isArray(data) || data.length === 0) {
-    return <SearchError />;
+    return (
+      <>
+        <Header />
+        <SearchError />
+      </>
+    );
   }
 
   return (
     <>
+      <Header />
       <CardScrollList>
         {data.map((video, index) => (
           <CardSearch
@@ -69,5 +86,13 @@ const SearchPopularTop: React.FC<Props> = ({
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  }
+});
 
 export default memo(SearchPopularTop);

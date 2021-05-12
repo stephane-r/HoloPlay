@@ -39,11 +39,17 @@ const DashboardScreen: React.FC = ({ route }) => {
       <CarouselSpacerContainer />
       <LastPlaysContainer />
       <Spacer height={15} />
-      <Title style={{ fontSize: 27 }}>{t('search.popular')}</Title>
-      <SearchPopularContainer setPlaylistFrom="popular" apiUrl="popular" />
+      <SearchPopularContainer
+        title={t('search.popular')}
+        setPlaylistFrom="popular"
+        apiUrl="popular"
+      />
       <Spacer height={15} />
-      <Title style={{ fontSize: 27 }}>{t('search.trending')}</Title>
-      <SearchPopularContainer setPlaylistFrom="trending" apiUrl="trending" />
+      <SearchPopularContainer
+        title={t('search.trending')}
+        setPlaylistFrom="trending"
+        apiUrl="trending"
+      />
     </Layout>
   );
 };
