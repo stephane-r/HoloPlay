@@ -39,7 +39,7 @@ For now, HoloPlay is designed for mobile, not optimized for tablet device.
 - **Search by video and playlist**
 - **Live video**
 - **Create your playlists**
-- **Save on favoris**
+- **Save favourites**
 - **Downloading video**
 - **Background mode**
 - **Offline**
