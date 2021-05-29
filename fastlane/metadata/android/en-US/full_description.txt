@@ -15,5 +15,6 @@ Features :
 - Cloud Syncing
 - Dark Theme
 - internationalization with EN (default) and FR
+- Add your self hosted Invidious instance URL
 
 HoloPlay is an open source project and can be found at https://github.com/stephane-r/HoloPlay and https://holoplay.io.

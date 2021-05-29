@@ -49,6 +49,7 @@ For now, HoloPlay is designed for mobile, not optimized for tablet device.
 - **Cloud Syncing**
 - **Dark Theme**
 - **internationalization with EN (default) and FR**
+- **Add your self hosted Invidious instance URL**
 
 ## Getting Started
 
