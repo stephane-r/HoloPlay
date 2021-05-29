@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Store } from '../../store';
 import { FlashMessage } from '../../types/FlashMessage';
-import { Video } from '../../types';
+import { CustomInstance, Video } from '../../types';
 
 export interface AppState {
   username: null | string;
@@ -16,6 +16,7 @@ export interface AppState {
     isOpen: boolean;
     video: null | Video;
   };
+  customInstances: CustomInstance[];
 }
 
 const appState: AppState = {
@@ -37,7 +38,8 @@ const appState: AppState = {
   dialogAddVideoToPlaylist: {
     isOpen: false,
     video: null
-  }
+  },
+  customInstances: []
 };
 
 const appActions = {
@@ -53,7 +55,8 @@ const appActions = {
       username,
       sendErrorMonitoring,
       language,
-      lastPlays
+      lastPlays,
+      customInstances
     ] = await Promise.all([
       AsyncStorage.getItem('darkMode'),
       AsyncStorage.getItem('searchHistory'),
@@ -65,7 +68,8 @@ const appActions = {
       AsyncStorage.getItem('username'),
       AsyncStorage.getItem('sendErrorMonitoring'),
       AsyncStorage.getItem('language'),
-      AsyncStorage.getItem('lastPlays')
+      AsyncStorage.getItem('lastPlays'),
+      AsyncStorage.getItem('customInstances')
     ]);
 
     return {
@@ -81,7 +85,8 @@ const appActions = {
       sendErrorMonitoring:
         JSON.parse(sendErrorMonitoring) ?? appState.sendErrorMonitoring,
       language: language ?? appState.language,
-      lastPlays: JSON.parse(lastPlays) ?? []
+      lastPlays: JSON.parse(lastPlays) ?? [],
+      customInstances: JSON.parse(customInstances) ?? []
     };
   },
   setToken: (store: Store, actions: any, token: string) => {
@@ -200,7 +205,38 @@ const appActions = {
       video,
       isOpen: true
     }
-  })
+  }),
+  setCustomInstance: async (store: Store, actions: any, instance: any) => {
+    const customInstances = [...store.customInstances, instance];
+    await AsyncStorage.setItem(
+      'customInstances',
+      JSON.stringify(customInstances)
+    );
+
+    return {
+      ...store,
+      customInstances
+    };
+  },
+  removeCustomInstance: async (
+    store: Store,
+    actions: any,
+    instanceUri: string
+  ) => {
+    const customInstances = store.customInstances.filter(
+      ({ uri }) => uri !== instanceUri
+    );
+
+    await AsyncStorage.setItem(
+      'customInstances',
+      JSON.stringify(customInstances)
+    );
+
+    return {
+      ...store,
+      customInstances
+    };
+  }
 };
 
 export { appState, appActions };

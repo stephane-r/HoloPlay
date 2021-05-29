@@ -25,6 +25,8 @@ import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
 import InstanceContainer from '../../containers/Instance';
 import { NavigationHelpersCommon } from '@react-navigation/native';
+import DialogAddCustomInstance from '../../components/Dialog/AddCustomInstance';
+import InstanceListContainer from '../../containers/InstanceList';
 
 interface Props {
   navigation: NavigationHelpersCommon;
@@ -40,74 +42,43 @@ const wait = (timeout) => {
 
 const InvidiousInstanceScreen: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation();
-  const store = useStore();
   const { colors } = useTheme();
-  const [refreshing, setRefreshing] = useState(false);
-  const {
-    instances,
-    loading,
-    setInvidiousInstance,
-    submitLoading
-  } = useInvidiousInstances();
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
-      <View
-        style={[
-          styles.container,
-          { backgroundColor: colors.background, minHeight: DEVICE_HEIGHT }
-        ]}>
-        <Appbar accessibilityStates={[]}>
-          <Appbar.BackAction
-            accessibilityStates={[]}
-            icon="archive"
-            onPress={(): void => navigation.goBack()}
-          />
-          <Appbar.Content
-            title={t('instance.title')}
-            accessibilityStates={[]}
-          />
-        </Appbar>
-        <View style={styles.content}>
-          {loading ? (
-            <View
-              style={{
-                paddingHorizontal: 20,
-                paddingVertical: 15
-              }}>
-              <Text>{t('instance.loading')}</Text>
-            </View>
-          ) : (
-            <View>
-              {instances.map(({ uri }) => (
-                <InstanceContainer
-                  key={uri}
-                  uri={uri}
-                  setInstance={setInvidiousInstance}
-                />
-              ))}
-            </View>
-          )}
+    <>
+      <ScrollView>
+        <View
+          style={[
+            styles.container,
+            { backgroundColor: colors.background, minHeight: DEVICE_HEIGHT }
+          ]}>
+          <Appbar accessibilityStates={[]}>
+            <Appbar.BackAction
+              accessibilityStates={[]}
+              icon="archive"
+              onPress={(): void => navigation.goBack()}
+            />
+            <Appbar.Content
+              title={t('instance.title')}
+              accessibilityStates={[]}
+            />
+            <Appbar.Action icon="plus" onPress={() => setDialogIsOpen(true)} />
+          </Appbar>
+          <InstanceListContainer />
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <DialogAddCustomInstance
+        visible={dialogIsOpen}
+        onDismiss={() => setDialogIsOpen(false)}
+      />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  content: {
-    flexDirection: 'column'
   }
 });
 

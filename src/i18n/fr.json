@@ -147,6 +147,11 @@
       },
       "editLanguage": {
         "title": "Changer de langue"
+      },
+      "customInstance": {
+        "title": "Ajouter une instance Invidious",
+        "placeholder": "URL",
+        "example": "Exemple"
       }
     },
     "flashMessage": {
@@ -170,7 +175,9 @@
       "addFavorisSuccess": "Titre ajoutée à vos favoris",
       "removeFavorisSuccess": "Titre supprimée de vos favoris",
       "addVideoToPlaylistSuccess": "{{videoName}} a été ajoutée dans votre playlist",
-      "removeVideoFromPlaylistSuccess": "{{videoName}} a été supprimée de votre playlist"
+      "removeVideoFromPlaylistSuccess": "{{videoName}} a été supprimée de votre playlist",
+      "addCustomInstanceSuccess": "Instance Invidious ajoutée",
+      "removeCustomInstanceSuccess": "Instance Invidious supprimée"
     }
   }
 }

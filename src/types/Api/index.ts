@@ -215,3 +215,8 @@ interface InstanceMonitor {
   name: string;
   type: string;
 }
+
+export interface CustomInstance {
+  isCustom: boolean;
+  uri: string;
+}

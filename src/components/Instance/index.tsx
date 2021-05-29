@@ -1,22 +1,42 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { Button, Text, Divider, IconButton } from 'react-native-paper';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
 import { useTranslation } from 'react-i18next';
+import Spacer from '../Spacer';
+import { actions } from '../../store';
 
 interface Props {
   uri: string;
+  isCustom: boolean;
   setInstance: (value: string) => void;
   instance: string;
 }
 
-const Instance: React.FC<Props> = ({ uri, setInstance, instance }) => {
+const Instance: React.FC<Props> = ({
+  uri,
+  isCustom,
+  setInstance,
+  instance
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
   const onPress = () => {
     setIsLoading(true);
     return setInstance(uri, () => setIsLoading(false));
+  };
+
+  const onRemovePress = () => {
+    actions.removeCustomInstance(uri);
+
+    return setTimeout(
+      () =>
+        actions.setFlashMessage({
+          message: t('flashMessage.removeCustomInstanceSuccess')
+        }),
+      500
+    );
   };
 
   return (
@@ -46,6 +66,18 @@ const Instance: React.FC<Props> = ({ uri, setInstance, instance }) => {
           <Button mode="contained" onPress={onPress} loading={isLoading}>
             {t('instance.use')}
           </Button>
+        )}
+        {isCustom && (
+          <>
+            <Spacer width={10} />
+            <IconButton
+              icon="delete"
+              mode="contained"
+              size={20}
+              onPress={onRemovePress}
+              loading={isLoading}
+            />
+          </>
         )}
       </View>
     </>
