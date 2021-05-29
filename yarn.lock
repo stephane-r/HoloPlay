@@ -7469,10 +7469,10 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-rn-dominant-color@^1.5.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/rn-dominant-color/-/rn-dominant-color-1.7.0.tgz#99b86847dec671c3c0cf84f990a6ef8eb95a19d8"
-  integrity sha512-HlFVCCy0gleMhxE1o+twOJwg/FxAMw5XBoZbMcifcVLIa9wCCJCiOz70dl7I6m0vvzVdOcE4RoZ+0PTv3IMBTQ==
+rn-dominant-color@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/rn-dominant-color/-/rn-dominant-color-1.7.2.tgz#b04b0c17c1dfc7269869f530b33548e3eb0e0d9f"
+  integrity sha512-M9brxZvxZ4G5aPGagy1Tq++Dq1BaI98tqQ3ZPlqCa2SHIBgo3EQrtuHt4uHNv0/OWZXw535BGOC0eWZRT6eI/w==
 
 rn-fetch-blob@^0.12.0:
   version "0.12.0"
