@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import {
   Drawer,
   Switch,
@@ -61,14 +61,15 @@ const Drawler: React.FC<Props> = ({
           }}
         />
         <View style={styles.switchContainer}>
-          <Drawer.Item
-            accessibilityStates={[]}
-            label={t('drawler.darkMode')}
-            icon="lightbulb-on"
-          />
+          <View style={{ flex: 1 }}>
+            <Drawer.Item
+              accessibilityStates={[]}
+              label={t('drawler.darkMode')}
+              icon="lightbulb-on"
+            />
+          </View>
           <View
             style={{
-              flex: 1,
               alignItems: 'flex-end',
               justifyContent: 'center'
             }}>
@@ -85,10 +86,7 @@ const Drawler: React.FC<Props> = ({
           icon="play-network"
           onPress={() => {
             drawler.current.closeDrawer();
-            setTimeout(
-              () => navigation.current.navigate('PrivacyPolicy'),
-              200
-            );
+            setTimeout(() => navigation.current.navigate('PrivacyPolicy'), 200);
           }}
         />
       </Drawer.Section>

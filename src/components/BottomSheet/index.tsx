@@ -64,7 +64,10 @@ class BottomSheet extends PureComponent {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (e, gestureState) => {
         if (draggable && gestureState.dy > 0) {
-          Animated.event([null, { dy: pan.y }])(e, gestureState);
+          Animated.event([null, { dy: pan.y }], { useNativeDriver: false })(
+            e,
+            gestureState
+          );
         }
       },
       onPanResponderRelease: (e, gestureState) => {

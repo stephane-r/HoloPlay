@@ -57,7 +57,7 @@ const Player: React.FC<Props> = ({
   const { loading, downloadVideo } = useDownloadFile();
   const { t } = useTranslation();
 
-  getColorFromURL(video?.thumbnail.url).then((colors) =>
+  getColorFromURL(video?.thumbnail.url).then(colors =>
     setBackground(colors.primary)
   );
 
@@ -255,7 +255,7 @@ const Player: React.FC<Props> = ({
           </Text>
         </View>
         <View style={{ paddingHorizontal: 20 }}>
-          <ScrollView keyboardShouldPersistTaps>
+          <ScrollView keyboardShouldPersistTaps="always">
             <PlaylistContainer color={color} />
           </ScrollView>
           <Spacer height={20} />
@@ -330,7 +330,7 @@ const Player: React.FC<Props> = ({
             <Slider
               value={currentTime}
               maximumValue={video.lengthSeconds}
-              onValueChange={(value) => player.current?.seek(Math.floor(value))}
+              onValueChange={value => player.current?.seek(Math.floor(value))}
               minimumTrackTintColor={color}
               thumbTintColor={color}
               thumbStyle={{ width: 15, height: 15 }}
