@@ -72,8 +72,8 @@ const Player: React.FC<Props> = ({
       MusicControl.enableControl('skipBackward', true, { interval: 15 });
       MusicControl.enableControl('skipForward', true, { interval: 30 });
       MusicControl.enableBackgroundMode(true);
-      MusicControl.on('play', () => pauseVideo(MusicControl.STATE_PLAYING));
-      MusicControl.on('pause', () => pauseVideo(MusicControl.STATE_PAUSED));
+      MusicControl.on('play', playVideo);
+      MusicControl.on('pause', pauseVideo);
       MusicControl.on('nextTrack', () => loadNextVideo);
       MusicControl.on(
         'previousTrack',
@@ -93,7 +93,8 @@ const Player: React.FC<Props> = ({
     setCurrentTime(Math.round(currentTime));
 
     MusicControl.updatePlayback({
-      state: MusicControl.STATE_PLAYING
+      state: MusicControl.STATE_PLAYING,
+      elapsedTime: Math.round(currentTime) // (Seconds)
     });
   };
 
@@ -142,9 +143,16 @@ const Player: React.FC<Props> = ({
     }
   };
 
-  const pauseVideo = (state: string) => {
+  const playVideo = () => {
     MusicControl.updatePlayback({
-      state
+      state: MusicControl.STATE_PLAYING
+    });
+    actions.paused();
+  };
+
+  const pauseVideo = () => {
+    MusicControl.updatePlayback({
+      state: MusicControl.STATE_PAUSED
     });
     actions.paused();
   };
