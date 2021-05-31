@@ -152,7 +152,8 @@ const Player: React.FC<Props> = ({
 
   const pauseVideo = () => {
     MusicControl.updatePlayback({
-      state: MusicControl.STATE_PAUSED
+      state: MusicControl.STATE_PAUSED,
+      elapsedTime: currentTime
     });
     actions.paused();
   };
