@@ -29,7 +29,7 @@ const SearchPopularTop: React.FC<Props> = ({
   apiUrl,
   instance
 }) => {
-  const [enabled, setRefetch] = useState(false);
+  const [enabled, setRefetch] = useState(true);
   const { isLoading, error, data } = useQuery(apiUrl, search, {
     enabled,
     onSuccess: () => setRefetch(false)
