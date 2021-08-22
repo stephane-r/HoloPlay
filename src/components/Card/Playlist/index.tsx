@@ -78,6 +78,12 @@ const CardPlaylist: React.FC<Props> = ({
             onRemove={(videoIndexId: string) =>
               removeVideo(videoIndexId, playlist.playlistId)
             }
+            onDragEnd={videos => {
+              actions.sortPlaylist({
+                ...playlist,
+                videos
+              });
+            }}
             playlistId={playlist.playlistId}
             playingVideoId={playingVideoId}
           />

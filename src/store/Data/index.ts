@@ -64,7 +64,7 @@ const dataActions = {
     };
   },
   updatePlaylist: (store: Store, actions: any, playlist: Playlist): Store => {
-    const playlists = store.playlists.map((p) => {
+    const playlists = store.playlists.map(p => {
       if (p.playlistId === playlist.playlistId) {
         return {
           ...p,
@@ -84,10 +84,22 @@ const dataActions = {
       playlists
     };
   },
-  removePlaylist: (store: Store, actions: any, playlistId: string): Store => {
-    const playlists = store.playlists.filter(
-      (p) => p.playlistId !== playlistId
+  sortPlaylist: (store: Store, actions: any, playlist: Playlist): Store => {
+    const playlists = store.playlists.map(p =>
+      p.playlistId === playlist.playlistId ? playlist : p
     );
+
+    if (store.logoutMode) {
+      AsyncStorage.setItem('playlists', JSON.stringify(playlists));
+    }
+
+    return {
+      ...store,
+      playlists
+    };
+  },
+  removePlaylist: (store: Store, actions: any, playlistId: string): Store => {
+    const playlists = store.playlists.filter(p => p.playlistId !== playlistId);
 
     if (store.logoutMode) {
       AsyncStorage.setItem('playlists', JSON.stringify(playlists));
@@ -121,7 +133,7 @@ const dataActions = {
       ...video,
       indexId: uuidv4()
     };
-    const playlists = store.playlists.map((p) => {
+    const playlists = store.playlists.map(p => {
       if (p.playlistId === playlistId) {
         console.log({
           ...p,
@@ -150,11 +162,11 @@ const dataActions = {
     actions: any,
     { playlistId, indexId }: { playlistId: string; indexId: string }
   ): Store => {
-    const playlists = store.playlists.map((p) => {
+    const playlists = store.playlists.map(p => {
       if (p.playlistId === playlistId) {
         return {
           ...p,
-          videos: p.videos.filter((v) => v.indexId !== indexId)
+          videos: p.videos.filter(v => v.indexId !== indexId)
         };
       }
 
@@ -178,7 +190,7 @@ const dataActions = {
     let playlists = store.playlists;
 
     if (store.logoutMode) {
-      playlists = playlists.map((p) => {
+      playlists = playlists.map(p => {
         if (p.title === FAVORIS_PLAYLIST_TITLE) {
           return {
             ...p,
@@ -201,16 +213,16 @@ const dataActions = {
   removeFromFavoris: (store: Store, actions: any, videoId: string): Store => {
     const favorisPlaylist = {
       ...store.favorisPlaylist,
-      videos: store.favorisPlaylist.videos.filter((v) => v.videoId !== videoId)
+      videos: store.favorisPlaylist.videos.filter(v => v.videoId !== videoId)
     };
     let playlists = store.playlists;
 
     if (store.logoutMode) {
-      playlists = playlists.map((p) => {
+      playlists = playlists.map(p => {
         if (p.title === FAVORIS_PLAYLIST_TITLE) {
           return {
             ...p,
-            videos: p.videos.filter((v) => v.videoId !== videoId)
+            videos: p.videos.filter(v => v.videoId !== videoId)
           };
         }
 

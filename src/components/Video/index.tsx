@@ -30,7 +30,7 @@ const DEFAULT_ICON_BUTTON_PROPS = (color: string) => ({
   color
 });
 
-const Video: React.FC<Props> = ({ videos, ...props }) => {
+const Video: React.FC<Props> = ({ videos, onDragEnd, ...props }) => {
   const Item = useCallback(
     ({
       item,
@@ -60,7 +60,9 @@ const Video: React.FC<Props> = ({ videos, ...props }) => {
 
       return (
         <TouchableNativeFeedback onPress={onPress} onLongPress={drag}>
-          <View key={item.videoId} style={styles.container}>
+          <View
+            key={item.videoId}
+            style={[styles.container, isActive && styles.isActive]}>
             <View style={styles.line}>
               <Text
                 numberOfLines={1}
@@ -119,6 +121,7 @@ const Video: React.FC<Props> = ({ videos, ...props }) => {
     },
     []
   );
+
   return (
     <>
       <DraggableFlatList
@@ -133,7 +136,7 @@ const Video: React.FC<Props> = ({ videos, ...props }) => {
           />
         )}
         keyExtractor={(item, index) => `draggable-item-${item.videoId}`}
-        onDragEnd={({ data }) => console.log(data)}
+        onDragEnd={({ data }) => onDragEnd(data)}
         {...props}
       />
       <View style={{ width: '100%' }}>
@@ -151,6 +154,9 @@ const styles = StyleSheet.create({
   line: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  isActive: {
+    opacity: 0.2
   }
 });
 
