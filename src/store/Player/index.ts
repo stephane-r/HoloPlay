@@ -1,10 +1,11 @@
 import callApi from '../../utils/callApi';
 import config from 'react-native-config';
-import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../../constants';
+import { ApiRoutes } from '../../constants';
 import { Video, Playlist, VideoThumbnail } from '../../types';
 import { getState, Store } from '../../store';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { getPlaylist, setIsLastPlay } from '../utils';
 
 export interface PlayerState {
   playerIsOpened: boolean;
@@ -26,54 +27,6 @@ const playerState: PlayerState = {
   duration: 0,
   playlist: null,
   lastPlays: []
-};
-
-type PlaylistOrigin =
-  | 'searchResult'
-  | 'popular'
-  | 'trending'
-  | 'lastPlays'
-  | 'favoris';
-
-const getPlaylist = async (
-  origin: undefined | PlaylistOrigin | Video
-): void => {
-  const store = await getState();
-
-  if (origin === undefined) {
-    return store.playlist;
-  }
-
-  let playlistList;
-
-  switch (true) {
-    case origin === 'searchResults':
-      playlistList = store.results;
-      break;
-    case origin === 'popular':
-      playlistList = store.popular;
-      break;
-    case origin === 'trending':
-      playlistList = store.trending;
-      break;
-    case origin === 'lastPlays':
-      playlistList = store.lastPlays;
-      break;
-    case origin === 'favoris':
-      playlistList = store.playlists.find(
-        p => p.title === FAVORIS_PLAYLIST_TITLE
-      )?.videos;
-      break;
-    case typeof origin === 'object':
-      playlistList = origin;
-      break;
-  }
-
-  if (origin.videoId) {
-    playlistList = origin.videos;
-  }
-
-  return playlistList;
 };
 
 const playerActions = {
@@ -112,9 +65,7 @@ const playerActions = {
       )
     };
 
-    const lastPlays = [video, ...store.lastPlays.slice(0, 9)];
-
-    AsyncStorage.setItem('lastPlays', JSON.stringify(lastPlays));
+    const lastPlays = setIsLastPlay(video, store.lastPlays);
 
     return {
       ...store,
@@ -151,9 +102,7 @@ const playerActions = {
       )
     };
 
-    const lastPlays = [video, ...store.lastPlays.slice(0, 9)];
-
-    AsyncStorage.setItem('lastPlays', JSON.stringify(lastPlays));
+    const lastPlays = setIsLastPlay(video, store.lastPlays);
 
     return {
       ...store,
