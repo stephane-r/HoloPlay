@@ -16,7 +16,8 @@ interface Props {
 const Playlist: React.FC<Props> = ({
   playlists,
   playingVideoId,
-  toggleModal
+  toggleModal,
+  logoutMode
 }) => {
   const { t } = useTranslation();
 
@@ -27,11 +28,12 @@ const Playlist: React.FC<Props> = ({
   return (
     <View>
       <Spacer height={18} />
-      {playlists.map((playlist) => (
+      {playlists.map(playlist => (
         <CardPlaylist
           key={playlist.playlistId}
           playlist={playlist}
           toggleModal={toggleModal}
+          logoutMode={logoutMode}
           totalSongs={playlist.videos?.length ?? 0}
           playingVideoId={playingVideoId}
         />
