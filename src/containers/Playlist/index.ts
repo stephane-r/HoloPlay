@@ -6,7 +6,7 @@ const PlaylistContainer = connect(({ playlist, video, paused }: Store) => ({
   showRemoveButton: false,
   playingVideoId: video?.videoId,
   paused,
-  onPlay: async (videoIndex: number) => actions.loadVideo(videoIndex)
+  onPlay: async (videoIndex: number) => actions.loadVideo({ videoIndex })
 }))(Video);
 
 export default PlaylistContainer;

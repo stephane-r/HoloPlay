@@ -40,10 +40,8 @@ const setCardItem = (item: any): any => ({
 const CarouselItem: React.FC<CarouselItemProps> = ({ item, t }) => {
   const videosCount = item.videos?.length ?? 0;
 
-  const runPlaylist = async (): Promise<any> => {
-    await actions.setPlaylistFrom(item.videos);
-    actions.loadVideo(0);
-  };
+  const runPlaylist = async (): Promise<void> =>
+    actions.loadVideo({ videoIndex: 0, setPlaylistFrom: item.videos });
 
   return (
     <View style={styles.itemContainer}>

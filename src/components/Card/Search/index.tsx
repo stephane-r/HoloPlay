@@ -32,14 +32,16 @@ const CardSearch: React.FC<Props> = ({
   const loadVideo = async (index: number): Promise<any> => {
     try {
       setLoading(true);
-      await actions.setPlaylistFrom(setPlaylistFrom);
 
       if (video.liveNow) {
-        await actions.loadLiveVideo({ videoIndex: index, data: video });
+        await actions.loadLiveVideo({
+          videoIndex: index,
+          data: video,
+          setPlaylistFrom
+        });
       } else {
-        await actions.loadVideo(index);
+        await actions.loadVideo({ videoIndex: index, setPlaylistFrom });
       }
-
     } catch (error) {
       actions.setFlashMessage({
         message: error.message
@@ -53,7 +55,7 @@ const CardSearch: React.FC<Props> = ({
     try {
       setLoading(true);
       await actions.loadPlaylist(video.playlistId);
-      await actions.loadVideo(loopIndex);
+      await actions.loadVideo({ videoIndex: loopIndex, setPlaylistFrom });
     } catch (error) {
       actions.setFlashMessage({
         message: error.message
@@ -66,7 +68,7 @@ const CardSearch: React.FC<Props> = ({
   const card = {
     title: video.title,
     picture:
-      video.videoThumbnails?.find((q) => q.quality === 'medium').url ||
+      video.videoThumbnails?.find(q => q.quality === 'medium').url ||
       video?.playlistThumbnail,
     duration:
       video.type === 'playlist'

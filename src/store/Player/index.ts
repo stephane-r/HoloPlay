@@ -2,7 +2,7 @@ import callApi from '../../utils/callApi';
 import config from 'react-native-config';
 import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../../constants';
 import { Video, Playlist, VideoThumbnail } from '../../types';
-import { Store } from '../../store';
+import { getState, Store } from '../../store';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -28,6 +28,54 @@ const playerState: PlayerState = {
   lastPlays: []
 };
 
+type PlaylistOrigin =
+  | 'searchResult'
+  | 'popular'
+  | 'trending'
+  | 'lastPlays'
+  | 'favoris';
+
+const getPlaylist = async (
+  origin: undefined | PlaylistOrigin | Video
+): void => {
+  const store = await getState();
+
+  if (origin === undefined) {
+    return store.playlist;
+  }
+
+  let playlistList;
+
+  switch (true) {
+    case origin === 'searchResults':
+      playlistList = store.results;
+      break;
+    case origin === 'popular':
+      playlistList = store.popular;
+      break;
+    case origin === 'trending':
+      playlistList = store.trending;
+      break;
+    case origin === 'lastPlays':
+      playlistList = store.lastPlays;
+      break;
+    case origin === 'favoris':
+      playlistList = store.playlists.find(
+        p => p.title === FAVORIS_PLAYLIST_TITLE
+      )?.videos;
+      break;
+    case typeof origin === 'object':
+      playlistList = origin;
+      break;
+  }
+
+  if (origin.videoId) {
+    playlistList = origin.videos;
+  }
+
+  return playlistList;
+};
+
 const playerActions = {
   showPlayer: async (store: Store): Promise<Store> => ({
     ...store,
@@ -37,59 +85,19 @@ const playerActions = {
     ...store,
     playerIsOpened: false
   }),
-  setPlaylistFrom: async (
-    store: Store,
-    actions: any,
-    origin: any
-  ): Promise<Store> => {
-    let playlistList;
-
-    switch (true) {
-      case origin === 'searchResults':
-        playlistList = store.results;
-        break;
-      case origin === 'popular':
-        playlistList = store.popular;
-        break;
-      case origin === 'trending':
-        playlistList = store.trending;
-        break;
-      case origin === 'lastPlays':
-        playlistList = store.lastPlays;
-        break;
-      case origin === 'favoris':
-        playlistList = store.playlists.find(
-          (p) => p.title === FAVORIS_PLAYLIST_TITLE
-        )?.videos;
-        break;
-      case typeof origin === 'object':
-        playlistList = origin;
-        break;
-    }
-
-    if (origin.videoId) {
-      playlistList = origin.videos;
-    }
-
-    return {
-      ...store,
-      playlist: playlistList
-    };
-  },
   loadVideo: async (
     store: Store,
     actions: any,
-    videoIndex: number
+    {
+      videoIndex,
+      setPlaylistFrom
+    }: { videoIndex: number; setPlaylistFrom: undefined | PlaylistOrigin }
   ): Promise<PlayerState> => {
-    const { playlist } = store;
+    const playlist = await getPlaylist(setPlaylistFrom);
     const isLastVideo = playlist.length === videoIndex;
     // If is last video, we restart the playlist from first index
     const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
     const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
-
-    // if (data.error) {
-    //   return actions.setFlashMessage({ message: data.error });
-    // }
 
     const videoUpdated = {
       ...video,
@@ -112,15 +120,24 @@ const playerActions = {
       ...store,
       video: videoUpdated,
       videoIndex: videoIndex,
-      lastPlays
+      lastPlays,
+      playlist
     };
   },
   loadLiveVideo: async (
     store: Store,
     actions: any,
-    {videoIndex, data}: { videoIndex: number; data: Video }
+    {
+      videoIndex,
+      data,
+      setPlaylistFrom
+    }: {
+      videoIndex: number;
+      data: Video;
+      setPlaylistFrom: undefined | PlaylistOrigin;
+    }
   ): Promise<PlayerState> => {
-    const { playlist } = store;
+    const playlist = await getPlaylist(setPlaylistFrom);
     const isLastVideo = playlist.length === videoIndex;
     // If is last video, we restart the playlist from first index
     const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
@@ -142,7 +159,8 @@ const playerActions = {
       ...store,
       video: videoUpdated,
       videoIndex: videoIndex,
-      lastPlays
+      lastPlays,
+      playlist
     };
   },
   paused: async (store: Store): Promise<Store> => ({

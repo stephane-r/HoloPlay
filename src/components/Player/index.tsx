@@ -133,13 +133,13 @@ const Player: React.FC<Props> = ({
 
   const loadNextVideo = () => {
     if (props.nextVideoIndex !== null) {
-      actions.loadVideo(props.nextVideoIndex);
+      actions.loadVideo({ videoIndex: props.nextVideoIndex });
     }
   };
 
   const loadPreviousVideo = () => {
     if (props.previousVideoIndex !== null) {
-      actions.loadVideo(props.previousVideoIndex);
+      actions.loadVideo({ videoIndex: props.previousVideoIndex });
     }
   };
 

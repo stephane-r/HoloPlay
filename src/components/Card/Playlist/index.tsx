@@ -62,8 +62,10 @@ const CardPlaylist: React.FC<Props> = ({
             onPlay={async (videoIndex: number) => {
               if (videoIndex !== null || videoIndex !== undefined) {
                 try {
-                  await actions.setPlaylistFrom(playlist.videos);
-                  await actions.loadVideo(videoIndex);
+                  await actions.loadVideo({
+                    videoIndex,
+                    setPlaylistFrom: playlist.videos
+                  });
                 } catch (error) {
                   console.log(error);
                   actions.setFlashMessage({
@@ -94,8 +96,10 @@ const CardPlaylist: React.FC<Props> = ({
             {playlist.videos > 0 && (
               <CarouselPlayIcon
                 onPress={async () => {
-                  await actions.setPlaylistFrom(playlist.videos);
-                  actions.loadVideo(0);
+                  actions.loadVideo({
+                    videoIndex: 0,
+                    setPlaylistFrom: playlist.videos
+                  });
                 }}
               />
             )}
