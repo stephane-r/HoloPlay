@@ -7435,6 +7435,11 @@ react-native-config@^1.4.2:
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.4.2.tgz#cc39f22ed72c5cb06af1adf0ba70ef01593900b4"
   integrity sha512-iTvCvThvFTH7SdiBcsxYtpLy86zglsh51ZBqFPPZ75tdrQMdlRnDNnb86kNjQf03KT0qs1nCMLRejfPMIim8iA==
 
+react-native-draggable-flatlist@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-draggable-flatlist/-/react-native-draggable-flatlist-2.6.2.tgz#d1445fd52e75bc4f4ebbd832a8bc4525cebb8302"
+  integrity sha512-0IBS1lgw137FDaDLccUidHXYu/6PbnIO1R0IXYVfxtNOvhFLfJyGOY526vmO72Sf/ch9yayED4+DaQWGBOqNyw==
+
 react-native-fs@^2.18.0:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.18.0.tgz#987b99cc90518ef26663a8d60e62104694b41c21"
