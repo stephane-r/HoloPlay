@@ -104,6 +104,21 @@ All **STORAGE** permissions are requested only when you need use them.
 
 **HoloPlay** uses an self hosted [Sentry](https://sentry.io/welcome/) instance crash reporting library, **disabled** by default. This reporting can be enabled and disabled via settings screen.
 
+## About Invidious
+
+[Invidious](https://github.com/iv-org/invidious) is an alternative front-end to YouTube. HoloPlay use all [Invidious public instances](https://api.invidious.io/). All instances are retrieved each time HoloPlay is launched.
+
+**Sync your Invidious account**
+
+Invidious can be used with or without a user account. If you have a user account on an Invidious instance, you can sync your videos with HoloPlay by adding the [API auth token](https://docs.invidious.io/en/Authenticated-Endpoints). For example, from the awesome [snopyta](https://invidious.snopyta.org/feed/popular) instance, you can generate token with _invidious.snopyta.org/authorize_token?scopes=:\*_. After generate your token, you can add it on HoloPlay from Settings screen.
+
+**Use your private instance**
+
+You can add your self hosted Invidious instance from **Invidious Instances** screen, from de drawler menu.
+
+[Invidious API documentations](https://docs.invidious.io/en/API).
+[Invidious Github repo](https://github.com/iv-org/invidious).
+
 ## Contributing
 
 Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
