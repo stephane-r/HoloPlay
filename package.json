@@ -41,6 +41,7 @@
     "react-native-animation-hooks": "^1.0.1",
     "react-native-bootsplash": "^3.2.3",
     "react-native-config": "^1.4.2",
+    "react-native-draggable-flatlist": "^2.6.2",
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-get-random-values": "^1.7.0",

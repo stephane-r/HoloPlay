@@ -27,7 +27,8 @@ const CardPlaylist: React.FC<Props> = ({
   totalSongs,
   playlist,
   playingVideoId,
-  toggleModal
+  toggleModal,
+  logoutMode
 }) => {
   const store: Store = useStore();
   const [dialogIsOpen, setToggleDialog] = useState(false);
@@ -78,6 +79,18 @@ const CardPlaylist: React.FC<Props> = ({
             onRemove={(videoIndexId: string) =>
               removeVideo(videoIndexId, playlist.playlistId)
             }
+            onDragEnd={videos => {
+              if (!logoutMode) {
+                return actions.setFlashMessage({
+                  message: t('playlists.canNotReOrder')
+                });
+              }
+
+              actions.sortPlaylist({
+                ...playlist,
+                videos
+              });
+            }}
             playlistId={playlist.playlistId}
             playingVideoId={playingVideoId}
           />

@@ -182,8 +182,7 @@ const stylesHorizontal = StyleSheet.create({
   },
   card: {
     elevation: 4,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     backgroundColor: 'white',
     borderRadius: 4,
     paddingHorizontal: 20

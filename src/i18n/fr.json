@@ -44,7 +44,8 @@
       "buttonChangeInstance": "Changer d'instance"
     },
     "playlists": {
-      "song": "musique"
+      "song": "musique",
+      "canNotReOrder": "Vous ne pouvez pas modifier l'ordre d'une playlist en utilisant un token Invidious."
     },
     "searchBar": {
       "placeholder": "Rechercher"
