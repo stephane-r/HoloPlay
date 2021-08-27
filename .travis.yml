@@ -14,7 +14,7 @@ before_install:
     - rm -rf android/app/build
     - openssl aes-256-cbc -K $encrypted_4562a431234b_key -iv $encrypted_4562a431234b_iv
       -in android/app/app.keystore.enc -out android/app/app.keystore -d
-    - nvm install 12
+    - nvm install 16
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - export PATH="$HOME/.yarn/bin:$PATH"
 before_script:
