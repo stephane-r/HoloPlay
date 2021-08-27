@@ -8,7 +8,7 @@ import config from 'react-native-config';
 import QuickActions from 'react-native-quick-actions';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNBootSplash from 'react-native-bootsplash';
@@ -49,7 +49,7 @@ import PrivacyPolicyScreen from '../../screens/PrivacyPolicy';
 // :troll:
 LogBox.ignoreAllLogs();
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 interface Props {
@@ -115,7 +115,7 @@ const App: React.FC<Props> = () => {
           }
         }
       })
-      .catch((error) => console.log(error));
+      .catch(console.log);
   }, []);
 
   if (isLoading) {
@@ -126,7 +126,7 @@ const App: React.FC<Props> = () => {
     <PaperProvider theme={theme}>
       <NavigationContainer ref={navigation}>
         {appToken === null && !appLogoutMode ? (
-          <Stack.Navigator headerMode="none">
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
               name="Auth"
               component={LoginScreen}
@@ -144,7 +144,7 @@ const App: React.FC<Props> = () => {
                 drawler={drawler}
               />
             )}>
-            <Stack.Navigator headerMode="none">
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen
                 name="App"
                 component={AppScreen}
