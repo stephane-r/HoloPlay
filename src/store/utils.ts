@@ -56,8 +56,6 @@ export const setIsLastPlay = (video: Video, lastPlays: Video[]) => {
   const isAlreadyLastPlay =
     (video.videoId || video) === (lastPlayVideo.videoId || lastPlayVideo.id);
 
-  console.log(isAlreadyLastPlay);
-
   if (isAlreadyLastPlay) {
     return lastPlays;
   }

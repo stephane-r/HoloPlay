@@ -135,10 +135,6 @@ const dataActions = {
     };
     const playlists = store.playlists.map(p => {
       if (p.playlistId === playlistId) {
-        console.log({
-          ...p,
-          videos: [videoOverrided, ...p.videos]
-        });
         return {
           ...p,
           videos: [videoOverrided, ...p.videos]

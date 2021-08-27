@@ -27,16 +27,16 @@ const useFavoris = () => {
 
         return setTimeout(
           () =>
-          actions.setFlashMessage({
-            message: t('flashMessage.playlistFavorisCreateSuccess')
-          }),
+            actions.setFlashMessage({
+              message: t('flashMessage.playlistFavorisCreateSuccess')
+            }),
           500
-          );
+        );
       } catch (error) {
         return setTimeout(
           () => actions.setFlashMessage({ message: error.message }),
           500
-          );
+        );
       }
     }
 
@@ -50,7 +50,6 @@ const useFavoris = () => {
   const addToFavoris = async (playlistId: Playlist, video: Video) => {
     try {
       if (!store.logoutMode) {
-        console.log(video.videoId);
         await callApi({
           url: ApiRoutes.Videos(playlistId),
           method: 'POST',
