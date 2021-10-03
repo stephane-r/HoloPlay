@@ -13,7 +13,7 @@ const useLinking = (): UseLinkingHook => {
     if (supported) {
       await Linking.openURL(url);
     } else {
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: `Don't know how to open this URL: ${url}`
       });
     }

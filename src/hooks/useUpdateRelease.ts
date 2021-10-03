@@ -38,7 +38,7 @@ const useUpdateRelease = (
   const showUpdateIsAvailable = () => {
     setTimeout(
       () =>
-        actions.setFlashMessage({
+        actions.setSnackbar({
           message: 'A new update is available',
           action: {
             label: 'Download',

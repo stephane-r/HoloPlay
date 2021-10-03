@@ -49,13 +49,13 @@ const DialogEditToken: React.FC<Props> = ({
       toggleDialog();
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: t('flashMessage.importData')
           }),
         500
       );
     } catch (error) {
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: error.message
       });
     } finally {

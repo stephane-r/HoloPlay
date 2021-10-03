@@ -39,7 +39,7 @@ const usePlaylist = (): void => {
       });
     } catch (error) {
       console.log(error);
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: t('flashMessage.removePlaylist', {
           playlistName: error.message
         })
@@ -53,7 +53,7 @@ const usePlaylist = (): void => {
     if (showFlashMessage) {
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: t('flashMessage.createPlaylist', { playlistName })
           }),
         500
@@ -73,7 +73,7 @@ const usePlaylist = (): void => {
         ...playlist,
         title: playlist.title
       });
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: t('flashMessage.updatePlaylist', {
           playlistName: playlist.title
         })
@@ -91,12 +91,12 @@ const usePlaylist = (): void => {
       }
     } catch (error) {
       console.log(error);
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: t('flashMessage.removePlaylist', {
           playlistName: error.message
         })
       });
-      // actions.setFlashMessage({message: `Error : ${playlist.title} not updated.`});
+      // actions.setSnackbar({message: `Error : ${playlist.title} not updated.`});
     } finally {
       if (callback) {
         callback();
@@ -111,7 +111,7 @@ const usePlaylist = (): void => {
     try {
       // Updating store before because this callApi return an error if success ...
       actions.removePlaylist(playlist.playlistId);
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: t('flashMessage.removePlaylist', {
           playlistName: playlist.title
         })
@@ -124,7 +124,7 @@ const usePlaylist = (): void => {
         });
       }
     } catch (error) {
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: t('flashMessage.removePlaylist', {
           playlistName: error.message
         })

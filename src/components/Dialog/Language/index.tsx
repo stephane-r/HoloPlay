@@ -37,7 +37,7 @@ const DialogLanguage: React.FC<Props> = ({
 
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: t('flashMessage.updateLanguage')
           }),
         500
@@ -45,7 +45,7 @@ const DialogLanguage: React.FC<Props> = ({
     } catch (error) {
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: error.message
           }),
         500
@@ -64,7 +64,7 @@ const DialogLanguage: React.FC<Props> = ({
           style={{ color: colors.text }}
           selectedValue={language}
           onValueChange={setLanguage}>
-          {['en', 'fr'].map((lng) => (
+          {['en', 'fr'].map(lng => (
             <Picker.Item key={lng} label={getLanguageName(lng)} value={lng} />
           ))}
         </Picker>

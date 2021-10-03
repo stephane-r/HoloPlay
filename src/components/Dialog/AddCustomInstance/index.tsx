@@ -35,7 +35,7 @@ const DialogAddCustomInstance: React.FC<Props> = ({ visible, onDismiss }) => {
 
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: t('flashMessage.addCustomInstanceSuccess')
           }),
         500
@@ -43,7 +43,7 @@ const DialogAddCustomInstance: React.FC<Props> = ({ visible, onDismiss }) => {
     } catch (error) {
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: t('flashMessage.invidiousInstanceTokenUpdated')
           }),
         500
