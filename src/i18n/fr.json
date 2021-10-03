@@ -155,7 +155,7 @@
         "example": "Exemple"
       }
     },
-    "flashMessage": {
+    "snackbar": {
       "updateLanguage": "Langage mis à jour",
       "updateAvailable": "Une nouvelle mise à jour est disponible",
       "buttonUpdateAvailable": "Télécharger",

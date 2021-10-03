@@ -50,7 +50,7 @@ const DialogEditToken: React.FC<Props> = ({
       return setTimeout(
         () =>
           actions.setSnackbar({
-            message: t('flashMessage.importData')
+            message: t('snackbar.importData')
           }),
         500
       );

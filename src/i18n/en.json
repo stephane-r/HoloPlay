@@ -155,7 +155,7 @@
         "example": "Example"
       }
     },
-    "flashMessage": {
+    "snackbar": {
       "updateLanguage": "Language updated",
       "updateAvailable": "A new update is available",
       "buttonUpdateAvailable": "Download",

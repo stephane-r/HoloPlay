@@ -41,7 +41,7 @@ const useInvidiousInstances = (): UseInvidiousInstancesHook => {
       return setTimeout(
         () =>
           actions.setSnackbar({
-            message: t('flashMessage.invidiousInstanceUpdated')
+            message: t('snackbar.invidiousInstanceUpdated')
           }),
         500
       );
@@ -55,7 +55,7 @@ const useInvidiousInstances = (): UseInvidiousInstancesHook => {
       return setTimeout(
         () =>
           actions.setSnackbar({
-            message: t('flashMessage.invidiousInstanceTokenUpdated')
+            message: t('snackbar.invidiousInstanceTokenUpdated')
           }),
         500
       );

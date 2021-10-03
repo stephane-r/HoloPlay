@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Store } from '../../store';
-import { FlashMessage } from '../../types/FlashMessage';
 import { CustomInstance, Video } from '../../types';
 
 export interface AppState {

@@ -70,7 +70,7 @@ const CardPlaylist: React.FC<Props> = ({
                 } catch (error) {
                   console.log(error);
                   actions.setSnackbar({
-                    message: t('flashMessage.canNotLoadVideo')
+                    message: t('snackbar.canNotLoadVideo')
                   });
                 }
               }

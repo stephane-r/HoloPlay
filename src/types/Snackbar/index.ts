@@ -1,10 +1,10 @@
-export interface FlashMessage {
+export interface Snackbar {
   message: null | string;
   visible: boolean;
-  action: FlashMessageAction;
+  action: SnackbarAction;
 }
 
-interface FlashMessageAction {
+interface SnackbarAction {
   label: string;
   onPress: () => null | void;
 }
