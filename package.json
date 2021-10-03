@@ -1,6 +1,6 @@
 {
   "name": "holoplay",
-  "version": "1.10.2",
+  "version": "1.11.0",
   "private": false,
   "scripts": {
     "postinstall": "npx patch-package",
