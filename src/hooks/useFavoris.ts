@@ -28,7 +28,7 @@ const useFavoris = () => {
         return setTimeout(
           () =>
             actions.setSnackbar({
-              message: t('flashMessage.playlistFavorisCreateSuccess')
+              message: t('snackbar.playlistFavorisCreateSuccess')
             }),
           500
         );
@@ -67,7 +67,7 @@ const useFavoris = () => {
       }
 
       return actions.setSnackbar({
-        message: t('flashMessage.addFavorisSuccess')
+        message: t('snackbar.addFavorisSuccess')
       });
     } catch (error) {
       return actions.setSnackbar({
@@ -88,7 +88,7 @@ const useFavoris = () => {
       }
 
       return actions.setSnackbar({
-        message: t('flashMessage.removeFavorisSuccess')
+        message: t('snackbar.removeFavorisSuccess')
       });
     } catch (error) {
       return actions.setSnackbar({

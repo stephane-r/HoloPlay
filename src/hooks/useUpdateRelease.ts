@@ -13,7 +13,7 @@ interface UseUpdateReleaseHook {
 }
 
 const useUpdateRelease = (
-  showFlashMessage: boolean = false
+  showSnackbar: boolean = false
 ): UseUpdateReleaseHook => {
   const [url, setUrl] = useState<null | string>(null);
   const [fileName, setFileName] = useState<null | string>(null);
@@ -27,7 +27,7 @@ const useUpdateRelease = (
           setFileName(`holoplay-${tagName}.apk`);
           setUpdateAvailable(true);
 
-          if (showFlashMessage) {
+          if (showSnackbar) {
             showUpdateIsAvailable();
           }
         }

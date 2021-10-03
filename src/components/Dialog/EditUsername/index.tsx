@@ -36,7 +36,7 @@ const DialogEditUsername: React.FC<Props> = ({
       return setTimeout(
         () =>
           actions.setSnackbar({
-            message: t('flashMessage.usernameUpdated')
+            message: t('snackbar.usernameUpdated')
           }),
         500
       );

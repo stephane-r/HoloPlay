@@ -37,7 +37,7 @@ const DialogErrorMonitoring: React.FC<Props> = ({
       return setTimeout(
         () =>
           actions.setSnackbar({
-            message: t('flashMessage.monitoringSettingsUpdated')
+            message: t('snackbar.monitoringSettingsUpdated')
           }),
         500
       );

@@ -33,7 +33,7 @@ const Instance: React.FC<Props> = ({
     return setTimeout(
       () =>
         actions.setSnackbar({
-          message: t('flashMessage.removeCustomInstanceSuccess')
+          message: t('snackbar.removeCustomInstanceSuccess')
         }),
       500
     );

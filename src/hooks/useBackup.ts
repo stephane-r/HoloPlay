@@ -28,11 +28,11 @@ const useBackup = () => {
     )
       .then(() =>
         actions.setSnackbar({
-          message: t('flashMessage.dataExportSuccess')
+          message: t('snackbar.dataExportSuccess')
         })
       )
       .catch(() => {
-        actions.setSnackbar({ message: t('flashMessage.dataExportError') });
+        actions.setSnackbar({ message: t('snackbar.dataExportError') });
       });
   };
 
@@ -47,12 +47,12 @@ const useBackup = () => {
       .then(async data => {
         await actions.importData(JSON.parse(data));
         actions.setSnackbar({
-          message: t('flashMessage.dataImportSuccess')
+          message: t('snackbar.dataImportSuccess')
         });
       })
       .catch(() => {
         actions.setSnackbar({
-          message: t('flashMessage.dataImportError')
+          message: t('snackbar.dataImportError')
         });
       });
   };

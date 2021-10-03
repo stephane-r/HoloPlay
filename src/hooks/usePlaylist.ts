@@ -15,7 +15,7 @@ const usePlaylist = (): void => {
   const createPlaylist = async (
     playlist: Playlist,
     callback: () => void,
-    showFlashMessage: boolean = true
+    showSnackbar: boolean = true
   ): Promise<any> => {
     const playlistName = playlist.title;
 
@@ -40,7 +40,7 @@ const usePlaylist = (): void => {
     } catch (error) {
       console.log(error);
       actions.setSnackbar({
-        message: t('flashMessage.removePlaylist', {
+        message: t('snackbar.removePlaylist', {
           playlistName: error.message
         })
       });
@@ -50,11 +50,11 @@ const usePlaylist = (): void => {
       callback();
     }
 
-    if (showFlashMessage) {
+    if (showSnackbar) {
       return setTimeout(
         () =>
           actions.setSnackbar({
-            message: t('flashMessage.createPlaylist', { playlistName })
+            message: t('snackbar.createPlaylist', { playlistName })
           }),
         500
       );
@@ -74,7 +74,7 @@ const usePlaylist = (): void => {
         title: playlist.title
       });
       actions.setSnackbar({
-        message: t('flashMessage.updatePlaylist', {
+        message: t('snackbar.updatePlaylist', {
           playlistName: playlist.title
         })
       });
@@ -92,7 +92,7 @@ const usePlaylist = (): void => {
     } catch (error) {
       console.log(error);
       actions.setSnackbar({
-        message: t('flashMessage.removePlaylist', {
+        message: t('snackbar.removePlaylist', {
           playlistName: error.message
         })
       });
@@ -112,7 +112,7 @@ const usePlaylist = (): void => {
       // Updating store before because this callApi return an error if success ...
       actions.removePlaylist(playlist.playlistId);
       actions.setSnackbar({
-        message: t('flashMessage.removePlaylist', {
+        message: t('snackbar.removePlaylist', {
           playlistName: playlist.title
         })
       });
@@ -125,7 +125,7 @@ const usePlaylist = (): void => {
       }
     } catch (error) {
       actions.setSnackbar({
-        message: t('flashMessage.removePlaylist', {
+        message: t('snackbar.removePlaylist', {
           playlistName: error.message
         })
       });

@@ -38,7 +38,7 @@ const DialogLanguage: React.FC<Props> = ({
       return setTimeout(
         () =>
           actions.setSnackbar({
-            message: t('flashMessage.updateLanguage')
+            message: t('snackbar.updateLanguage')
           }),
         500
       );

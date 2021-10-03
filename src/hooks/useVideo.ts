@@ -38,7 +38,7 @@ const useVideo = () => {
     }
 
     return actions.setSnackbar({
-      message: t('flashMessage.addVideoToPlaylistSuccess', {
+      message: t('snackbar.addVideoToPlaylistSuccess', {
         videoName: video.title
       })
     });
@@ -65,7 +65,7 @@ const useVideo = () => {
     });
 
     return actions.setSnackbar({
-      message: t('flashMessage.removeVideoFromPlaylistSuccess', {
+      message: t('snackbar.removeVideoFromPlaylistSuccess', {
         videoName: videoIndexId
       })
     });
