@@ -27,12 +27,12 @@ const useBackup = () => {
       'utf8'
     )
       .then(() =>
-        actions.setFlashMessage({
+        actions.setSnackbar({
           message: t('flashMessage.dataExportSuccess')
         })
       )
       .catch(() => {
-        actions.setFlashMessage({ message: t('flashMessage.dataExportError') });
+        actions.setSnackbar({ message: t('flashMessage.dataExportError') });
       });
   };
 
@@ -40,18 +40,18 @@ const useBackup = () => {
     await requestWriteExternalStoragePermission();
 
     RNFS.readDir(RNFS.DownloadDirectoryPath)
-      .then((files) => {
-        const backupFile = files.find((file) => file.name === fileName);
+      .then(files => {
+        const backupFile = files.find(file => file.name === fileName);
         return RNFS.readFile(backupFile.path, 'utf8');
       })
-      .then(async (data) => {
+      .then(async data => {
         await actions.importData(JSON.parse(data));
-        actions.setFlashMessage({
+        actions.setSnackbar({
           message: t('flashMessage.dataImportSuccess')
         });
       })
       .catch(() => {
-        actions.setFlashMessage({
+        actions.setSnackbar({
           message: t('flashMessage.dataImportError')
         });
       });

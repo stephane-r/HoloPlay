@@ -15,7 +15,7 @@ const useDownloadFile = (): UseDownloadFileHook => {
     try {
       setLoading(true);
       await downloadFile(params);
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: `${params.fileName} has been donwload.`
       });
     } catch (error) {

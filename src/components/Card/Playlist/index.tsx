@@ -69,7 +69,7 @@ const CardPlaylist: React.FC<Props> = ({
                   });
                 } catch (error) {
                   console.log(error);
-                  actions.setFlashMessage({
+                  actions.setSnackbar({
                     message: t('flashMessage.canNotLoadVideo')
                   });
                 }
@@ -81,7 +81,7 @@ const CardPlaylist: React.FC<Props> = ({
             }
             onDragEnd={videos => {
               if (!logoutMode) {
-                return actions.setFlashMessage({
+                return actions.setSnackbar({
                   message: t('playlists.canNotReOrder')
                 });
               }

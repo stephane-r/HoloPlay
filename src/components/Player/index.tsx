@@ -125,7 +125,7 @@ const Player: React.FC<Props> = ({
   };
 
   const onError = (error): void => {
-    actions.setFlashMessage({
+    actions.setSnackbar({
       message: error.error.errorException
     });
     setLoading(false);

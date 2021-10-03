@@ -27,14 +27,14 @@ const useFavoris = () => {
 
         return setTimeout(
           () =>
-            actions.setFlashMessage({
+            actions.setSnackbar({
               message: t('flashMessage.playlistFavorisCreateSuccess')
             }),
           500
         );
       } catch (error) {
         return setTimeout(
-          () => actions.setFlashMessage({ message: error.message }),
+          () => actions.setSnackbar({ message: error.message }),
           500
         );
       }
@@ -66,11 +66,11 @@ const useFavoris = () => {
         });
       }
 
-      return actions.setFlashMessage({
+      return actions.setSnackbar({
         message: t('flashMessage.addFavorisSuccess')
       });
     } catch (error) {
-      return actions.setFlashMessage({
+      return actions.setSnackbar({
         message: error.message
       });
     }
@@ -87,11 +87,11 @@ const useFavoris = () => {
         });
       }
 
-      return actions.setFlashMessage({
+      return actions.setSnackbar({
         message: t('flashMessage.removeFavorisSuccess')
       });
     } catch (error) {
-      return actions.setFlashMessage({
+      return actions.setSnackbar({
         message: error.message
       });
     }

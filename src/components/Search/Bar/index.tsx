@@ -39,7 +39,7 @@ const Search: React.FC<SearchProps> = ({
     selectedValue?: null | string = null
   ): void => {
     if (typeof selectedValue !== 'string' && value === '') {
-      return actions.setFlashMessage({
+      return actions.setSnackbar({
         message: t('search.emptyValue')
       });
     }

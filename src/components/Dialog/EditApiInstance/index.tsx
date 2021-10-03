@@ -61,7 +61,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
 
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: t('flashMessage.invidiousInstanceUpdated')
           }),
         500
@@ -75,7 +75,7 @@ const DialogEditApiInstance: React.FC<Props> = ({
 
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: t('flashMessage.invidiousInstanceTokenUpdated')
           }),
         500

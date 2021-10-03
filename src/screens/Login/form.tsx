@@ -59,7 +59,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
         return onSuccess(token);
       }
     } catch (error) {
-      actions.setFlashMessage({ message: error.message });
+      actions.setSnackbar({ message: error.message });
     } finally {
       setIsLoading(false);
     }
@@ -89,12 +89,12 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
       return onSuccess('null');
     } catch (error) {
       console.log(error);
-      actions.setFlashMessage(error);
+      actions.setSnackbar(error);
     }
   };
 
   useEffect(() => {
-    AsyncStorage.getItem('token').then((result) => {
+    AsyncStorage.getItem('token').then(result => {
       if (result) {
         setToken(result);
       }
@@ -108,7 +108,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
           style={{ color: colors.text }}
           selectedValue={language}
           onValueChange={onChangeLanguage}>
-          {['en', 'fr'].map((lng) => (
+          {['en', 'fr'].map(lng => (
             <Picker.Item key={lng} label={getLanguageName(lng)} value={lng} />
           ))}
         </Picker>

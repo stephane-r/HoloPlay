@@ -8,7 +8,6 @@ export interface AppState {
   instance: string;
   token: null | string;
   logoutMode: boolean;
-  flashMessage: FlashMessage;
   darkMode: boolean;
   sendErrorMonitoring: boolean;
   language: 'en' | 'fr';
@@ -24,14 +23,6 @@ const appState: AppState = {
   instance: null,
   token: null,
   logoutMode: false,
-  flashMessage: {
-    message: null,
-    visible: false,
-    action: {
-      label: 'Close',
-      onPress: (): null => null
-    }
-  },
   darkMode: false,
   sendErrorMonitoring: false,
   language: 'en',
@@ -131,34 +122,6 @@ const appActions = {
       sendErrorMonitoring: value
     };
   },
-  setFlashMessage: (store: Store, actions: any, flashMessage: any): Store => {
-    if (flashMessage.action) {
-      setTimeout((): void => actions.setDefaultFlashMessageAction(), 7000);
-    }
-
-    return {
-      ...store,
-      flashMessage: {
-        ...store.flashMessage,
-        ...flashMessage,
-        visible: true
-      }
-    };
-  },
-  hideFlashMessage: (store: Store): Store => ({
-    ...store,
-    flashMessage: {
-      ...store.flashMessage,
-      visible: false
-    }
-  }),
-  setDefaultFlashMessageAction: (store: Store): Store => ({
-    ...store,
-    flashMessage: {
-      ...store.flashMessage,
-      action: appState.flashMessage.action
-    }
-  }),
   setDarkMode: async (
     store: Store,
     actions: any,
@@ -167,7 +130,7 @@ const appActions = {
     try {
       await AsyncStorage.setItem('darkMode', String(darkMode));
     } catch (error) {
-      return actions.setFlashMessage(error);
+      return actions.setSnackbar(error);
     }
 
     return {

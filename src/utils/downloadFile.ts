@@ -26,8 +26,8 @@ const downloadFile = async ({
     }
   })
     .fetch('GET', url)
-    .then((res) => {
-      actions.setFlashMessage({
+    .then(res => {
+      actions.setSnackbar({
         message: `File has been download in your Music folder`
       });
     });

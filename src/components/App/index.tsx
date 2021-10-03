@@ -115,7 +115,7 @@ const App: React.FC<Props> = () => {
           }
         }
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
   }, []);
 
   if (isLoading) {

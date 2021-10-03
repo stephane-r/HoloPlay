@@ -35,13 +35,13 @@ const DialogEditUsername: React.FC<Props> = ({
       toggleDialog();
       return setTimeout(
         () =>
-          actions.setFlashMessage({
+          actions.setSnackbar({
             message: t('flashMessage.usernameUpdated')
           }),
         500
       );
     } catch (error) {
-      actions.setFlashMessage({
+      actions.setSnackbar({
         message: error.message
       });
     } finally {
