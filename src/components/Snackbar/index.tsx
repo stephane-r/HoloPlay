@@ -11,7 +11,6 @@ interface Props {
 const SNACKBAR_DURATION: number = 5000;
 
 const Snackbar: React.FC<Props> = ({ snackbar }) => {
-  console.log(snackbar);
   return (
     <PaperSnackBar
       visible={snackbar.visible}

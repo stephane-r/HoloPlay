@@ -54,7 +54,7 @@ export const getPlaylist = async (
 export const setIsLastPlay = (video: Video, lastPlays: Video[]) => {
   const lastPlayVideo = lastPlays[0];
   const isAlreadyLastPlay =
-    (video.videoId || video) === (lastPlayVideo.videoId || lastPlayVideo.id);
+    (video?.videoId || video) === (lastPlayVideo?.videoId || lastPlayVideo?.id);
 
   if (isAlreadyLastPlay) {
     return lastPlays;
