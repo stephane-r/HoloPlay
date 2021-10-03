@@ -4,13 +4,15 @@ import { playerState, playerActions, PlayerState } from './Player';
 import { dataState, dataActions, DataState } from './Data';
 import { appState, appActions, AppState } from './App';
 import { snackbarState, snackbarActions, SnackbarState } from './Snackbar';
+import { dialogActions, dialogState, DialogState } from './Dialog';
 
 export interface Store
   extends AppState,
     DataState,
     PlayerState,
     SearchState,
-    SnackbarState {}
+    SnackbarState,
+    DialogState {}
 
 interface ConfigStore {
   initialState: Store;
@@ -21,6 +23,7 @@ interface ConfigStore {
 
 const config: ConfigStore = {
   initialState: {
+    ...dialogState,
     ...snackbarState,
     ...searchState,
     ...playerState,
@@ -28,6 +31,7 @@ const config: ConfigStore = {
     ...appState
   },
   actionsCreators: {
+    ...dialogActions,
     ...snackbarActions,
     ...searchActions,
     ...playerActions,
