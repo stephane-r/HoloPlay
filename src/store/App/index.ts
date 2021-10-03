@@ -10,10 +10,6 @@ export interface AppState {
   darkMode: boolean;
   sendErrorMonitoring: boolean;
   language: 'en' | 'fr';
-  dialogAddVideoToPlaylist: {
-    isOpen: boolean;
-    video: null | Video;
-  };
   customInstances: CustomInstance[];
 }
 
@@ -25,10 +21,6 @@ const appState: AppState = {
   darkMode: false,
   sendErrorMonitoring: false,
   language: 'en',
-  dialogAddVideoToPlaylist: {
-    isOpen: false,
-    video: null
-  },
   customInstances: []
 };
 
@@ -149,25 +141,6 @@ const appActions = {
       language
     };
   },
-  toggleDialogAddVideoToPlaylist: (store: Store) => ({
-    ...store,
-    dialogAddVideoToPlaylist: {
-      ...store.dialogAddVideoToPlaylist,
-      isOpen: !store.dialogAddVideoToPlaylist.isOpen
-    }
-  }),
-  setVideoDialogAddVideoToPlaylist: (
-    store: Store,
-    actions: any,
-    video: Video
-  ) => ({
-    ...store,
-    dialogAddVideoToPlaylist: {
-      ...store.dialogAddVideoToPlaylist,
-      video,
-      isOpen: true
-    }
-  }),
   setCustomInstance: async (store: Store, actions: any, instance: any) => {
     const customInstances = [...store.customInstances, instance];
     await AsyncStorage.setItem(
