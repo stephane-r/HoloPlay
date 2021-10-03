@@ -69,21 +69,13 @@ const Player: React.FC<Props> = ({
       MusicControl.enableControl('nextTrack', true);
       MusicControl.enableControl('previousTrack', true);
       MusicControl.enableControl('changePlaybackPosition', true);
-      MusicControl.enableControl('skipBackward', true, { interval: 15 });
-      MusicControl.enableControl('skipForward', true, { interval: 30 });
       MusicControl.enableBackgroundMode(true);
       MusicControl.on('play', playVideo);
       MusicControl.on('pause', pauseVideo);
-      MusicControl.on('nextTrack', () => loadNextVideo);
+      MusicControl.on('nextTrack', () => loadNextVideo());
       MusicControl.on(
         'previousTrack',
-        (): void => props.previousVideoIndex && loadPreviousVideo
-      );
-      MusicControl.on('skipBackward', (): void =>
-        player.current?.seek(duration - 30)
-      );
-      MusicControl.on('skipForward', (): void =>
-        player.current?.seek(duration + 30)
+        (): void => props.previousVideoIndex && loadPreviousVideo()
       );
     }
   }, [video]);
