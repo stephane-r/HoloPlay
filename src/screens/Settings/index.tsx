@@ -24,6 +24,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Spacer from '../../components/Spacer';
 import { NavigationHelpersCommon } from '@react-navigation/native';
 import { actions, connect } from '../../store';
+import AppVersion from '../../components/Version';
 
 interface Props {
   navigation: NavigationHelpersCommon;
@@ -77,7 +78,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation, route, darkMode }) => {
         </Appbar>
         <View style={styles.content}>
           <Subheading style={styles.subheading}>{t('settings.api')}</Subheading>
-          <View style={styles.switchContainer2}>
+          <View style={{ flexDirection: 'row', paddingRight: 16 }}>
             <View style={{ flex: 1 }}>
               <List.Item
                 accessibilityStates={[]}
@@ -129,7 +130,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation, route, darkMode }) => {
           <Divider accessibilityStates={[]} />
           <ErrorMonitoringContainer store={store} t={t} />
           <Divider accessibilityStates={[]} />
-          <View style={styles.switchContainer2}>
+          <View style={{ flexDirection: 'row', paddingRight: 16 }}>
             <View style={{ flex: 1 }}>
               <List.Item
                 accessibilityStates={[]}
@@ -148,6 +149,10 @@ const SettingsScreen: React.FC<Props> = ({ navigation, route, darkMode }) => {
                 onValueChange={toggleDarkMode}
               />
             </View>
+          </View>
+          <Divider accessibilityStates={[]} />
+          <View>
+            <AppVersion />
           </View>
           <Divider accessibilityStates={[]} />
         </View>
@@ -219,7 +224,7 @@ const ErrorMonitoring = ({ store, t, sendErrorMonitoring }) => {
   };
 
   return (
-    <View style={styles.switchContainer2}>
+    <View style={{ flexDirection: 'row', paddingRight: 16 }}>
       <View style={{ flex: 1 }}>
         <List.Item
           accessibilityStates={[]}

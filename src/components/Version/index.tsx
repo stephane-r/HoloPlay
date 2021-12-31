@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text, TouchableRipple } from 'react-native-paper';
+import { Button, List, Text, TouchableRipple } from 'react-native-paper';
 import { version } from '../../../package';
 import useUpdateRelease from '../../hooks/useUpdateRelease';
 import { useTranslation } from 'react-i18next';
@@ -17,23 +17,27 @@ const AppVersion: React.FC<Props> = ({ customStyle, showUpdate = true }) => {
   const { updateAvailable, downloadApk } = useUpdateRelease();
 
   return (
-    <View
-      style={{
-        marginTop: 'auto',
-        flexDirection: 'row',
-        justifyContent: showUpdate ? 'flex-start' : 'center'
-      }}>
-      <Text accessibilityStates={[]} style={[styles.text, customStyle]}>
-        {t('drawler.version')} {version}
-      </Text>
+    <View style={{ flexDirection: 'row' }}>
+      <View style={{ flex: 1 }}>
+        <List.Item
+          accessibilityStates={[]}
+          title={t('drawler.version')}
+          description={version}
+        />
+      </View>
       {updateAvailable && showUpdate && (
-        <TouchableRipple onPress={downloadApk}>
-          <Text
-            accessibilityStates={[]}
-            style={[styles.text, customStyle, { fontWeight: 'bold' }]}>
+        <View
+          style={{
+            alignItems: 'flex-end',
+            justifyContent: 'center'
+          }}>
+          <Button
+            style={{ marginRight: 16 }}
+            mode="contained"
+            onPress={() => downloadApk()}>
             {t('drawler.updateAvailable')}
-          </Text>
-        </TouchableRipple>
+          </Button>
+        </View>
       )}
     </View>
   );
