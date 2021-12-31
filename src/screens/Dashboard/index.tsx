@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { Title, useTheme, Text } from 'react-native-paper';
 import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
-import SearchbarContainer from '../../containers/Search/Bar';
 import Carousel from '../../components/Carousel';
 import SearchResultContainer from '../../containers/Search/Result';
 import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
@@ -30,8 +29,7 @@ const DashboardScreen: React.FC = ({ route }) => {
             backgroundColor: colors.screens.dashboard
           }
         ]}>
-        <SearchbarContainer showButtonHistory />
-        <Spacer height={15} />
+        <Spacer height={30} />
         <ProfilContainer />
         <Spacer height={30} />
         <PlaylistsCarouselContainer />

@@ -41,8 +41,6 @@ import useUpdateRelease from '../../hooks/useUpdateRelease';
 import { useTranslation } from 'react-i18next';
 import SearchScreen from '../../screens/Search';
 import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoToPlaylist';
-import { DrawerLayoutAndroid } from 'react-native-gesture-handler';
-import DrawlerContainer from '../../containers/Drawler';
 import InvidiousInstanceScreen from '../../screens/InvidiousInstances';
 import PrivacyPolicyScreen from '../../screens/PrivacyPolicy';
 
@@ -134,33 +132,26 @@ const App: React.FC<Props> = () => {
             />
           </Stack.Navigator>
         ) : (
-          <DrawerLayoutAndroid
-            ref={drawler}
-            drawerWidth={300}
-            renderNavigationView={() => (
-              <DrawlerContainer
-                setTheme={toggleTheme}
-                navigation={navigation}
-                drawler={drawler}
-              />
-            )}>
-            <Stack.Navigator headerMode="none">
-              <Stack.Screen
-                name="App"
-                component={AppScreen}
-                initialParams={{ toggleTheme }}
-              />
-              <Stack.Screen name="Settings" component={SettingsScreen} />
-              <Stack.Screen
-                name="InvidiousInstances"
-                component={InvidiousInstanceScreen}
-              />
-              <Stack.Screen
-                name="PrivacyPolicy"
-                component={PrivacyPolicyScreen}
-              />
-            </Stack.Navigator>
-          </DrawerLayoutAndroid>
+          <Stack.Navigator headerMode="none">
+            <Stack.Screen
+              name="App"
+              component={AppScreen}
+              initialParams={{ toggleTheme }}
+            />
+            <Stack.Screen
+              name="Settings"
+              component={SettingsScreen}
+              initialParams={{ toggleTheme }}
+            />
+            <Stack.Screen
+              name="InvidiousInstances"
+              component={InvidiousInstanceScreen}
+            />
+            <Stack.Screen
+              name="PrivacyPolicy"
+              component={PrivacyPolicyScreen}
+            />
+          </Stack.Navigator>
         )}
       </NavigationContainer>
       <SnackbarContainer />

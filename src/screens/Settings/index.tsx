@@ -8,7 +8,8 @@ import {
   Button,
   Text,
   Checkbox,
-  useTheme
+  useTheme,
+  Switch
 } from 'react-native-paper';
 import useStore from '../../hooks/useStore';
 import useBackup from '../../hooks/useBackup';
@@ -22,6 +23,7 @@ import getLanguageName from '../../utils/getLanguageName';
 import { ScrollView } from 'react-native-gesture-handler';
 import Spacer from '../../components/Spacer';
 import { NavigationHelpersCommon } from '@react-navigation/native';
+import { actions, connect } from '../../store';
 
 interface Props {
   navigation: NavigationHelpersCommon;
@@ -29,18 +31,23 @@ interface Props {
 
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 
-const SettingsScreen: React.FC<Props> = ({ navigation }) => {
+const SettingsScreen: React.FC<Props> = ({ navigation, route, darkMode }) => {
   const { t } = useTranslation();
   const store = useStore();
   const { colors } = useTheme();
   const [showDialogToken, setShowDialogToken] = useState(false);
   const [showDialogApiInstance, setShowDialogApiInstance] = useState(false);
   const [showDialogUsername, setShowDialogUsername] = useState(false);
-  const [showDialogErrorMonitoring, setShowDialogErrorMonitoring] = useState(
-    false
-  );
+  const [showDialogErrorMonitoring, setShowDialogErrorMonitoring] =
+    useState(false);
   const [showDialogLanguage, setShowDialogLanguage] = useState(false);
   const { backupData, importData } = useBackup();
+  const [isDarkMode, setDarkMode] = useState(true);
+
+  const toggleDarkMode = (value): void => {
+    setDarkMode(!isDarkMode);
+    route.params.toggleTheme(value);
+  };
 
   const toggleDialogToken = () => setShowDialogToken(!showDialogToken);
   const toggleDialogApiInstance = () =>
@@ -70,17 +77,32 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         </Appbar>
         <View style={styles.content}>
           <Subheading style={styles.subheading}>{t('settings.api')}</Subheading>
-          <List.Item
-            accessibilityStates={[]}
-            title={t('settings.invidiousInstance')}
-            description={store.instance}
-            onPress={toggleDialogApiInstance}
-          />
+          <View style={styles.switchContainer2}>
+            <View style={{ flex: 1 }}>
+              <List.Item
+                accessibilityStates={[]}
+                title={t('settings.invidiousInstance')}
+                description={store.instance}
+                onPress={() => navigation.navigate('InvidiousInstances')}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}>
+              <Button
+                mode="contained"
+                onPress={() => navigation.navigate('InvidiousInstances')}>
+                {t('settings.buttonUpdateInvidiousInstance')}
+              </Button>
+            </View>
+          </View>
           <Divider accessibilityStates={[]} />
           <List.Item
             accessibilityStates={[]}
             title={t('settings.token')}
-            description={store.token}
+            description={store.token ?? t('settings.tokenEmpty')}
             onPress={toggleDialogToken}
           />
           <Divider accessibilityStates={[]} />
@@ -99,23 +121,33 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           <View>
             <List.Item
               accessibilityStates={[]}
-              title={t('settings.monitoring')}
-              description={t(
-                store.sendErrorMonitoring
-                  ? 'settings.enabled'
-                  : 'settings.disabled'
-              )}
-              onPress={toggleDialogErrorMoniroting}
-            />
-          </View>
-          <Divider accessibilityStates={[]} />
-          <View>
-            <List.Item
-              accessibilityStates={[]}
               title={t('settings.language')}
               description={getLanguageName(store.language)}
               onPress={toggleDialogLanguage}
             />
+          </View>
+          <Divider accessibilityStates={[]} />
+          <ErrorMonitoringContainer store={store} t={t} />
+          <Divider accessibilityStates={[]} />
+          <View style={styles.switchContainer2}>
+            <View style={{ flex: 1 }}>
+              <List.Item
+                accessibilityStates={[]}
+                title={t('settings.darkMode')}
+                onPress={() => toggleDarkMode(!isDarkMode)}
+              />
+            </View>
+            <View
+              style={{
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+              }}>
+              <Switch
+                accessibilityStates={[]}
+                value={isDarkMode}
+                onValueChange={toggleDarkMode}
+              />
+            </View>
           </View>
           <Divider accessibilityStates={[]} />
         </View>
@@ -157,23 +189,11 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           onDismiss={toggleDialogToken}
           toggleDialog={toggleDialogToken}
         />
-        <DialogEditApiInstance
-          value={store.instance as string}
-          visible={showDialogApiInstance}
-          onDismiss={toggleDialogApiInstance}
-          toggleDialog={toggleDialogApiInstance}
-        />
         <DialogEditUsername
           value={store.username as string}
           visible={showDialogUsername}
           onDismiss={toggleDialogUsername}
           toggleDialog={toggleDialogUsername}
-        />
-        <DialogErrorMonitoring
-          value={store.sendErrorMonitoring as string}
-          visible={showDialogErrorMonitoring}
-          onDismiss={toggleDialogErrorMoniroting}
-          toggleDialog={toggleDialogErrorMoniroting}
         />
         <DialogLanguage
           value={store.language}
@@ -186,6 +206,46 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
     </ScrollView>
   );
 };
+
+const ErrorMonitoring = ({ store, t, sendErrorMonitoring }) => {
+  const toggleErrorMonitoring = () => {
+    try {
+      actions.setSendErrorMonitoring(!sendErrorMonitoring);
+    } catch (error) {
+      actions.setSnackbar({
+        message: error.message
+      });
+    }
+  };
+
+  return (
+    <View style={styles.switchContainer2}>
+      <View style={{ flex: 1 }}>
+        <List.Item
+          accessibilityStates={[]}
+          title={t('settings.monitoring')}
+          description={t('dialog.monitoring.text')}
+          onPress={() => toggleErrorMonitoring(!store.sendErrorMonitoring)}
+        />
+      </View>
+      <View
+        style={{
+          alignItems: 'flex-end',
+          justifyContent: 'center'
+        }}>
+        <Switch
+          accessibilityStates={[]}
+          value={sendErrorMonitoring}
+          onValueChange={() => toggleErrorMonitoring()}
+        />
+      </View>
+    </View>
+  );
+};
+
+const ErrorMonitoringContainer = connect(({ sendErrorMonitoring }: Store) => ({
+  sendErrorMonitoring
+}))(ErrorMonitoring);
 
 const styles = StyleSheet.create({
   container: {
@@ -200,6 +260,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     paddingTop: 10
   },
+  switchContainer2: { flexDirection: 'row', paddingRight: 16 },
   subheading: {
     fontWeight: 'bold',
     padding: 16,

@@ -72,7 +72,9 @@
       "title": "Settings",
       "api": "API",
       "invidiousInstance": "Invidious instance",
+      "buttonUpdateInvidiousInstance": "Change",
       "token": "Token",
+      "tokenEmpty": "No token",
       "application": "APPLICATION",
       "username": "Username",
       "monitoring": "Error and Performance Moniroting",
@@ -82,7 +84,8 @@
       "data": "DATA",
       "importExportText": "Export or import my playlists and my favoris",
       "exportButton": "Export",
-      "importButton": "Import"
+      "importButton": "Import",
+      "darkMode": "Dark mode"
     },
     "instance": {
       "title": "Invidious instances",
@@ -142,6 +145,7 @@
       },
       "monitoring": {
         "title": "Monitoring",
+        "text": "HoloPlay includes an error and performance monitoring tool that is disabled by default.",
         "text1": "HoloPlay includes an error and performance monitoring tool that is disabled by default. No data is retrieved without your consent",
         "text2": "By activating it, any errors will be sent to a self-hosted instance of Sentry",
         "label": "Enable"

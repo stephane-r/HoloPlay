@@ -72,7 +72,9 @@
       "title": "Paramètres",
       "api": "API",
       "invidiousInstance": "Instance Invidious",
+      "buttonUpdateInvidiousInstance": "Changer",
       "token": "Token",
+      "tokenEmpty": "Aucun",
       "application": "APPLICATION",
       "username": "Nom d'utilisateur",
       "monitoring": "Monitoring d'erreur et de performance",
@@ -82,7 +84,8 @@
       "data": "DONNÉES",
       "importExportText": "Exporter ou importer mes playlists et mes favoris",
       "exportButton": "Expoter",
-      "importButton": "Importer"
+      "importButton": "Importer",
+      "darkMode": "Mode sombre"
     },
     "instance": {
       "title": "Instances Invidious",
@@ -142,6 +145,7 @@
       },
       "monitoring": {
         "title": "Monitoring",
+        "text": "HoloPlay inclue un outil de monitoring d'erreur et de performance qui est désactivé par défaut.",
         "text1": "HoloPlay inclue un outil de monitoring d'erreur et de performance qui est désactivé par défaut. Aucune erreur ou donnée de performance n'est envoyée sans votre consentement.",
         "text2": "En activant le monitoring, toutes éventuelles erreurs seront transmises sur une application Sentry self-hosted.",
         "label": "Activer"
