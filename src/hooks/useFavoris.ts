@@ -6,10 +6,12 @@ import useStore from './useStore';
 import { Playlist } from '../types';
 import Video from 'react-native-video';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from '../providers/Snackbar';
 
 const useFavoris = () => {
   const store = useStore();
   const { t } = useTranslation();
+  const snackbar = useSnackbar();
 
   const createFavorisPlaylist = async () => {
     const favorisPlaylist = {
@@ -66,13 +68,9 @@ const useFavoris = () => {
         });
       }
 
-      return actions.setSnackbar({
-        message: t('snackbar.addFavorisSuccess')
-      });
+      return snackbar.show(t('snackbar.addFavorisSuccess'));
     } catch (error) {
-      return actions.setSnackbar({
-        message: error.message
-      });
+      return snackbar.show(error.message);
     }
   };
 
@@ -87,13 +85,9 @@ const useFavoris = () => {
         });
       }
 
-      return actions.setSnackbar({
-        message: t('snackbar.removeFavorisSuccess')
-      });
+      return snackbar.show(t('snackbar.removeFavorisSuccess'));
     } catch (error) {
-      return actions.setSnackbar({
-        message: error.message
-      });
+      return snackbar.show(error.message);
     }
   };
 

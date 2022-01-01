@@ -1,6 +1,6 @@
-import React, { Suspense } from 'react';
+import React, { memo, Suspense } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Title, useTheme, Text } from 'react-native-paper';
+import { Title, useTheme, Text, Button } from 'react-native-paper';
 import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
 import Carousel from '../../components/Carousel';
@@ -15,8 +15,9 @@ import LastPlaysContainer from '../../containers/LastPlays';
 import PlaceholderCardHorizontalList from '../../components/Placeholder/CardCenter';
 import SearchPopularContainer from '../../containers/Search/Popular';
 import ErrorBoundary from '../../components/ErrorBoundary';
+import { useSnackbar } from '../../providers/Snackbar';
 
-const DashboardScreen: React.FC = ({ route }) => {
+const DashboardScreen: React.FC = memo(({ route }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
 
@@ -50,7 +51,7 @@ const DashboardScreen: React.FC = ({ route }) => {
       />
     </Layout>
   );
-};
+});
 
 const styles = StyleSheet.create({
   header: {

@@ -43,6 +43,7 @@ import SearchScreen from '../../screens/Search';
 import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoToPlaylist';
 import InvidiousInstanceScreen from '../../screens/InvidiousInstances';
 import PrivacyPolicyScreen from '../../screens/PrivacyPolicy';
+import { SnackbarProvider } from '../../providers/Snackbar';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -122,40 +123,42 @@ const App: React.FC<Props> = () => {
 
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer ref={navigation}>
-        {appToken === null && !appLogoutMode ? (
-          <Stack.Navigator headerMode="none">
-            <Stack.Screen
-              name="Auth"
-              component={LoginScreen}
-              initialParams={{ setToken }}
-            />
-          </Stack.Navigator>
-        ) : (
-          <Stack.Navigator headerMode="none">
-            <Stack.Screen
-              name="App"
-              component={AppScreen}
-              initialParams={{ toggleTheme }}
-            />
-            <Stack.Screen
-              name="Settings"
-              component={SettingsScreen}
-              initialParams={{ toggleTheme }}
-            />
-            <Stack.Screen
-              name="InvidiousInstances"
-              component={InvidiousInstanceScreen}
-            />
-            <Stack.Screen
-              name="PrivacyPolicy"
-              component={PrivacyPolicyScreen}
-            />
-          </Stack.Navigator>
-        )}
-      </NavigationContainer>
-      <SnackbarContainer />
-      <DialogAddVideoToPlaylistContainer />
+      <SnackbarProvider>
+        <NavigationContainer ref={navigation}>
+          {appToken === null && !appLogoutMode ? (
+            <Stack.Navigator headerMode="none">
+              <Stack.Screen
+                name="Auth"
+                component={LoginScreen}
+                initialParams={{ setToken }}
+              />
+            </Stack.Navigator>
+          ) : (
+            <Stack.Navigator headerMode="none">
+              <Stack.Screen
+                name="App"
+                component={AppScreen}
+                initialParams={{ toggleTheme }}
+              />
+              <Stack.Screen
+                name="Settings"
+                component={SettingsScreen}
+                initialParams={{ toggleTheme }}
+              />
+              <Stack.Screen
+                name="InvidiousInstances"
+                component={InvidiousInstanceScreen}
+              />
+              <Stack.Screen
+                name="PrivacyPolicy"
+                component={PrivacyPolicyScreen}
+              />
+            </Stack.Navigator>
+          )}
+        </NavigationContainer>
+        <SnackbarContainer />
+        <DialogAddVideoToPlaylistContainer />
+      </SnackbarProvider>
     </PaperProvider>
   );
 };

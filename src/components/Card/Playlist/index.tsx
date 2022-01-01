@@ -68,7 +68,6 @@ const CardPlaylist: React.FC<Props> = ({
                     setPlaylistFrom: playlist.videos
                   });
                 } catch (error) {
-                  console.log(error);
                   actions.setSnackbar({
                     message: t('snackbar.canNotLoadVideo')
                   });

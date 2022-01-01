@@ -8,15 +8,16 @@ interface Props {
   snackbar: SnackbarType;
 }
 
-const SNACKBAR_DURATION: number = 5000;
-
 const Snackbar: React.FC<Props> = ({ snackbar }) => {
+  if (!snackbar) {
+    return null;
+  }
+
   return (
     <PaperSnackBar
       visible={snackbar.visible}
-      duration={SNACKBAR_DURATION}
       style={{ width: Dimensions.get('window').width - 32, margin: 16 }}
-      onDismiss={(): void => actions.hideSnackbar()}
+      onDismiss={() => null}
       action={snackbar.action}>
       {snackbar.message}
     </PaperSnackBar>
