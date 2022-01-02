@@ -28,7 +28,7 @@ const PlaylistScreen: React.FC = ({ route }) => {
   };
 
   return (
-    <Layout setTheme={route.params.toggleTheme}>
+    <Layout>
       <Header title="Playlists" backgroundColor={colors.screens.playlists} />
       <PlaylistsContainer
         toggleModal={(item: PlaylistType): void => {

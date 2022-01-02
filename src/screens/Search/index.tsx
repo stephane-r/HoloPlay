@@ -15,7 +15,7 @@ const SearchScreen: React.FC = ({ route }) => {
 
   return (
     <>
-      <Layout setTheme={route.params.toggleTheme}>
+      <Layout>
         <Header
           title={t('navigation.search')}
           backgroundColor={colors.screens.search}>

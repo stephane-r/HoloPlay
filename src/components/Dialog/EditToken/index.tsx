@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Dialog, Button, TextInput } from 'react-native-paper';
+import { Text, Dialog, Button, TextInput, Portal } from 'react-native-paper';
 import { Alert } from 'react-native';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
@@ -14,15 +14,13 @@ interface Props {
   value: string;
   visible: boolean;
   onDismiss: () => void;
-  toggleDialog: () => void;
 }
 
 const DialogEditToken: React.FC<Props> = ({
   label,
   value,
   visible,
-  onDismiss,
-  toggleDialog
+  onDismiss
 }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -32,12 +30,12 @@ const DialogEditToken: React.FC<Props> = ({
     setLoading(true);
 
     if (token === value) {
-      return toggleDialog();
+      return onDismiss();
     }
 
     if (token === '') {
       actions.setToken(token);
-      return toggleDialog();
+      return onDismiss();
     }
 
     try {
@@ -46,7 +44,7 @@ const DialogEditToken: React.FC<Props> = ({
         customToken: token
       });
       await fetchPlaylists();
-      toggleDialog();
+      onDismiss();
       return setTimeout(
         () =>
           actions.setSnackbar({
@@ -64,30 +62,32 @@ const DialogEditToken: React.FC<Props> = ({
   };
 
   return (
-    <Dialog visible={visible} onDismiss={onDismiss}>
-      <Dialog.Title>{t('dialog.editToken.title')}</Dialog.Title>
-      <Dialog.Content>
-        <TextInput
-          accessibilityStates={[]}
-          mode="outlined"
-          label="Token"
-          onChangeText={setToken}
-          value={token}
-        />
-        {token === '' && (
-          <>
-            <Spacer height={15} />
-            <Text>{t('dialog.editToken.emptyToken')}</Text>
-          </>
-        )}
-      </Dialog.Content>
-      <Dialog.Actions>
-        <Button onPress={onDismiss}>{t('common.button.cancel')}</Button>
-        <Button onPress={onSubmit} loading={loading}>
-          {t('common.button.done')}
-        </Button>
-      </Dialog.Actions>
-    </Dialog>
+    <Portal>
+      <Dialog visible={visible} onDismiss={onDismiss}>
+        <Dialog.Title>{t('dialog.editToken.title')}</Dialog.Title>
+        <Dialog.Content>
+          <TextInput
+            accessibilityStates={[]}
+            mode="outlined"
+            label="Token"
+            onChangeText={setToken}
+            value={token}
+          />
+          {token === '' && (
+            <>
+              <Spacer height={15} />
+              <Text>{t('dialog.editToken.emptyToken')}</Text>
+            </>
+          )}
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={onDismiss}>{t('common.button.cancel')}</Button>
+          <Button onPress={onSubmit} loading={loading}>
+            {t('common.button.done')}
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
   );
 };
 

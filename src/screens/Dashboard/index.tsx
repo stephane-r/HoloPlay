@@ -9,20 +9,20 @@ import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
 import CarouselSpacerContainer from '../../containers/CarouselSpacer';
 import SearchPickerTypeContainer from '../../containers/Search/PickerType';
 import { DASHBOARD_COLOR } from '../../../config/theme';
-import ProfilContainer from '../../containers/Profil';
 import { useTranslation } from 'react-i18next';
 import LastPlaysContainer from '../../containers/LastPlays';
 import PlaceholderCardHorizontalList from '../../components/Placeholder/CardCenter';
 import SearchPopularContainer from '../../containers/Search/Popular';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import { useSnackbar } from '../../providers/Snackbar';
+import { ProfilContainer } from '../../containers/Profil';
 
 const DashboardScreen: React.FC = memo(({ route }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
 
   return (
-    <Layout setTheme={route.params.toggleTheme}>
+    <Layout>
       <View
         style={[
           styles.header,

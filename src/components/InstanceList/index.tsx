@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Button, Text, Divider, IconButton } from 'react-native-paper';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
@@ -6,21 +6,17 @@ import { useTranslation } from 'react-i18next';
 import Spacer from '../Spacer';
 import { actions } from '../../store';
 import useInvidiousInstances from '../../hooks/useInvidiousInstances';
-import InstanceContainer from '../../containers/Instance';
+import { InstanceContainer } from '../../containers/Instance';
 import { CustomInstance } from '../../types';
 
 interface Props {
   customInstances: CustomInstance[];
 }
 
-const InstanceList: React.FC<Props> = ({ customInstances }) => {
+const InstanceList: React.FC<Props> = memo(({ customInstances }) => {
   const { t } = useTranslation();
-  const {
-    instances,
-    loading,
-    setInvidiousInstance,
-    submitLoading
-  } = useInvidiousInstances();
+  const { instances, loading, setInvidiousInstance, submitLoading } =
+    useInvidiousInstances();
 
   return (
     <View style={styles.content}>
@@ -39,6 +35,7 @@ const InstanceList: React.FC<Props> = ({ customInstances }) => {
               key={uri}
               uri={uri}
               isCustom={isCustom}
+              // TODO: refactor with new provider
               setInstance={setInvidiousInstance}
             />
           ))}
@@ -46,7 +43,7 @@ const InstanceList: React.FC<Props> = ({ customInstances }) => {
       )}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   content: {

@@ -14,6 +14,9 @@ import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 import { useTranslation } from 'react-i18next';
 import getLanguageName from '../../utils/getLanguageName';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
+import { useCallback } from 'react';
+import { useAppSettings } from '../../providers/App';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   onSuccess: () => void;
@@ -31,6 +34,8 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
   const [username, setUsername] = useState<string>('User');
   const { colors } = useTheme();
   const { t, i18n } = useTranslation();
+  const { settings, setSettings } = useAppSettings();
+  const navigation = useNavigation();
 
   const onValueChange = (value: string): void => {
     if (value === 'other') {
@@ -65,7 +70,7 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
     }
   };
 
-  const loginWithoutToken = async (): Promise<any> => {
+  const loginWithoutToken = useCallback(async (): void => {
     const favorisPlaylist = {
       title: FAVORIS_PLAYLIST_TITLE,
       videos: [],
@@ -75,28 +80,26 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
     try {
       setIsLoading(true);
 
-      await Promise.all([
-        actions.setInstance(instance),
-        AsyncStorage.setItem('logoutMode', JSON.stringify(true))
-      ]);
+      actions.setInstance(instance);
 
-      actions.setLogoutMode(true);
-      actions.setUsername(username);
+      setSettings.skipLogin(true);
+
+      // actions.setLogoutMode(true);
+      // actions.setUsername(username);
       actions.addPlaylist(favorisPlaylist);
       actions.receiveFavorisPlaylist(favorisPlaylist);
 
       setIsLoading(false);
-      return onSuccess('null');
+      navigation.navigate('App');
     } catch (error) {
-      console.log(error);
       actions.setSnackbar(error);
     }
-  };
+  }, [actions, instance, setIsLoading]);
 
   useEffect(() => {
-    AsyncStorage.getItem('token').then(result => {
-      if (result) {
-        setToken(result);
+    AsyncStorage.getItem('token').then(cachedToken => {
+      if (cachedToken) {
+        setToken(cachedToken);
       }
     });
   }, []);

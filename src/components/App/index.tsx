@@ -1,9 +1,5 @@
-import {
-  Provider as PaperProvider,
-  Button,
-  useTheme
-} from 'react-native-paper';
-import React, { useState, memo, useRef, useEffect } from 'react';
+import { Provider, Button, useTheme } from 'react-native-paper';
+import React, { useState, memo, useRef, useEffect, useMemo } from 'react';
 import config from 'react-native-config';
 import QuickActions from 'react-native-quick-actions';
 import { NavigationContainer } from '@react-navigation/native';
@@ -44,6 +40,11 @@ import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoTo
 import InvidiousInstanceScreen from '../../screens/InvidiousInstances';
 import PrivacyPolicyScreen from '../../screens/PrivacyPolicy';
 import { SnackbarProvider } from '../../providers/Snackbar';
+import {
+  AppSettingsProvider,
+  getCachedSettings,
+  useAppSettings
+} from '../../providers/App';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -55,96 +56,87 @@ interface Props {
   darkMode: boolean;
 }
 
+// const App: React.FC<Props> = () => {
+
+//   return (
+//     <App initialSettings={initialSettings}>
+//   );
+// };
+
 const App: React.FC<Props> = () => {
   const navigation = useRef(null);
   const drawler = useRef(null);
   const [appToken, setToken] = useState<null | string>(null);
   const [appLogoutMode, setLogoutMode] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const [initialSettings, setInitialSettings] = useState(null);
 
   useUpdateRelease(true);
-
-  const toggleTheme = (value: boolean): void => {
-    setDarkMode(value);
-    AsyncStorage.setItem('darkMode', JSON.stringify(value));
-  };
-
-  const theme = darkMode ? darkTheme : defaultTheme;
 
   useEffect(() => {
     actions.appInit();
 
-    QuickActions.popInitialAction()
-      .then(async (action: QuickAction) => {
-        const [instance, token, logoutMode, isDarkmode] = await Promise.all([
-          AsyncStorage.getItem('instance'),
-          AsyncStorage.getItem('token'),
-          AsyncStorage.getItem('logoutMode'),
-          AsyncStorage.getItem('darkMode')
-        ]);
+    getCachedSettings().then(data => {
+      setInitialSettings(data);
+      RNBootSplash.hide({ duration: 250 });
+    });
 
-        setDarkMode(JSON.parse(isDarkmode));
+    // QuickActions.popInitialAction()
+    //   .then(async (action: QuickAction) => {
+    //     const [instance, token, logoutMode, isDarkmode] = await Promise.all([
+    //       AsyncStorage.getItem('instance'),
+    //       AsyncStorage.getItem('token'),
+    //       AsyncStorage.getItem('logoutMode'),
+    //       AsyncStorage.getItem('darkMode')
+    //     ]);
 
-        const logoutModeParsed = JSON.parse(logoutMode);
+    //     // setDarkMode(JSON.parse(isDarkmode));
 
-        if (token && !logoutModeParsed) {
-          try {
-            await fetchPlaylists();
-          } catch (error) {
-            return setIsLoading(false);
-          }
-        }
+    //     const logoutModeParsed = JSON.parse(logoutMode);
 
-        if (token) {
-          setToken(token);
-        }
+    //     if (token && !logoutModeParsed) {
+    //       try {
+    //         await fetchPlaylists();
+    //       } catch (error) {
+    //         return setIsLoading(false);
+    //       }
+    //     }
 
-        setLogoutMode(logoutModeParsed);
-        setIsLoading(false);
+    //     if (token) {
+    //       setToken(token);
+    //     }
 
-        RNBootSplash.hide({ duration: 250 });
+    //     setLogoutMode(logoutModeParsed);
+    //     setIsLoading(false);
 
-        if (action?.title) {
-          switch (true) {
-            case action.title === QUICK_ACTION_FAVORIS:
-              return navigation.current?.navigate('Favoris');
-            case action.title === QUICK_ACTION_PLAYLISTS:
-              return navigation.current?.navigate('Playlists');
-          }
-        }
-      })
-      .catch(error => console.log(error));
+    //     RNBootSplash.hide({ duration: 250 });
+
+    //     if (action?.title) {
+    //       switch (true) {
+    //         case action.title === QUICK_ACTION_FAVORIS:
+    //           return navigation.current?.navigate('Favoris');
+    //         case action.title === QUICK_ACTION_PLAYLISTS:
+    //           return navigation.current?.navigate('Playlists');
+    //       }
+    //     }
+    //   })
+    //   .catch(error => console.log(error));
   }, []);
 
-  if (isLoading) {
+  if (!initialSettings) {
     return <LoadingScreen />;
   }
 
   return (
-    <PaperProvider theme={theme}>
-      <SnackbarProvider>
-        <NavigationContainer ref={navigation}>
-          {appToken === null && !appLogoutMode ? (
-            <Stack.Navigator headerMode="none">
-              <Stack.Screen
-                name="Auth"
-                component={LoginScreen}
-                initialParams={{ setToken }}
-              />
-            </Stack.Navigator>
-          ) : (
-            <Stack.Navigator headerMode="none">
-              <Stack.Screen
-                name="App"
-                component={AppScreen}
-                initialParams={{ toggleTheme }}
-              />
-              <Stack.Screen
-                name="Settings"
-                component={SettingsScreen}
-                initialParams={{ toggleTheme }}
-              />
+    <SnackbarProvider>
+      <AppSettingsProvider data={initialSettings}>
+        <PaperProvider>
+          <NavigationContainer ref={navigation}>
+            <Stack.Navigator
+              headerMode="none"
+              initialRouteName={initialSettings.skipLogin ? 'App' : 'Auth'}>
+              <Stack.Screen name="App" component={AppScreen} />
+              <Stack.Screen name="Settings" component={SettingsScreen} />
               <Stack.Screen
                 name="InvidiousInstances"
                 component={InvidiousInstanceScreen}
@@ -153,14 +145,29 @@ const App: React.FC<Props> = () => {
                 name="PrivacyPolicy"
                 component={PrivacyPolicyScreen}
               />
+              <Stack.Screen
+                name="Auth"
+                component={LoginScreen}
+                initialParams={{ setToken }}
+              />
             </Stack.Navigator>
-          )}
-        </NavigationContainer>
-        <SnackbarContainer />
-        <DialogAddVideoToPlaylistContainer />
-      </SnackbarProvider>
-    </PaperProvider>
+          </NavigationContainer>
+          <SnackbarContainer />
+          <DialogAddVideoToPlaylistContainer />
+        </PaperProvider>
+      </AppSettingsProvider>
+    </SnackbarProvider>
   );
+};
+
+const PaperProvider: React.FC<Props> = ({ children }) => {
+  const { settings } = useAppSettings();
+
+  const theme = useMemo(() => {
+    return settings.darkMode ? darkTheme : defaultTheme;
+  }, [settings.darkMode]);
+
+  return <Provider theme={theme}>{children}</Provider>;
 };
 
 const AppScreen = ({ route }) => {

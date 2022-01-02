@@ -25,7 +25,7 @@ import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
 import InstanceContainer from '../../containers/Instance';
 import { NavigationHelpersCommon } from '@react-navigation/native';
-import DialogAddCustomInstance from '../../components/Dialog/AddCustomInstance';
+import { DialogAddCustomInstance } from '../../components/Dialog/AddCustomInstance';
 import InstanceListContainer from '../../containers/InstanceList';
 
 interface Props {
@@ -34,8 +34,8 @@ interface Props {
 
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 
-const wait = (timeout) => {
-  return new Promise((resolve) => {
+const wait = timeout => {
+  return new Promise(resolve => {
     setTimeout(resolve, timeout);
   });
 };
@@ -43,7 +43,7 @@ const wait = (timeout) => {
 const InvidiousInstanceScreen: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation();
   const { colors } = useTheme();
-  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -63,14 +63,14 @@ const InvidiousInstanceScreen: React.FC<Props> = ({ navigation }) => {
               title={t('instance.title')}
               accessibilityStates={[]}
             />
-            <Appbar.Action icon="plus" onPress={() => setDialogIsOpen(true)} />
+            <Appbar.Action icon="plus" onPress={() => setVisible(true)} />
           </Appbar>
           <InstanceListContainer />
         </View>
       </ScrollView>
       <DialogAddCustomInstance
-        visible={dialogIsOpen}
-        onDismiss={() => setDialogIsOpen(false)}
+        visible={visible}
+        onDismiss={() => setVisible(false)}
       />
     </>
   );

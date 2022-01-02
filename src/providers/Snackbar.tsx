@@ -30,7 +30,7 @@ export const SnackbarProvider = ({ children }) => {
         dismissDelay
       );
     },
-    []
+    [defaultAction, setSnackbar]
   );
 
   const value = useMemo(() => ({ showSnackbar }), [showSnackbar]);

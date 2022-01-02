@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Alert, View } from 'react-native';
-import { Button, Text, Divider, IconButton } from 'react-native-paper';
+import { Alert, TextBase, View } from 'react-native';
+import { Button, Text, Divider, IconButton, Switch } from 'react-native-paper';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
 import { useTranslation } from 'react-i18next';
 import Spacer from '../Spacer';
 import { actions } from '../../store';
+import { useSnackbar } from '../../providers/Snackbar';
+import { useCallback } from 'react';
+import { useAppSettings } from '../../providers/App';
 
 interface Props {
   uri: string;
@@ -21,64 +24,56 @@ const Instance: React.FC<Props> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
+  const snackbar = useSnackbar();
+  const { setSettings } = useAppSettings();
 
-  const onPress = () => {
+  const onPress = useCallback(() => {
     setIsLoading(true);
-    return setInstance(uri, () => setIsLoading(false));
-  };
+    setInstance(uri, () => setIsLoading(false));
+  }, [setIsLoading, uri, setInstance]);
 
-  const onRemovePress = () => {
-    actions.removeCustomInstance(uri);
-
-    return setTimeout(
-      () =>
-        actions.setSnackbar({
-          message: t('snackbar.removeCustomInstanceSuccess')
-        }),
+  const onRemovePress = useCallback(() => {
+    setSettings.removeCustomInstance(uri);
+    setTimeout(
+      () => snackbar.show(t('snackbar.removeCustomInstanceSuccess')),
       500
     );
-  };
+  }, [uri, setSettings, snackbar, t]);
 
   return (
     <>
-      <Divider accessibilityStates={[]} />
+      <Divider />
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingHorizontal: 20,
+          paddingLeft: 20,
+          paddingRight: instance === stripTrailingSlash(uri) ? 18 : 13,
           paddingVertical: 10
         }}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
           <Text numberOfLines={1}>{stripTrailingSlash(uri)}</Text>
+          {isCustom && (
+            <>
+              <Text style={{ paddingLeft: 6 }}>-</Text>
+              <IconButton
+                icon="delete"
+                mode="contained"
+                size={18}
+                style={{ margin: 0 }}
+                onPress={onRemovePress}
+                loading={isLoading}
+              />
+            </>
+          )}
         </View>
-        {instance === stripTrailingSlash(uri) ? (
-          <IconButton
-            icon="check"
-            accessibilityStates={[]}
-            size={20}
-            onPress={() => null}
-            animated
-            style={{ height: 25, width: 50, marginRight: -15 }}
+        <View>
+          <Switch
+            value={instance === stripTrailingSlash(uri)}
+            onValueChange={() => onPress()}
           />
-        ) : (
-          <Button mode="contained" onPress={onPress} loading={isLoading}>
-            {t('instance.use')}
-          </Button>
-        )}
-        {isCustom && (
-          <>
-            <Spacer width={10} />
-            <IconButton
-              icon="delete"
-              mode="contained"
-              size={20}
-              onPress={onRemovePress}
-              loading={isLoading}
-            />
-          </>
-        )}
+        </View>
       </View>
     </>
   );
