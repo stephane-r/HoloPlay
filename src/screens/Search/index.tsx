@@ -1,20 +1,19 @@
 import React, { Suspense } from 'react';
 import { Title, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import { useIsFocused } from '@react-navigation/native';
 import Layout from '../../components/Layout';
-import SearchResultContainer from '../../containers/Search/Result';
+import { SearchResultContainer } from '../../containers/Search/Result';
 import Header from '../../components/Header';
-import SearchbarAbsoluteContainer from '../../containers/Search/BarAbsolute';
-import SearchPickerTypeContainer from '../../containers/Search/PickerType';
+import { SearchPickerTypeContainer } from '../../containers/Search/PickerType';
+import { SearchProvider } from '../../providers/Search';
+import { SearchbarAbsolute } from '../../components/Search/BarAbsolute';
 
 const SearchScreen: React.FC = ({ route }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
-  const isFocused = useIsFocused();
 
   return (
-    <>
+    <SearchProvider data={{ history: route.params.initialSettings.history }}>
       <Layout>
         <Header
           title={t('navigation.search')}
@@ -23,8 +22,8 @@ const SearchScreen: React.FC = ({ route }) => {
         </Header>
         <SearchResultContainer />
       </Layout>
-      <SearchbarAbsoluteContainer />
-    </>
+      <SearchbarAbsolute />
+    </SearchProvider>
   );
 };
 

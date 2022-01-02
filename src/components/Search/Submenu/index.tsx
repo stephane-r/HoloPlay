@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import {
   Searchbar,
@@ -9,60 +9,69 @@ import {
 } from 'react-native-paper';
 import { useAnimation } from 'react-native-animation-hooks';
 import { actions } from '../../../store';
+import { useCallback } from 'react';
 
 interface Props {
   isOpen: boolean;
   selectValue: () => void;
   items: string[];
-  position?: 'top' | 'bottom';
 }
 
-const SearchSubmenu: React.FC<Props> = ({
-  isOpen,
-  selectValue,
-  items,
-  position = 'top'
-}) => {
-  const { colors, dark } = useTheme();
-  const opacity = useAnimation({
-    toValue: isOpen ? 1 : 0,
-    type: 'timing',
-    duration: 100,
-    useNativeDriver: false
-  });
+const SearchSubmenu: React.FC<Props> = memo(
+  ({ isOpen, selectValue, items }) => {
+    const { colors } = useTheme();
+    const opacity = useAnimation({
+      toValue: isOpen ? 1 : 0,
+      type: 'timing',
+      duration: 100,
+      useNativeDriver: false
+    });
 
-  const isBottomPosition = position === 'bottom';
+    return (
+      <Animated.View
+        style={[
+          styles.submenu,
+          {
+            backgroundColor: colors.surface,
+            opacity,
+            bottom: 74
+          }
+        ]}
+        pointerEvents={isOpen ? 'auto' : 'none'}>
+        {items.map((text, index) => (
+          <Item
+            key={`${text}-${index}`}
+            text={text}
+            index={index}
+            selectValue={selectValue}
+          />
+        ))}
+      </Animated.View>
+    );
+  }
+);
+
+const Item = memo(({ selectValue, text, index }) => {
+  const onPress = useCallback(() => {}, []);
+  const { dark } = useTheme();
 
   return (
-    <Animated.View
-      style={[
-        styles.submenu,
-        {
-          backgroundColor: colors.surface,
-          opacity,
-          [position]: isBottomPosition ? 62 : 70
-        }
-      ]}
-      pointerEvents={isOpen ? 'auto' : 'none'}>
-      {items.map((text, index) => (
-        <TouchableRipple key={index} onPress={() => selectValue(text)}>
-          <View
-            style={[
-              styles.item,
-              {
-                borderTopColor: dark
-                  ? 'rgba(255, 255, 255, .1)'
-                  : 'rgba(0, 0, 0, .2)',
-                borderTopWidth: index === 0 ? 0 : 1
-              }
-            ]}>
-            <Text accessibilityStates={[]}>{text}</Text>
-          </View>
-        </TouchableRipple>
-      ))}
-    </Animated.View>
+    <TouchableRipple onPress={() => selectValue(text)}>
+      <View
+        style={[
+          styles.item,
+          {
+            borderTopColor: dark
+              ? 'rgba(255, 255, 255, .1)'
+              : 'rgba(0, 0, 0, .2)',
+            borderTopWidth: index === 0 ? 0 : 1
+          }
+        ]}>
+        <Text>{text}</Text>
+      </View>
+    </TouchableRipple>
   );
-};
+});
 
 const styles = StyleSheet.create({
   submenu: {

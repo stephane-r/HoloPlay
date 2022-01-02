@@ -15,57 +15,66 @@ import search from '../../../queries/search';
 import SearchError from '../Error';
 import PlaceholderSearchList from '../../Placeholder/Search';
 import SearchEmpty from '../Empty';
+import { useSearch } from '../../../providers/Search';
 
 interface Props {
   apiUrl: string;
   searchValue: string;
+  onSuccess: (data: any) => void;
 }
 
-const SearchResult: React.FC<Props> = ({ apiUrl, searchValue }) => {
-  const { isLoading, error, data } = useQuery(apiUrl, search);
-  const { colors } = useTheme();
-  const { t } = useTranslation();
-  const { navigate } = useNavigation();
+export const SearchResult: React.FC<Props> = memo(
+  ({ apiUrl, searchValue, onSuccess }) => {
+    const { isLoading, error, data } = useQuery(apiUrl, {
+      queryFn: search,
+      onSuccess: data => onSuccess(data)
+    });
+    const { colors } = useTheme();
+    const { t } = useTranslation();
+    const { navigate } = useNavigation();
 
-  useEffect(() => {
-    if (data) {
-      actions.setSearchResult(data);
+    if (isLoading) {
+      return <PlaceholderSearchList />;
     }
-  }, [data]);
 
-  if (isLoading) {
-    return <PlaceholderSearchList />;
-  }
+    if (error || !Array.isArray(data)) {
+      return <Error />;
+    }
 
-  if (error || !Array.isArray(data)) {
+    if (data.length === 0) {
+      return <Empty />;
+    }
+
     return (
-      <DataEmpty>
-        <SearchError />
-      </DataEmpty>
+      <CardList>
+        {data.map((video, index) => (
+          <CardSearch
+            key={video.videoId}
+            loopIndex={index}
+            video={video}
+            setPlaylistFrom="searchResults"
+            favorisButtonColor={colors.screens.search}
+          />
+        ))}
+      </CardList>
     );
   }
+);
 
-  if (data.length === 0) {
-    return (
-      <DataEmpty>
-        <SearchEmpty value={searchValue} />
-      </DataEmpty>
-    );
-  }
+const Error = memo(() => {
+  return (
+    <DataEmpty>
+      <SearchError />
+    </DataEmpty>
+  );
+});
+
+const Empty = memo(() => {
+  const { state } = useSearch();
 
   return (
-    <CardList>
-      {data.map((video, index) => (
-        <CardSearch
-          key={video.videoId}
-          loopIndex={index}
-          video={video}
-          setPlaylistFrom="searchResults"
-          favorisButtonColor={colors.screens.search}
-        />
-      ))}
-    </CardList>
+    <DataEmpty>
+      <SearchEmpty value={state.searchValue} />
+    </DataEmpty>
   );
-};
-
-export default memo(SearchResult);
+});

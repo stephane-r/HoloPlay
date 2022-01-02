@@ -44,8 +44,6 @@ export const getCachedSettings = async () => {
       AsyncStorage.getItem('customInstances')
     ]);
 
-    console.log(skipLogin);
-
     return {
       skipLogin: JSON.parse(skipLogin) ?? false,
       instance,

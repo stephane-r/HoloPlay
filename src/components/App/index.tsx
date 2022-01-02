@@ -56,13 +56,6 @@ interface Props {
   darkMode: boolean;
 }
 
-// const App: React.FC<Props> = () => {
-
-//   return (
-//     <App initialSettings={initialSettings}>
-//   );
-// };
-
 const App: React.FC<Props> = () => {
   const navigation = useRef(null);
   const drawler = useRef(null);
@@ -135,7 +128,11 @@ const App: React.FC<Props> = () => {
             <Stack.Navigator
               headerMode="none"
               initialRouteName={initialSettings.skipLogin ? 'App' : 'Auth'}>
-              <Stack.Screen name="App" component={AppScreen} />
+              <Stack.Screen
+                name="App"
+                component={AppScreen}
+                initialParams={{ initialSettings }}
+              />
               <Stack.Screen name="Settings" component={SettingsScreen} />
               <Stack.Screen
                 name="InvidiousInstances"

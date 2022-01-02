@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import React, { useState, useEffect, memo } from 'react';
+import { View, StyleSheet } from 'react-native';
 import {
   Searchbar,
   Text,
@@ -7,126 +7,109 @@ import {
   IconButton,
   useTheme
 } from 'react-native-paper';
-import { useAnimation } from 'react-native-animation-hooks';
-import { actions } from '../../../store';
 import SearchSubmenu from '../Submenu';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { useSnackbar } from '../../../providers/Snackbar';
+import { useSearch } from '../../../providers/Search';
+import { useCallback } from 'react';
 
 const SEARCH_INPUT_PLACEHOLDER = 'Search music';
 
-type History = string;
-
 interface SearchProps {
+  searchValue: string;
   history: string[];
-  showButtonHistory: boolean;
-  submenuPosition: 'top' | 'bottom';
 }
 
-const Search: React.FC<SearchProps> = ({
-  searchValue,
-  history,
-  showButtonHistory = false,
-  submenuPosition = 'top'
-}) => {
-  const [value, setValue] = useState<string>(searchValue);
-  const [showSubmenu, setShowSubmenu] = useState<boolean>(false);
-  const { t } = useTranslation();
-  const navigation = useNavigation();
+export const SearchBar: React.FC<SearchProps> = memo(
+  ({ searchValue, history }) => {
+    const [value, setValue] = useState(searchValue);
+    const { t } = useTranslation();
+    const snackbar = useSnackbar();
+    const { search } = useSearch();
+
+    const searchThroughApi = useCallback(
+      (selectedValue: string): void => {
+        if (!selectedValue && value === '') {
+          return snackbar.show(t('search.emptyValue'));
+        }
+
+        search.search(selectedValue ?? value);
+      },
+      [snackbar, search, value, t]
+    );
+
+    const onSelectItem = useCallback(
+      (selectedValue: string): void => {
+        setValue(selectedValue);
+        searchThroughApi(selectedValue);
+      },
+      [searchThroughApi, setValue]
+    );
+
+    return (
+      <View style={[styles.container, { paddingVertical: 8 }]}>
+        <View style={{ flex: 1, paddingRight: 0 }}>
+          <Searchbar
+            placeholder={t('searchBar.placeholder')}
+            onChangeText={setValue}
+            onIconPress={() => searchThroughApi()}
+            onSubmitEditing={() => searchThroughApi()}
+            value={value ?? ''}
+          />
+        </View>
+        <Submenu searchThroughApi={onSelectItem} />
+      </View>
+    );
+  }
+);
+
+const Submenu = memo(({ searchThroughApi }) => {
+  const { state } = useSearch();
   const { dark, colors } = useTheme();
+  const [visible, setVisible] = useState(false);
 
-  const searchThroughApi = async (
-    selectedValue?: null | string = null
-  ): void => {
-    if (typeof selectedValue !== 'string' && value === '') {
-      return actions.setSnackbar({
-        message: t('search.emptyValue')
-      });
-    }
+  const toggleSubmenu = useCallback(
+    (): void => setVisible(!visible),
+    [visible, setVisible]
+  );
 
-    const wantedValue =
-      typeof selectedValue === 'string' ? selectedValue : value;
-    await actions.search(wantedValue);
-    setTimeout(() => navigation.navigate(t('navigation.search')), 200);
-  };
-
-  const toggleSubmenu = (): void => setShowSubmenu(!showSubmenu);
-
-  const isBottomPosition = submenuPosition === 'bottom';
-
-  useEffect(() => {
-    if (searchValue) {
-      setValue(searchValue);
-    }
-  }, [history]);
+  if (!state.history.length) return null;
 
   return (
-    <View
-      style={[
-        styles.container,
-        { paddingVertical: submenuPosition === 'top' ? 16 : 0 }
-      ]}>
-      <View style={{ flex: 1, paddingRight: 8 }}>
-        <Searchbar
+    <>
+      <View
+        style={{
+          transform: [
+            {
+              translateY: -4
+            }
+          ]
+        }}>
+        <IconButton
           accessibilityStates={[]}
-          placeholder={t('searchBar.placeholder')}
-          onChangeText={setValue}
-          onIconPress={searchThroughApi}
-          onSubmitEditing={searchThroughApi}
-          value={value ?? ''}
+          icon="history"
+          color={!dark ? colors.screens.search : dark ? 'black' : 'white'}
+          size={30}
+          onPress={toggleSubmenu}
+          style={{ backgroundColor: 'white', elevation: 4 }}
         />
       </View>
-      {showButtonHistory && history.length > 0 && (
-        <>
-          <View
-            style={{
-              transform: [
-                {
-                  translateY: -4
-                }
-              ]
-            }}>
-            <IconButton
-              accessibilityStates={[]}
-              icon="history"
-              color={
-                isBottomPosition && !dark
-                  ? colors.screens.search
-                  : isBottomPosition && dark
-                  ? 'black'
-                  : 'white'
-              }
-              size={30}
-              onPress={toggleSubmenu}
-              style={
-                isBottomPosition
-                  ? {
-                      backgroundColor: 'white',
-                      elevation: 4
-                    }
-                  : {}
-              }
-            />
-          </View>
-          <SearchSubmenu
-            position={submenuPosition}
-            items={history}
-            selectValue={(selectedValue: string): void => {
-              toggleSubmenu();
-              searchThroughApi(selectedValue);
-            }}
-            isOpen={showSubmenu}
-          />
-        </>
-      )}
-    </View>
+      <SearchSubmenu
+        position="bottom"
+        items={state.history}
+        selectValue={(selectedValue: string): void => {
+          toggleSubmenu();
+          searchThroughApi(selectedValue);
+        }}
+        isOpen={visible}
+      />
+    </>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row'
   }
 });
-
-export default Search;
