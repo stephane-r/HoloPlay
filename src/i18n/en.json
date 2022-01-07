@@ -131,7 +131,7 @@
         "placeholder": "Playlist name"
       },
       "removePlaylist": {
-        "title": "Remove playlist {{playlistName}} ?"
+        "title": "Remove playlist {{name}} ?"
       },
       "editApiInstance": {
         "title": "Edit Invidious instance"
@@ -179,8 +179,8 @@
       "playlistFavorisCreateSuccess": "Favorite playlist has been created",
       "addFavorisSuccess": "Add to favoris",
       "removeFavorisSuccess": "Remove from favoris",
-      "addVideoToPlaylistSuccess": "{{videoName}} has been added to playlist",
-      "removeVideoFromPlaylistSuccess": "{{videoName}} has been removed from playlist",
+      "addVideoToPlaylistSuccess": "Video added to playlist",
+      "removeVideoFromPlaylistSuccess": "Video removed from playlist",
       "addCustomInstanceSuccess": "Invidious instance added",
       "removeCustomInstanceSuccess": "Invidious instance removed"
     }

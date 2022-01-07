@@ -4,12 +4,16 @@ import {
   Image,
   StyleSheet,
   TouchableNativeFeedback,
-  Dimensions
+  Dimensions,
+  Text
 } from 'react-native';
 import { Subheading, ActivityIndicator, useTheme } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import Label from '../../Label';
 import { DASHBOARD_COLOR } from '../../../../config/theme';
+import Video from '../../Video';
+import { Children } from 'react';
+import { ButtonPlayPlaylist, PlaylistTotalSongs } from '../../CapsulePlaylist';
 
 interface CardType {
   title: string;
@@ -38,7 +42,7 @@ const CardLayout: React.FC<CardProps> = ({
   customStyle,
   alignment,
   card,
-  children,
+  children: childrenProp,
   rightContent,
   itemsRenderer,
   showItems,
@@ -63,6 +67,11 @@ const CardLayout: React.FC<CardProps> = ({
   const titleStyles = isHorizontal
     ? stylesHorizontal.title
     : stylesVertical.title;
+
+  const children = Children.toArray(childrenProp);
+  const video = children.find(child => child.type === Video);
+  const buttonPlay = children.find(child => child.type === ButtonPlayPlaylist);
+  const totalSongs = children.find(child => child.type === PlaylistTotalSongs);
 
   return (
     <View style={[containerStyles, containerCustomStyle]}>
@@ -108,14 +117,14 @@ const CardLayout: React.FC<CardProps> = ({
                   numberOfLines={isHorizontal ? 1 : 2}>
                   {card.title}
                 </Subheading>
-                {children && (
+                {totalSongs && (
                   <>
                     {isHorizontal && <Spacer height={5} />}
-                    <View style={styles.footer}>{children}</View>
+                    <View style={styles.footer}>{totalSongs}</View>
                   </>
                 )}
               </View>
-              {rightContent && rightContent}
+              {buttonPlay}
             </View>
             {isLoading && (
               <View
@@ -133,7 +142,7 @@ const CardLayout: React.FC<CardProps> = ({
             )}
           </View>
         </TouchableNativeFeedback>
-        {itemsRenderer && showItems && itemsRenderer}
+        {video}
       </View>
     </View>
   );

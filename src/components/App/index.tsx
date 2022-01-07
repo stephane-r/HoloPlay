@@ -36,7 +36,6 @@ import AppPlayer from '../AppPlayer';
 import useUpdateRelease from '../../hooks/useUpdateRelease';
 import { useTranslation } from 'react-i18next';
 import SearchScreen from '../../screens/Search';
-import DialogAddVideoToPlaylistContainer from '../../containers/DialogAddVideoToPlaylist';
 import InvidiousInstanceScreen from '../../screens/InvidiousInstances';
 import PrivacyPolicyScreen from '../../screens/PrivacyPolicy';
 import { SnackbarProvider } from '../../providers/Snackbar';
@@ -45,6 +44,8 @@ import {
   getCachedSettings,
   useAppSettings
 } from '../../providers/App';
+import { PlaylistProvider } from '../../providers/Playlist';
+import { FavoriteProvider } from '../../providers/Favorite';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -123,35 +124,48 @@ const App: React.FC<Props> = () => {
   return (
     <SnackbarProvider>
       <AppSettingsProvider data={initialSettings}>
-        <PaperProvider>
-          <NavigationContainer ref={navigation}>
-            <Stack.Navigator
-              headerMode="none"
-              initialRouteName={initialSettings.skipLogin ? 'App' : 'Auth'}>
-              <Stack.Screen
-                name="App"
-                component={AppScreen}
-                initialParams={{ initialSettings }}
-              />
-              <Stack.Screen name="Settings" component={SettingsScreen} />
-              <Stack.Screen
-                name="InvidiousInstances"
-                component={InvidiousInstanceScreen}
-              />
-              <Stack.Screen
-                name="PrivacyPolicy"
-                component={PrivacyPolicyScreen}
-              />
-              <Stack.Screen
-                name="Auth"
-                component={LoginScreen}
-                initialParams={{ setToken }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-          <SnackbarContainer />
-          <DialogAddVideoToPlaylistContainer />
-        </PaperProvider>
+        <PlaylistProvider
+          data={{
+            playlists: initialSettings.playlists,
+            favorisPlaylist: initialSettings.favorisPlaylist
+          }}>
+          <FavoriteProvider
+            data={{
+              favorisPlaylist: initialSettings.favorisPlaylist,
+              favoriteIds:
+                initialSettings.favorisPlaylist?.videos.map(v => v.videoId) ??
+                []
+            }}>
+            <PaperProvider>
+              <NavigationContainer ref={navigation}>
+                <Stack.Navigator
+                  headerMode="none"
+                  initialRouteName={initialSettings.skipLogin ? 'App' : 'Auth'}>
+                  <Stack.Screen
+                    name="App"
+                    component={AppScreen}
+                    initialParams={{ initialSettings }}
+                  />
+                  <Stack.Screen name="Settings" component={SettingsScreen} />
+                  <Stack.Screen
+                    name="InvidiousInstances"
+                    component={InvidiousInstanceScreen}
+                  />
+                  <Stack.Screen
+                    name="PrivacyPolicy"
+                    component={PrivacyPolicyScreen}
+                  />
+                  <Stack.Screen
+                    name="Auth"
+                    component={LoginScreen}
+                    initialParams={{ setToken }}
+                  />
+                </Stack.Navigator>
+              </NavigationContainer>
+              <SnackbarContainer />
+            </PaperProvider>
+          </FavoriteProvider>
+        </PlaylistProvider>
       </AppSettingsProvider>
     </SnackbarProvider>
   );

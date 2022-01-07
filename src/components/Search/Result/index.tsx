@@ -16,6 +16,8 @@ import SearchError from '../Error';
 import PlaceholderSearchList from '../../Placeholder/Search';
 import SearchEmpty from '../Empty';
 import { useSearch } from '../../../providers/Search';
+import { Card } from '../../Card';
+import { View } from 'react-native';
 
 interface Props {
   apiUrl: string;
@@ -48,13 +50,15 @@ export const SearchResult: React.FC<Props> = memo(
     return (
       <CardList>
         {data.map((video, index) => (
-          <CardSearch
-            key={video.videoId}
-            loopIndex={index}
-            video={video}
-            setPlaylistFrom="searchResults"
-            favorisButtonColor={colors.screens.search}
-          />
+          <View style={{ width: '50%' }}>
+            <Card
+              key={video.videoId}
+              loopIndex={index}
+              data={video}
+              setPlaylistFrom="searchResults"
+              favorisButtonColor={colors.screens.search}
+            />
+          </View>
         ))}
       </CardList>
     );

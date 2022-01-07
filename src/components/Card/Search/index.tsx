@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Alert } from 'react-native';
 import timeFormat from 'hh-mm-ss';
 import Card from '../Layout';
-import FavorisButtonContainer from '../../../containers/Favoris/Button';
+// import FavorisButtonContainer from '../../../containers/Favoris/Button';
 import { actions } from '../../../store';
 import { SearchVideo, Video } from '../../../types';
 import { IconButton } from 'react-native-paper';
@@ -101,11 +101,11 @@ const CardSearch: React.FC<Props> = ({
             flex: 1,
             margin: -8
           }}>
-          <FavorisButtonContainer
+          {/* <FavorisButtonContainer
             video={video}
             buttonWithIcon
             color={favorisButtonColor}
-          />
+          /> */}
           <IconButton
             icon="plus"
             accessibilityStates={[]}

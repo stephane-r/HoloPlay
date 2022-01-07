@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View } from 'react-native';
 
 interface Props {
@@ -6,13 +6,8 @@ interface Props {
   height?: number;
 }
 
-const Spacer: React.FC<Props> = ({ width, height }) => (
+const Spacer: React.FC<Props> = memo(({ width = 0, height = 0 }) => (
   <View style={{ width, height }} />
-);
-
-Spacer.defaultProps = {
-  width: 0,
-  height: 0
-};
+));
 
 export default Spacer;

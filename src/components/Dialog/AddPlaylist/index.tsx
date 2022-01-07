@@ -6,8 +6,8 @@ import { Playlist } from '../../../types';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
 import { Alert } from 'react-native';
-import usePlaylist from '../../../hooks/usePlaylist';
 import { useTranslation } from 'react-i18next';
+import { usePlaylist } from '../../../providers/Playlist';
 
 interface Props {
   toggleDialog: (value: null | Playlist) => void;
@@ -28,7 +28,8 @@ const DialogAddPlaylist: React.FC<Props> = ({
   const store = useStore();
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(props.playlist ?? playlistProps);
-  const { createPlaylist, updatePlaylist } = usePlaylist();
+  // const { createPlaylist, updatePlaylist } = usePlaylist();
+  const { playlist: playlistActions } = usePlaylist();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -47,7 +48,9 @@ const DialogAddPlaylist: React.FC<Props> = ({
       return updatePlaylist(playlist, closeDialog);
     }
 
-    return createPlaylist(playlist, closeDialog);
+    await playlistActions.create(playlist.title);
+
+    return closeDialog();
   };
 
   const closeDialog = (): void => {

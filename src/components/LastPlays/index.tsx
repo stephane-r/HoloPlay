@@ -7,8 +7,9 @@ import { SearchVideo, Video, Playlist as PlaylistType } from '../../types';
 import { Text, Title } from 'react-native-paper';
 import Spacer from '../Spacer';
 import { View, Dimensions } from 'react-native';
-import CardScrollList from '../Card/ScrollList';
+import { ScrollView } from '../Card/ScrollList';
 import { useTranslation } from 'react-i18next';
+import { Card } from '../Card';
 
 interface Props {
   setPlaylistFrom: string;
@@ -28,27 +29,29 @@ const LastPlays: React.FC<Props> = ({ setPlaylistFrom, videos, title }) => {
   return (
     <>
       <Title style={{ fontSize: 27 }}>{t('search.lastPlays')}</Title>
-      <CardScrollList>
+      <ScrollView>
         {videos.map((video, index) => (
-          <CardSearch
-            key={`last-plays-${video.videoId}-${index}`}
-            loopIndex={index}
-            video={video}
-            setPlaylistFrom="lastPlays"
-            addToPlaylist={(item) => {
-              setVideo(item);
-              toggleDialog(!dialogIsShow);
-            }}
-            containerCustomStyle={{
-              width: 250,
-              paddingTop: 15
-            }}
-            pictureCustomStyle={{
-              height: 130
-            }}
-          />
+          <View style={{ width: 250, paddingTop: 16 }}>
+            <Card
+              key={`last-plays-${video.videoId}-${index}`}
+              loopIndex={index}
+              data={video}
+              setPlaylistFrom="lastPlays"
+              // addToPlaylist={item => {
+              //   setVideo(item);
+              //   toggleDialog(!dialogIsShow);
+              // }}
+              // containerCustomStyle={{
+              //   width: 250,
+              //   paddingTop: 15
+              // }}
+              // pictureCustomStyle={{
+              //   height: 130
+              // }}
+            />
+          </View>
         ))}
-      </CardScrollList>
+      </ScrollView>
     </>
   );
 };

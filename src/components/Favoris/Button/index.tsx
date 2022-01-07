@@ -1,80 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { IconButton, Button, useTheme } from 'react-native-paper';
-import { actions } from '../../../store';
-import callApi from '../../../utils/callApi';
-import { ApiRoutes } from '../../../constants';
-import { Video, Playlist } from '../../../types';
-import useFavoris from '../../../hooks/useFavoris';
-import { Alert, CheckBox } from 'react-native';
+import { Video } from '../../../types';
+import { useFavorite } from '../../../providers/Favorite';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
-  favorisPlaylist: Playlist;
-  favorisIds: string[];
-  videoId: string;
+  video: Video;
   buttonWithIcon: boolean;
   size?: number;
   color?: string;
 }
 
-const Favoris: React.FC<Props> = ({
-  favorisPlaylist,
-  favorisIds,
-  video,
-  buttonWithIcon,
-  size = 25,
-  color
-}) => {
-  const { colors, dark } = useTheme();
-  const { addToFavoris, removeFromFavoris } = useFavoris();
-  const { t } = useTranslation();
+export const ButtonFavorite: React.FC<Props> = memo(
+  ({ video, buttonWithIcon = false, size = 25, color }) => {
+    const { colors, dark } = useTheme();
+    const { state, favorite } = useFavorite();
+    const { t } = useTranslation();
+    const isFavorite: boolean = state.favoriteIds.includes(video.videoId);
 
-  useEffect(() => {}, []);
-
-  const addOrRemoveToFavoris = (): void => {
-    if (isFavoris) {
-      const videoFinded: Video = favorisPlaylist.videos.find(
-        v => v.videoId === video.videoId
-      );
-
-      if (videoFinded.indexId) {
-        return removeFromFavoris(favorisPlaylist.playlistId, videoFinded);
-      } else {
-        return null;
+    const handlePress = useCallback((): void => {
+      if (isFavorite) {
+        return favorite.remove(video.videoId);
       }
+      return favorite.add(video);
+    }, [video, favorite]);
+
+    const iconProps = useMemo(
+      () => ({
+        icon: isFavorite ? 'heart' : 'heart-outline',
+        color: isFavorite ? colors.favoris : dark ? colors.primary : color
+      }),
+      [isFavorite, colors, dark, color]
+    );
+
+    if (buttonWithIcon) {
+      return (
+        <Button {...iconProps} uppercase={false} onPress={() => handlePress()}>
+          {t('navigation.favoris')}
+        </Button>
+      );
     }
 
-    return addToFavoris(favorisPlaylist.playlistId, video);
-  };
-
-  const isFavoris: boolean = favorisIds.includes(video.videoId);
-
-  const iconColor = {
-    icon: isFavoris ? 'heart' : 'heart-outline',
-    color: isFavoris ? colors.favoris : dark ? colors.primary : color
-  };
-
-  if (buttonWithIcon) {
     return (
-      <Button {...iconColor} uppercase={false} onPress={addOrRemoveToFavoris}>
-        {t('navigation.favoris')}
-      </Button>
+      <IconButton
+        {...iconProps}
+        size={size}
+        onPress={() => handlePress()}
+        animated
+      />
     );
   }
-
-  return (
-    <IconButton
-      {...iconColor}
-      accessibilityStates={[]}
-      size={size}
-      onPress={addOrRemoveToFavoris}
-      animated
-    />
-  );
-};
-
-Favoris.defaultProps = {
-  buttonWithIcon: false
-};
-
-export default Favoris;
+);

@@ -23,7 +23,7 @@ import ViewPager from '@react-native-community/viewpager';
 import { actions } from '../../store';
 import Spacer from '../Spacer';
 import ISO8601toDuration from '../../utils/ISO8601toDuration';
-import FavorisButtonContainer from '../../containers/Favoris/Button';
+// import FavorisButtonContainer from '../../containers/Favoris/Button';
 import { Video as VideoType } from '../../types';
 import useDownloadFile from '../../hooks/useDownloadFile';
 import hex2rgba from '../../utils/hex2rgba';
@@ -407,7 +407,7 @@ const Player: React.FC<Props> = ({
               marginRight: 'auto'
             }}
           />
-          <FavorisButtonContainer video={video} color={color} />
+          {/* <FavorisButtonContainer video={video} color={color} /> */}
         </View>
       </View>
       <Spacer height={30} />

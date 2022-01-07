@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView as RNScrollView } from 'react-native-gesture-handler';
 
-const CardScrollList: React.FC = ({ children }) => (
-  <ScrollView horizontal style={styles.list}>
+export const ScrollView: React.FC = ({ children }) => (
+  <RNScrollView horizontal style={styles.list}>
     {children}
-  </ScrollView>
+  </RNScrollView>
 );
 
 const styles = StyleSheet.create({
@@ -14,5 +14,3 @@ const styles = StyleSheet.create({
     marginHorizontal: -8
   }
 });
-
-export default CardScrollList;

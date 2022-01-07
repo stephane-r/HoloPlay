@@ -9,6 +9,9 @@ import { Text, Button } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import useFavoris from '../../../hooks/useFavoris';
 import { useTranslation } from 'react-i18next';
+import { useFavorite } from '../../../providers/Favorite';
+import { Card } from '../../Card';
+import { View } from 'react-native';
 
 interface Props {
   videos: Video[];
@@ -18,8 +21,8 @@ interface Props {
   setPlaylistFrom: string;
 }
 
-const ResultList: React.FC<Props> = ({ videos, ...props }) => {
-  const { createFavorisPlaylist } = useFavoris();
+const ResultList: React.FC<Props> = memo(({ videos, ...props }) => {
+  const { favorite } = useFavorite();
   const { t } = useTranslation();
 
   if (!videos) {
@@ -28,7 +31,7 @@ const ResultList: React.FC<Props> = ({ videos, ...props }) => {
         <Text accessibilityStates={[]}>{t('data.empty.favorisNotSet')}</Text>
         <Spacer height={20} />
         <Button
-          onPress={createFavorisPlaylist}
+          onPress={() => favorite.init()}
           mode="contained"
           theme="#EE05F2">
           {t('data.empty.favorisButtonSet')}
@@ -44,16 +47,17 @@ const ResultList: React.FC<Props> = ({ videos, ...props }) => {
   return (
     <CardList>
       {videos.map((video, index) => (
-        <CardSearch
-          isFavoris
-          key={video.videoId}
-          video={video}
-          loopIndex={index}
-          setPlaylistFrom={FAVORIS_PLAYLIST_TITLE}
-        />
+        <View style={{ width: '50%' }}>
+          <Card
+            key={video.videoId}
+            data={video}
+            loopIndex={index}
+            setPlaylistFrom={FAVORIS_PLAYLIST_TITLE}
+          />
+        </View>
       ))}
     </CardList>
   );
-};
+});
 
-export default memo(ResultList);
+export default ResultList;

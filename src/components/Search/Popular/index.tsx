@@ -1,6 +1,5 @@
 import React, { useState, memo, useEffect } from 'react';
 import { useQuery } from 'react-query';
-import CardSearch from '../../Card/Search';
 import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
 import Playlist from '../../Playlist/List';
@@ -8,12 +7,14 @@ import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
 import { Text, Title, Button, IconButton } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import { View, Dimensions, StyleSheet } from 'react-native';
-import CardScrollList from '../../Card/ScrollList';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import search from '../../../queries/search';
 import PlaceholderCardHorizontalList from '../../Placeholder/CardCenter';
 import SearchError from '../Error';
+import { CardSearch } from '../../CardSearch';
+import { ScrollView } from '../../Card/ScrollList';
+import { Card } from '../../Card';
 
 interface Props {
   playlists: PlaylistType[];
@@ -51,6 +52,7 @@ const SearchPopularTop: React.FC<Props> = ({
   );
 
   if (isLoading) {
+    // TODO: rename to placeholder scrolllist
     return <PlaceholderCardHorizontalList />;
   }
 
@@ -66,23 +68,18 @@ const SearchPopularTop: React.FC<Props> = ({
   return (
     <>
       <Header />
-      <CardScrollList>
+      <ScrollView>
         {data.map((video, index) => (
-          <CardSearch
-            key={video.videoId}
-            loopIndex={index}
-            video={video}
-            setPlaylistFrom={setPlaylistFrom}
-            containerCustomStyle={{
-              width: 250,
-              paddingTop: 15
-            }}
-            pictureCustomStyle={{
-              height: 130
-            }}
-          />
+          <View style={{ width: 250, paddingTop: 16 }}>
+            <Card
+              key={video.videoId}
+              loopIndex={index}
+              data={video}
+              setPlaylistFrom={setPlaylistFrom}
+            />
+          </View>
         ))}
-      </CardScrollList>
+      </ScrollView>
     </>
   );
 };

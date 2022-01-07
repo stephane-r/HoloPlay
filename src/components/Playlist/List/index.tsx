@@ -1,45 +1,36 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View } from 'react-native';
-import CardPlaylist from '../../Card/Playlist';
-import Spacer from '../../Spacer';
-import { setCardItem } from '../../Carousel';
 import DataEmpty from '../../Data/Empty';
 import { Playlist as PlaylistType } from '../../../types';
 import { useTranslation } from 'react-i18next';
+import { useAppSettings } from '../../../providers/App';
+import { usePlaylist } from '../../../providers/Playlist';
+import { CapsulePlaylist } from '../../CapsulePlaylist';
+import { useMemo } from 'react';
 
-interface Props {
-  playlists: PlaylistType[];
-  playingVideoId: string;
-  toggleModal: () => void;
-}
-
-const Playlist: React.FC<Props> = ({
-  playlists,
-  playingVideoId,
-  toggleModal,
-  logoutMode
-}) => {
+export const PlaylistList: React.FC = memo(() => {
   const { t } = useTranslation();
+  const { settings } = useAppSettings();
+  const { state } = usePlaylist();
 
-  if (playlists.length === 0) {
+  if (state.playlists?.length === 0) {
     return <DataEmpty text={t('data.empty.playlist')} />;
   }
 
+  const playlist: PlaylistType[] = useMemo(() =>
+    state.playlists.filter((p: PlaylistType) => p.title !== 'favoris')
+  );
+
   return (
     <View>
-      <Spacer height={18} />
-      {playlists.map(playlist => (
-        <CardPlaylist
-          key={playlist.playlistId}
+      {playlist.map(playlist => (
+        <CapsulePlaylist
           playlist={playlist}
-          toggleModal={toggleModal}
-          logoutMode={logoutMode}
+          logoutMode={settings.logoutMode}
           totalSongs={playlist.videos?.length ?? 0}
-          playingVideoId={playingVideoId}
+          playingVideoId={state.playingVideoId}
         />
       ))}
     </View>
   );
-};
-
-export default Playlist;
+});

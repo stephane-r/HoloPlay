@@ -53,7 +53,7 @@ export const getCachedSettings = async () => {
       history: JSON.parse(searchHistory) ?? [],
       playlists: JSON.parse(playlists) ?? [],
       favorisPlaylist: JSON.parse(favorisPlaylist) ?? null,
-      logoutMode: Boolean(token),
+      logoutMode: !Boolean(logoutMode),
       sendErrorMonitoring: JSON.parse(sendErrorMonitoring) ?? false,
       language: language ?? 'en',
       lastPlays: JSON.parse(lastPlays) ?? [],

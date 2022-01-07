@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-// @ts-ignore
 import { Text, useTheme } from 'react-native-paper';
 
 interface Props {
@@ -18,8 +17,8 @@ const DataEmpty: React.FC<Props> = ({ text, children }) => {
           backgroundColor: colors.background
         }
       ]}>
-      {text && <Text accessibilityStates={[]}>{text}</Text>}
-      {children && children}
+      {text ? <Text accessibilityStates={[]}>{text}</Text> : null}
+      {children}
     </View>
   );
 };

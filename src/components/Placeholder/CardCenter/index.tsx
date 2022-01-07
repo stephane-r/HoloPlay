@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import CardList from '../../Card/List';
 import PlaceholderCardSearchItem from '../Card';
-import CardScrollList from '../../Card/ScrollList';
+import { ScrollView } from '../../Card/ScrollList';
 
-const PlaceholderCardHorizontalList: React.FC = () => (
-  <CardScrollList>
+const PlaceholderCardHorizontalList: React.FC = memo(() => (
+  <ScrollView>
     <PlaceholderCardSearchItem
       containerCustomStyle={{
         width: 250,
@@ -41,7 +41,7 @@ const PlaceholderCardHorizontalList: React.FC = () => (
         paddingTop: 15
       }}
     />
-  </CardScrollList>
-);
+  </ScrollView>
+));
 
 export default PlaceholderCardHorizontalList;

@@ -131,7 +131,7 @@
         "placeholder": "Nom de la playlist"
       },
       "removePlaylist": {
-        "title": "Supprimer la playlist {{playlistName}} ?"
+        "title": "Supprimer la playlist {{name}} ?"
       },
       "editApiInstance": {
         "title": "Changer d'instance Invidious"
@@ -179,8 +179,8 @@
       "playlistFavorisCreateSuccess": "Votre playlist Favoris a été créée",
       "addFavorisSuccess": "Titre ajoutée à vos favoris",
       "removeFavorisSuccess": "Titre supprimée de vos favoris",
-      "addVideoToPlaylistSuccess": "{{videoName}} a été ajoutée dans votre playlist",
-      "removeVideoFromPlaylistSuccess": "{{videoName}} a été supprimée de votre playlist",
+      "addVideoToPlaylistSuccess": "La vidéo a été ajoutée dans votre playlist",
+      "removeVideoFromPlaylistSuccess": "La vidéo a été supprimée de votre playlist",
       "addCustomInstanceSuccess": "Instance Invidious ajoutée",
       "removeCustomInstanceSuccess": "Instance Invidious supprimée"
     }

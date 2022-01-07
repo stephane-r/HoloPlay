@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Portal, FAB, useTheme } from 'react-native-paper';
 import Layout from '../../components/Layout';
 import DialogAddPlaylist from '../../components/Dialog/AddPlaylist';
 import Header from '../../components/Header';
-import Playlist from '../../components/Playlist/List';
-import PlaylistsContainer from '../../containers/Playlists/List';
+import { PlaylistsContainer } from '../../containers/Playlists/List';
 import { Playlist as PlaylistType } from '../../types/Api';
 import { useIsFocused } from '@react-navigation/native';
 import { PLAYLISTS_COLOR } from '../../../config/theme';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
+import { PlaylistList } from '../../components/Playlist/List';
+import Spacer from '../../components/Spacer';
 
 const PlaylistScreen: React.FC = ({ route }) => {
   const [modalIsOpen, setToggleModal] = useState<boolean>(false);
@@ -19,23 +21,22 @@ const PlaylistScreen: React.FC = ({ route }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
 
-  const toggleModal = (item: null | PlaylistType = null): void => {
-    if (item?.playlistId) {
-      setPlaylist(item);
-    }
+  const toggleModal = useCallback(
+    (item: null | PlaylistType = null): void => {
+      if (item?.playlistId) {
+        setPlaylist(item);
+      }
 
-    setToggleModal(!modalIsOpen);
-  };
+      setToggleModal(!modalIsOpen);
+    },
+    [modalIsOpen, setPlaylist]
+  );
 
   return (
     <Layout>
       <Header title="Playlists" backgroundColor={colors.screens.playlists} />
-      <PlaylistsContainer
-        toggleModal={(item: PlaylistType): void => {
-          setPlaylist(item);
-          toggleModal();
-        }}
-      />
+      <Spacer height={18} />
+      <PlaylistList />
       <DialogAddPlaylist
         visible={modalIsOpen}
         toggleDialog={toggleModal}

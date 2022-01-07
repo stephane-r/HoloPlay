@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import {
   Text,
@@ -10,6 +10,7 @@ import DraggableFlatList from 'react-native-draggable-flatlist';
 import Spacer from '../Spacer';
 import { Video as VideoTypes } from '../../types';
 import { actions } from '../../store';
+import { useMemo } from 'react';
 
 interface Props {
   videos: VideoTypes[];
@@ -30,126 +31,127 @@ const DEFAULT_ICON_BUTTON_PROPS = (color: string) => ({
   color
 });
 
-const Video: React.FC<Props> = ({ videos, onDragEnd, ...props }) => {
-  const Item = useCallback(
-    ({
-      item,
-      index,
-      onPlay,
-      showRemoveButton = true,
-      playingVideoId,
-      paused,
-      onRemove,
-      color,
-      isLast,
-      drag,
-      isActive
-    }) => {
-      const [loading, setLoading] = useState<boolean>(false);
+export const VideoList: React.FC<Props> = memo(
+  ({ videos, onDragEnd, ...props }) => {
+    return (
+      <>
+        <DraggableFlatList
+          data={videos}
+          renderItem={({ item, index, ...itemProps }) => (
+            <Video
+              item={item}
+              index={index}
+              isLast={index + 1 === videos.length}
+              {...itemProps}
+              {...props}
+            />
+          )}
+          keyExtractor={(item, index) => `draggable-item-${item.videoId}`}
+          onDragEnd={({ data }) => onDragEnd(data)}
+          {...props}
+        />
+        <View style={{ width: '100%' }}>
+          <Spacer height={10} />
+        </View>
+      </>
+    );
+  }
+);
 
-      const onPress = async (): Promise<any> => {
-        try {
-          setLoading(true);
-          await onPlay(item.index || index);
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setLoading(false);
-        }
-      };
+const Video = memo(
+  ({
+    item,
+    canRemoveVideo,
+    index,
+    onPlay,
+    playingVideoId,
+    paused,
+    onRemove,
+    color,
+    isLast,
+    drag,
+    isActive
+  }) => {
+    const [loading, setLoading] = useState<boolean>(false);
 
-      return (
-        <TouchableNativeFeedback onPress={onPress} onLongPress={drag}>
-          <View
-            key={item.videoId}
-            style={[styles.container, isActive && styles.isActive]}>
-            <View style={styles.line}>
-              <Text
-                numberOfLines={1}
-                style={{
-                  width: '75%',
-                  flex: 1,
-                  color
-                }}>
-                {item.title}
-              </Text>
-              {playingVideoId === item.videoId ? (
-                <IconButton
-                  icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
-                  onPress={actions.paused}
-                  {...DEFAULT_ICON_BUTTON_PROPS(color)}
-                />
-              ) : loading ? (
-                <View
-                  style={{
-                    paddingVertical: 15,
-                    paddingHorizontal: 15
-                  }}>
-                  <ActivityIndicator color={color} size={20} />
-                </View>
-              ) : (
-                <IconButton
-                  icon="play-circle-outline"
-                  {...DEFAULT_ICON_BUTTON_PROPS(color)}
-                />
-              )}
-              {showRemoveButton && (
-                <IconButton
-                  accessibilityStates={[]}
-                  icon="delete"
-                  size={20}
-                  style={{ margin: 0 }}
-                  onPress={(): void => onRemove(item.indexId ?? null)}
-                />
-              )}
-            </View>
-            {!isLast && (
-              <View style={{ width: '100%', height: 1 }}>
-                {color ? (
-                  <Divider
-                    style={{ backgroundColor: color }}
-                    accessibilityStates={[]}
-                  />
-                ) : (
-                  <Divider accessibilityStates={[]} />
-                )}
-              </View>
+    const handlePress = useCallback(async (): Promise<any> => {
+      setLoading(true);
+      await onPlay(item.index || index);
+      setLoading(false);
+    }, [item.index, index, onPlay]);
+
+    const handleRemove = useCallback(() => {
+      onRemove(item.indexId ?? null);
+    }, [item.indexId, onRemove]);
+
+    const isCurrentPlaying = useMemo(
+      () => playingVideoId === item.videoId,
+      [item.videoId, playingVideoId]
+    );
+
+    return (
+      <TouchableNativeFeedback onPress={handlePress} onLongPress={drag}>
+        <View
+          key={item.videoId}
+          style={[styles.container, isActive && styles.isActive]}>
+          <View style={styles.line}>
+            <Text numberOfLines={1} style={[styles.title, { color }]}>
+              {item.title}
+            </Text>
+            {isCurrentPlaying ? (
+              <IconButton
+                icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
+                onPress={actions.paused}
+                {...DEFAULT_ICON_BUTTON_PROPS(color)}
+              />
+            ) : loading ? (
+              <VideoLoader color={color} />
+            ) : (
+              <IconButton
+                icon="play-circle-outline"
+                {...DEFAULT_ICON_BUTTON_PROPS(color)}
+              />
+            )}
+            {canRemoveVideo && (
+              <IconButton
+                icon="delete"
+                size={20}
+                style={{ marginRight: 0 }}
+                onPress={handleRemove}
+              />
             )}
           </View>
-        </TouchableNativeFeedback>
-      );
-    },
-    []
-  );
+          {!isLast && (
+            <View style={{ width: '100%', height: 1 }}>
+              <Divider style={color ? { backgroundColor: color } : {}} />
+            </View>
+          )}
+        </View>
+      </TouchableNativeFeedback>
+    );
+  }
+);
 
+const VideoLoader = memo(({ color }) => {
   return (
-    <>
-      <DraggableFlatList
-        data={videos}
-        renderItem={({ item, index, ...itemProps }) => (
-          <Item
-            item={item}
-            index={index}
-            isLast={index + 1 === videos.length}
-            {...itemProps}
-            {...props}
-          />
-        )}
-        keyExtractor={(item, index) => `draggable-item-${item.videoId}`}
-        onDragEnd={({ data }) => onDragEnd(data)}
-        {...props}
-      />
-      <View style={{ width: '100%' }}>
-        <Spacer height={10} />
-      </View>
-    </>
+    <View style={styles.loader}>
+      <ActivityIndicator color={color} size={20} />
+    </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center'
+  },
+  title: {
+    width: '75%',
+    flex: 1
+  },
+  loader: {
+    paddingVertical: 15,
+    paddingHorizontal: 15
   },
   line: {
     flexDirection: 'row',
@@ -159,5 +161,3 @@ const styles = StyleSheet.create({
     opacity: 0.2
   }
 });
-
-export default Video;
