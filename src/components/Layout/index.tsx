@@ -1,9 +1,8 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import LayoutSpacerContainer from '../../containers/LayoutSpacer';
 
-const Layout: React.FC = ({ setTheme, children }) => {
+const Layout: React.FC = ({ children }) => {
   const { colors } = useTheme();
 
   return (
@@ -11,7 +10,6 @@ const Layout: React.FC = ({ setTheme, children }) => {
       <ScrollView style={{ flex: 1 }}>
         <View style={[styles.container]}>{children}</View>
       </ScrollView>
-      <LayoutSpacerContainer />
     </View>
   );
 };

@@ -4,12 +4,11 @@ import { useTheme } from 'react-native-paper';
 import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
 import { CarouselPlaylists } from '../../components/Carousel';
-import { DASHBOARD_COLOR } from '../../../config/theme';
 import { useTranslation } from 'react-i18next';
-import { ProfilContainer } from '../../containers/Profil';
 import { usePlaylist } from '../../providers/Playlist';
 import { LastPlays } from '../../components/LastPlays';
 import { SearchPopular } from '../../components/Search/Popular';
+import Profil from '../../components/Profil';
 
 const DashboardScreen: React.FC = memo(() => {
   const { colors } = useTheme();
@@ -26,7 +25,7 @@ const DashboardScreen: React.FC = memo(() => {
           }
         ]}>
         <Spacer height={30} />
-        <ProfilContainer />
+        <Profil />
         <Spacer height={30} />
         <CarouselPlaylists />
       </View>

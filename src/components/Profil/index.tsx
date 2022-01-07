@@ -1,14 +1,14 @@
-import React, { memo } from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { memo, useCallback } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { Title, Text, IconButton } from 'react-native-paper';
-import Spacer from '../Spacer';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { useCallback } from 'react';
+import { useAppSettings } from '../../providers/App';
 
-const Profil: React.FC = memo(({ username }) => {
+const Profil: React.FC = memo(() => {
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const { settings } = useAppSettings();
 
   const goToInvidiousInstancesScreen = useCallback(
     () => navigation.navigate('InvidiousInstances'),
@@ -24,7 +24,7 @@ const Profil: React.FC = memo(({ username }) => {
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Title style={styles.title}>
-            {t('profil.hey', { userName: username })}
+            {t('profil.hey', { userName: settings.username })}
           </Title>
         </View>
         <View style={{ flexDirection: 'row' }}>

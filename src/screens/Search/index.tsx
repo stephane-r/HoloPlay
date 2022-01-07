@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { Title, useTheme } from 'react-native-paper';
+import React from 'react';
+import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../components/Layout';
 import { SearchResultContainer } from '../../containers/Search/Result';

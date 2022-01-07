@@ -8,8 +8,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNBootSplash from 'react-native-bootsplash';
-import SnackbarContainer from '../../containers/Snackbar';
-import { actions } from '../../store';
 import LoadingScreen from '../../screens/Loading';
 import DashboardScreen from '../../screens/Dashboard';
 import PlaylistsScreen from '../../screens/Playlists';
@@ -162,7 +160,6 @@ const App: React.FC<Props> = () => {
                   />
                 </Stack.Navigator>
               </NavigationContainer>
-              <SnackbarContainer />
             </PaperProvider>
           </FavoriteProvider>
         </PlaylistProvider>
