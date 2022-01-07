@@ -1,6 +1,5 @@
 import React, { useState, memo, useEffect } from 'react';
 import { useQuery } from 'react-query';
-import CardList from '../../Card/List';
 import CardSearch from '../../Card/Search';
 import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
@@ -13,11 +12,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import search from '../../../queries/search';
 import SearchError from '../Error';
-import PlaceholderSearchList from '../../Placeholder/Search';
 import SearchEmpty from '../Empty';
 import { useSearch } from '../../../providers/Search';
 import { Card } from '../../Card';
 import { View } from 'react-native';
+import { CardList, GridListPlaceholder } from '../../CardList';
 
 interface Props {
   apiUrl: string;
@@ -27,7 +26,11 @@ interface Props {
 
 export const SearchResult: React.FC<Props> = memo(
   ({ apiUrl, searchValue, onSuccess }) => {
-    const { isLoading, error, data } = useQuery(apiUrl, {
+    const {
+      isLoading: loading,
+      error,
+      data
+    } = useQuery(apiUrl, {
       queryFn: search,
       onSuccess: data => onSuccess(data)
     });
@@ -35,8 +38,8 @@ export const SearchResult: React.FC<Props> = memo(
     const { t } = useTranslation();
     const { navigate } = useNavigation();
 
-    if (isLoading) {
-      return <PlaceholderSearchList />;
+    if (loading) {
+      return <GridListPlaceholder />;
     }
 
     if (error || !Array.isArray(data)) {
@@ -47,21 +50,7 @@ export const SearchResult: React.FC<Props> = memo(
       return <Empty />;
     }
 
-    return (
-      <CardList>
-        {data.map((video, index) => (
-          <View style={{ width: '50%' }}>
-            <Card
-              key={video.videoId}
-              loopIndex={index}
-              data={video}
-              setPlaylistFrom="searchResults"
-              favorisButtonColor={colors.screens.search}
-            />
-          </View>
-        ))}
-      </CardList>
-    );
+    return <CardList data={data} display="grid" />;
   }
 );
 

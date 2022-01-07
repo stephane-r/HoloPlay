@@ -1,16 +1,17 @@
-import React from 'react';
-import CardList from '../../Card/List';
+import React, { memo } from 'react';
+import { View } from 'react-native';
+import { styles } from '../../CardList';
 import PlaceholderCardSearchItem from '../Card';
 
-const PlaceholderSearchList: React.FC = () => (
-  <CardList>
+const PlaceholderSearchList: React.FC = memo(() => (
+  <View style={styles.list}>
     <PlaceholderCardSearchItem />
     <PlaceholderCardSearchItem />
     <PlaceholderCardSearchItem />
     <PlaceholderCardSearchItem />
     <PlaceholderCardSearchItem />
     <PlaceholderCardSearchItem />
-  </CardList>
-);
+  </View>
+));
 
 export default PlaceholderSearchList;

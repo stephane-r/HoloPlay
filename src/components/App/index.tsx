@@ -68,7 +68,7 @@ const App: React.FC<Props> = () => {
   useUpdateRelease(true);
 
   useEffect(() => {
-    actions.appInit();
+    // actions.appInit();
 
     getCachedSettings().then(data => {
       setInitialSettings(data);

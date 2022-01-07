@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder';
 import { Image } from 'react-native';
 import timeFormat from 'hh-mm-ss';
 import { StyleSheet, TouchableNativeFeedback, View } from 'react-native';
@@ -129,6 +130,39 @@ export const CardLoading = memo(() => {
         backgroundColor: 'rgba(255, 255, 255, .6)'
       }}>
       <ActivityIndicator />
+    </View>
+  );
+});
+
+export const CardPlaceholder = memo(() => {
+  return (
+    <View style={[styles.container]}>
+      <View style={styles.card}>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'column'
+          }}>
+          <Placeholder Animation={Fade}>
+            <PlaceholderLine
+              width={100}
+              height={100}
+              style={{ borderRadius: 0, ...styles.picture }}
+            />
+          </Placeholder>
+          <View style={styles.infos}>
+            <View style={{ flex: 1 }}>
+              <Placeholder Animation={Fade}>
+                <PlaceholderLine width={100} />
+                <PlaceholderLine width={100} />
+              </Placeholder>
+            </View>
+            <Placeholder Animation={Fade} style={{ padding: 0, marginTop: 25 }}>
+              <PlaceholderLine width={40} />
+            </Placeholder>
+          </View>
+        </View>
+      </View>
     </View>
   );
 });

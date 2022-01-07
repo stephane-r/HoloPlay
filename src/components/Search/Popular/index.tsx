@@ -1,8 +1,6 @@
 import React, { useState, memo, useEffect } from 'react';
 import { useQuery } from 'react-query';
-import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
 import { actions } from '../../../store';
-import Playlist from '../../Playlist/List';
 import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
 import { Text, Title, Button, IconButton } from 'react-native-paper';
 import Spacer from '../../Spacer';
@@ -10,11 +8,12 @@ import { View, Dimensions, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import search from '../../../queries/search';
-import PlaceholderCardHorizontalList from '../../Placeholder/CardCenter';
 import SearchError from '../Error';
-import { CardSearch } from '../../CardSearch';
 import { ScrollView } from '../../Card/ScrollList';
 import { Card } from '../../Card';
+import { useAppSettings } from '../../../providers/App';
+import { useCallback } from 'react';
+import { CardList, HorizontalListPlaceholder } from '../../CardList';
 
 interface Props {
   playlists: PlaylistType[];
@@ -24,72 +23,61 @@ interface Props {
   instance: string;
 }
 
-const SearchPopularTop: React.FC<Props> = ({
-  title,
-  setPlaylistFrom,
-  apiUrl,
-  instance
-}) => {
-  const [enabled, setRefetch] = useState(true);
-  const { isLoading, error, data } = useQuery(apiUrl, search, {
-    enabled,
-    onSuccess: () => setRefetch(false)
-  });
-  const { t } = useTranslation();
-  const { navigate } = useNavigation();
+export const SearchPopular: React.FC<Props> = memo(
+  ({ title, setPlaylistFrom, apiUrl }) => {
+    const { settings } = useAppSettings();
+    const [refetch, setRefetch] = useState(true);
+    const {
+      isLoading: loading,
+      error: requestError,
+      data
+    } = useQuery(apiUrl, () => search(apiUrl, settings.instance), {
+      enabled: refetch,
+      onSuccess: () => setRefetch(false)
+    });
+    const { t } = useTranslation();
+    const { navigate } = useNavigation();
 
-  useEffect(() => {
-    if (data) {
-      actions.receiveData({ key: setPlaylistFrom, data });
+    const handlePress = useCallback(() => {
+      setRefetch(true);
+    }, [setRefetch]);
+
+    // useEffect(() => {
+    //   if (data) {
+    //     actions.receiveData({ key: setPlaylistFrom, data });
+    //   }
+    // }, [data, instance]);
+
+    if (refetch || loading) {
+      return <HorizontalListPlaceholder />;
     }
-  }, [data, instance]);
 
-  const Header = () => (
-    <View style={styles.header}>
-      <Title style={{ fontSize: 27 }}>{title}</Title>
-      <IconButton icon="sync" onPress={() => setRefetch(true)} />
-    </View>
-  );
+    const error = error || !Array.isArray(data) || data.length === 0;
 
-  if (isLoading) {
-    // TODO: rename to placeholder scrolllist
-    return <PlaceholderCardHorizontalList />;
-  }
-
-  if (error || !Array.isArray(data) || data.length === 0) {
     return (
       <>
-        <Header />
-        <SearchError />
+        <Header title={title} onPress={handlePress} />
+        {error ? <SearchError /> : <CardList data={data} />}
       </>
     );
   }
+);
 
-  return (
-    <>
-      <Header />
-      <ScrollView>
-        {data.map((video, index) => (
-          <View style={{ width: 250, paddingTop: 16 }}>
-            <Card
-              key={video.videoId}
-              loopIndex={index}
-              data={video}
-              setPlaylistFrom={setPlaylistFrom}
-            />
-          </View>
-        ))}
-      </ScrollView>
-    </>
-  );
-};
+const Header = memo(({ title, onPress }) => (
+  <View style={styles.header}>
+    <Title style={{ fontSize: 27 }}>{title}</Title>
+    <IconButton icon="sync" onPress={() => (onPress ? onPress : null)} />
+  </View>
+));
 
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  cardContainer: {
+    width: 250,
+    paddingTop: 16
   }
 });
-
-export default memo(SearchPopularTop);

@@ -1,5 +1,4 @@
 import React, { useState, memo } from 'react';
-import CardList from '../../Card/List';
 import { Playlist, Video } from '../../../types';
 import CardSearch from '../../Card/Search';
 import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
@@ -12,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useFavorite } from '../../../providers/Favorite';
 import { Card } from '../../Card';
 import { View } from 'react-native';
+import { CardList } from '../../CardList';
 
 interface Props {
   videos: Video[];
@@ -44,20 +44,7 @@ const ResultList: React.FC<Props> = memo(({ videos, ...props }) => {
     return <DataEmpty text={t('data.empty.favoris')} />;
   }
 
-  return (
-    <CardList>
-      {videos.map((video, index) => (
-        <View style={{ width: '50%' }}>
-          <Card
-            key={video.videoId}
-            data={video}
-            loopIndex={index}
-            setPlaylistFrom={FAVORIS_PLAYLIST_TITLE}
-          />
-        </View>
-      ))}
-    </CardList>
-  );
+  return <CardList data={videos} display="grid" />;
 });
 
 export default ResultList;

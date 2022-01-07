@@ -1,28 +1,19 @@
-import React, { useState, memo, useEffect } from 'react';
-import CardSearch from '../Card/Search';
-import DialogAddVideoToPlaylist from '../Dialog/AddVideoToPlaylist';
-import { actions } from '../../store';
-import Playlist from '../Playlist/List';
+import React, { memo } from 'react';
 import { SearchVideo, Video, Playlist as PlaylistType } from '../../types';
 import { Text, Title } from 'react-native-paper';
-import Spacer from '../Spacer';
-import { View, Dimensions } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from '../Card/ScrollList';
 import { useTranslation } from 'react-i18next';
 import { Card } from '../Card';
+import { useAppSettings } from '../../providers/App';
 
-interface Props {
-  setPlaylistFrom: string;
-  videos: Video[];
-  title: string;
-}
-
-const LastPlays: React.FC<Props> = ({ setPlaylistFrom, videos, title }) => {
-  const [dialogIsShow, toggleDialog] = useState<boolean>(false);
-  const [video, setVideo] = useState<null | SearchVideo>(null);
+export const LastPlays: React.FC<Props> = memo(() => {
   const { t } = useTranslation();
+  const { settings } = useAppSettings();
 
-  if (!videos || videos.length === 0) {
+  // TODO: add set playlistFrom
+
+  if (!settings.lastPlays || settings.lastPlays.length === 0) {
     return null;
   }
 
@@ -30,30 +21,17 @@ const LastPlays: React.FC<Props> = ({ setPlaylistFrom, videos, title }) => {
     <>
       <Title style={{ fontSize: 27 }}>{t('search.lastPlays')}</Title>
       <ScrollView>
-        {videos.map((video, index) => (
+        {settings.lastPlays.map((video, index) => (
           <View style={{ width: 250, paddingTop: 16 }}>
             <Card
               key={`last-plays-${video.videoId}-${index}`}
               loopIndex={index}
               data={video}
               setPlaylistFrom="lastPlays"
-              // addToPlaylist={item => {
-              //   setVideo(item);
-              //   toggleDialog(!dialogIsShow);
-              // }}
-              // containerCustomStyle={{
-              //   width: 250,
-              //   paddingTop: 15
-              // }}
-              // pictureCustomStyle={{
-              //   height: 130
-              // }}
             />
           </View>
         ))}
       </ScrollView>
     </>
   );
-};
-
-export default memo(LastPlays);
+});

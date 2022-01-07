@@ -1,29 +1,20 @@
-import React, { memo, Suspense } from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Title, useTheme, Text, Button } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
 import { CarouselPlaylists } from '../../components/Carousel';
-import SearchResultContainer from '../../containers/Search/Result';
-import PlaylistsCarouselContainer from '../../containers/Playlists/Carousel';
-import CarouselSpacerContainer from '../../containers/CarouselSpacer';
-import SearchPickerTypeContainer from '../../containers/Search/PickerType';
 import { DASHBOARD_COLOR } from '../../../config/theme';
 import { useTranslation } from 'react-i18next';
-import LastPlaysContainer from '../../containers/LastPlays';
-import PlaceholderCardHorizontalList from '../../components/Placeholder/CardCenter';
-import SearchPopularContainer from '../../containers/Search/Popular';
-import ErrorBoundary from '../../components/ErrorBoundary';
-import { useSnackbar } from '../../providers/Snackbar';
 import { ProfilContainer } from '../../containers/Profil';
 import { usePlaylist } from '../../providers/Playlist';
+import { LastPlays } from '../../components/LastPlays';
+import { SearchPopular } from '../../components/Search/Popular';
 
-const DashboardScreen: React.FC = memo(({ route }) => {
+const DashboardScreen: React.FC = memo(() => {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { state } = usePlaylist();
-
-  console.log(state.playlists.length <= 1);
 
   return (
     <Layout>
@@ -40,15 +31,15 @@ const DashboardScreen: React.FC = memo(({ route }) => {
         <CarouselPlaylists />
       </View>
       <Spacer height={!state.playlists.length ? 30 : 90} />
-      <LastPlaysContainer />
+      <LastPlays setPlaylistFrom="lastPlays" />
       <Spacer height={15} />
-      <SearchPopularContainer
+      <SearchPopular
         title={t('search.popular')}
         setPlaylistFrom="popular"
         apiUrl="popular"
       />
       <Spacer height={15} />
-      <SearchPopularContainer
+      <SearchPopular
         title={t('search.trending')}
         setPlaylistFrom="trending"
         apiUrl="trending"
