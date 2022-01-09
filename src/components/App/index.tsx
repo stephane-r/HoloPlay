@@ -44,6 +44,8 @@ import {
 } from '../../providers/App';
 import { PlaylistProvider } from '../../providers/Playlist';
 import { FavoriteProvider } from '../../providers/Favorite';
+import { PlayerProvider } from '../../providers/Player';
+import { DataProvider } from '../../providers/Data';
 
 // :troll:
 LogBox.ignoreAllLogs();
@@ -115,6 +117,23 @@ const App: React.FC<Props> = () => {
     //   .catch(error => console.log(error));
   }, []);
 
+  const playlistData = useMemo(
+    () => ({
+      playlists: initialSettings?.playlists,
+      favorisPlaylist: initialSettings?.favorisPlaylist
+    }),
+    [initialSettings]
+  );
+
+  const favoriteData = useMemo(
+    () => ({
+      favorisPlaylist: initialSettings?.favorisPlaylist,
+      favoriteIds:
+        initialSettings?.favorisPlaylist?.videos.map(v => v.videoId) ?? []
+    }),
+    [initialSettings]
+  );
+
   if (!initialSettings) {
     return <LoadingScreen />;
   }
@@ -122,45 +141,44 @@ const App: React.FC<Props> = () => {
   return (
     <SnackbarProvider>
       <AppSettingsProvider data={initialSettings}>
-        <PlaylistProvider
-          data={{
-            playlists: initialSettings.playlists,
-            favorisPlaylist: initialSettings.favorisPlaylist
-          }}>
-          <FavoriteProvider
-            data={{
-              favorisPlaylist: initialSettings.favorisPlaylist,
-              favoriteIds:
-                initialSettings.favorisPlaylist?.videos.map(v => v.videoId) ??
-                []
-            }}>
-            <PaperProvider>
-              <NavigationContainer ref={navigation}>
-                <Stack.Navigator
-                  headerMode="none"
-                  initialRouteName={initialSettings.skipLogin ? 'App' : 'Auth'}>
-                  <Stack.Screen
-                    name="App"
-                    component={AppScreen}
-                    initialParams={{ initialSettings }}
-                  />
-                  <Stack.Screen name="Settings" component={SettingsScreen} />
-                  <Stack.Screen
-                    name="InvidiousInstances"
-                    component={InvidiousInstanceScreen}
-                  />
-                  <Stack.Screen
-                    name="PrivacyPolicy"
-                    component={PrivacyPolicyScreen}
-                  />
-                  <Stack.Screen
-                    name="Auth"
-                    component={LoginScreen}
-                    initialParams={{ setToken }}
-                  />
-                </Stack.Navigator>
-              </NavigationContainer>
-            </PaperProvider>
+        <PlaylistProvider data={playlistData}>
+          <FavoriteProvider data={favoriteData}>
+            <DataProvider data={{ lastPlays: initialSettings.lastPlays }}>
+              <PlayerProvider>
+                <PaperProvider>
+                  <NavigationContainer ref={navigation}>
+                    <Stack.Navigator
+                      headerMode="none"
+                      initialRouteName={
+                        initialSettings.skipLogin ? 'App' : 'Auth'
+                      }>
+                      <Stack.Screen
+                        name="App"
+                        component={AppScreen}
+                        initialParams={{ initialSettings }}
+                      />
+                      <Stack.Screen
+                        name="Settings"
+                        component={SettingsScreen}
+                      />
+                      <Stack.Screen
+                        name="InvidiousInstances"
+                        component={InvidiousInstanceScreen}
+                      />
+                      <Stack.Screen
+                        name="PrivacyPolicy"
+                        component={PrivacyPolicyScreen}
+                      />
+                      <Stack.Screen
+                        name="Auth"
+                        component={LoginScreen}
+                        initialParams={{ setToken }}
+                      />
+                    </Stack.Navigator>
+                  </NavigationContainer>
+                </PaperProvider>
+              </PlayerProvider>
+            </DataProvider>
           </FavoriteProvider>
         </PlaylistProvider>
       </AppSettingsProvider>

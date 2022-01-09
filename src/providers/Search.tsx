@@ -24,9 +24,7 @@ export const SearchProvider = ({ children, data }) => {
   const [state, setState] = useState({
     searchValue: '',
     searchType: 'video',
-    results: [],
-    popular: [],
-    top: [],
+    history: [],
     ...data
   });
 
@@ -62,8 +60,8 @@ export const useSearch = () => {
           context.setSearch({ searchValue: value, history });
         }
       },
-      receiveData: (results: any): void => {
-        context.setSearch({ results });
+      receiveData: ({ key, data }): void => {
+        context.setSearch({ [key]: data });
       },
       searchType: (searchType: SearchTypeTypes): void => {
         context.setSearch({ searchType });

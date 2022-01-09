@@ -1,37 +1,30 @@
-import React, { memo } from 'react';
-import { SearchVideo, Video, Playlist as PlaylistType } from '../../types';
-import { Text, Title } from 'react-native-paper';
-import { View } from 'react-native';
-import { ScrollView } from '../Card/ScrollList';
+import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card } from '../Card';
-import { useAppSettings } from '../../providers/App';
+import { Title } from 'react-native-paper';
+import { useData } from '../../providers/Data';
+import { usePlaylist } from '../../providers/Playlist';
+import { CardList } from '../CardList';
+import Spacer from '../Spacer';
 
-export const LastPlays: React.FC<Props> = memo(() => {
+export const LastPlays: React.FC = memo(() => {
   const { t } = useTranslation();
-  const { settings } = useAppSettings();
+  const { state: dataState } = useData();
+  const { state: playlistState } = usePlaylist();
 
-  // TODO: add set playlistFrom
+  const spacer = useMemo(() => {
+    const playlist = playlistState.playlists.filter(p => p.title !== 'favoris');
+    return playlist.length ? 90 : 30;
+  }, [playlistState.playlists]);
 
-  if (!settings.lastPlays || settings.lastPlays.length === 0) {
+  if (!dataState.lastPlays || dataState.lastPlays.length === 0) {
     return null;
   }
 
   return (
     <>
+      <Spacer height={spacer} />
       <Title style={{ fontSize: 27 }}>{t('search.lastPlays')}</Title>
-      <ScrollView>
-        {settings.lastPlays.map((video, index) => (
-          <View style={{ width: 250, paddingTop: 16 }}>
-            <Card
-              key={`last-plays-${video.videoId}-${index}`}
-              loopIndex={index}
-              data={video}
-              setPlaylistFrom="lastPlays"
-            />
-          </View>
-        ))}
-      </ScrollView>
+      <CardList data={dataState.lastPlays} setPlaylistFrom="lastPlays" />
     </>
   );
 });

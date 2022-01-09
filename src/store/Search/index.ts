@@ -23,20 +23,20 @@ const searchState: SearchState = {
 };
 
 const searchActions = {
-  search: async (store: Store, actions: any, value: string): Promise<Store> => {
-    let history = store.history;
+  // search: async (store: Store, actions: any, value: string): Promise<Store> => {
+  //   let history = store.history;
 
-    if (value) {
-      history = [value, ...history.slice(0, 4)];
-      await AsyncStorage.setItem('searchHistory', JSON.stringify(history));
-    }
+  //   if (value) {
+  //     history = [value, ...history.slice(0, 4)];
+  //     await AsyncStorage.setItem('searchHistory', JSON.stringify(history));
+  //   }
 
-    return {
-      ...store,
-      searchValue: value,
-      history
-    };
-  },
+  //   return {
+  //     ...store,
+  //     searchValue: value,
+  //     history
+  //   };
+  // },
   setSearchResult: async (
     store: Store,
     actions: any,
@@ -60,7 +60,7 @@ const searchActions = {
   ): Store => ({
     ...store,
     searchType
-  }),
+  })
 };
 
 export { searchActions, searchState };

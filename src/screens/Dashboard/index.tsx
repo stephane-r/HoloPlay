@@ -5,7 +5,6 @@ import Layout from '../../components/Layout';
 import Spacer from '../../components/Spacer';
 import { CarouselPlaylists } from '../../components/Carousel';
 import { useTranslation } from 'react-i18next';
-import { usePlaylist } from '../../providers/Playlist';
 import { LastPlays } from '../../components/LastPlays';
 import { SearchPopular } from '../../components/Search/Popular';
 import Profil from '../../components/Profil';
@@ -13,7 +12,6 @@ import Profil from '../../components/Profil';
 const DashboardScreen: React.FC = memo(() => {
   const { colors } = useTheme();
   const { t } = useTranslation();
-  const { state } = usePlaylist();
 
   return (
     <Layout>
@@ -29,7 +27,6 @@ const DashboardScreen: React.FC = memo(() => {
         <Spacer height={30} />
         <CarouselPlaylists />
       </View>
-      <Spacer height={!state.playlists.length ? 30 : 90} />
       <LastPlays setPlaylistFrom="lastPlays" />
       <Spacer height={15} />
       <SearchPopular

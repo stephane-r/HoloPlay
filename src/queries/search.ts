@@ -1,10 +1,11 @@
 import { SearchVideo } from '../types';
 
 const search = async (
-  url: string,
+  slug: string,
   instance: string
 ): Promise<SearchVideo[]> => {
-  const request = await fetch(`${instance}/api/v1/${url}`);
+  const url = `${instance}/api/v1/${slug}`;
+  const request = await fetch(url);
   const result = await request.json();
 
   return Array.isArray(result) ? result.slice(0, 20) : [];

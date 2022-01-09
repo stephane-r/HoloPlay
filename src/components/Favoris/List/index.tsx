@@ -1,39 +1,28 @@
-import React, { useState, memo } from 'react';
-import { Playlist, Video } from '../../../types';
-import CardSearch from '../../Card/Search';
-import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
-import { FAVORIS_PLAYLIST_TITLE } from '../../../constants';
+import React, { useMemo, memo } from 'react';
 import DataEmpty from '../../Data/Empty';
 import { Text, Button } from 'react-native-paper';
 import Spacer from '../../Spacer';
-import useFavoris from '../../../hooks/useFavoris';
 import { useTranslation } from 'react-i18next';
 import { useFavorite } from '../../../providers/Favorite';
-import { Card } from '../../Card';
-import { View } from 'react-native';
 import { CardList } from '../../CardList';
 
-interface Props {
-  videos: Video[];
-  playlists?: null | Playlist[];
-  favorisIds?: string[];
-  isFavoris: boolean;
-  setPlaylistFrom: string;
-}
-
-const ResultList: React.FC<Props> = memo(({ videos, ...props }) => {
-  const { favorite } = useFavorite();
+export const FavorisList: React.FC = memo(() => {
+  const { state, favorite } = useFavorite();
   const { t } = useTranslation();
+
+  const videos = useMemo(
+    () => state.favorisPlaylist?.videos ?? null,
+    [state.favorisPlaylist]
+  );
 
   if (!videos) {
     return (
       <DataEmpty>
-        <Text accessibilityStates={[]}>{t('data.empty.favorisNotSet')}</Text>
+        <Text>{t('data.empty.favorisNotSet')}</Text>
         <Spacer height={20} />
         <Button
           onPress={() => favorite.init()}
-          mode="contained"
-          theme="#EE05F2">
+          mode="contained">
           {t('data.empty.favorisButtonSet')}
         </Button>
       </DataEmpty>
@@ -44,7 +33,5 @@ const ResultList: React.FC<Props> = memo(({ videos, ...props }) => {
     return <DataEmpty text={t('data.empty.favoris')} />;
   }
 
-  return <CardList data={videos} display="grid" />;
+  return <CardList data={videos} display="grid" setPlaylistFrom="favoris" />;
 });
-
-export default ResultList;

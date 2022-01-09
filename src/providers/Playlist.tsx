@@ -16,6 +16,7 @@ const PlaylistContext = createContext(null);
 export const PlaylistProvider = ({ children, data }) => {
   const [state, setState] = useState({
     playlists: [],
+    playlist: null,
     ...data
   });
 

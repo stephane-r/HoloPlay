@@ -1,58 +1,56 @@
-import React, { useState, memo, useEffect } from 'react';
+import React, { useMemo, memo } from 'react';
 import { useQuery } from 'react-query';
-import CardSearch from '../../Card/Search';
-import DialogAddVideoToPlaylist from '../../Dialog/AddVideoToPlaylist';
-import { actions } from '../../../store';
-import Playlist from '../../Playlist/List';
-import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
-import { Text, useTheme, Button } from 'react-native-paper';
-import Spacer from '../../Spacer';
 import DataEmpty from '../../Data/Empty';
-import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 import search from '../../../queries/search';
 import SearchError from '../Error';
 import SearchEmpty from '../Empty';
 import { useSearch } from '../../../providers/Search';
-import { Card } from '../../Card';
-import { View } from 'react-native';
 import { CardList, GridListPlaceholder } from '../../CardList';
+import { useData } from '../../../providers/Data';
+import { useSnackbar } from '../../../providers/Snackbar';
+import { useAppSettings } from '../../../providers/App';
 
-interface Props {
-  apiUrl: string;
-  searchValue: string;
-  onSuccess: (data: any) => void;
-}
+export const SearchResult: React.FC = memo(() => {
+  const { data: dataActions } = useData();
+  const { state } = useSearch();
+  const { settings } = useAppSettings();
+  const snackbar = useSnackbar();
+  const apiUrl = useMemo(
+    () =>
+      state.searchValue === ''
+        ? 'popular'
+        : `search?q=${state.searchValue}&type=${state.searchType}`,
+    [state.searchValue, state.searchType]
+  );
+  const {
+    isLoading: loading,
+    error,
+    data
+  } = useQuery(apiUrl, {
+    queryFn: () => search(apiUrl, settings.instance),
+    onSuccess: dataReceive => {
+      dataActions.receiveData({
+        key: 'search',
+        data: dataReceive
+      });
+    },
+    onError: ({ message }) => snackbar.show(message)
+  });
 
-export const SearchResult: React.FC<Props> = memo(
-  ({ apiUrl, searchValue, onSuccess }) => {
-    const {
-      isLoading: loading,
-      error,
-      data
-    } = useQuery(apiUrl, {
-      queryFn: search,
-      onSuccess: data => onSuccess(data)
-    });
-    const { colors } = useTheme();
-    const { t } = useTranslation();
-    const { navigate } = useNavigation();
-
-    if (loading) {
-      return <GridListPlaceholder />;
-    }
-
-    if (error || !Array.isArray(data)) {
-      return <Error />;
-    }
-
-    if (data.length === 0) {
-      return <Empty />;
-    }
-
-    return <CardList data={data} display="grid" />;
+  if (loading) {
+    return <GridListPlaceholder />;
   }
-);
+
+  if (error || !Array.isArray(data)) {
+    return <Error />;
+  }
+
+  if (data.length === 0) {
+    return <Empty />;
+  }
+
+  return <CardList data={data} display="grid" setPlaylistFrom="search" />;
+});
 
 const Error = memo(() => {
   return (

@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../components/Layout';
-import { SearchResultContainer } from '../../containers/Search/Result';
 import Header from '../../components/Header';
 import { SearchPickerTypeContainer } from '../../containers/Search/PickerType';
 import { SearchProvider } from '../../providers/Search';
 import { SearchbarAbsolute } from '../../components/Search/BarAbsolute';
+import { SearchResult } from '../../components/Search/Result';
 
-const SearchScreen: React.FC = ({ route }) => {
+const SearchScreen: React.FC = memo(({ route }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
 
@@ -20,11 +20,11 @@ const SearchScreen: React.FC = ({ route }) => {
           backgroundColor={colors.screens.search}>
           <SearchPickerTypeContainer />
         </Header>
-        <SearchResultContainer />
+        <SearchResult />
       </Layout>
       <SearchbarAbsolute />
     </SearchProvider>
   );
-};
+});
 
 export default SearchScreen;

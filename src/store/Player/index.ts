@@ -30,51 +30,51 @@ const playerState: PlayerState = {
 };
 
 const playerActions = {
-  showPlayer: async (store: Store): Promise<Store> => ({
-    ...store,
-    playerIsOpened: store.video !== null
-  }),
-  hidePlayer: async (store: Store): Promise<Store> => ({
-    ...store,
-    playerIsOpened: false
-  }),
-  loadVideo: async (
-    store: Store,
-    actions: any,
-    {
-      videoIndex,
-      setPlaylistFrom
-    }: { videoIndex: number; setPlaylistFrom: undefined | PlaylistOrigin }
-  ): Promise<PlayerState> => {
-    const playlist = await getPlaylist(setPlaylistFrom);
-    const isLastVideo = playlist.length === videoIndex;
-    // If is last video, we restart the playlist from first index
-    const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
-    const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
+  // showPlayer: async (store: Store): Promise<Store> => ({
+  //   ...store,
+  //   playerIsOpened: store.video !== null
+  // }),
+  // hidePlayer: async (store: Store): Promise<Store> => ({
+  //   ...store,
+  //   playerIsOpened: false
+  // }),
+  // loadVideo: async (
+  //   store: Store,
+  //   actions: any,
+  //   {
+  //     videoIndex,
+  //     setPlaylistFrom
+  //   }: { videoIndex: number; setPlaylistFrom: undefined | PlaylistOrigin }
+  // ): Promise<PlayerState> => {
+  //   const playlist = await getPlaylist(setPlaylistFrom);
+  //   const isLastVideo = playlist.length === videoIndex;
+  //   // If is last video, we restart the playlist from first index
+  //   const video: Video = isLastVideo ? playlist[0] : playlist[videoIndex];
+  //   const data = await callApi({ url: ApiRoutes.VideoId(video.videoId) });
 
-    const videoUpdated = {
-      ...video,
-      ...data,
-      uri: data.liveNow
-        ? `${config.YOUTUBE_AUDIO_SERVER_API_URL}/${data.videoId}`
-        : data.adaptiveFormats.find(
-            ({ type }: any) => type === 'audio/webm; codecs="opus"'
-          ).url,
-      thumbnail: data.videoThumbnails.find(
-        ({ quality }: VideoThumbnail) => quality === 'medium'
-      )
-    };
+  //   const videoUpdated = {
+  //     ...video,
+  //     ...data,
+  //     uri: data.liveNow
+  //       ? `${config.YOUTUBE_AUDIO_SERVER_API_URL}/${data.videoId}`
+  //       : data.adaptiveFormats.find(
+  //           ({ type }: any) => type === 'audio/webm; codecs="opus"'
+  //         ).url,
+  //     thumbnail: data.videoThumbnails.find(
+  //       ({ quality }: VideoThumbnail) => quality === 'medium'
+  //     )
+  //   };
 
-    const lastPlays = setIsLastPlay(video, store.lastPlays);
+  //   const lastPlays = setIsLastPlay(video, store.lastPlays);
 
-    return {
-      ...store,
-      video: videoUpdated,
-      videoIndex: videoIndex,
-      lastPlays,
-      playlist
-    };
-  },
+  //   return {
+  //     ...store,
+  //     video: videoUpdated,
+  //     videoIndex: videoIndex,
+  //     lastPlays,
+  //     playlist
+  //   };
+  // },
   loadLiveVideo: async (
     store: Store,
     actions: any,
@@ -112,14 +112,14 @@ const playerActions = {
       playlist
     };
   },
-  paused: async (store: Store): Promise<Store> => ({
-    ...store,
-    paused: !store.paused
-  }),
-  repeat: async (store: Store): Promise<Store> => ({
-    ...store,
-    repeat: !store.repeat
-  }),
+  // paused: async (store: Store): Promise<Store> => ({
+  //   ...store,
+  //   paused: !store.paused
+  // }),
+  // repeat: async (store: Store): Promise<Store> => ({
+  //   ...store,
+  //   repeat: !store.repeat
+  // }),
   loadPlaylist: async (store: Store, actions: any, playlistId: string) => {
     const playlist: Playlist = await callApi({
       url: ApiRoutes.PlaylistId(playlistId)

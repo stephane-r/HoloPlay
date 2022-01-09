@@ -83,8 +83,12 @@ export const CarouselPlaylists: React.FC = memo(() => {
 
   const playlists = state.playlists.filter(p => p.title !== 'favoris');
 
+  if (!playlists.length) {
+    return null;
+  }
+
   return (
-    <View style={{ marginBottom: !state.playlists.length ? 0 : -60 }}>
+    <View style={{ marginBottom: -60 }}>
       <SnapCarousel
         data={playlists}
         firstItem={playlists.length - 1}

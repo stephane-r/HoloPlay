@@ -1,19 +1,13 @@
-import React, { useState, memo, useEffect } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { useQuery } from 'react-query';
-import { actions } from '../../../store';
-import { SearchVideo, Video, Playlist as PlaylistType } from '../../../types';
-import { Text, Title, Button, IconButton } from 'react-native-paper';
-import Spacer from '../../Spacer';
-import { View, Dimensions, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
+import { Playlist as PlaylistType } from '../../../types';
+import { Title, IconButton } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
 import search from '../../../queries/search';
 import SearchError from '../Error';
-import { ScrollView } from '../../Card/ScrollList';
-import { Card } from '../../Card';
 import { useAppSettings } from '../../../providers/App';
-import { useCallback } from 'react';
 import { CardList, HorizontalListPlaceholder } from '../../CardList';
+import { useData } from '../../../providers/Data';
 
 interface Props {
   playlists: PlaylistType[];
@@ -26,6 +20,7 @@ interface Props {
 export const SearchPopular: React.FC<Props> = memo(
   ({ title, setPlaylistFrom, apiUrl }) => {
     const { settings } = useAppSettings();
+    const { data: dataActions } = useData();
     const [refetch, setRefetch] = useState(true);
     const {
       isLoading: loading,
@@ -33,31 +28,33 @@ export const SearchPopular: React.FC<Props> = memo(
       data
     } = useQuery(apiUrl, () => search(apiUrl, settings.instance), {
       enabled: refetch,
-      onSuccess: () => setRefetch(false)
+      onSuccess: dataReceive => {
+        setRefetch(false);
+        dataActions.receiveData({
+          key: setPlaylistFrom,
+          data: dataReceive
+        });
+      }
     });
-    const { t } = useTranslation();
-    const { navigate } = useNavigation();
 
     const handlePress = useCallback(() => {
       setRefetch(true);
     }, [setRefetch]);
 
-    // useEffect(() => {
-    //   if (data) {
-    //     actions.receiveData({ key: setPlaylistFrom, data });
-    //   }
-    // }, [data, instance]);
-
     if (refetch || loading) {
       return <HorizontalListPlaceholder />;
     }
 
-    const error = error || !Array.isArray(data) || data.length === 0;
+    const error = requestError || !Array.isArray(data) || data.length === 0;
 
     return (
       <>
         <Header title={title} onPress={handlePress} />
-        {error ? <SearchError /> : <CardList data={data} />}
+        {error ? (
+          <SearchError />
+        ) : (
+          <CardList data={data} setPlaylistFrom={setPlaylistFrom} />
+        )}
       </>
     );
   }

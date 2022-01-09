@@ -1,15 +1,13 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder';
-import { Image } from 'react-native';
 import timeFormat from 'hh-mm-ss';
-import { StyleSheet, TouchableNativeFeedback, View } from 'react-native';
+import { Image, StyleSheet, TouchableNativeFeedback, View } from 'react-native';
 import { IconButton, Subheading, useTheme } from 'react-native-paper';
 import { DASHBOARD_COLOR } from '../../config/theme';
 import Label from './Label';
-import Favoris, { ButtonFavorite } from './Favoris/Button';
+import { ButtonFavorite } from './Favoris/Button';
 import { useFavorite } from '../providers/Favorite';
 import { DialogAddVideoToPlaylist } from './Dialog/AddVideoToPlaylist';
-import { useCallback } from 'react';
 
 const formatCard = data => ({
   title: data.title,
@@ -33,7 +31,7 @@ export const Card = memo(({ data, onPress }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.card, { backgroundColor: colors.surface }]}>
-        <TouchableNativeFeedback onPress={() => onPress()}>
+        <TouchableNativeFeedback onPress={onPress}>
           <View
             style={{
               width: '100%',
