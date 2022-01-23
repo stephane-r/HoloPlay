@@ -1,39 +1,31 @@
-import React, { memo, useState } from 'react';
-import { View, Alert } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
-import Card from './Layout';
+import React, { memo, useState, useCallback } from 'react';
+import { View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { actions } from '../store';
 import Spacer from './Spacer';
 import { CarouselPlayIcon, setCardItem } from './Carousel';
-import { VideoList } from './Video';
+import { VideoList, VideoListDraggable } from './Video';
 import { DialogRemovePlaylist } from './Dialog/RemovePlaylist';
 import { PlaylistMenu } from './Playlist/Menu';
-import callApi from '../../utils/callApi';
-import { ApiRoutes } from '../../constants';
-import { Playlist, Video as VideoType } from '../../types';
-import { useTranslation } from 'react-i18next';
-import { useCallback } from 'react';
+import { Playlist } from '../../types';
 import { DialogEditPlaylist } from './Dialog/EditPlaylist';
 import { usePlaylist } from '../providers/Playlist';
 import { Capsule, CapsuleTotalSongs } from './Capsule';
+import { usePlayer } from '../providers/Player';
+import { useAppSettings } from '../providers/App';
 
 interface Props {
   totalSongs: number;
   playlist: Playlist;
-  playingVideoId: string;
-  toggleModal: (playlist: Playlist) => void;
 }
 
 export const CapsulePlaylist: React.FC<Props> = memo(
-  ({ totalSongs, playlist, playingVideoId, toggleModal, logoutMode }) => {
+  ({ totalSongs, playlist }) => {
     const [videoListVisible, setVideoListVisible] = useState(false);
     const { playlist: playlistActions } = usePlaylist();
+    const { player } = usePlayer();
     const { colors } = useTheme();
-
-    const toggleItems = useCallback(
-      () => setVideoListVisible(!videoListVisible),
-      [setVideoListVisible, videoListVisible]
-    );
+    const { settings } = useAppSettings();
 
     const card = setCardItem(playlist);
 
@@ -41,29 +33,22 @@ export const CapsulePlaylist: React.FC<Props> = memo(
       if (playlist.videos.length === 0) {
         return null;
       }
-
       setVideoListVisible(!videoListVisible);
-    }, [playlist, toggleItems]);
+    }, [playlist.videos.length, videoListVisible]);
 
-    const handlePlay = useCallback(
+    const handleLoadVideo = useCallback(
       async (videoIndex: number) => {
         if (videoIndex !== null || videoIndex !== undefined) {
-          try {
-            await actions.loadVideo({
-              videoIndex,
-              setPlaylistFrom: playlist.videos
-            });
-          } catch (error) {
-            actions.setSnackbar({
-              message: t('snackbar.canNotLoadVideo')
-            });
-          }
+          await player.loadVideo({
+            videoIndex,
+            setPlaylistFrom: playlist.videos
+          });
         }
       },
-      [playlist]
+      [player, playlist.videos]
     );
 
-    const handleRemove = useCallback(
+    const handleRemoveVideo = useCallback(
       (videoIndexId: string) => {
         playlistActions.removeVideo({
           videoIndexId,
@@ -71,22 +56,6 @@ export const CapsulePlaylist: React.FC<Props> = memo(
         });
       },
       [playlistActions, playlist]
-    );
-
-    const handleDragEnd = useCallback(
-      (videos: VideoType[]) => {
-        if (!logoutMode) {
-          return actions.setSnackbar({
-            message: t('playlists.canNotReOrder')
-          });
-        }
-
-        actions.sortPlaylist({
-          ...playlist,
-          videos
-        });
-      },
-      [logoutMode, playlist]
     );
 
     return (
@@ -97,16 +66,26 @@ export const CapsulePlaylist: React.FC<Props> = memo(
             <PlaylistMenuContainer playlist={playlist} />
           </PlaylistActions>
           {videoListVisible ? (
-            <VideoList
-              videos={playlist.videos}
-              color={colors.text}
-              onPlay={handlePlay}
-              onRemove={handleRemove}
-              onDragEnd={handleDragEnd}
-              playlistId={playlist.playlistId}
-              playingVideoId={playingVideoId}
-              canRemoveVideo
-            />
+            settings.logoutMode ? (
+              <VideoListDraggable
+                playlist={playlist}
+                videos={playlist.videos}
+                color={colors.text}
+                onPlay={handleLoadVideo}
+                onRemove={handleRemoveVideo}
+                playlistId={playlist.playlistId}
+                canRemoveVideo
+              />
+            ) : (
+              <VideoList
+                playlist={playlist}
+                videos={playlist.videos}
+                color={colors.text}
+                onPlay={handleLoadVideo}
+                onRemove={handleRemoveVideo}
+                canRemoveVideo
+              />
+            )
           ) : null}
         </Capsule>
         <Spacer height={10} />

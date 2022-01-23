@@ -1,8 +1,7 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { IconButton, Button, useTheme } from 'react-native-paper';
 import { Video } from '../../../types';
 import { useFavorite } from '../../../providers/Favorite';
-import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -17,15 +16,7 @@ export const ButtonFavorite: React.FC<Props> = memo(
     const { colors, dark } = useTheme();
     const { state, favorite } = useFavorite();
     const { t } = useTranslation();
-    const isFavorite: boolean = state.favoriteIds.includes(video.videoId);
-
-    const handlePress = useCallback((): void => {
-      if (isFavorite) {
-        return favorite.remove(video.videoId);
-      }
-      return favorite.add(video);
-    }, [video, favorite]);
-
+    const isFavorite = state.favoriteIds.includes(video.videoId);
     const iconProps = useMemo(
       () => ({
         icon: isFavorite ? 'heart' : 'heart-outline',
@@ -33,6 +24,13 @@ export const ButtonFavorite: React.FC<Props> = memo(
       }),
       [isFavorite, colors, dark, color]
     );
+
+    const handlePress = useCallback((): void => {
+      if (isFavorite) {
+        return favorite.remove(video.videoId);
+      }
+      return favorite.add(video);
+    }, [video, favorite, isFavorite]);
 
     if (buttonWithIcon) {
       return (

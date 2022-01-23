@@ -1,8 +1,9 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ScrollView } from './Card/ScrollList';
 import { Card, CardPlaceholder } from './Card';
 import { usePlayer } from '../providers/Player';
+import { useEffect } from 'react';
 
 export const CardList: React.FC = memo(
   ({ display = 'horizontal', ...props }) => {
@@ -20,12 +21,7 @@ export const CardList: React.FC = memo(
 const GridList = memo(({ data, setPlaylistFrom }) => {
   const { player } = usePlayer();
 
-  const handlePress = useCallback(
-    props => {
-      player.loadVideo(props);
-    },
-    [player]
-  );
+  const handlePress = useCallback(props => player.loadVideo(props), [player]);
 
   return (
     <View style={styles.list}>
@@ -71,12 +67,7 @@ export const GridListPlaceholder = memo(() => {
 const HorizontalList = memo(({ data, setPlaylistFrom }) => {
   const { player } = usePlayer();
 
-  const handlePress = useCallback(
-    props => {
-      player.loadVideo(props);
-    },
-    [player]
-  );
+  const handlePress = useCallback(props => player.loadVideo(props), [player]);
 
   return (
     <ScrollView>

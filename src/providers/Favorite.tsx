@@ -175,7 +175,13 @@ export const useFavorite = () => {
         }
       }
     }),
-    [context]
+    [
+      context,
+      playlistState.playlists,
+      playlistsActions,
+      settings.logoutMode,
+      snackbar
+    ]
   );
 
   return { state: context.state, favorite };

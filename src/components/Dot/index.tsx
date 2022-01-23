@@ -1,5 +1,5 @@
-import React from 'react';
-import { TouchableNativeFeedback, View } from 'react-native';
+import React, { memo } from 'react';
+import { StyleSheet, TouchableNativeFeedback, View } from 'react-native';
 import hex2rgba from '../../utils/hex2rgba';
 
 interface Props {
@@ -8,19 +8,34 @@ interface Props {
   onPress: () => void;
 }
 
-const Dot: React.FC<Props> = ({ isActive, color = '#FFFFFF', onPress }) => (
-  <TouchableNativeFeedback onPress={onPress}>
-    <View style={{ padding: 10 }}>
-      <View
-        style={{
-          width: isActive ? 15 : 10,
-          height: isActive ? 15 : 10,
-          backgroundColor: isActive ? color : hex2rgba(color, 0.3),
-          borderRadius: isActive ? 15 : 10
-        }}
-      />
-    </View>
-  </TouchableNativeFeedback>
+export const Dot: React.FC<Props> = memo(
+  ({ isActive, color = '#FFFFFF', onPress }) => {
+    return (
+      <TouchableNativeFeedback onPress={onPress}>
+        <View style={{ padding: 10 }}>
+          <View
+            style={[
+              isActive ? styles.active : styles.default,
+              {
+                backgroundColor: isActive ? color : hex2rgba(color, 0.3)
+              }
+            ]}
+          />
+        </View>
+      </TouchableNativeFeedback>
+    );
+  }
 );
 
-export default Dot;
+const styles = StyleSheet.create({
+  default: {
+    width: 10,
+    height: 10,
+    borderRadius: 10
+  },
+  active: {
+    width: 15,
+    height: 15,
+    borderRadius: 15
+  }
+});

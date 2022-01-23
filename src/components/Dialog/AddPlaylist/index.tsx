@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Portal, Button, Dialog, TextInput } from 'react-native-paper';
-import { actions } from '../../../store';
-import useStore from '../../../hooks/useStore';
 import { Playlist } from '../../../types';
-import callApi from '../../../utils/callApi';
-import { ApiRoutes } from '../../../constants';
-import { Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { usePlaylist } from '../../../providers/Playlist';
 
@@ -25,10 +20,8 @@ const DialogAddPlaylist: React.FC<Props> = ({
   visible,
   ...props
 }) => {
-  const store = useStore();
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState(props.playlist ?? playlistProps);
-  // const { createPlaylist, updatePlaylist } = usePlaylist();
   const { playlist: playlistActions } = usePlaylist();
   const { t } = useTranslation();
 
@@ -45,7 +38,8 @@ const DialogAddPlaylist: React.FC<Props> = ({
     setLoading(true);
 
     if (playlist.playlistId) {
-      return updatePlaylist(playlist, closeDialog);
+      return alert('TODO');
+      // return updatePlaylist(playlist, closeDialog);
     }
 
     await playlistActions.create(playlist.title);

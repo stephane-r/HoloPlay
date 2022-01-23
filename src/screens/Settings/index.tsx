@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import {
   Appbar,
@@ -7,32 +7,23 @@ import {
   Divider,
   Button,
   Text,
-  Checkbox,
   useTheme,
   Switch,
   Menu,
   IconButton
 } from 'react-native-paper';
-import useStore from '../../hooks/useStore';
 import useBackup from '../../hooks/useBackup';
 import DialogEditToken from '../../components/Dialog/EditToken';
-import DialogEditApiInstance from '../../components/Dialog/EditApiInstance';
 import { DialogEditUsername } from '../../components/Dialog/EditUsername';
-import DialogErrorMonitoring from '../../components/Dialog/ErrorMonitoring';
-import DialogLanguage from '../../components/Dialog/Language';
 import { useTranslation } from 'react-i18next';
-import getLanguageName from '../../utils/getLanguageName';
 import { ScrollView } from 'react-native-gesture-handler';
 import Spacer from '../../components/Spacer';
 import {
   NavigationHelpersCommon,
   useNavigation
 } from '@react-navigation/native';
-import { actions, connect } from '../../store';
 import AppVersion from '../../components/Version';
 import { useAppSettings } from '../../providers/App';
-import { useCallback } from 'react';
-import { useMemo } from 'react';
 import { useSnackbar } from '../../providers/Snackbar';
 
 interface Props {
@@ -41,9 +32,8 @@ interface Props {
 
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 
-const SettingsScreen: React.FC<Props> = ({ navigation, route }) => {
+const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation();
-  const store = useStore();
   const { colors } = useTheme();
   const { backupData, importData } = useBackup();
 

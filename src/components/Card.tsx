@@ -2,7 +2,12 @@ import React, { memo, useState, useCallback } from 'react';
 import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder';
 import timeFormat from 'hh-mm-ss';
 import { Image, StyleSheet, TouchableNativeFeedback, View } from 'react-native';
-import { IconButton, Subheading, useTheme } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  IconButton,
+  Subheading,
+  useTheme
+} from 'react-native-paper';
 import { DASHBOARD_COLOR } from '../../config/theme';
 import Label from './Label';
 import { ButtonFavorite } from './Favoris/Button';
@@ -28,10 +33,15 @@ export const Card = memo(({ data, onPress }) => {
   const [loading, setLoading] = useState(false);
   const card = formatCard(data);
 
+  const handlePress = useCallback(async () => {
+    setLoading(true);
+    return onPress(data).finally(() => setLoading(false));
+  }, [data, onPress]);
+
   return (
     <View style={styles.container}>
       <View style={[styles.card, { backgroundColor: colors.surface }]}>
-        <TouchableNativeFeedback onPress={onPress}>
+        <TouchableNativeFeedback onPress={handlePress}>
           <View
             style={{
               width: '100%',
@@ -81,7 +91,7 @@ const CardTitle = memo(({ children }) => {
   );
 });
 
-const CardFavorite = memo(({ data }) => {
+export const CardFavorite = memo(({ data }) => {
   const { state } = useFavorite();
 
   return (
@@ -90,7 +100,6 @@ const CardFavorite = memo(({ data }) => {
       favorisIds={state.favorisIds}
       video={data}
       buttonWithIcon
-      // color={favorisButtonColor}
     />
   );
 });
@@ -123,9 +132,9 @@ export const CardLoading = memo(() => {
         alignItems: 'center',
         position: 'absolute',
         width: '100%',
-        height: isHorizontal ? '100%' : '120%',
-        top: isHorizontal ? 0 : -25,
-        backgroundColor: 'rgba(255, 255, 255, .6)'
+        height: '110%',
+        top: -25,
+        backgroundColor: 'rgba(255, 255, 255, .8)'
       }}>
       <ActivityIndicator />
     </View>

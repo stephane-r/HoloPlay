@@ -202,9 +202,20 @@ export const usePlaylist = () => {
         } catch (error) {
           snackbar.show(error.message);
         }
+      },
+      sortPlaylist: async (playlist: Playlist) => {
+        const playlists = context.state.playlists.map(p =>
+          p.playlistId === playlist.playlistId ? playlist : p
+        );
+
+        if (settings.logoutMode) {
+          await AsyncStorage.setItem('playlists', JSON.stringify(playlists));
+        }
+
+        context.setPlaylist({ playlists });
       }
     }),
-    [context]
+    [context, settings.logoutMode, snackbar, t]
   );
 
   return { state: context.state, playlist };

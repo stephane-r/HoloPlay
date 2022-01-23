@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { LastPlays } from '../../components/LastPlays';
 import { SearchPopular } from '../../components/Search/Popular';
 import Profil from '../../components/Profil';
+import { usePlayer } from '../../providers/Player';
 
 const DashboardScreen: React.FC = memo(() => {
   const { colors } = useTheme();
@@ -40,8 +41,19 @@ const DashboardScreen: React.FC = memo(() => {
         setPlaylistFrom="trending"
         apiUrl="trending"
       />
+      <ScreenFooterMarge />
     </Layout>
   );
+});
+
+const ScreenFooterMarge = memo(() => {
+  const { state } = usePlayer();
+
+  if (!state.video) {
+    return null;
+  }
+
+  return <Spacer height={50} />;
 });
 
 const styles = StyleSheet.create({

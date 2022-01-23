@@ -1,7 +1,6 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import { IconButton, Menu } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import { useCallback } from 'react';
 
 interface Props {
   onEdit: () => void;

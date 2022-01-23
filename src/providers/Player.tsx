@@ -1,4 +1,6 @@
 import config from 'react-native-config';
+import MusicControl from 'react-native-music-control';
+import { getColorFromURL } from 'rn-dominant-color';
 import React, {
   createContext,
   useCallback,
@@ -17,11 +19,10 @@ const PlayerContext = createContext(null);
 
 export const PlayerProvider = ({ children }) => {
   const [state, setState] = useState({
+    backgroundColor: null,
     playerIsOpened: false,
     video: null,
     videoIndex: null,
-    repeat: false,
-    paused: false,
     duration: 0,
     playlist: null
   });
@@ -54,6 +55,14 @@ export const usePlayer = () => {
     playlistFrom => {
       if (!playlistFrom) {
         return context.state.playlist;
+      }
+
+      if (typeof playlistFrom === 'object') {
+        return playlistFrom;
+      }
+
+      if (playlistFrom.videoId) {
+        return playlistFrom.videos;
       }
 
       switch (playlistFrom) {
@@ -95,9 +104,13 @@ export const usePlayer = () => {
             )
           };
 
-          await dataActions.lastPlays(video);
+          const [, colors] = await Promise.all([
+            dataActions.lastPlays(video),
+            getColorFromURL(videoUpdated?.thumbnail.url)
+          ]);
 
           context.setPlayer({
+            background: colors.primary,
             video: videoUpdated,
             videoIndex: videoIndex,
             playlist,
@@ -107,17 +120,34 @@ export const usePlayer = () => {
           snackbar.show(error.message);
         }
       },
-      pause: (): void => {
-        context.setPlayer({ paused: true });
+      stop: () => {
+        context.setPlayer({
+          video: null,
+          playerIsOpened: false
+        });
       },
-      play: () => {
-        context.setPlayer({ paused: false });
+      playNextVideo: (): void => {
+        const nextVideoIndex =
+          context.state.playlist && context.state.playlist.length > 1
+            ? context.state.videoIndex + 1
+            : null;
+
+        if (nextVideoIndex !== null) {
+          player.loadVideo({ videoIndex: nextVideoIndex });
+        }
       },
-      repeat: () => {
-        context.setPlayer({ repeat: !context.state.repeat });
+      playPreviousVideo: (): void => {
+        const previousVideoIndex =
+          context.state.playlist && context.state.playlist.length > 1
+            ? context.state.videoIndex + 1
+            : null;
+
+        if (previousVideoIndex !== null) {
+          player.loadeVideo({ videoIndex: previousVideoIndex });
+        }
       }
     }),
-    [context, dataActions, dataState, snackbar]
+    [context, dataActions, snackbar, getPlaylist]
   );
 
   return { state: context.state, player };

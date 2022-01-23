@@ -1,29 +1,26 @@
-import React, { memo, useState } from 'react';
+import React, { Children, memo, useState } from 'react';
 import {
   View,
   Image,
   StyleSheet,
   TouchableNativeFeedback,
-  Dimensions,
   Text
 } from 'react-native';
-import { Subheading, ActivityIndicator, useTheme } from 'react-native-paper';
-import Spacer from '../../Spacer';
-import Label from '../../Label';
-import { DASHBOARD_COLOR } from '../../../../config/theme';
-import { Children } from 'react';
+import { Subheading, useTheme } from 'react-native-paper';
 import { CardLoading } from './Card';
 import { useTranslation } from 'react-i18next';
-import { VideoList } from './Video';
+import { VideoListDraggable, VideoList } from './Video';
 import { PlaylistActions } from './CapsulePlaylist';
 
 export const Capsule: React.FC = memo(
-  ({ data, onPress, children: childrenProp, ...props }) => {
+  ({ data, onPress, children: childrenProp }) => {
     const [loading, setLoading] = useState(false);
     const { colors } = useTheme();
 
     const children = Children.toArray(childrenProp);
-    const video = children.find(child => child.type === VideoList);
+    const video = children.find(
+      child => child.type === VideoListDraggable || child.type === VideoList
+    );
     const buttonPlay = children.find(child => child.type === PlaylistActions);
     const totalSongs = children.find(child => child.type === CapsuleTotalSongs);
 
@@ -70,9 +67,10 @@ export const Capsule: React.FC = memo(
 
 export const CapsuleTotalSongs = memo(({ totalSongs }) => {
   const { t } = useTranslation();
+  const { colors } = useTheme();
 
   return (
-    <Text style={{ color: 'white' }}>
+    <Text style={{ color: colors.text }}>
       {totalSongs} {t('playlists.song')}
       {totalSongs > 1 && 's'}
     </Text>
