@@ -1,0 +1,188 @@
+{
+  "translation": {
+    "common": {
+      "button": {
+        "done": "Hotovo",
+        "cancel": "Zrušit",
+        "add": "Přidat",
+        "close": "Zavřít"
+      }
+    },
+    "navigation": {
+      "dashboard": "Nástěnka",
+      "search": "Hledat",
+      "playlists": "Playlisty",
+      "favoris": "Oblíbené"
+    },
+    "drawler": {
+      "title": "Navigace",
+      "createPlaylist": "Vytvořit nový playlist",
+      "settings": "Nastavení",
+      "instances": "Instance Invidious",
+      "darkMode": "Tmavý režim",
+      "version": "Verze",
+      "updateAvailable": "Je dostupná aktualizace",
+      "privacyPolicy": "Ochrana údajů"
+    },
+    "profil": {
+      "hey": "Ahoj, {{userName}}",
+      "welcom": "Vítejte doma"
+    },
+    "search": {
+      "title": "Hledat",
+      "type": {
+        "video": "Video",
+        "playlist": "Playlist"
+      },
+      "popular": "Nejpopulárnější",
+      "trending": "Trendy",
+      "lastPlays": "Naposledy přehráno",
+      "error": "Žádné výsledky. Možná je instance nefunkční? Zkuste změnit instanci Invidious z obrazovky nastavení.",
+      "errorApi": "Chyba. Možná je instance nefunkční? Zkuste změnit instanci Invidious z obrazovky nastavení.",
+      "empty": "Žádný výsledek za",
+      "emptyValue": "Nemůžete hledat prázdnou hodnotu",
+      "buttonChangeInstance": "Změnit instanci"
+    },
+    "playlists": {
+      "song": "skladba",
+      "canNotReOrder": "Pomocí tohoto klíče Invidious nelze změnit pořadí playlistů."
+    },
+    "searchBar": {
+      "placeholder": "Hledat hudbu"
+    },
+    "menu": {
+      "edit": "Upravit",
+      "delete": "Odstranit"
+    },
+    "fab": {
+      "newPlaylist": "Přidat nový playlist"
+    },
+    "player": {
+      "errorLoadVideo": "Chyba ze Steam API. Načítání dalšího videa"
+    },
+    "data": {
+      "empty": {
+        "playlist": "Žádný playlist",
+        "favoris": "Žádné oblíbené",
+        "favorisNotSet": "Váš playlist oblíbených není nastaven.",
+        "favorisButtonSet": "Nastavit playlist oblíbených"
+      }
+    },
+    "settings": {
+      "title": "Nastavení",
+      "api": "API",
+      "invidiousInstance": "Instance Invidious",
+      "buttonUpdateInvidiousInstance": "Změnit",
+      "token": "Klíč",
+      "tokenEmpty": "Žádný klíč",
+      "application": "APLIKACE",
+      "username": "Uživatelské jméno",
+      "monitoring": "Sledování chyb a výkonu",
+      "enabled": "Povoleno",
+      "disabled": "Zakázáno",
+      "language": "Jazyk",
+      "data": "DATA",
+      "importExportText": "Exportovat nebo importovat mé playlisty a oblíbené",
+      "exportButton": "Export",
+      "importButton": "Import",
+      "darkMode": "Tmavý režim"
+    },
+    "instance": {
+      "title": "Instance Invidious",
+      "loading": "Načítání všech instancí Invidious...",
+      "use": "Použít",
+      "test": "Test"
+    },
+    "privacyPolicy": {
+      "title": "Ochrana údajů",
+      "intro1": "Tyto zásady ochrany osobních údajů pokrývají používání softwarové aplikace",
+      "intro2": "pro mobilní zařízení, kterou vytvořil",
+      "dataTitle": "Data sbírána mnou",
+      "dataText": "Já ani aplikace neshromažďujeme žádné osobní údaje.",
+      "emailTitle": "E-mailová komunikace",
+      "emailText1": "Pokud mě kontaktujete přes e-mail,",
+      "emailText2": "použiji vaše kontaktní údaje pouze ke zpracování vašeho požadavku.",
+      "crashReportingTitle": "Nástroj na nahlašování pádů (Sentry)",
+      "crashReportingText1": "Tato aplikace používá vlastní instanci knihovny na nahlašování pádů Sentry, která je ve výchozím nastavení zakázána",
+      "crashReportingText2": "Pokud aplikace spadne a máte povolené nahlašování pádů z menu nastavení, Sentry sesbírá data týkající se konextu: pouze data o pádu aplikace.",
+      "permissionsTitle": "Proč žádá HoloPlay o oprávnění k zapisování do externího úložiště?",
+      "permissionsText1": "HoloPlay vás požádá o oprávnění, pokud budete chtít stahovat hudbu (aby mohla být ukládána) a také pokud budete chtít vygenerovat zálohu vašich playlistů z menu nastavení.",
+      "permissionsText2": "Toto jsou dva případy, kdy vás HoloPlay požádá o toto oprávnění. Soubory budou uloženy do složky Documents ve vašem zařízení."
+    },
+    "login": {
+      "token": "Klíč",
+      "username": "Uživatelské jméno (volitelné)",
+      "instance": "Instance",
+      "buttonSaveToken": "Uložit klíč",
+      "language": "Jazyk",
+      "buttonSkip": "Přeskočit"
+    },
+    "dialog": {
+      "addToPlaylist": {
+        "title": "Přidat do playlistu",
+        "newPlaylist": "Nový playlist",
+        "text": "Vyberte playlist, do kterého chcete přidat vaši hudbu",
+        "text2": "Nebo vytvořte nový playlist",
+        "selectPlaylist": "Vybrat"
+      },
+      "createPlaylist": {
+        "titleAdd": "Vytvořit playlist",
+        "titleUpdate": "Upravit playlist",
+        "placeholder": "Název playlistu"
+      },
+      "removePlaylist": {
+        "title": "Odstranit playlist {{playlistName}} ?"
+      },
+      "editApiInstance": {
+        "title": "Upravit instanci Invidious"
+      },
+      "editToken": {
+        "title": "Upravit klíč Invidious",
+        "emptyToken": "S prázdným klíčem budete přepnuti do režimu odhlášení"
+      },
+      "editUsername": {
+        "title": "Upravit uživatelské jméno"
+      },
+      "monitoring": {
+        "title": "Sledování",
+        "text": "HoloPlay obsahuje nástroj na sledování chyb a výkonu, který je ve výchozím nastavení zakázán.",
+        "text1": "HoloPlay obsahuje nástroj na sledování chyb a výkonu, který je ve výchozím nastavení zakázán. Žádná data nebudou získávána bez vašeho souhlasu",
+        "text2": "Aktivováním této funkce budou všechny chyby odeslány na vlastní instanci Sentry",
+        "label": "Povolit"
+      },
+      "editLanguage": {
+        "title": "Změnit jazyk"
+      },
+      "customInstance": {
+        "title": "Přidat instanci Invidious",
+        "placeholder": "URL",
+        "example": "Příklad"
+      }
+    },
+    "snackbar": {
+      "updateLanguage": "Jazyk změněn",
+      "updateAvailable": "Je dostupná nová aktualizace",
+      "buttonUpdateAvailable": "Stáhnout",
+      "createPlaylist": "Playlist {{playlistName}} byl vytvořen",
+      "updatePlaylist": "Playlist {{playlistName}} byl upraven",
+      "removePlaylist": "Playlist {{playlistName}} byl odstraněn",
+      "canNotLoadVideo": "Nepodařilo se načíst video",
+      "invidiousInstanceUpdated": "Instance Invidious a playlisty byly aktualizovány",
+      "invidiousInstanceTokenUpdated": "Instance Invidious byla aktualizována. Zvažte změnu svého klíče",
+      "importData": "Vaše playlisty a oblíbené byly importovány",
+      "usernameUpdated": "Uživatelské jméno změněno",
+      "monitoringSettingsUpdated": "Nastavení sledování aktualizována",
+      "dataExportSuccess": "Vaše playlisty a oblíbené byly exportovány",
+      "dataExportError": "Chyba: vaše data nemohla být exportována. Zkontrolujte prosím oprávnění aplikace",
+      "dataImportSuccess": "Vaše playlist a oblíbené byly importovány",
+      "dataImportError": "Chyba: vaše data nemohla být importována. Zkontrolujte prosím oprávnění aplikace",
+      "playlistFavorisCreateSuccess": "Byl vytvořen oblíbený playlist",
+      "addFavorisSuccess": "Přidáno do oblíbených",
+      "removeFavorisSuccess": "Odebráno z oblíbených",
+      "addVideoToPlaylistSuccess": "Video {{videoName}} bylo přidáno do playlistu",
+      "removeVideoFromPlaylistSuccess": "Video {{videoName}} bylo odebráno z playlistu",
+      "addCustomInstanceSuccess": "Instance Invidious přidána",
+      "removeCustomInstanceSuccess": "Instance Invidious odebrána"
+    }
+  }
+}
