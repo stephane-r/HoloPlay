@@ -6,6 +6,7 @@ import { ApiRoutes } from '../../../constants';
 import { Video, Playlist } from '../../../types';
 import useFavoris from '../../../hooks/useFavoris';
 import { Alert, CheckBox } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   favorisPlaylist: Playlist;
@@ -26,13 +27,14 @@ const Favoris: React.FC<Props> = ({
 }) => {
   const { colors, dark } = useTheme();
   const { addToFavoris, removeFromFavoris } = useFavoris();
+  const { t } = useTranslation();
 
   useEffect(() => {}, []);
 
   const addOrRemoveToFavoris = (): void => {
     if (isFavoris) {
       const videoFinded: Video = favorisPlaylist.videos.find(
-        (v) => v.videoId === video.videoId
+        v => v.videoId === video.videoId
       );
 
       if (videoFinded.indexId) {
@@ -55,7 +57,7 @@ const Favoris: React.FC<Props> = ({
   if (buttonWithIcon) {
     return (
       <Button {...iconColor} uppercase={false} onPress={addOrRemoveToFavoris}>
-        Favoris
+        {t('navigation.favoris')}
       </Button>
     );
   }
