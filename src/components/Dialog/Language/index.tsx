@@ -22,7 +22,7 @@ const DialogLanguage: React.FC<Props> = ({
   onDismiss,
   toggleDialog
 }) => {
-  const [language, setLanguage] = useState<'en' | 'fr'>(value);
+  const [language, setLanguage] = useState<'en' | 'fr' | 'cs'>(value);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
   const { colors } = useTheme();
@@ -64,7 +64,7 @@ const DialogLanguage: React.FC<Props> = ({
           style={{ color: colors.text }}
           selectedValue={language}
           onValueChange={setLanguage}>
-          {['en', 'fr'].map(lng => (
+          {['en', 'fr', 'cs'].map(lng => (
             <Picker.Item key={lng} label={getLanguageName(lng)} value={lng} />
           ))}
         </Picker>
