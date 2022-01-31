@@ -8,7 +8,8 @@ const initI18n = async () => {
   i18n.use(initReactI18next).init({
     resources: {
       en: require('./en'),
-      fr: require('./fr')
+      fr: require('./fr'),
+      cs: require('./cs')
     },
     lng: lng ?? 'en'
   });
