@@ -53,7 +53,7 @@ export const getCachedSettings = async () => {
       history: JSON.parse(searchHistory) ?? [],
       playlists: JSON.parse(playlists) ?? [],
       favorisPlaylist: JSON.parse(favorisPlaylist) ?? null,
-      logoutMode: !Boolean(logoutMode),
+      logoutMode: !Boolean(token),
       sendErrorMonitoring: JSON.parse(sendErrorMonitoring) ?? false,
       language: language ?? 'en',
       lastPlays: JSON.parse(lastPlays) ?? [],
@@ -135,6 +135,13 @@ export const useAppSettings = () => {
           JSON.stringify(customInstances)
         );
         context.setAppSettings({ customInstances });
+      },
+      setInstance: async (instance: string) => {
+        await AsyncStorage.setItem(
+          'instance',
+          JSON.stringify(instance)
+        );
+        context.setAppSettings({ instance });
       }
     }),
     [context]

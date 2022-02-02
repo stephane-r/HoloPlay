@@ -5,42 +5,44 @@ import stripTrailingSlash from '../../utils/stripTrailingSlash';
 import { useTranslation } from 'react-i18next';
 import Spacer from '../Spacer';
 import { actions } from '../../store';
-import useInvidiousInstances from '../../hooks/useInvidiousInstances';
+// import useInvidiousInstances from '../../hooks/useInvidiousInstances';
 import { InstanceContainer } from '../../containers/Instance';
 import { CustomInstance } from '../../types';
+import { useInvidiousInstances } from '../../containers/InstanceList';
+import {Instance} from '../Instance';
+import { useAppSettings } from '../../providers/App';
 
 interface Props {
   customInstances: CustomInstance[];
 }
 
-const InstanceList: React.FC<Props> = memo(({ customInstances }) => {
+const InstanceList: React.FC<Props> = memo(() => {
   const { t } = useTranslation();
-  const { instances, loading, setInvidiousInstance, submitLoading } =
-    useInvidiousInstances();
+  const {data, custom} = useInvidiousInstances()
 
-  return (
-    <View style={styles.content}>
-      {loading ? (
-        <View
+  if (!data) {
+    return (
+      <View
           style={{
             paddingHorizontal: 20,
             paddingVertical: 15
           }}>
           <Text>{t('instance.loading')}</Text>
         </View>
-      ) : (
+    )
+  }
+
+  return (
+    <View style={styles.content}>
         <View>
-          {[...customInstances, ...instances].map(({ uri, isCustom }) => (
-            <InstanceContainer
+          {[...custom, ...data].map(({ uri, isCustom }) => (
+            <Instance
               key={uri}
-              uri={uri}
+              uri={stripTrailingSlash(uri)}
               isCustom={isCustom}
-              // TODO: refactor with new provider
-              setInstance={setInvidiousInstance}
             />
           ))}
         </View>
-      )}
     </View>
   );
 });

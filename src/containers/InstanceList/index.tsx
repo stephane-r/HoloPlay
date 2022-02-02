@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
+import { useQuery } from 'react-query';
 import InstanceList from '../../components/InstanceList';
 import { useAppSettings } from '../../providers/App';
+import fetchInvidiousInstances from '../../utils/fetchInvidiousInstances';
 
-const InstanceListContainer = () => {
+const InstanceContext = createContext(null);
+
+const InstancesProvider = ({ children }) => {
   const { settings } = useAppSettings();
 
-  return <InstanceList customInstances={settings.customInstances} />;
+  const {
+    data
+  } = useQuery('invidious-instances', fetchInvidiousInstances);
+
+  return (
+    <InstanceContext.Provider value={{data, custom: settings.customInstances}}>
+      {children}
+    </InstanceContext.Provider>
+  )
+}
+
+export const useInvidiousInstances = () => {
+  return useContext(InstanceContext);
+}
+
+const InstanceListContainer = () => {
+  return (
+    <InstancesProvider>
+      <InstanceList />
+    </InstancesProvider>
+  )
 };
 
 export default InstanceListContainer;
