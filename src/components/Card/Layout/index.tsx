@@ -1,19 +1,21 @@
-import React from 'react';
+import React from "react";
+import { Children } from "react";
 import {
-  View,
+  Dimensions,
   Image,
   StyleSheet,
+  Text,
   TouchableNativeFeedback,
-  Dimensions,
-  Text
-} from 'react-native';
-import { Subheading, ActivityIndicator, useTheme } from 'react-native-paper';
-import Spacer from '../../Spacer';
-import Label from '../../Label';
-import { DASHBOARD_COLOR } from '../../../../config/theme';
-import Video from '../../Video';
-import { Children } from 'react';
-import { ButtonPlayPlaylist, PlaylistTotalSongs } from '../../CapsulePlaylist';
+  View,
+} from "react-native";
+import { ActivityIndicator, Subheading, useTheme } from "react-native-paper";
+
+import { DASHBOARD_COLOR } from "../../../../config/theme";
+import { CapsuleTotalSongs } from "../../Capsule";
+import { ButtonPlayPlaylist } from "../../CapsulePlaylist";
+import Label from "../../Label";
+import Spacer from "../../Spacer";
+import Video from "../../Video";
 
 interface CardType {
   title: string;
@@ -36,7 +38,7 @@ interface CardProps {
   isStream?: boolean;
 }
 
-const HORIZONTAL_ALIGNMENT = 'horizontal';
+const HORIZONTAL_ALIGNMENT = "horizontal";
 
 const CardLayout: React.FC<CardProps> = ({
   customStyle,
@@ -69,9 +71,11 @@ const CardLayout: React.FC<CardProps> = ({
     : stylesVertical.title;
 
   const children = Children.toArray(childrenProp);
-  const video = children.find(child => child.type === Video);
-  const buttonPlay = children.find(child => child.type === ButtonPlayPlaylist);
-  const totalSongs = children.find(child => child.type === PlaylistTotalSongs);
+  const video = children.find((child) => child.type === Video);
+  const buttonPlay = children.find(
+    (child) => child.type === ButtonPlayPlaylist
+  );
+  const totalSongs = children.find((child) => child.type === CapsuleTotalSongs);
 
   return (
     <View style={[containerStyles, containerCustomStyle]}>
@@ -79,18 +83,21 @@ const CardLayout: React.FC<CardProps> = ({
         style={[
           cardStyles,
           {
-            backgroundColor: colors.surface
+            backgroundColor: colors.surface,
           },
-          customStyle
-        ]}>
+          customStyle,
+        ]}
+      >
         <TouchableNativeFeedback
-          onPress={() => props.onPress && props.onPress(props.index)}>
+          onPress={() => props.onPress && props.onPress(props.index)}
+        >
           <View
             style={{
-              width: '100%',
-              flexDirection: isHorizontal ? 'row' : 'column'
-            }}>
-            <View style={{ position: 'relative' }}>
+              width: "100%",
+              flexDirection: isHorizontal ? "row" : "column",
+            }}
+          >
+            <View style={{ position: "relative" }}>
               <Image
                 resizeMode="cover"
                 style={[pictureStyles, pictureCustomStyle]}
@@ -114,7 +121,8 @@ const CardLayout: React.FC<CardProps> = ({
               <View style={{ flex: 1 }}>
                 <Subheading
                   style={titleStyles}
-                  numberOfLines={isHorizontal ? 1 : 2}>
+                  numberOfLines={isHorizontal ? 1 : 2}
+                >
                   {card.title}
                 </Subheading>
                 {totalSongs && (
@@ -129,14 +137,15 @@ const CardLayout: React.FC<CardProps> = ({
             {isLoading && (
               <View
                 style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  width: '100%',
-                  height: isHorizontal ? '100%' : '120%',
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "absolute",
+                  width: "100%",
+                  height: isHorizontal ? "100%" : "120%",
                   top: isHorizontal ? 0 : -25,
-                  backgroundColor: 'rgba(255, 255, 255, .6)'
-                }}>
+                  backgroundColor: "rgba(255, 255, 255, .6)",
+                }}
+              >
                 <ActivityIndicator />
               </View>
             )}
@@ -149,78 +158,78 @@ const CardLayout: React.FC<CardProps> = ({
 };
 
 CardLayout.defaultProps = {
-  alignment: 'vertical',
+  alignment: "vertical",
   itemsRenderer: null,
-  isStream: false
+  isStream: false,
 };
 
 const stylesVertical = StyleSheet.create({
   container: {
-    width: '50%',
+    width: "50%",
     paddingHorizontal: 8,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
   card: {
     elevation: 2,
     flex: 1,
     borderRadius: 4,
-    padding: 10
+    padding: 10,
   },
   title: {
-    height: 55
+    height: 55,
   },
   infos: {
-    marginTop: -5
+    marginTop: -5,
   },
   picture: {
-    width: '100%',
+    width: "100%",
     height: 100,
     borderRadius: 4,
     transform: [{ translateY: -25 }],
-    marginBottom: -10
+    marginBottom: -10,
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
 
 const stylesHorizontal = StyleSheet.create({
   container: {
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   card: {
     elevation: 4,
-    flexDirection: 'column',
-    backgroundColor: 'white',
+    flexDirection: "column",
+    backgroundColor: "white",
     borderRadius: 4,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   title: {},
   picture: {
     width: 80,
     height: 80,
     borderRadius: 4,
-    transform: [{ translateY: -10 }]
+    transform: [{ translateY: -10 }],
   },
   infos: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 10,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
 
 const styles = StyleSheet.create({
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
 
 export { stylesVertical, stylesHorizontal };

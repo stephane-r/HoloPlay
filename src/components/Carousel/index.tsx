@@ -5,30 +5,12 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import { IconButton, Text } from "react-native-paper";
 import SnapCarousel from "react-native-snap-carousel";
 
+import { usePlayer } from "../../providers/Player";
 import { usePlaylist } from "../../providers/Playlist";
 import { Playlist } from "../../types";
 import { Capsule, CapsuleTotalSongs } from "../Capsule";
-import { PlaylistActions } from "../CapsulePlaylist";
-
-interface CarouselPlayIconProps {
-  onPress: () => void;
-}
-
-export const CarouselPlayIcon: React.FC<CarouselPlayIconProps> = memo(
-  ({ onPress }) => {
-    return (
-      <IconButton
-        icon="play-circle-outline"
-        size={35}
-        style={{
-          width: 40,
-          marginRight: 16,
-        }}
-        onPress={onPress}
-      />
-    );
-  }
-);
+import { ButtonPlayPlaylist, PlaylistActions } from "../CapsulePlaylist";
+import { IconButtonPlay } from "../IconButtonPlay";
 
 interface CarouselItemProps {
   item: Playlist;
@@ -42,29 +24,15 @@ export const setCardItem = (item: any): any => ({
     "https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png",
 });
 
-const CarouselItem: React.FC<CarouselItemProps> = memo(({ item, t }) => {
+const CarouselItem: React.FC<CarouselItemProps> = memo(({ item }) => {
   const videosCount = item.videos?.length ?? 0;
-
-  const runPlaylist = useCallback(
-    async (): Promise<void> =>
-      // actions.loadVideo({ videoIndex: 0, setPlaylistFrom: item.videos }),
-      [item]
-  );
-
-  const handlePlay = useCallback(() => {
-    if (!videosCount) {
-      return null;
-    }
-
-    runPlaylist();
-  }, [videosCount, runPlaylist]);
 
   return (
     <View style={styles.itemContainer}>
-      <Capsule data={setCardItem(item)} onPress={runPlaylist}>
+      <Capsule data={setCardItem(item)}>
         <CapsuleTotalSongs totalSongs={videosCount} />
         <PlaylistActions>
-          <CarouselPlayIcon onPress={handlePlay} />
+          <ButtonPlayPlaylist playlist={item} />
         </PlaylistActions>
       </Capsule>
     </View>
@@ -89,7 +57,7 @@ export const CarouselPlaylists: React.FC = memo(() => {
         layout="tinder"
         itemWidth={Dimensions.get("window").width - 32}
         sliderWidth={Dimensions.get("window").width - 32}
-        renderItem={({ item }) => <CarouselItem item={item} t={t} />}
+        renderItem={({ item }) => <CarouselItem item={item} />}
       />
     </View>
   );

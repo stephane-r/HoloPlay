@@ -1,17 +1,19 @@
+import React, { memo, useCallback, useState } from "react";
+import { View } from "react-native";
+import { useTheme } from "react-native-paper";
+
 import { useAppSettings } from "../providers/App";
 import { usePlayer } from "../providers/Player";
 import { usePlaylist } from "../providers/Playlist";
 import { Capsule, CapsuleTotalSongs } from "./Capsule";
-import { CarouselPlayIcon, setCardItem } from "./Carousel";
+import { setCardItem } from "./Carousel";
 // import { Playlist } from '../../types';
 import { DialogEditPlaylist } from "./Dialog/EditPlaylist";
 import { DialogRemovePlaylist } from "./Dialog/RemovePlaylist";
+import { IconButtonPlay } from "./IconButtonPlay";
 import { PlaylistMenu } from "./Playlist/Menu";
 import Spacer from "./Spacer";
 import { VideoList, VideoListDraggable } from "./Video";
-import React, { memo, useCallback, useState } from "react";
-import { View } from "react-native";
-import { useTheme } from "react-native-paper";
 
 interface Props {
   totalSongs: number;
@@ -61,6 +63,7 @@ export const CapsulePlaylist: React.FC<Props> = memo(
         <Capsule data={card} onPress={handlePress}>
           <CapsuleTotalSongs totalSongs={totalSongs} />
           <PlaylistActions>
+            <ButtonPlayPlaylist playlist={playlist} />
             <PlaylistMenuContainer playlist={playlist} />
           </PlaylistActions>
           {videoListVisible ? (
@@ -137,19 +140,22 @@ const PlaylistMenuContainer = memo(({ playlist }) => {
   );
 });
 
-const ButtonPlayPlaylist = memo(({ playlist }) => {
+export const ButtonPlayPlaylist = memo(({ playlist }) => {
+  const [disabled, setDisabled] = useState(false);
+  const { player } = usePlayer();
+  const handlePress = async () => {
+    alert("test");
+    setDisabled(true);
+    await player.loadVideo({
+      videoIndex: 0,
+      setPlaylistFrom: playlist.videos,
+    });
+    setDisabled(false);
+  };
+
   if (!playlist.videos) {
     return null;
   }
 
-  return (
-    <CarouselPlayIcon
-      onPress={async () => {
-        // actions.loadVideo({
-        //   videoIndex: 0,
-        //   setPlaylistFrom: playlist.videos
-        // });
-      }}
-    />
-  );
+  return <IconButtonPlay onPress={handlePress} disabled={disabled} />;
 });

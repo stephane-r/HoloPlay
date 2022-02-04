@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
   extends: [
     "@react-native-community",
@@ -9,23 +9,27 @@ module.exports = {
     "airbnb",
     "airbnb/hooks",
     "prettier",
-    "prettier/react"
+    "prettier/react",
+    "plugin:react-hooks/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: "latest",
-    sourceType: "module"
+    sourceType: "module",
   },
   plugins: [
     "react",
-    "react-hook",
+    "react-hooks",
     "react-native",
     "@typescript-eslint",
-    "react-hook",
-    "prettier"
+    "prettier",
   ],
-  rules: { "prettier/prettier": "error" }
+  rules: {
+    "prettier/prettier": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+  },
 };

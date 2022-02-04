@@ -1,6 +1,3 @@
-import { PlaylistActions } from "./CapsulePlaylist";
-import { CardLoading } from "./Card";
-import { VideoList, VideoListDraggable } from "./Video";
 import React, { Children, memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -11,6 +8,10 @@ import {
   View,
 } from "react-native";
 import { Subheading, useTheme } from "react-native-paper";
+
+import { PlaylistActions } from "./CapsulePlaylist";
+import { CardLoading } from "./Card";
+import { VideoList, VideoListDraggable } from "./Video";
 
 export const Capsule: React.FC = memo(
   ({ data, onPress, children: childrenProp }) => {
@@ -36,7 +37,7 @@ export const Capsule: React.FC = memo(
             },
           ]}
         >
-          <TouchableNativeFeedback onPress={() => onPress()}>
+          <TouchableNativeFeedback onPress={() => (onPress ? onPress() : null)}>
             <View
               style={{
                 width: "100%",
