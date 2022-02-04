@@ -2,9 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { TextInput, Button, useTheme } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-community/picker';
-import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
 import Spacer from '../../components/Spacer';
 import { FAVORIS_PLAYLIST_TITLE } from '../../constants';
 import DashboardScreen from '../Dashboard';
@@ -18,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useInvidiousInstances } from '../../containers/InstanceList';
 import { useSnackbar } from '../../providers/Snackbar';
 import { useFavorite } from '../../providers/Favorite';
+import { APP_LANGUAGES } from '../../i18n';
 
 export const LoginForm: React.FC = memo(() => {
   const { data } = useInvidiousInstances();
@@ -77,8 +76,8 @@ export const LoginForm: React.FC = memo(() => {
           style={{ color: colors.text }}
           selectedValue={settings.language}
           onValueChange={handleChangeLanguage}>
-          {['en', 'fr'].map(lang => (
-            <Picker.Item key={lang} label={getLanguageName(lang)} value={lang} />
+          {Object.entries(APP_LANGUAGES).map(([key, name]) => (
+            <Picker.Item key={key} label={name} value={key} />
           ))}
         </Picker>
       </View>

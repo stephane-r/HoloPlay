@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import AppVersion from '../../components/Version';
+import {AppVersion} from '../../components/Version';
 import { InstancesProvider } from '../../containers/InstanceList';
 import {LoginForm} from './form';
 
@@ -15,7 +15,7 @@ const LoginScreen: React.FC<Props> = () => (
       <LoginForm />
       </InstancesProvider>
     </View>
-    <AppVersion showUpdate={false} customStyle={{ alignSelf: 'center' }} />
+    <AppVersion />
   </View>
 );
 

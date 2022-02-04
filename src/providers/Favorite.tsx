@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import 'react-native-get-random-values';
 import { v4 as uuiv4 } from 'uuid';
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../constants';
-import {  Video } from '../types';
+import { Video } from '../types';
 import callApi from '../utils/callApi';
 import { useAppSettings } from './App';
 import { usePlaylist } from './Playlist';

@@ -22,9 +22,10 @@ import {
   NavigationHelpersCommon,
   useNavigation
 } from '@react-navigation/native';
-import AppVersion from '../../components/Version';
+import {AppVersion} from '../../components/Version';
 import { useAppSettings } from '../../providers/App';
 import { useSnackbar } from '../../providers/Snackbar';
+import { APP_LANGUAGES } from '../../i18n';
 
 interface Props {
   navigation: NavigationHelpersCommon;
@@ -70,7 +71,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           <DarkMode />
           <Divider />
           <View>
-            <AppVersion />
+            <AppVersion listItemStyle />
           </View>
           <Divider />
         </View>
@@ -217,11 +218,6 @@ const Username = memo(() => {
   );
 });
 
-const languages = {
-  en: 'English',
-  fr: 'Français'
-};
-
 const Language = memo(() => {
   const { t } = useTranslation();
   const { settings, setSettings } = useAppSettings();
@@ -235,7 +231,7 @@ const Language = memo(() => {
       <View style={{ flex: 1 }}>
         <List.Item
           title={t('settings.language')}
-          description={languages[settings.language]}
+          description={APP_LANGUAGES[settings.language]}
           onPress={openMenu}
         />
       </View>
@@ -255,14 +251,12 @@ const Language = memo(() => {
               style={{ marginHorizontal: 0 }}
             />
           }>
-          <Menu.Item
-            onPress={() => setSettings.language('en')}
-            title="English"
-          />
-          <Menu.Item
-            onPress={() => setSettings.language('fr')}
-            title="Français"
-          />
+            {Object.entries(APP_LANGUAGES).map(([key, name]) => (
+              <Menu.Item
+                onPress={() => setSettings.language(key)}
+                title={name}
+              />
+            ))}
         </Menu>
       </View>
     </View>

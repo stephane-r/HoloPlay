@@ -1,50 +1,26 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button, List, Text, TouchableRipple } from 'react-native-paper';
+import { View } from 'react-native';
+import { List, Text } from 'react-native-paper';
 import { version } from '../../../package';
-import useUpdateRelease from '../../hooks/useUpdateRelease';
 import { useTranslation } from 'react-i18next';
 
-interface Props {
-  customStyle?: {
-    [key: string]: string | number;
-  };
-  showUpdate: boolean;
-}
-
-const AppVersion: React.FC<Props> = ({ customStyle, showUpdate = true }) => {
+export const AppVersion: React.FC = ({ listItemStyle }) => {
   const { t } = useTranslation();
-  const { updateAvailable, downloadApk } = useUpdateRelease();
 
-  return (
-    <View style={{ flexDirection: 'row' }}>
-      <View style={{ flex: 1 }}>
-        <List.Item
-          accessibilityStates={[]}
+  if (listItemStyle) {
+    return (
+      <List.Item
           title={t('drawler.version')}
           description={version}
         />
+    )
+  }
+
+  return (
+    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 16 }}>
+        <Text>{t('drawler.version')} {version}</Text>
       </View>
-      {updateAvailable && showUpdate && (
-        <View
-          style={{
-            alignItems: 'flex-end',
-            justifyContent: 'center'
-          }}>
-          <Button
-            style={{ marginRight: 16 }}
-            mode="contained"
-            onPress={() => downloadApk()}>
-            {t('drawler.updateAvailable')}
-          </Button>
-        </View>
-      )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  text: { marginTop: 'auto', padding: 10, fontSize: 11 }
-});
-
-export default AppVersion;

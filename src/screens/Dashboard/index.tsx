@@ -31,7 +31,7 @@ const DashboardScreen: React.FC = memo(() => {
         <CarouselPlaylists />
       </View>
       <HeaderMarge />
-      <DevLoginNavigate />
+      {/* <DevLoginNavigate /> */}
       <LastPlays setPlaylistFrom="lastPlays" />
       <Spacer height={15} />
       <SearchPopular

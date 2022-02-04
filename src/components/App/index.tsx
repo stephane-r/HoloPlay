@@ -59,62 +59,15 @@ interface Props {
 
 const App: React.FC<Props> = () => {
   const navigation = useRef(null);
-  const drawler = useRef(null);
-  const [appToken, setToken] = useState<null | string>(null);
-  const [appLogoutMode, setLogoutMode] = useState<null | string>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [initialSettings, setInitialSettings] = useState(null);
 
   useUpdateRelease(true);
 
   useEffect(() => {
-    // actions.appInit();
-
     getCachedSettings().then(data => {
       setInitialSettings(data);
       RNBootSplash.hide({ duration: 250 });
     });
-
-    // QuickActions.popInitialAction()
-    //   .then(async (action: QuickAction) => {
-    //     const [instance, token, logoutMode, isDarkmode] = await Promise.all([
-    //       AsyncStorage.getItem('instance'),
-    //       AsyncStorage.getItem('token'),
-    //       AsyncStorage.getItem('logoutMode'),
-    //       AsyncStorage.getItem('darkMode')
-    //     ]);
-
-    //     // setDarkMode(JSON.parse(isDarkmode));
-
-    //     const logoutModeParsed = JSON.parse(logoutMode);
-
-    //     if (token && !logoutModeParsed) {
-    //       try {
-    //         await fetchPlaylists();
-    //       } catch (error) {
-    //         return setIsLoading(false);
-    //       }
-    //     }
-
-    //     if (token) {
-    //       setToken(token);
-    //     }
-
-    //     setLogoutMode(logoutModeParsed);
-    //     setIsLoading(false);
-
-    //     RNBootSplash.hide({ duration: 250 });
-
-    //     if (action?.title) {
-    //       switch (true) {
-    //         case action.title === QUICK_ACTION_FAVORIS:
-    //           return navigation.current?.navigate('Favoris');
-    //         case action.title === QUICK_ACTION_PLAYLISTS:
-    //           return navigation.current?.navigate('Playlists');
-    //       }
-    //     }
-    //   })
-    //   .catch(error => console.log(error));
   }, []);
 
   const playlistData = useMemo(
