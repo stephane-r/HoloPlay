@@ -1,19 +1,19 @@
-import config from 'react-native-config';
-import MusicControl from 'react-native-music-control';
-import { getColorFromURL } from 'rn-dominant-color';
+import { ApiRoutes } from "../constants";
+import { Video } from "../types";
+import callApi from "../utils/callApi";
+import { useData } from "./Data";
+import { useFavorite } from "./Favorite";
+import { useSnackbar } from "./Snackbar";
 import React, {
   createContext,
   useCallback,
   useContext,
   useMemo,
-  useState
-} from 'react';
-import { Video } from '../types';
-import callApi from '../utils/callApi';
-import { ApiRoutes } from '../constants';
-import { useSnackbar } from './Snackbar';
-import { useData } from './Data';
-import { useFavorite } from './Favorite';
+  useState,
+} from "react";
+import config from "react-native-config";
+import MusicControl from "react-native-music-control";
+import { getColorFromURL } from "rn-dominant-color";
 
 const PlayerContext = createContext(null);
 
@@ -24,12 +24,12 @@ export const PlayerProvider = ({ children }) => {
     video: null,
     videoIndex: null,
     duration: 0,
-    playlist: null
+    playlist: null,
   });
 
   const setPlayer = useCallback(
-    value => {
-      setState(prevState => ({ ...prevState, ...value }));
+    (value) => {
+      setState((prevState) => ({ ...prevState, ...value }));
     },
     [setState]
   );
@@ -48,16 +48,16 @@ export const usePlayer = () => {
   const { state: dataState, data: dataActions } = useData();
 
   if (!context) {
-    throw new Error('usePlayer must be used within a PlayerProvider');
+    throw new Error("usePlayer must be used within a PlayerProvider");
   }
 
   const getPlaylist = useCallback(
-    playlistFrom => {
+    (playlistFrom) => {
       if (!playlistFrom) {
         return context.state.playlist;
       }
 
-      if (typeof playlistFrom === 'object') {
+      if (typeof playlistFrom === "object") {
         return playlistFrom;
       }
 
@@ -66,7 +66,7 @@ export const usePlayer = () => {
       }
 
       switch (playlistFrom) {
-        case 'favoris':
+        case "favoris":
           return favoriteState.favorisPlaylist.videos;
         default:
           return dataState[playlistFrom];
@@ -100,13 +100,13 @@ export const usePlayer = () => {
                   ({ type }: any) => type === 'audio/webm; codecs="opus"'
                 ).url,
             thumbnail: data.videoThumbnails.find(
-              ({ quality }) => quality === 'medium'
-            )
+              ({ quality }) => quality === "medium"
+            ),
           };
 
           const [, colors] = await Promise.all([
             dataActions.lastPlays(video),
-            getColorFromURL(videoUpdated?.thumbnail.url)
+            getColorFromURL(videoUpdated?.thumbnail.url),
           ]);
 
           context.setPlayer({
@@ -114,7 +114,7 @@ export const usePlayer = () => {
             video: videoUpdated,
             videoIndex: videoIndex,
             playlist,
-            playerIsOpened: true
+            playerIsOpened: true,
           });
         } catch (error) {
           snackbar.show(error.message);
@@ -123,7 +123,7 @@ export const usePlayer = () => {
       stop: () => {
         context.setPlayer({
           video: null,
-          playerIsOpened: false
+          playerIsOpened: false,
         });
       },
       playNextVideo: (): void => {
@@ -145,7 +145,7 @@ export const usePlayer = () => {
         if (previousVideoIndex !== null) {
           player.loadeVideo({ videoIndex: previousVideoIndex });
         }
-      }
+      },
     }),
     [context, dataActions, snackbar, getPlaylist]
   );

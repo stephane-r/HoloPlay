@@ -1,16 +1,17 @@
-import React, { memo, useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Button, useTheme } from 'react-native-paper';
-import Layout from '../../components/Layout';
-import Spacer from '../../components/Spacer';
-import { CarouselPlaylists } from '../../components/Carousel';
-import { useTranslation } from 'react-i18next';
-import { LastPlays } from '../../components/LastPlays';
-import { SearchPopular } from '../../components/Search/Popular';
-import Profil from '../../components/Profil';
-import { usePlayer } from '../../providers/Player';
-import { usePlaylist } from '../../providers/Playlist';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
+import React, { memo, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+import { Button, useTheme } from "react-native-paper";
+
+import { CarouselPlaylists } from "../../components/Carousel";
+import { LastPlays } from "../../components/LastPlays";
+import Layout from "../../components/Layout";
+import Profil from "../../components/Profil";
+import { SearchPopular } from "../../components/Search/Popular";
+import Spacer from "../../components/Spacer";
+import { usePlayer } from "../../providers/Player";
+import { usePlaylist } from "../../providers/Playlist";
 
 const DashboardScreen: React.FC = memo(() => {
   const { colors } = useTheme();
@@ -22,9 +23,10 @@ const DashboardScreen: React.FC = memo(() => {
         style={[
           styles.header,
           {
-            backgroundColor: colors.screens.dashboard
-          }
-        ]}>
+            backgroundColor: colors.screens.dashboard,
+          },
+        ]}
+      >
         <Spacer height={30} />
         <Profil />
         <Spacer height={30} />
@@ -35,13 +37,13 @@ const DashboardScreen: React.FC = memo(() => {
       <LastPlays setPlaylistFrom="lastPlays" />
       <Spacer height={15} />
       <SearchPopular
-        title={t('search.popular')}
+        title={t("search.popular")}
         setPlaylistFrom="popular"
         apiUrl="popular"
       />
       <Spacer height={15} />
       <SearchPopular
-        title={t('search.trending')}
+        title={t("search.trending")}
         setPlaylistFrom="trending"
         apiUrl="trending"
       />
@@ -63,7 +65,9 @@ const ScreenFooterMarge = memo(() => {
 const HeaderMarge = memo(() => {
   const { state: playlistState } = usePlaylist();
   const spacer = useMemo(() => {
-    const playlist = playlistState.playlists.filter(p => p.title !== 'favoris');
+    const playlist = playlistState.playlists.filter(
+      (p) => p.title !== "favoris"
+    );
     return playlist.length ? 90 : 30;
   }, [playlistState.playlists]);
 
@@ -73,27 +77,25 @@ const HeaderMarge = memo(() => {
 const DevLoginNavigate = memo(() => {
   const navigation = useNavigation();
 
-  if (process.env.NODE_ENV !== 'development') {
+  if (process.env.NODE_ENV !== "development") {
     return null;
   }
 
   return (
-    <Button onPress={() => navigation.navigate('Auth')}>
-      Go to login
-    </Button>
-  )
-})
+    <Button onPress={() => navigation.navigate("Auth")}>Go to login</Button>
+  );
+});
 
 const styles = StyleSheet.create({
   header: {
     marginHorizontal: -16,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   searchHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  }
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
 });
 
 export default DashboardScreen;

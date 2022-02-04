@@ -1,11 +1,11 @@
-import 'react-native-gesture-handler';
-import config from 'react-native-config';
-import QuickActions from 'react-native-quick-actions';
-import React, { useEffect } from 'react';
-import * as Sentry from '@sentry/react-native';
-import App from './src/components/App';
-import { quickActionShortcutItems } from './config/quickAction';
-import { Button } from 'react-native-paper';
+import { quickActionShortcutItems } from "./config/quickAction";
+import App from "./src/components/App";
+import * as Sentry from "@sentry/react-native";
+import React, { useEffect } from "react";
+import config from "react-native-config";
+import "react-native-gesture-handler";
+import { Button } from "react-native-paper";
+import QuickActions from "react-native-quick-actions";
 
 // QuickActions.isSupported((error, supported) => {
 //   if (supported) {

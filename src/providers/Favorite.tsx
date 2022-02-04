@@ -1,13 +1,19 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import 'react-native-get-random-values';
-import { v4 as uuiv4 } from 'uuid';
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../constants';
-import { Video } from '../types';
-import callApi from '../utils/callApi';
-import { useAppSettings } from './App';
-import { usePlaylist } from './Playlist';
-import { useSnackbar } from './Snackbar';
+import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from "../constants";
+import { Video } from "../types";
+import callApi from "../utils/callApi";
+import { useAppSettings } from "./App";
+import { usePlaylist } from "./Playlist";
+import { useSnackbar } from "./Snackbar";
+import AsyncStorage from "@react-native-community/async-storage";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import "react-native-get-random-values";
+import { v4 as uuiv4 } from "uuid";
 
 const FavoriteContext = createContext(null);
 
@@ -15,15 +21,15 @@ export const FavoriteProvider = ({ children, data }) => {
   const [state, setState] = useState({
     favorisPlaylist: null,
     favoriteIds: [],
-    ...data
+    ...data,
   });
 
   const setPlaylist = useCallback(
-    value => {
-      setState(prevState => ({
+    (value) => {
+      setState((prevState) => ({
         ...prevState,
         ...value,
-        favoriteIds: value.favorisPlaylist?.videos.map(v => v.videoId) ?? []
+        favoriteIds: value.favorisPlaylist?.videos.map((v) => v.videoId) ?? [],
       }));
     },
     [setState]
@@ -40,13 +46,13 @@ export const FavoriteProvider = ({ children, data }) => {
 
 const DEFAULT_FAVORITE_PLAYLIST = {
   title: FAVORIS_PLAYLIST_TITLE,
-  privacy: 'public'
+  privacy: "public",
 };
 
 const FAVORITE_PLAYLIST = {
   ...DEFAULT_FAVORITE_PLAYLIST,
   playlistId: uuiv4(),
-  videos: []
+  videos: [],
 };
 
 export const useFavorite = () => {
@@ -56,7 +62,7 @@ export const useFavorite = () => {
   const snackbar = useSnackbar();
 
   if (!context) {
-    throw new Error('useFavorite must be used within a FavoriteProvider');
+    throw new Error("useFavorite must be used within a FavoriteProvider");
   }
 
   const favorite = useMemo(
@@ -66,8 +72,8 @@ export const useFavorite = () => {
           if (!settings.logoutMode) {
             await callApi({
               url: ApiRoutes.Playlists,
-              method: 'POST',
-              body: DEFAULT_FAVORITE_PLAYLIST
+              method: "POST",
+              body: DEFAULT_FAVORITE_PLAYLIST,
             });
           }
 
@@ -82,26 +88,26 @@ export const useFavorite = () => {
           if (!settings.logoutMode) {
             await callApi({
               url: ApiRoutes.Videos(playlistId),
-              method: 'POST',
+              method: "POST",
               body: {
-                videoId: video.videoId
-              }
+                videoId: video.videoId,
+              },
             });
           }
 
           const { playlistId } = context.state.favorisPlaylist;
           const favorisPlaylist = {
             ...context.state.favorisPlaylist,
-            videos: [video, ...(context.state.favorisPlaylist?.videos ?? [])]
+            videos: [video, ...(context.state.favorisPlaylist?.videos ?? [])],
           };
           let playlists = playlistState.playlists;
 
           if (settings.logoutMode) {
-            playlists.map(p => {
+            playlists.map((p) => {
               if (p.title === FAVORIS_PLAYLIST_TITLE) {
                 return {
                   ...p,
-                  videos: [{ ...video, indexId: uuiv4() }, ...p.videos]
+                  videos: [{ ...video, indexId: uuiv4() }, ...p.videos],
                 };
               }
 
@@ -109,11 +115,11 @@ export const useFavorite = () => {
             });
 
             await Promise.all([
-              AsyncStorage.setItem('playlists', JSON.stringify(playlists)),
+              AsyncStorage.setItem("playlists", JSON.stringify(playlists)),
               AsyncStorage.setItem(
-                'favorisPlaylist',
+                "favorisPlaylist",
                 JSON.stringify(favorisPlaylist)
-              )
+              ),
             ]);
           }
 
@@ -127,30 +133,30 @@ export const useFavorite = () => {
         try {
           const { playlistId } = context.state.favorisPlaylist;
           const video: Video = context.state.favorisPlaylist.videos.find(
-            v => v.videoId === videoId
+            (v) => v.videoId === videoId
           );
 
           if (!settings.logoutMode) {
             await callApi({
               url: ApiRoutes.VideoIndexId(playlistId, video.indexId),
-              method: 'DELETE'
+              method: "DELETE",
             });
           }
 
           const favorisPlaylist = {
             ...context.state.favorisPlaylist,
             videos: context.state.favorisPlaylist.videos.filter(
-              v => v.videoId !== videoId
-            )
+              (v) => v.videoId !== videoId
+            ),
           };
           let playlists = playlistState.playlists;
 
           if (settings.logoutMode) {
-            playlists = playlists.map(p => {
+            playlists = playlists.map((p) => {
               if (p.title === FAVORIS_PLAYLIST_TITLE) {
                 return {
                   ...p,
-                  videos: p.videos.filter(v => v.videoId !== videoId)
+                  videos: p.videos.filter((v) => v.videoId !== videoId),
                 };
               }
 
@@ -158,11 +164,11 @@ export const useFavorite = () => {
             });
 
             await Promise.all([
-              AsyncStorage.setItem('playlists', JSON.stringify(playlists)),
+              AsyncStorage.setItem("playlists", JSON.stringify(playlists)),
               AsyncStorage.setItem(
-                'favorisPlaylist',
+                "favorisPlaylist",
                 JSON.stringify(favorisPlaylist)
-              )
+              ),
             ]);
           }
 
@@ -171,14 +177,14 @@ export const useFavorite = () => {
         } catch (error) {
           snackbar.show(error.message);
         }
-      }
+      },
     }),
     [
       context,
       playlistState.playlists,
       playlistsActions,
       settings.logoutMode,
-      snackbar
+      snackbar,
     ]
   );
 

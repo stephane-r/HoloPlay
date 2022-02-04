@@ -10,9 +10,9 @@ export const AppVersion: React.FC = ({ listItemStyle }) => {
   if (listItemStyle) {
     return (
       <List.Item
-          title={t('drawler.version')}
-          description={version}
-        />
+        title={t('drawler.version')}
+        description={version}
+      />
     )
   }
 
