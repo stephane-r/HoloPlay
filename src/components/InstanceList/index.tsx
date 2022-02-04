@@ -1,16 +1,11 @@
-import React, { memo, useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
-import { Button, Text, Divider, IconButton } from 'react-native-paper';
+import React, { memo } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import stripTrailingSlash from '../../utils/stripTrailingSlash';
 import { useTranslation } from 'react-i18next';
-import Spacer from '../Spacer';
-import { actions } from '../../store';
-// import useInvidiousInstances from '../../hooks/useInvidiousInstances';
-import { InstanceContainer } from '../../containers/Instance';
 import { CustomInstance } from '../../types';
 import { useInvidiousInstances } from '../../containers/InstanceList';
-import {Instance} from '../Instance';
-import { useAppSettings } from '../../providers/App';
+import { Instance } from '../Instance';
 
 interface Props {
   customInstances: CustomInstance[];
@@ -18,7 +13,7 @@ interface Props {
 
 const InstanceList: React.FC<Props> = memo(() => {
   const { t } = useTranslation();
-  const {data, custom} = useInvidiousInstances()
+  const { data, custom } = useInvidiousInstances();
 
   if (!data) {
     return (

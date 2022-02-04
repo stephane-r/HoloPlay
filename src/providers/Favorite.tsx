@@ -1,11 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { v4 as uuiv4 } from 'uuid';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { createContext } from 'react';
-import Snackbar from '../components/Snackbar';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../constants';
-import { SearchTypeTypes } from '../store/Search';
-import { Playlist, Video } from '../types';
+import {  Video } from '../types';
 import callApi from '../utils/callApi';
 import { useAppSettings } from './App';
 import { usePlaylist } from './Playlist';

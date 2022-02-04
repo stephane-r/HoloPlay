@@ -1,13 +1,12 @@
 import React, { memo, useState, useCallback } from 'react';
 import { View } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import { actions } from '../store';
 import Spacer from './Spacer';
 import { CarouselPlayIcon, setCardItem } from './Carousel';
 import { VideoList, VideoListDraggable } from './Video';
 import { DialogRemovePlaylist } from './Dialog/RemovePlaylist';
 import { PlaylistMenu } from './Playlist/Menu';
-import { Playlist } from '../../types';
+// import { Playlist } from '../../types';
 import { DialogEditPlaylist } from './Dialog/EditPlaylist';
 import { usePlaylist } from '../providers/Playlist';
 import { Capsule, CapsuleTotalSongs } from './Capsule';
@@ -16,7 +15,6 @@ import { useAppSettings } from '../providers/App';
 
 interface Props {
   totalSongs: number;
-  playlist: Playlist;
 }
 
 export const CapsulePlaylist: React.FC<Props> = memo(
@@ -146,10 +144,10 @@ const ButtonPlayPlaylist = memo(({ playlist }) => {
   return (
     <CarouselPlayIcon
       onPress={async () => {
-        actions.loadVideo({
-          videoIndex: 0,
-          setPlaylistFrom: playlist.videos
-        });
+        // actions.loadVideo({
+        //   videoIndex: 0,
+        //   setPlaylistFrom: playlist.videos
+        // });
       }}
     />
   );

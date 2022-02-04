@@ -169,11 +169,7 @@ const App: React.FC<Props> = () => {
                         name="PrivacyPolicy"
                         component={PrivacyPolicyScreen}
                       />
-                      <Stack.Screen
-                        name="Auth"
-                        component={LoginScreen}
-                        initialParams={{ setToken }}
-                      />
+                      <Stack.Screen name="Auth" component={LoginScreen} />
                     </Stack.Navigator>
                   </NavigationContainer>
                 </PaperProvider>

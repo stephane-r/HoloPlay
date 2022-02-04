@@ -20,9 +20,7 @@ export const FavorisList: React.FC = memo(() => {
       <DataEmpty>
         <Text>{t('data.empty.favorisNotSet')}</Text>
         <Spacer height={20} />
-        <Button
-          onPress={() => favorite.init()}
-          mode="contained">
+        <Button onPress={() => favorite.init()} mode="contained">
           {t('data.empty.favorisButtonSet')}
         </Button>
       </DataEmpty>

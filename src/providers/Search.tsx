@@ -1,8 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { createContext } from 'react';
-import Snackbar from '../components/Snackbar';
-import { SearchTypeTypes } from '../store/Search';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 export const getCachedSearch = async () => {
   try {
@@ -63,7 +60,7 @@ export const useSearch = () => {
       receiveData: ({ key, data }): void => {
         context.setSearch({ [key]: data });
       },
-      searchType: (searchType: SearchTypeTypes): void => {
+      searchType: (searchType): void => {
         context.setSearch({ searchType });
       }
     }),

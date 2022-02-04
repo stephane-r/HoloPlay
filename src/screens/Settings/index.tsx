@@ -43,40 +43,36 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
         backgroundColor: colors.background
       }}>
       <View style={[styles.container, { minHeight: DEVICE_HEIGHT }]}>
-        <Appbar accessibilityStates={[]}>
+        <Appbar>
           <Appbar.BackAction
-            accessibilityStates={[]}
             icon="archive"
             onPress={(): void => navigation.goBack()}
           />
-          <Appbar.Content
-            title={t('settings.title')}
-            accessibilityStates={[]}
-          />
+          <Appbar.Content title={t('settings.title')} />
         </Appbar>
         <View style={styles.content}>
           <Subheading style={styles.subheading}>{t('settings.api')}</Subheading>
           <Instance />
-          <Divider accessibilityStates={[]} />
+          <Divider />
           <Token />
-          <Divider accessibilityStates={[]} />
+          <Divider />
         </View>
         <View style={styles.content}>
           <Subheading style={styles.subheading}>
             {t('settings.application')}
           </Subheading>
           <Username />
-          <Divider accessibilityStates={[]} />
+          <Divider />
           <Language />
-          <Divider accessibilityStates={[]} />
+          <Divider />
           <ErrorMonitoring />
-          <Divider accessibilityStates={[]} />
+          <Divider />
           <DarkMode />
-          <Divider accessibilityStates={[]} />
+          <Divider />
           <View>
             <AppVersion />
           </View>
-          <Divider accessibilityStates={[]} />
+          <Divider />
         </View>
         <View style={styles.content}>
           <Subheading style={styles.subheading}>
@@ -110,22 +106,48 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             </Button>
           </View>
         </View>
+        <View style={{ height: 25 }} />
+        <Divider />
+        <View style={styles.content}>
+          <Subheading style={styles.subheading}>
+            {t('drawler.privacyPolicy').toUpperCase()}
+          </Subheading>
+          <View style={{ height: 15 }} />
+          <PrivacyPolicy />
+        </View>
       </View>
       <Spacer height={20} />
     </ScrollView>
   );
 };
 
+const PrivacyPolicy = memo(() => {
+  const navigation = useNavigation();
+
+  return (
+    <View
+      style={{
+        paddingHorizontal: 15
+      }}>
+      <Button
+        style={{ flex: 1 }}
+        mode="contained"
+        onPress={() => navigation.navigate('PrivacyPolicy')}>
+        View
+      </Button>
+    </View>
+  );
+});
+
 const Instance = memo(() => {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { settings, setSettings } = useAppSettings();
+  const { settings } = useAppSettings();
 
   return (
     <View style={{ flexDirection: 'row', paddingRight: 16 }}>
       <View style={{ flex: 1 }}>
         <List.Item
-          accessibilityStates={[]}
           title={t('settings.invidiousInstance')}
           description={settings.instance}
           onPress={() => navigation.navigate('InvidiousInstances')}
@@ -148,7 +170,7 @@ const Instance = memo(() => {
 
 const Token = memo(() => {
   const { t } = useTranslation();
-  const { settings, setSettings } = useAppSettings();
+  const { settings } = useAppSettings();
   const [visible, setVisible] = useState(false);
   const toggleDialog = useCallback(
     () => setVisible(!visible),
@@ -173,7 +195,7 @@ const Token = memo(() => {
 
 const Username = memo(() => {
   const { t } = useTranslation();
-  const { settings, setSettings } = useAppSettings();
+  const { settings } = useAppSettings();
   const [visible, setVisible] = useState(false);
   const toggleDialog = useCallback(
     () => setVisible(!visible),
@@ -188,7 +210,6 @@ const Username = memo(() => {
         onPress={toggleDialog}
       />
       <DialogEditUsername
-        value={settings.username}
         visible={visible}
         onDismiss={toggleDialog}
       />

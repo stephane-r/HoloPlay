@@ -6,6 +6,7 @@
     "postinstall": "npx patch-package",
     "postversion": "RNV=android react-native-version",
     "start": "react-native start -- --reset-cache",
+    "ios:run": "react-native run-ios",
     "android:run": "./scripts/android-run.sh",
     "android:release": "cd android && ./gradlew assembleRelease",
     "android:release:debug": "cd android && ./gradlew assembleDebug",

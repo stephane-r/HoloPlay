@@ -53,10 +53,6 @@ const CarouselItem: React.FC<CarouselItemProps> = memo(({ item, t }) => {
     [item]
   );
 
-  const handlePress = useCallback(() => {
-    runPlaylist();
-  }, [runPlaylist]);
-
   const handlePlay = useCallback(() => {
     if (!videosCount) {
       return null;

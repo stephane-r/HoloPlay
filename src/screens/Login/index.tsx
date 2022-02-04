@@ -1,16 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import AppVersion from '../../components/Version';
-import LoginForm from './form';
+import { InstancesProvider } from '../../containers/InstanceList';
+import {LoginForm} from './form';
 
 interface Props {
   setToken: () => void;
 }
 
-const LoginScreen: React.FC<Props> = ({ route }) => (
+const LoginScreen: React.FC<Props> = () => (
   <View style={styles.container}>
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <LoginForm onSuccess={route.params.setToken} />
+      <InstancesProvider>
+      <LoginForm />
+      </InstancesProvider>
     </View>
     <AppVersion showUpdate={false} customStyle={{ alignSelf: 'center' }} />
   </View>

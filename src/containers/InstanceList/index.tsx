@@ -6,7 +6,7 @@ import fetchInvidiousInstances from '../../utils/fetchInvidiousInstances';
 
 const InstanceContext = createContext(null);
 
-const InstancesProvider = ({ children }) => {
+export const InstancesProvider = ({ children }) => {
   const { settings } = useAppSettings();
 
   const {

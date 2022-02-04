@@ -2,13 +2,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import React, {
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useState
+  useState,
+  createContext
 } from 'react';
-import { createContext } from 'react';
-import Snackbar from '../components/Snackbar';
-import { initI18n } from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 const AppSettingsContext = createContext(null);
 
@@ -22,7 +20,6 @@ export const getCachedSettings = async () => {
       token,
       playlists,
       favorisPlaylist,
-      logoutMode,
       username,
       sendErrorMonitoring,
       language,
@@ -36,7 +33,6 @@ export const getCachedSettings = async () => {
       AsyncStorage.getItem('token'),
       AsyncStorage.getItem('playlists'),
       AsyncStorage.getItem('favorisPlaylist'),
-      AsyncStorage.getItem('logoutMode'),
       AsyncStorage.getItem('username'),
       AsyncStorage.getItem('sendErrorMonitoring'),
       AsyncStorage.getItem('language'),
@@ -46,7 +42,7 @@ export const getCachedSettings = async () => {
 
     return {
       skipLogin: JSON.parse(skipLogin) ?? false,
-      instance,
+      instance: instance?.replace(/"/g, ''),
       token,
       username,
       darkMode: JSON.parse(darkMode) ?? false,
@@ -88,6 +84,7 @@ export const AppSettingsProvider = ({ children, data }) => {
 
 export const useAppSettings = () => {
   const context = useContext(AppSettingsContext);
+  const { i18n } = useTranslation();
 
   if (!context) {
     throw new Error('useAppSettings must be used within a AppSettingsContext');
@@ -95,8 +92,14 @@ export const useAppSettings = () => {
 
   const setSettings = useMemo(
     () => ({
-      skipLogin: async (skipLogin: string): void => {
-        await AsyncStorage.setItem('skipLogin', JSON.stringify(skipLogin));
+      skipLogin: async ({instance, username}): void => {
+        await AsyncStorage.setItem('skipLogin', JSON.stringify(true));
+
+        context.setAppSettings({
+          instance,
+          logoutMode: true,
+          username,
+        })
       },
       darkMode: async (darkMode: Boolean): void => {
         await AsyncStorage.setItem('darkMode', JSON.stringify(darkMode));
@@ -105,7 +108,7 @@ export const useAppSettings = () => {
       language: async (language: string): void => {
         await AsyncStorage.setItem('language', language);
         context.setAppSettings({ language });
-        initI18n();
+        i18n.changeLanguage(language);
       },
       username: async (username: string): void => {
         await AsyncStorage.setItem('username', username);
