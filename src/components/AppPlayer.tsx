@@ -1,12 +1,12 @@
-import React, { memo, useCallback, useMemo, useRef } from "react";
+import React, { memo, useRef } from "react";
 import { Animated, Dimensions } from "react-native";
 
-import { PlayerContainer } from "../../containers/Player";
-import { PlayerSmallContainer } from "../../containers/PlayerSmall";
-import BottomSheet from "../BottomSheet";
-import Overlay from "../Overlay";
+import { PlayerContainer } from "../containers/Player";
+import { PlayerSmallContainer } from "../containers/PlayerSmall";
+import { BottomSheet } from "./BottomSheet";
+import { Overlay } from "./Overlay";
 
-const AppPlayer: React.FC = memo(() => {
+export const AppPlayer: React.FC = memo(() => {
   const bottomSheet = useRef(null);
   const opacity = new Animated.Value(0);
 
@@ -40,5 +40,3 @@ const AppPlayer: React.FC = memo(() => {
     </>
   );
 });
-
-export default AppPlayer;

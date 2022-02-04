@@ -1,4 +1,4 @@
-import React, { Component, PureComponent, useEffect, useState } from "react";
+import React, { PureComponent } from "react";
 import {
   Alert,
   Animated,
@@ -8,11 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Text } from "react-native-paper";
 
-import PlayerContainer from "../../containers/Player";
-
-class BottomSheet extends PureComponent {
+export class BottomSheet extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -139,5 +136,3 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
 });
-
-export default BottomSheet;

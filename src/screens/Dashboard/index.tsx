@@ -9,7 +9,7 @@ import { LastPlays } from "../../components/LastPlays";
 import Layout from "../../components/Layout";
 import Profil from "../../components/Profil";
 import { SearchPopular } from "../../components/Search/Popular";
-import Spacer from "../../components/Spacer";
+import { Spacer } from "../../components/Spacer";
 import { usePlayer } from "../../providers/Player";
 import { usePlaylist } from "../../providers/Playlist";
 

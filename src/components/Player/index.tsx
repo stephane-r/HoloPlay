@@ -16,7 +16,7 @@ import { useSnackbar } from "../../providers/Snackbar";
 import hex2rgba from "../../utils/hex2rgba";
 import { Dot } from "../Dot";
 import { ButtonFavorite } from "../Favoris/Button";
-import Spacer from "../Spacer";
+import { Spacer } from "../Spacer";
 import { VideoList } from "../Video";
 
 const color = "#ffffff";

@@ -17,7 +17,7 @@ import {
   useTheme,
 } from "react-native-paper";
 
-import Spacer from "../../components/Spacer";
+import { Spacer } from "../../components/Spacer";
 
 interface Props {
   navigation: NavigationHelpersCommon;

@@ -1,7 +1,7 @@
-import React from "react";
-import { Animated, Dimensions, StyleSheet, View } from "react-native";
+import React, { memo } from "react";
+import { Animated, Dimensions, StyleSheet } from "react-native";
 
-const Overlay: React.FC = ({ opacity }) => (
+export const Overlay: React.FC = memo(({ opacity }) => (
   <Animated.View
     pointerEvents="none"
     style={[
@@ -11,7 +11,7 @@ const Overlay: React.FC = ({ opacity }) => (
       },
     ]}
   />
-);
+));
 
 const styles = StyleSheet.create({
   overlay: {
@@ -23,5 +23,3 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
   },
 });
-
-export default Overlay;

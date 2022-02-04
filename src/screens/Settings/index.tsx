@@ -21,7 +21,7 @@ import {
 
 import DialogEditToken from "../../components/Dialog/EditToken";
 import { DialogEditUsername } from "../../components/Dialog/EditUsername";
-import Spacer from "../../components/Spacer";
+import { Spacer } from "../../components/Spacer";
 import { AppVersion } from "../../components/Version";
 import useBackup from "../../hooks/useBackup";
 import { APP_LANGUAGES } from "../../i18n";

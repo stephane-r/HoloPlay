@@ -7,7 +7,11 @@ interface Props {
   backgroundColor: string;
 }
 
-const Header: React.FC<Props> = ({ title, backgroundColor, children }) => (
+export const Header: React.FC<Props> = ({
+  title,
+  backgroundColor,
+  children,
+}) => (
   <View style={[styles.header, { backgroundColor }]}>
     <Title style={styles.title}>{title}</Title>
     {children && children}
@@ -30,5 +34,3 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-
-export default Header;

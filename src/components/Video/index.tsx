@@ -12,7 +12,7 @@ import {
 import { usePlayer } from "../../providers/Player";
 import { usePlaylist } from "../../providers/Playlist";
 import { Video as VideoTypes } from "../../types";
-import Spacer from "../Spacer";
+import { Spacer } from "../Spacer";
 
 interface Props {
   videos: VideoTypes[];

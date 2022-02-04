@@ -12,7 +12,7 @@ import { DialogEditPlaylist } from "./Dialog/EditPlaylist";
 import { DialogRemovePlaylist } from "./Dialog/RemovePlaylist";
 import { IconButtonPlay } from "./IconButtonPlay";
 import { PlaylistMenu } from "./Playlist/Menu";
-import Spacer from "./Spacer";
+import { Spacer } from "./Spacer";
 import { VideoList, VideoListDraggable } from "./Video";
 
 interface Props {

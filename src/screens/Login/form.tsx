@@ -7,7 +7,7 @@ import { StyleSheet, View } from "react-native";
 import "react-native-get-random-values";
 import { Button, TextInput, useTheme } from "react-native-paper";
 
-import Spacer from "../../components/Spacer";
+import { Spacer } from "../../components/Spacer";
 import { FAVORIS_PLAYLIST_TITLE } from "../../constants";
 import { useInvidiousInstances } from "../../containers/InstanceList";
 import { APP_LANGUAGES } from "../../i18n";

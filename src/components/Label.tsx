@@ -7,11 +7,8 @@ interface Props {
   theme: string;
 }
 
-const Label: React.FC<Props> = ({ align, theme, children }) => (
-  <Text
-    accessibilityStates={[]}
-    style={[styles.container, styles[align], { backgroundColor: theme }]}
-  >
+export const Label: React.FC<Props> = ({ align, theme, children }) => (
+  <Text style={[styles.container, styles[align], { backgroundColor: theme }]}>
     {children}
   </Text>
 );
@@ -34,5 +31,3 @@ const styles = StyleSheet.create({
     right: 10,
   },
 });
-
-export default Label;

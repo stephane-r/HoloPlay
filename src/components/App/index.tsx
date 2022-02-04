@@ -46,7 +46,7 @@ import SettingsScreen from "../../screens/Settings";
 import { Playlist, QuickAction } from "../../types";
 import callApi from "../../utils/callApi";
 import fetchPlaylists from "../../utils/fetchPlaylists";
-import AppPlayer from "../AppPlayer";
+import { AppPlayer } from "../AppPlayer";
 
 // :troll:
 LogBox.ignoreAllLogs();

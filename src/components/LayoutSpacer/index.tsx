@@ -2,7 +2,7 @@ import React from "react";
 
 import useKeyboard from "../../hooks/useKeyboard";
 import { Video } from "../../types";
-import Spacer from "../Spacer";
+import { Spacer } from "../Spacer";
 
 interface Props {
   video: null | Video;

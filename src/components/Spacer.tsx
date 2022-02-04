@@ -6,8 +6,6 @@ interface Props {
   height?: number;
 }
 
-const Spacer: React.FC<Props> = memo(({ width = 0, height = 0 }) => (
+export const Spacer: React.FC<Props> = memo(({ width = 0, height = 0 }) => (
   <View style={{ width, height }} />
 ));
-
-export default Spacer;

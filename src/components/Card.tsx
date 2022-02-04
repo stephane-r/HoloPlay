@@ -1,8 +1,3 @@
-import { DASHBOARD_COLOR } from "../../config/theme";
-import { useFavorite } from "../providers/Favorite";
-import { DialogAddVideoToPlaylist } from "./Dialog/AddVideoToPlaylist";
-import { ButtonFavorite } from "./Favoris/Button";
-import Label from "./Label";
 import timeFormat from "hh-mm-ss";
 import React, { memo, useCallback, useState } from "react";
 import { Image, StyleSheet, TouchableNativeFeedback, View } from "react-native";
@@ -13,6 +8,12 @@ import {
   useTheme,
 } from "react-native-paper";
 import { Fade, Placeholder, PlaceholderLine } from "rn-placeholder";
+
+import { DASHBOARD_COLOR } from "../../config/theme";
+import { useFavorite } from "../providers/Favorite";
+import { DialogAddVideoToPlaylist } from "./Dialog/AddVideoToPlaylist";
+import { ButtonFavorite } from "./Favoris/Button";
+import { Label } from "./Label";
 
 const formatCard = (data) => ({
   title: data.title,
