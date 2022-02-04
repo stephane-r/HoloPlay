@@ -29,7 +29,6 @@ export const PlayerSmall: React.FC<Props> = memo(
       type: 'timing',
       useNativeDriver: false
     });
-    // const { addToFavoris, removeFromFavoris } = useFavoris();
 
     return (
       <Animated.View style={[styles.absoluteContainer, { height }]}>

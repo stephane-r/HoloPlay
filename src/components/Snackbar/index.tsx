@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { Snackbar as PaperSnackBar } from 'react-native-paper';
-import { actions } from '../../store';
 import { Snackbar as SnackbarType } from '../../types';
 
 interface Props {

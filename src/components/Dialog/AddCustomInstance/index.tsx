@@ -1,25 +1,9 @@
-import React, { memo, useState } from 'react';
-import {
-  Dialog,
-  Button,
-  TextInput,
-  useTheme,
-  Text,
-  Portal
-} from 'react-native-paper';
-import { Picker } from '@react-native-community/picker';
-import { ApiRoutes } from '../../../constants';
-import { View, Alert } from 'react-native';
-import { actions } from '../../../store';
-import fetchPlaylists from '../../../utils/fetchPlaylists';
-import callApi from '../../../utils/callApi';
-import useInvidiousInstances from '../../../hooks/useInvidiousInstances';
-import { useTranslation } from 'react-i18next';
-import stripTrailingSlash from '../../../utils/stripTrailingSlash';
+import React, { memo, useCallback, useState } from 'react';
+import { Dialog, Button, TextInput, Text, Portal } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import { useAppSettings } from '../../../providers/App';
 import { useSnackbar } from '../../../providers/Snackbar';
-import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   visible: boolean;
@@ -34,7 +18,6 @@ export const DialogAddCustomInstance: React.FC<Props> = memo(
     const snackbar = useSnackbar();
 
     const IS_NOT_VALID_URI = !/(http(s?)):\/\//i.test(uri);
-    const onValueChange = (value: string): void => setUri(true);
 
     const onSubmit = useCallback(async () => {
       try {
@@ -75,7 +58,6 @@ export const DialogAddCustomInstance: React.FC<Props> = memo(
             </Text>
             <Spacer height={20} />
             <TextInput
-              accessibilityStates={[]}
               mode="outlined"
               label={t('dialog.customInstance.placeholder')}
               value={uri}

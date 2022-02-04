@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Keyboard } from 'react-native';
 
 interface UseKeyboardHook {
@@ -12,20 +12,20 @@ const useKeyboard = (config = {}): UseKeyboardHook => {
   const showEvent = useWillShow ? 'keyboardWillShow' : 'keyboardDidShow';
   const hideEvent = useWillHide ? 'keyboardWillHide' : 'keyboardDidHide';
 
-  function dismiss() {
+  const dismiss = () => {
     Keyboard.dismiss();
     setVisible(false);
-  }
+  };
+
+  const onKeyboardShow = () => {
+    setVisible(true);
+  };
+
+  const onKeyboardHide = () => {
+    setVisible(false);
+  };
 
   useEffect(() => {
-    function onKeyboardShow() {
-      setVisible(true);
-    }
-
-    function onKeyboardHide() {
-      setVisible(false);
-    }
-
     Keyboard.addListener(showEvent, onKeyboardShow);
     Keyboard.addListener(hideEvent, onKeyboardHide);
 
@@ -33,7 +33,7 @@ const useKeyboard = (config = {}): UseKeyboardHook => {
       Keyboard.removeListener(showEvent, onKeyboardShow);
       Keyboard.removeListener(hideEvent, onKeyboardHide);
     };
-  }, [useWillShow, useWillHide]);
+  }, [useWillShow, useWillHide, showEvent, hideEvent]);
 
   return [visible, dismiss];
 };

@@ -1,8 +1,6 @@
-import { getState, Store } from '../store';
-
-const useStore = (): Store => {
-  const store = getState();
-  return store;
+const useStore = () => {
+  // const store = getState();
+  return {};
 };
 
 export default useStore;

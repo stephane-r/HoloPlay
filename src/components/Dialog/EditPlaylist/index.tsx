@@ -1,14 +1,8 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { Portal, Button, Dialog, TextInput } from 'react-native-paper';
-import { actions } from '../../../store';
-import useStore from '../../../hooks/useStore';
 import { Playlist } from '../../../types';
-import callApi from '../../../utils/callApi';
-import { ApiRoutes } from '../../../constants';
-import { Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { usePlaylist } from '../../../providers/Playlist';
-import { useCallback } from 'react';
 
 interface Props {
   toggleDialog: (value: null | Playlist) => void;

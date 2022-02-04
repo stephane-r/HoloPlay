@@ -1,15 +1,11 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useCallback, memo } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import {
-  Searchbar,
   Text,
   TouchableRipple,
-  IconButton,
   useTheme
 } from 'react-native-paper';
 import { useAnimation } from 'react-native-animation-hooks';
-import { actions } from '../../../store';
-import { useCallback } from 'react';
 
 interface Props {
   isOpen: boolean;

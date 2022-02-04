@@ -1,16 +1,11 @@
 import React, { memo } from 'react';
 import { Picker } from '@react-native-community/picker';
 import { View } from 'react-native';
-import { SearchTypeTypes } from '../../../store/Search';
 import { useTranslation } from 'react-i18next';
 
 const SEARCH_TYPES = ['video', 'playlist'];
 
-interface Props {
-  searchType: SearchTypeTypes;
-}
-
-const SearchPickerType = memo(({ searchType, onValueChange }: Props) => {
+const SearchPickerType = memo(({ searchType, onValueChange }) => {
   const { t } = useTranslation();
 
   return (

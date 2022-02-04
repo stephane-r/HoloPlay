@@ -1,9 +1,9 @@
-import React, { useMemo, memo } from 'react';
+import React, { memo } from 'react';
 import { useQuery } from 'react-query';
 import DataEmpty from '../../Data/Empty';
-import search from '../../../queries/search';
+import searchQuery from '../../../queries/search';
 import SearchError from '../Error';
-import SearchEmpty from '../Empty';
+import { SearchEmpty } from '../Empty';
 import { useSearch } from '../../../providers/Search';
 import { CardList, GridListPlaceholder } from '../../CardList';
 import { useData } from '../../../providers/Data';
@@ -15,19 +15,18 @@ export const SearchResult: React.FC = memo(() => {
   const { state } = useSearch();
   const { settings } = useAppSettings();
   const snackbar = useSnackbar();
-  const apiUrl = useMemo(
-    () =>
-      state.searchValue === ''
-        ? 'popular'
-        : `search?q=${state.searchValue}&type=${state.searchType}`,
-    [state.searchValue, state.searchType]
-  );
+  const apiUrl = (() => {
+    if (state.searchValue === '') {
+      return 'popular';
+    }
+    return `search?q=${state.searchValue}&type=${state.searchType}`;
+  })();
   const {
     isLoading: loading,
     error,
     data
   } = useQuery(apiUrl, {
-    queryFn: () => search(apiUrl, settings.instance),
+    queryFn: () => searchQuery(apiUrl, settings.instance),
     onSuccess: dataReceive => {
       dataActions.receiveData({
         key: 'search',

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import downloadFile from '../utils/downloadFile';
-import { DownloadFileParams } from '../utils/downloadFile';
-import { actions } from '../store';
+import downloadFile, { DownloadFileParams } from '../utils/downloadFile';
+import { useSnackbar } from '../providers/Snackbar';
 
 interface UseDownloadFileHook {
   loading: boolean;
@@ -10,16 +9,15 @@ interface UseDownloadFileHook {
 
 const useDownloadFile = (): UseDownloadFileHook => {
   const [loading, setLoading] = useState(false);
+  const snackbar = useSnackbar();
 
   const downloadVideo = async (params: DownloadFileParams): Promise<any> => {
     try {
       setLoading(true);
       await downloadFile(params);
-      actions.setSnackbar({
-        message: `${params.fileName} has been donwload.`
-      });
+      snackbar.show(`${params.fileName} has been donwload.`);
     } catch (error) {
-      console.log(error);
+      snackbar.show(error.message);
     } finally {
       setLoading(false);
     }

@@ -2,10 +2,7 @@ import React, { memo } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import { IconButton, Text } from 'react-native-paper';
 import SnapCarousel from 'react-native-snap-carousel';
-import Card from '../Card/Layout';
-import { actions } from '../../store';
 import { Playlist } from '../../types';
-import Spacer from '../Spacer';
 import { useTranslation } from 'react-i18next';
 import { usePlaylist } from '../../providers/Playlist';
 import { Capsule, CapsuleTotalSongs } from '../Capsule';
@@ -49,7 +46,7 @@ const CarouselItem: React.FC<CarouselItemProps> = memo(({ item, t }) => {
 
   const runPlaylist = useCallback(
     async (): Promise<void> =>
-      actions.loadVideo({ videoIndex: 0, setPlaylistFrom: item.videos }),
+      // actions.loadVideo({ videoIndex: 0, setPlaylistFrom: item.videos }),
     [item]
   );
 

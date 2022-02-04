@@ -1,15 +1,18 @@
 import RNFS from 'react-native-fs';
-import useStore from './useStore';
-import { actions } from '../store';
-import { PermissionsAndroid, Alert } from 'react-native';
+import { PermissionsAndroid } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useFavorite } from '../providers/Favorite';
+import { usePlaylist } from '../providers/Playlist';
+import { useSnackbar } from '../providers/Snackbar';
 
 const fileName = 'holoplay-backup.json';
 const path = `${RNFS.DownloadDirectoryPath}/${fileName}`;
 
 const useBackup = () => {
-  const store = useStore();
+  const { state: favoriteState } = useFavorite();
+  const { state: playlistState } = usePlaylist();
   const { t } = useTranslation();
+  const snackbar = useSnackbar()
 
   const backupData = async (): Promise<any> => {
     await requestWriteExternalStoragePermission();
@@ -21,18 +24,16 @@ const useBackup = () => {
     RNFS.writeFile(
       path,
       JSON.stringify({
-        playlists: store.playlists,
-        favorisPlaylist: store.favorisPlaylist
+        playlists: playlistState.playlists,
+        favorisPlaylist: favoriteState.favorisPlaylist
       }),
       'utf8'
     )
       .then(() =>
-        actions.setSnackbar({
-          message: t('snackbar.dataExportSuccess')
-        })
+        snackbar.show(t('snackbar.dataExportSuccess'))
       )
       .catch(() => {
-        actions.setSnackbar({ message: t('snackbar.dataExportError') });
+        snackbar.show(t('snackbar.dataExportError'));
       });
   };
 
@@ -45,15 +46,11 @@ const useBackup = () => {
         return RNFS.readFile(backupFile.path, 'utf8');
       })
       .then(async data => {
-        await actions.importData(JSON.parse(data));
-        actions.setSnackbar({
-          message: t('snackbar.dataImportSuccess')
-        });
+        // await actions.importData(JSON.parse(data));
+        snackbar.show(t('snackbar.dataImportSuccess'));
       })
       .catch(() => {
-        actions.setSnackbar({
-          message: t('snackbar.dataImportError')
-        });
+        snackbar.show(t('snackbar.dataImportError'));
       });
   };
 

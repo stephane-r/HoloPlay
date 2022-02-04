@@ -1,4 +1,3 @@
-import RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
 import slugify from './slugify';
 import { requestWriteExternalStoragePermission } from '../hooks/useBackup';
@@ -12,7 +11,7 @@ export interface DownloadFileParams {
 const downloadFile = async ({
   url,
   fileName,
-  dir = RNFetchBlob.fs.dirs.MusicDir
+  dir = RNFetchBlob.fs.dirs.MusicDir,
 }: DownloadFileParams): Promise<any> => {
   await requestWriteExternalStoragePermission();
 
@@ -24,13 +23,7 @@ const downloadFile = async ({
       mime: 'video/mp4',
       notification: true
     }
-  })
-    .fetch('GET', url)
-    .then(res => {
-      actions.setSnackbar({
-        message: `File has been download in your Music folder`
-      });
-    });
+  }).fetch('GET', url);
 };
 
 export default downloadFile;

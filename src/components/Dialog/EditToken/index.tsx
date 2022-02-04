@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import { Text, Dialog, Button, TextInput, Portal } from 'react-native-paper';
-import { Alert } from 'react-native';
 import callApi from '../../../utils/callApi';
 import { ApiRoutes } from '../../../constants';
-import AsyncStorage from '@react-native-community/async-storage';
-import { actions } from '../../../store';
 import fetchPlaylists from '../../../utils/fetchPlaylists';
 import { useTranslation } from 'react-i18next';
 import Spacer from '../../Spacer';
+import { useSnackbar } from '../../../providers/Snackbar';
 
 interface Props {
-  label: string;
   value: string;
   visible: boolean;
   onDismiss: () => void;
 }
 
 const DialogEditToken: React.FC<Props> = ({
-  label,
   value,
   visible,
   onDismiss
@@ -25,6 +21,7 @@ const DialogEditToken: React.FC<Props> = ({
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(value ?? '');
+  const snackbar = useSnackbar();
 
   const onSubmit = async () => {
     setLoading(true);
@@ -34,7 +31,7 @@ const DialogEditToken: React.FC<Props> = ({
     }
 
     if (token === '') {
-      actions.setToken(token);
+      // actions.setToken(token);
       return onDismiss();
     }
 
@@ -47,15 +44,11 @@ const DialogEditToken: React.FC<Props> = ({
       onDismiss();
       return setTimeout(
         () =>
-          actions.setSnackbar({
-            message: t('snackbar.importData')
-          }),
+          snackbar.show(t('snackbar.importData')),
         500
       );
     } catch (error) {
-      actions.setSnackbar({
-        message: error.message
-      });
+      snackbar.show(error.message);
     } finally {
       setLoading(false);
     }

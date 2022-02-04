@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Text, Title, Button } from 'react-native-paper';
 import Spacer from '../../Spacer';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
-const SearchError: React.FC = () => {
+const SearchError: React.FC = memo(() => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
 
@@ -19,6 +19,6 @@ const SearchError: React.FC = () => {
       <Spacer height={20} />
     </>
   );
-};
+});
 
 export default SearchError;
