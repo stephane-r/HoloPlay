@@ -11,12 +11,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		24DF761BC15954B1A77F5500 /* libPods-HoloPlay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F35587B366A3091DACBB42 /* libPods-HoloPlay.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		D31D8D983D653FA40BDFF497 /* libPods-HoloPlay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2E793A4B074BB3453F2683 /* libPods-HoloPlay.a */; };
+		D7515F7BB1107BF36F1DA4F8 /* libPods-HoloPlay-HoloPlayTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FBCE5E7968359FD588A0EFF2 /* libPods-HoloPlay-HoloPlayTests.a */; };
 		F544B21B27A9974F00A9A841 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F544B21927A9974F00A9A841 /* MaterialCommunityIcons.ttf */; };
 		F544B21E27A9975B00A9A841 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F544B21C27A9975B00A9A841 /* MaterialIcons.ttf */; };
 		F566506927A86CEF0033BE64 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F566506827A86CEF0033BE64 /* File.swift */; };
-		F70DD8C19142D2FD4689AC95 /* libPods-HoloPlay-HoloPlayTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F409DB54F7A7899DCB77EC1A /* libPods-HoloPlay-HoloPlayTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,18 +39,18 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HoloPlay/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HoloPlay/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HoloPlay/main.m; sourceTree = "<group>"; };
-		3CFC7222B056C9855B12E22E /* Pods-HoloPlay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloPlay.debug.xcconfig"; path = "Target Support Files/Pods-HoloPlay/Pods-HoloPlay.debug.xcconfig"; sourceTree = "<group>"; };
-		53870502293711394F373B9A /* Pods-HoloPlay-HoloPlayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloPlay-HoloPlayTests.release.xcconfig"; path = "Target Support Files/Pods-HoloPlay-HoloPlayTests/Pods-HoloPlay-HoloPlayTests.release.xcconfig"; sourceTree = "<group>"; };
-		73F35587B366A3091DACBB42 /* libPods-HoloPlay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HoloPlay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7EEF86D970ED773473648FC7 /* Pods-HoloPlay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloPlay.release.xcconfig"; path = "Target Support Files/Pods-HoloPlay/Pods-HoloPlay.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HoloPlay/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DF64C3035D1D7336AB9ACB0C /* Pods-HoloPlay-HoloPlayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloPlay-HoloPlayTests.debug.xcconfig"; path = "Target Support Files/Pods-HoloPlay-HoloPlayTests/Pods-HoloPlay-HoloPlayTests.debug.xcconfig"; sourceTree = "<group>"; };
+		87F5373310528DA030725E76 /* Pods-HoloPlay-HoloPlayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloPlay-HoloPlayTests.debug.xcconfig"; path = "Target Support Files/Pods-HoloPlay-HoloPlayTests/Pods-HoloPlay-HoloPlayTests.debug.xcconfig"; sourceTree = "<group>"; };
+		97F89B16EA637E579370989E /* Pods-HoloPlay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloPlay.release.xcconfig"; path = "Target Support Files/Pods-HoloPlay/Pods-HoloPlay.release.xcconfig"; sourceTree = "<group>"; };
+		ADB415D34E5C2CCD0475C58E /* Pods-HoloPlay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloPlay.debug.xcconfig"; path = "Target Support Files/Pods-HoloPlay/Pods-HoloPlay.debug.xcconfig"; sourceTree = "<group>"; };
+		DD2E793A4B074BB3453F2683 /* libPods-HoloPlay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HoloPlay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F409DB54F7A7899DCB77EC1A /* libPods-HoloPlay-HoloPlayTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HoloPlay-HoloPlayTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3EE3D5F7F8C5D3F230BE679 /* Pods-HoloPlay-HoloPlayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloPlay-HoloPlayTests.release.xcconfig"; path = "Target Support Files/Pods-HoloPlay-HoloPlayTests/Pods-HoloPlay-HoloPlayTests.release.xcconfig"; sourceTree = "<group>"; };
 		F544B21927A9974F00A9A841 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		F544B21C27A9975B00A9A841 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		F566506727A86CEE0033BE64 /* HoloPlay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HoloPlay-Bridging-Header.h"; sourceTree = "<group>"; };
 		F566506827A86CEF0033BE64 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		FBCE5E7968359FD588A0EFF2 /* libPods-HoloPlay-HoloPlayTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HoloPlay-HoloPlayTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F70DD8C19142D2FD4689AC95 /* libPods-HoloPlay-HoloPlayTests.a in Frameworks */,
+				D7515F7BB1107BF36F1DA4F8 /* libPods-HoloPlay-HoloPlayTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24DF761BC15954B1A77F5500 /* libPods-HoloPlay.a in Frameworks */,
+				D31D8D983D653FA40BDFF497 /* libPods-HoloPlay.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,8 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				73F35587B366A3091DACBB42 /* libPods-HoloPlay.a */,
-				F409DB54F7A7899DCB77EC1A /* libPods-HoloPlay-HoloPlayTests.a */,
+				DD2E793A4B074BB3453F2683 /* libPods-HoloPlay.a */,
+				FBCE5E7968359FD588A0EFF2 /* libPods-HoloPlay-HoloPlayTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,10 +150,10 @@
 		B22B12215470598053BB98C0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3CFC7222B056C9855B12E22E /* Pods-HoloPlay.debug.xcconfig */,
-				7EEF86D970ED773473648FC7 /* Pods-HoloPlay.release.xcconfig */,
-				DF64C3035D1D7336AB9ACB0C /* Pods-HoloPlay-HoloPlayTests.debug.xcconfig */,
-				53870502293711394F373B9A /* Pods-HoloPlay-HoloPlayTests.release.xcconfig */,
+				ADB415D34E5C2CCD0475C58E /* Pods-HoloPlay.debug.xcconfig */,
+				97F89B16EA637E579370989E /* Pods-HoloPlay.release.xcconfig */,
+				87F5373310528DA030725E76 /* Pods-HoloPlay-HoloPlayTests.debug.xcconfig */,
+				F3EE3D5F7F8C5D3F230BE679 /* Pods-HoloPlay-HoloPlayTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -174,12 +174,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "HoloPlayTests" */;
 			buildPhases = (
-				215707CE4F749DF138B55D5A /* [CP] Check Pods Manifest.lock */,
+				1ADD738A8E87E4B1BC031A84 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				2D981DE50FA90F069BA121EF /* [CP] Embed Pods Frameworks */,
-				0A92A273276AC3D84493C1DF /* [CP] Copy Pods Resources */,
+				36C5785F5F70162EC6D2F98E /* [CP] Embed Pods Frameworks */,
+				01C9C88D6836740D18B004E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -195,14 +195,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "HoloPlay" */;
 			buildPhases = (
-				47466C9F5105DF34DEFCAE5D /* [CP] Check Pods Manifest.lock */,
+				3868CE68DB17B27FE3FABDF6 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				61F7C1F964776BEEB9ED5CF3 /* [CP] Embed Pods Frameworks */,
-				96A3E98074C279644E329226 /* [CP] Copy Pods Resources */,
+				5D86EB59CF2649F97033ACF8 /* [CP] Embed Pods Frameworks */,
+				BDDEAFA5BBF1841F4A99C6EB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -285,7 +285,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		0A92A273276AC3D84493C1DF /* [CP] Copy Pods Resources */ = {
+		01C9C88D6836740D18B004E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -302,7 +302,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HoloPlay-HoloPlayTests/Pods-HoloPlay-HoloPlayTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		215707CE4F749DF138B55D5A /* [CP] Check Pods Manifest.lock */ = {
+		1ADD738A8E87E4B1BC031A84 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -324,7 +324,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2D981DE50FA90F069BA121EF /* [CP] Embed Pods Frameworks */ = {
+		36C5785F5F70162EC6D2F98E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -341,7 +341,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HoloPlay-HoloPlayTests/Pods-HoloPlay-HoloPlayTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		47466C9F5105DF34DEFCAE5D /* [CP] Check Pods Manifest.lock */ = {
+		3868CE68DB17B27FE3FABDF6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -363,7 +363,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		61F7C1F964776BEEB9ED5CF3 /* [CP] Embed Pods Frameworks */ = {
+		5D86EB59CF2649F97033ACF8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -380,7 +380,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HoloPlay/Pods-HoloPlay-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		96A3E98074C279644E329226 /* [CP] Copy Pods Resources */ = {
+		BDDEAFA5BBF1841F4A99C6EB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -450,7 +450,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF64C3035D1D7336AB9ACB0C /* Pods-HoloPlay-HoloPlayTests.debug.xcconfig */;
+			baseConfigurationReference = 87F5373310528DA030725E76 /* Pods-HoloPlay-HoloPlayTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -470,7 +470,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HoloPlay.app/HoloPlay";
 			};
@@ -478,7 +478,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53870502293711394F373B9A /* Pods-HoloPlay-HoloPlayTests.release.xcconfig */;
+			baseConfigurationReference = F3EE3D5F7F8C5D3F230BE679 /* Pods-HoloPlay-HoloPlayTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -495,7 +495,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HoloPlay.app/HoloPlay";
 			};
@@ -503,7 +503,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3CFC7222B056C9855B12E22E /* Pods-HoloPlay.debug.xcconfig */;
+			baseConfigurationReference = ADB415D34E5C2CCD0475C58E /* Pods-HoloPlay.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -519,7 +519,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HoloPlay;
 				SWIFT_OBJC_BRIDGING_HEADER = "HoloPlay-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -530,7 +530,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7EEF86D970ED773473648FC7 /* Pods-HoloPlay.release.xcconfig */;
+			baseConfigurationReference = 97F89B16EA637E579370989E /* Pods-HoloPlay.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -545,7 +545,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HoloPlay;
 				SWIFT_OBJC_BRIDGING_HEADER = "HoloPlay-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -587,7 +587,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_ARCHS = arm64;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;

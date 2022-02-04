@@ -74,7 +74,7 @@ export const LoginForm: React.FC = memo(() => {
 
   return (
     <>
-      <View style={styles.picker}>
+      <View style={styles.picker} testID="login-form">
         <Picker
           style={{ color: colors.text }}
           selectedValue={settings.language}
