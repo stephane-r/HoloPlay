@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { View } from 'react-native';
+import React, { memo } from "react";
+import { View } from "react-native";
 
 interface Props {
   width?: number;

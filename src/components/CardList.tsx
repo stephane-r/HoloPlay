@@ -1,16 +1,16 @@
-import React, { memo, useCallback, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { ScrollView } from './Card/ScrollList';
-import { Card, CardPlaceholder } from './Card';
-import { usePlayer } from '../providers/Player';
-import { useEffect } from 'react';
+import { usePlayer } from "../providers/Player";
+import { Card, CardPlaceholder } from "./Card";
+import { ScrollView } from "./Card/ScrollList";
+import React, { memo, useCallback, useState } from "react";
+import { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 
 export const CardList: React.FC = memo(
-  ({ display = 'horizontal', ...props }) => {
+  ({ display = "horizontal", ...props }) => {
     switch (display) {
-      case 'horizontal':
+      case "horizontal":
         return <HorizontalList {...props} />;
-      case 'grid':
+      case "grid":
         return <GridList {...props} />;
       default:
         return null;
@@ -21,14 +21,15 @@ export const CardList: React.FC = memo(
 const GridList = memo(({ data, setPlaylistFrom }) => {
   const { player } = usePlayer();
 
-  const handlePress = useCallback(props => player.loadVideo(props), [player]);
+  const handlePress = useCallback((props) => player.loadVideo(props), [player]);
 
   return (
     <View style={styles.list}>
       {data.map((item, index) => (
         <View
           key={`${item.videoId}-${index}-${setPlaylistFrom}`}
-          style={{ width: '50%' }}>
+          style={{ width: "50%" }}
+        >
           <Card
             data={item}
             onPress={() => handlePress({ videoIndex: index, setPlaylistFrom })}
@@ -42,22 +43,22 @@ const GridList = memo(({ data, setPlaylistFrom }) => {
 export const GridListPlaceholder = memo(() => {
   return (
     <View style={styles.list}>
-      <View style={{ width: '50%' }}>
+      <View style={{ width: "50%" }}>
         <CardPlaceholder />
       </View>
-      <View style={{ width: '50%' }}>
+      <View style={{ width: "50%" }}>
         <CardPlaceholder />
       </View>
-      <View style={{ width: '50%' }}>
+      <View style={{ width: "50%" }}>
         <CardPlaceholder />
       </View>
-      <View style={{ width: '50%' }}>
+      <View style={{ width: "50%" }}>
         <CardPlaceholder />
       </View>
-      <View style={{ width: '50%' }}>
+      <View style={{ width: "50%" }}>
         <CardPlaceholder />
       </View>
-      <View style={{ width: '50%' }}>
+      <View style={{ width: "50%" }}>
         <CardPlaceholder />
       </View>
     </View>
@@ -67,14 +68,15 @@ export const GridListPlaceholder = memo(() => {
 const HorizontalList = memo(({ data, setPlaylistFrom }) => {
   const { player } = usePlayer();
 
-  const handlePress = useCallback(props => player.loadVideo(props), [player]);
+  const handlePress = useCallback((props) => player.loadVideo(props), [player]);
 
   return (
     <ScrollView>
       {data.map((item, index) => (
         <View
           key={`${item.videoId}-${index}-${setPlaylistFrom}`}
-          style={styles.cardContainer}>
+          style={styles.cardContainer}
+        >
           <Card
             data={item}
             onPress={() => handlePress({ videoIndex: index, setPlaylistFrom })}
@@ -110,12 +112,12 @@ export const HorizontalListPlaceholder = memo(() => {
 export const styles = StyleSheet.create({
   cardContainer: {
     width: 250,
-    paddingTop: 16
+    paddingTop: 16,
   },
   list: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     paddingTop: 23,
-    marginHorizontal: -8
-  }
+    marginHorizontal: -8,
+  },
 });

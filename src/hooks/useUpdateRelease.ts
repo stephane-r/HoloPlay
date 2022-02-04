@@ -1,9 +1,9 @@
-import config from 'react-native-config';
-import { useEffect, useState } from 'react';
-import semverCompare from 'semver-compare';
-import { version } from '../../package';
-import fetchHopRelease from '../utils/fetchGithubAppVersion';
-import downloadApk from '../utils/downloadApk';
+import { version } from "../../package";
+import downloadApk from "../utils/downloadApk";
+import fetchHopRelease from "../utils/fetchGithubAppVersion";
+import { useEffect, useState } from "react";
+import config from "react-native-config";
+import semverCompare from "semver-compare";
 
 interface UseUpdateReleaseHook {
   updateAvailable: boolean;
@@ -18,7 +18,7 @@ const useUpdateRelease = (
   const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
 
   useEffect(() => {
-    if (config.GITHUB_RELEASE === 'true') {
+    if (config.GITHUB_RELEASE === "true") {
       fetchHopRelease().then(({ tagName, browserDownloadUrl }) => {
         if (semverCompare(tagName, version) === 1) {
           setUrl(browserDownloadUrl);
@@ -49,7 +49,7 @@ const useUpdateRelease = (
 
   return {
     updateAvailable,
-    downloadApk: () => downloadApk(url, fileName)
+    downloadApk: () => downloadApk(url, fileName),
   };
 };
 export default useUpdateRelease;

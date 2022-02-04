@@ -1,10 +1,11 @@
-import React, { memo, useCallback, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text, Divider, IconButton, Switch, Menu } from 'react-native-paper';
-import { useTranslation } from 'react-i18next';
-import { useSnackbar } from '../../providers/Snackbar';
-import { useAppSettings } from '../../providers/App';
-import { useQuery } from 'react-query';
+import React, { memo, useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Divider, IconButton, Menu, Switch, Text } from "react-native-paper";
+import { useQuery } from "react-query";
+
+import { useAppSettings } from "../../providers/App";
+import { useSnackbar } from "../../providers/Snackbar";
 
 interface Props {
   uri: string;
@@ -17,19 +18,23 @@ export const Instance: React.FC<Props> = memo(({ uri, isCustom }) => {
   const snackbar = useSnackbar();
   const { settings, setSettings } = useAppSettings();
   const [fetchInstance, setFetchInstance] = useState(true);
-  const { isLoading } = useQuery(`${uri}-api-stats`, () => fetch(`${uri}/api/v1/popular`), {
-    enabled: fetchInstance,
-    onSuccess: (data) => {
-      setFetchInstance(false);
+  const { isLoading } = useQuery(
+    `${uri}-api-stats`,
+    () => fetch(`${uri}/api/v1/popular`),
+    {
+      enabled: fetchInstance,
+      onSuccess: (data) => {
+        setFetchInstance(false);
 
-      if (!data || data.status !== 200) {
-        setApiState('error');
-        return;
-      }
+        if (!data || data.status !== 200) {
+          setApiState("error");
+          return;
+        }
 
-      setApiState('enabled');
-    },
-  });
+        setApiState("enabled");
+      },
+    }
+  );
 
   const current = settings.instance;
   const isCurrent = current === uri;
@@ -37,14 +42,14 @@ export const Instance: React.FC<Props> = memo(({ uri, isCustom }) => {
   const handleRemoveCustomInstance = useCallback(() => {
     setSettings.removeCustomInstance(uri);
     setTimeout(
-      () => snackbar.show(t('snackbar.removeCustomInstanceSuccess')),
+      () => snackbar.show(t("snackbar.removeCustomInstanceSuccess")),
       500
     );
   }, [uri, setSettings, snackbar, t]);
 
   const handlePress = useCallback(() => {
     if (uri === current) {
-      snackbar.show('You must select an Invidious Instance');
+      snackbar.show("You must select an Invidious Instance");
       return;
     }
     setSettings.setInstance(uri);
@@ -54,17 +59,24 @@ export const Instance: React.FC<Props> = memo(({ uri, isCustom }) => {
     setFetchInstance(true);
   }, [setFetchInstance]);
 
-  const apiEnabled = apiState === 'enabled';
+  const apiEnabled = apiState === "enabled";
 
   return (
     <>
       <Divider />
       <View style={styles.container}>
-        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingRight: 24 }}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+            paddingRight: 24,
+          }}
+        >
           <View>
             <Text numberOfLines={1}>{uri}</Text>
             {!apiEnabled && (
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Text numberOfLines={1}>API not responding - </Text>
                 <TouchableOpacity onPress={handleFetchInstance}>
                   <Text>Retry</Text>
@@ -73,18 +85,26 @@ export const Instance: React.FC<Props> = memo(({ uri, isCustom }) => {
             )}
           </View>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: isCustom ? 4 : 13, }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingRight: isCustom ? 4 : 13,
+          }}
+        >
           {isLoading ? (
             <Text>LOADING</Text>
           ) : (
             <View>
-              <Switch value={isCurrent} disabled={!apiEnabled} onValueChange={handlePress} />
+              <Switch
+                value={isCurrent}
+                disabled={!apiEnabled}
+                onValueChange={handlePress}
+              />
             </View>
           )}
         </View>
-          {isCustom && (
-            <InstanceMenu onRemove={handleRemoveCustomInstance} />
-          )}
+        {isCustom && <InstanceMenu onRemove={handleRemoveCustomInstance} />}
       </View>
     </>
   );
@@ -100,7 +120,7 @@ const InstanceMenu = memo(({ onRemove }) => {
   );
 
   const handleRemove = useCallback(() => {
-    onRemove()
+    onRemove();
   }, [toggleMenu]);
 
   return (
@@ -109,22 +129,23 @@ const InstanceMenu = memo(({ onRemove }) => {
       onDismiss={toggleMenu}
       anchor={
         <IconButton icon="dots-vertical" size={20} onPress={toggleMenu} />
-      }>
+      }
+    >
       <Menu.Item
         onPress={handleRemove}
         icon="delete"
-        title={t('menu.delete')}
+        title={t("menu.delete")}
       />
     </Menu>
-  )
-})
+  );
+});
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingLeft: 20,
-    paddingVertical: 10
-  }
+    paddingVertical: 10,
+  },
 });

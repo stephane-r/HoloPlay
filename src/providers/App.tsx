@@ -1,12 +1,12 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 import React, {
+  createContext,
   useCallback,
   useContext,
   useMemo,
   useState,
-  createContext
-} from 'react';
-import { useTranslation } from 'react-i18next';
+} from "react";
+import { useTranslation } from "react-i18next";
 
 const AppSettingsContext = createContext(null);
 
@@ -24,25 +24,25 @@ export const getCachedSettings = async () => {
       sendErrorMonitoring,
       language,
       lastPlays,
-      customInstances
+      customInstances,
     ] = await Promise.all([
-      AsyncStorage.getItem('skipLogin'),
-      AsyncStorage.getItem('darkMode'),
-      AsyncStorage.getItem('searchHistory'),
-      AsyncStorage.getItem('instance'),
-      AsyncStorage.getItem('token'),
-      AsyncStorage.getItem('playlists'),
-      AsyncStorage.getItem('favorisPlaylist'),
-      AsyncStorage.getItem('username'),
-      AsyncStorage.getItem('sendErrorMonitoring'),
-      AsyncStorage.getItem('language'),
-      AsyncStorage.getItem('lastPlays'),
-      AsyncStorage.getItem('customInstances')
+      AsyncStorage.getItem("skipLogin"),
+      AsyncStorage.getItem("darkMode"),
+      AsyncStorage.getItem("searchHistory"),
+      AsyncStorage.getItem("instance"),
+      AsyncStorage.getItem("token"),
+      AsyncStorage.getItem("playlists"),
+      AsyncStorage.getItem("favorisPlaylist"),
+      AsyncStorage.getItem("username"),
+      AsyncStorage.getItem("sendErrorMonitoring"),
+      AsyncStorage.getItem("language"),
+      AsyncStorage.getItem("lastPlays"),
+      AsyncStorage.getItem("customInstances"),
     ]);
 
     return {
       skipLogin: JSON.parse(skipLogin) ?? false,
-      instance: instance?.replace(/"/g, ''),
+      instance: instance?.replace(/"/g, ""),
       token,
       username,
       darkMode: JSON.parse(darkMode) ?? false,
@@ -51,9 +51,9 @@ export const getCachedSettings = async () => {
       favorisPlaylist: JSON.parse(favorisPlaylist) ?? null,
       logoutMode: !Boolean(token),
       sendErrorMonitoring: JSON.parse(sendErrorMonitoring) ?? false,
-      language: language ?? 'en',
+      language: language ?? "en",
       lastPlays: JSON.parse(lastPlays) ?? [],
-      customInstances: JSON.parse(customInstances) ?? []
+      customInstances: JSON.parse(customInstances) ?? [],
     };
   } catch (error) {
     console.log(error);
@@ -64,8 +64,8 @@ export const AppSettingsProvider = ({ children, data }) => {
   const [state, setState] = useState(data);
 
   const setAppSettings = useCallback(
-    value => {
-      setState(prevState => ({ ...prevState, ...value }));
+    (value) => {
+      setState((prevState) => ({ ...prevState, ...value }));
     },
     [setState]
   );
@@ -87,36 +87,36 @@ export const useAppSettings = () => {
   const { i18n } = useTranslation();
 
   if (!context) {
-    throw new Error('useAppSettings must be used within a AppSettingsContext');
+    throw new Error("useAppSettings must be used within a AppSettingsContext");
   }
 
   const setSettings = useMemo(
     () => ({
-      skipLogin: async ({instance, username}): void => {
-        await AsyncStorage.setItem('skipLogin', JSON.stringify(true));
+      skipLogin: async ({ instance, username }): void => {
+        await AsyncStorage.setItem("skipLogin", JSON.stringify(true));
 
         context.setAppSettings({
           instance,
           logoutMode: true,
           username,
-        })
+        });
       },
       darkMode: async (darkMode: Boolean): void => {
-        await AsyncStorage.setItem('darkMode', JSON.stringify(darkMode));
+        await AsyncStorage.setItem("darkMode", JSON.stringify(darkMode));
         context.setAppSettings({ darkMode });
       },
       language: async (language: string): void => {
-        await AsyncStorage.setItem('language', language);
+        await AsyncStorage.setItem("language", language);
         context.setAppSettings({ language });
         i18n.changeLanguage(language);
       },
       username: async (username: string): void => {
-        await AsyncStorage.setItem('username', username);
+        await AsyncStorage.setItem("username", username);
         context.setAppSettings({ username });
       },
       sendErrorMonitoring: async (sendErrorMonitoring: Boolean): void => {
         await AsyncStorage.setItem(
-          'sendErrorMonitoring',
+          "sendErrorMonitoring",
           JSON.stringify(sendErrorMonitoring)
         );
         context.setAppSettings({ sendErrorMonitoring });
@@ -124,7 +124,7 @@ export const useAppSettings = () => {
       customInstance: async (instance: Boolean): void => {
         const customInstances = [...context.state.customInstances, instance];
         await AsyncStorage.setItem(
-          'customInstances',
+          "customInstances",
           JSON.stringify(customInstances)
         );
         context.setAppSettings({ customInstances });
@@ -134,18 +134,15 @@ export const useAppSettings = () => {
           ({ uri }) => uri !== instanceUri
         );
         await AsyncStorage.setItem(
-          'customInstances',
+          "customInstances",
           JSON.stringify(customInstances)
         );
         context.setAppSettings({ customInstances });
       },
       setInstance: async (instance: string) => {
-        await AsyncStorage.setItem(
-          'instance',
-          JSON.stringify(instance)
-        );
+        await AsyncStorage.setItem("instance", JSON.stringify(instance));
         context.setAppSettings({ instance });
-      }
+      },
     }),
     [context]
   );

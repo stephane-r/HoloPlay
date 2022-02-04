@@ -1,13 +1,19 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { Playlist, Video } from '../types';
-import { useAppSettings } from './App';
-import callApi from '../utils/callApi';
-import { ApiRoutes } from '../constants';
-import { useSnackbar } from './Snackbar';
-import { useTranslation } from 'react-i18next';
+import { ApiRoutes } from "../constants";
+import { Playlist, Video } from "../types";
+import callApi from "../utils/callApi";
+import { useAppSettings } from "./App";
+import { useSnackbar } from "./Snackbar";
+import AsyncStorage from "@react-native-community/async-storage";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import { useTranslation } from "react-i18next";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 const PlaylistContext = createContext(null);
 
@@ -15,12 +21,12 @@ export const PlaylistProvider = ({ children, data }) => {
   const [state, setState] = useState({
     playlists: [],
     playlist: null,
-    ...data
+    ...data,
   });
 
   const setPlaylist = useCallback(
-    value => {
-      setState(prevState => ({ ...prevState, ...value }));
+    (value) => {
+      setState((prevState) => ({ ...prevState, ...value }));
     },
     [setState]
   );
@@ -41,7 +47,7 @@ export const usePlaylist = () => {
   const snackbar = useSnackbar();
 
   if (!context) {
-    throw new Error('usePlaylist must be used within a PlaylistProvider');
+    throw new Error("usePlaylist must be used within a PlaylistProvider");
   }
 
   const playlist = useMemo(
@@ -54,18 +60,18 @@ export const usePlaylist = () => {
           if (!settings.logoutMode) {
             await callApi({
               url: ApiRoutes.Playlists,
-              method: 'POST',
+              method: "POST",
               body: {
                 title,
-                privacy: 'public'
-              }
+                privacy: "public",
+              },
             });
           }
           const playlists = await createPlaylists({
             title,
             id,
             initialPlaylists: context.state.playlists,
-            logoutMode: settings.logoutMode
+            logoutMode: settings.logoutMode,
           });
 
           context.setPlaylist({ playlists });
@@ -74,11 +80,11 @@ export const usePlaylist = () => {
         }
       },
       update: async (playlist: Playlist): void => {
-        const playlists = context.state.playlists.map(p => {
+        const playlists = context.state.playlists.map((p) => {
           if (p.playlistId === playlist.playlistId) {
             return {
               ...p,
-              title: playlist.title
+              title: playlist.title,
             };
           }
 
@@ -86,7 +92,7 @@ export const usePlaylist = () => {
         });
 
         if (settings.logoutMode) {
-          await AsyncStorage.setItem('playlists', JSON.stringify(playlists));
+          await AsyncStorage.setItem("playlists", JSON.stringify(playlists));
         }
 
         context.setPlaylist({ playlists });
@@ -94,11 +100,11 @@ export const usePlaylist = () => {
       remove: async (playlistId: string): void => {
         try {
           const playlists = context.state.playlists.filter(
-            p => p.playlistId !== playlistId
+            (p) => p.playlistId !== playlistId
           );
 
           if (settings.logoutMode) {
-            await AsyncStorage.setItem('playlists', JSON.stringify(playlists));
+            await AsyncStorage.setItem("playlists", JSON.stringify(playlists));
           }
 
           context.setPlaylist({ playlists });
@@ -110,7 +116,7 @@ export const usePlaylist = () => {
         playlistId,
         playlistTitle,
         video,
-        isNew
+        isNew,
       }: {
         playlistId: string;
         playlistTitle: string;
@@ -121,16 +127,16 @@ export const usePlaylist = () => {
           if (!settings.logoutMode) {
             await callApi({
               url: ApiRoutes.Videos(playlistId),
-              method: 'POST',
+              method: "POST",
               body: {
-                videoId: video.videoId
-              }
+                videoId: video.videoId,
+              },
             });
           }
 
           const videoOverrided: Video = {
             ...video,
-            indexId: uuidv4()
+            indexId: uuidv4(),
           };
 
           let initialPlaylists = context.state.playlists;
@@ -140,15 +146,15 @@ export const usePlaylist = () => {
               title: playlistTitle,
               id: playlistId,
               initialPlaylists: context.state.playlists,
-              logoutMode: settings.logoutMode
+              logoutMode: settings.logoutMode,
             });
           }
 
-          const playlists = initialPlaylists.map(p => {
+          const playlists = initialPlaylists.map((p) => {
             if (p.playlistId === playlistId) {
               return {
                 ...p,
-                videos: [videoOverrided, ...p.videos]
+                videos: [videoOverrided, ...p.videos],
               };
             }
 
@@ -156,10 +162,10 @@ export const usePlaylist = () => {
           });
 
           if (settings.logoutMode) {
-            AsyncStorage.setItem('playlists', JSON.stringify(playlists));
+            AsyncStorage.setItem("playlists", JSON.stringify(playlists));
           }
 
-          snackbar.show(t('snackbar.addVideoToPlaylistSuccess'));
+          snackbar.show(t("snackbar.addVideoToPlaylistSuccess"));
           context.setPlaylist({ playlists });
         } catch (error) {
           snackbar.show(error.message);
@@ -167,7 +173,7 @@ export const usePlaylist = () => {
       },
       removeVideo: async ({
         playlistId,
-        videoIndexId
+        videoIndexId,
       }: {
         playlistId: string;
         videoIndexId: string;
@@ -176,15 +182,15 @@ export const usePlaylist = () => {
           if (!settings.logoutMode) {
             await callApi({
               url: ApiRoutes.VideoIndexId(playlistId, videoIndexId),
-              method: 'DELETE'
+              method: "DELETE",
             });
           }
 
-          const playlists = context.state.playlists.map(p => {
+          const playlists = context.state.playlists.map((p) => {
             if (p.playlistId === playlistId) {
               return {
                 ...p,
-                videos: p.videos.filter(v => v.indexId !== videoIndexId)
+                videos: p.videos.filter((v) => v.indexId !== videoIndexId),
               };
             }
 
@@ -192,26 +198,26 @@ export const usePlaylist = () => {
           });
 
           if (settings.logoutMode) {
-            AsyncStorage.setItem('playlists', JSON.stringify(playlists));
+            AsyncStorage.setItem("playlists", JSON.stringify(playlists));
           }
 
-          snackbar.show(t('snackbar.removeVideoFromPlaylistSuccess'));
+          snackbar.show(t("snackbar.removeVideoFromPlaylistSuccess"));
           context.setPlaylist({ playlists });
         } catch (error) {
           snackbar.show(error.message);
         }
       },
       sortPlaylist: async (playlist: Playlist) => {
-        const playlists = context.state.playlists.map(p =>
+        const playlists = context.state.playlists.map((p) =>
           p.playlistId === playlist.playlistId ? playlist : p
         );
 
         if (settings.logoutMode) {
-          await AsyncStorage.setItem('playlists', JSON.stringify(playlists));
+          await AsyncStorage.setItem("playlists", JSON.stringify(playlists));
         }
 
         context.setPlaylist({ playlists });
-      }
+      },
     }),
     [context, settings.logoutMode, snackbar, t]
   );
@@ -223,7 +229,7 @@ const createPlaylists = async ({
   title,
   id,
   initialPlaylists,
-  logoutMode
+  logoutMode,
 }: {
   title: string;
   id: null | string;
@@ -233,23 +239,23 @@ const createPlaylists = async ({
   if (!logoutMode) {
     await callApi({
       url: ApiRoutes.Playlists,
-      method: 'POST',
+      method: "POST",
       body: {
         title,
-        privacy: 'public'
-      }
+        privacy: "public",
+      },
     });
   }
   const playlist = {
     playlistId: id ?? uuidv4(),
     title,
-    privacy: 'public',
-    videos: []
+    privacy: "public",
+    videos: [],
   };
   const playlists = [playlist, ...initialPlaylists];
 
   if (logoutMode) {
-    await AsyncStorage.setItem('playlists', JSON.stringify(playlists));
+    await AsyncStorage.setItem("playlists", JSON.stringify(playlists));
   }
 
   return playlists;

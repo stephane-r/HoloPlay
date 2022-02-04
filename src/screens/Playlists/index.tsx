@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import { useTheme, IconButton } from 'react-native-paper';
-import Layout from '../../components/Layout';
-import DialogAddPlaylist from '../../components/Dialog/AddPlaylist';
-import Header from '../../components/Header';
-import { PlaylistList } from '../../components/Playlist/List';
-import Spacer from '../../components/Spacer';
+import React, { useCallback, useState } from "react";
+import { IconButton, useTheme } from "react-native-paper";
+
+import DialogAddPlaylist from "../../components/Dialog/AddPlaylist";
+import Header from "../../components/Header";
+import Layout from "../../components/Layout";
+import { PlaylistList } from "../../components/Playlist/List";
+import Spacer from "../../components/Spacer";
 
 const PlaylistScreen: React.FC = () => {
   const [dialogAddPlaylistVisible, setDialogAddPlaylistVisible] =
@@ -12,7 +13,7 @@ const PlaylistScreen: React.FC = () => {
   const { colors } = useTheme();
 
   const toggleModal = useCallback((): void => {
-    setDialogAddPlaylistVisible(visible => !visible);
+    setDialogAddPlaylistVisible((visible) => !visible);
   }, []);
 
   return (

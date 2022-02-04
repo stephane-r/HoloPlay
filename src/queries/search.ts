@@ -1,4 +1,4 @@
-import { SearchVideo } from '../types';
+import { SearchVideo } from "../types";
 
 const search = async (
   slug: string,

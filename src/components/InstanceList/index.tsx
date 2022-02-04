@@ -1,11 +1,12 @@
-import React, { memo } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
-import stripTrailingSlash from '../../utils/stripTrailingSlash';
-import { useTranslation } from 'react-i18next';
-import { CustomInstance } from '../../types';
-import { useInvidiousInstances } from '../../containers/InstanceList';
-import { Instance } from '../Instance';
+import React, { memo } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
+
+import { useInvidiousInstances } from "../../containers/InstanceList";
+import { CustomInstance } from "../../types";
+import stripTrailingSlash from "../../utils/stripTrailingSlash";
+import { Instance } from "../Instance";
 
 interface Props {
   customInstances: CustomInstance[];
@@ -18,34 +19,35 @@ const InstanceList: React.FC<Props> = memo(() => {
   if (!data) {
     return (
       <View
-          style={{
-            paddingHorizontal: 20,
-            paddingVertical: 15
-          }}>
-          <Text>{t('instance.loading')}</Text>
-        </View>
-    )
+        style={{
+          paddingHorizontal: 20,
+          paddingVertical: 15,
+        }}
+      >
+        <Text>{t("instance.loading")}</Text>
+      </View>
+    );
   }
 
   return (
     <View style={styles.content}>
-        <View>
-          {[...custom, ...data].map(({ uri, isCustom }) => (
-            <Instance
-              key={uri}
-              uri={stripTrailingSlash(uri)}
-              isCustom={isCustom}
-            />
-          ))}
-        </View>
+      <View>
+        {[...custom, ...data].map(({ uri, isCustom }) => (
+          <Instance
+            key={uri}
+            uri={stripTrailingSlash(uri)}
+            isCustom={isCustom}
+          />
+        ))}
+      </View>
     </View>
   );
 });
 
 const styles = StyleSheet.create({
   content: {
-    flexDirection: 'column'
-  }
+    flexDirection: "column",
+  },
 });
 
 export default InstanceList;

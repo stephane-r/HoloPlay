@@ -1,16 +1,16 @@
-import React, { Children, memo, useState } from 'react';
+import { PlaylistActions } from "./CapsulePlaylist";
+import { CardLoading } from "./Card";
+import { VideoList, VideoListDraggable } from "./Video";
+import React, { Children, memo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
-  View,
   Image,
   StyleSheet,
+  Text,
   TouchableNativeFeedback,
-  Text
-} from 'react-native';
-import { Subheading, useTheme } from 'react-native-paper';
-import { CardLoading } from './Card';
-import { useTranslation } from 'react-i18next';
-import { VideoListDraggable, VideoList } from './Video';
-import { PlaylistActions } from './CapsulePlaylist';
+  View,
+} from "react-native";
+import { Subheading, useTheme } from "react-native-paper";
 
 export const Capsule: React.FC = memo(
   ({ data, onPress, children: childrenProp }) => {
@@ -19,10 +19,12 @@ export const Capsule: React.FC = memo(
 
     const children = Children.toArray(childrenProp);
     const video = children.find(
-      child => child.type === VideoListDraggable || child.type === VideoList
+      (child) => child.type === VideoListDraggable || child.type === VideoList
     );
-    const buttonPlay = children.find(child => child.type === PlaylistActions);
-    const totalSongs = children.find(child => child.type === CapsuleTotalSongs);
+    const buttonPlay = children.find((child) => child.type === PlaylistActions);
+    const totalSongs = children.find(
+      (child) => child.type === CapsuleTotalSongs
+    );
 
     return (
       <View style={styles.container}>
@@ -30,16 +32,18 @@ export const Capsule: React.FC = memo(
           style={[
             styles.card,
             {
-              backgroundColor: colors.surface
-            }
-          ]}>
+              backgroundColor: colors.surface,
+            },
+          ]}
+        >
           <TouchableNativeFeedback onPress={() => onPress()}>
             <View
               style={{
-                width: '100%',
-                flexDirection: 'row'
-              }}>
-              <View style={{ position: 'relative' }}>
+                width: "100%",
+                flexDirection: "row",
+              }}
+            >
+              <View style={{ position: "relative" }}>
                 <Image
                   resizeMode="cover"
                   style={styles.picture}
@@ -71,39 +75,39 @@ export const CapsuleTotalSongs = memo(({ totalSongs }) => {
 
   return (
     <Text style={{ color: colors.text }}>
-      {totalSongs} {t('playlists.song')}
-      {totalSongs > 1 && 's'}
+      {totalSongs} {t("playlists.song")}
+      {totalSongs > 1 && "s"}
     </Text>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   card: {
     elevation: 4,
-    flexDirection: 'column',
-    backgroundColor: 'white',
+    flexDirection: "column",
+    backgroundColor: "white",
     borderRadius: 4,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   title: {},
   picture: {
     width: 80,
     height: 80,
     borderRadius: 4,
-    transform: [{ translateY: -10 }]
+    transform: [{ translateY: -10 }],
   },
   infos: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 10,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });

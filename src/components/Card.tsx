@@ -1,31 +1,31 @@
-import React, { memo, useState, useCallback } from 'react';
-import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder';
-import timeFormat from 'hh-mm-ss';
-import { Image, StyleSheet, TouchableNativeFeedback, View } from 'react-native';
+import { DASHBOARD_COLOR } from "../../config/theme";
+import { useFavorite } from "../providers/Favorite";
+import { DialogAddVideoToPlaylist } from "./Dialog/AddVideoToPlaylist";
+import { ButtonFavorite } from "./Favoris/Button";
+import Label from "./Label";
+import timeFormat from "hh-mm-ss";
+import React, { memo, useCallback, useState } from "react";
+import { Image, StyleSheet, TouchableNativeFeedback, View } from "react-native";
 import {
   ActivityIndicator,
   IconButton,
   Subheading,
-  useTheme
-} from 'react-native-paper';
-import { DASHBOARD_COLOR } from '../../config/theme';
-import Label from './Label';
-import { ButtonFavorite } from './Favoris/Button';
-import { useFavorite } from '../providers/Favorite';
-import { DialogAddVideoToPlaylist } from './Dialog/AddVideoToPlaylist';
+  useTheme,
+} from "react-native-paper";
+import { Fade, Placeholder, PlaceholderLine } from "rn-placeholder";
 
-const formatCard = data => ({
+const formatCard = (data) => ({
   title: data.title,
   picture:
-    data.videoThumbnails?.find(q => q.quality === 'medium').url ||
+    data.videoThumbnails?.find((q) => q.quality === "medium").url ||
     data?.playlistThumbnail,
   duration:
-    data.type === 'playlist'
+    data.type === "playlist"
       ? `${data.videos.length} videos`
       : data.lengthSeconds
       ? timeFormat.fromS(data?.lengthSeconds)
       : null,
-  liveNow: data.liveNow
+  liveNow: data.liveNow,
 });
 
 export const Card = memo(({ data, onPress }) => {
@@ -44,10 +44,11 @@ export const Card = memo(({ data, onPress }) => {
         <TouchableNativeFeedback onPress={handlePress}>
           <View
             style={{
-              width: '100%',
-              flexDirection: 'column'
-            }}>
-            <View style={{ position: 'relative' }}>
+              width: "100%",
+              flexDirection: "column",
+            }}
+          >
+            <View style={{ position: "relative" }}>
               <CardImage uri={card.picture} />
               {card.liveNow ? (
                 <Label align="right" theme={DASHBOARD_COLOR}>
@@ -63,7 +64,7 @@ export const Card = memo(({ data, onPress }) => {
             <View style={styles.infos}>
               <View style={{ flex: 1 }}>
                 <CardTitle>{card.title}</CardTitle>
-                {card.type !== 'playlist' ? (
+                {card.type !== "playlist" ? (
                   <View style={styles.footer}>
                     <CardFavorite data={data} />
                     <CardPlus data={data} />
@@ -128,14 +129,15 @@ export const CardLoading = memo(() => {
   return (
     <View
       style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        width: '100%',
-        height: '110%',
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        width: "100%",
+        height: "110%",
         top: -25,
-        backgroundColor: 'rgba(255, 255, 255, .8)'
-      }}>
+        backgroundColor: "rgba(255, 255, 255, .8)",
+      }}
+    >
       <ActivityIndicator />
     </View>
   );
@@ -147,9 +149,10 @@ export const CardPlaceholder = memo(() => {
       <View style={styles.card}>
         <View
           style={{
-            width: '100%',
-            flexDirection: 'column'
-          }}>
+            width: "100%",
+            flexDirection: "column",
+          }}
+        >
           <Placeholder Animation={Fade}>
             <PlaceholderLine
               width={100}
@@ -177,32 +180,32 @@ export const CardPlaceholder = memo(() => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 8,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
   card: {
     elevation: 2,
     flex: 1,
     borderRadius: 4,
-    padding: 10
+    padding: 10,
   },
   title: {
-    height: 55
+    height: 55,
   },
   infos: {
-    marginTop: -5
+    marginTop: -5,
   },
   picture: {
-    width: '100%',
+    width: "100%",
     height: 130,
     borderRadius: 4,
     transform: [{ translateY: -25 }],
-    marginBottom: -10
+    marginBottom: -10,
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     flex: 1,
-    margin: -8
-  }
+    margin: -8,
+  },
 });

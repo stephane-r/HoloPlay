@@ -1,7 +1,8 @@
-import React from 'react';
-import { Video } from '../../types';
-import useKeyboard from '../../hooks/useKeyboard';
-import Spacer from '../Spacer';
+import React from "react";
+
+import useKeyboard from "../../hooks/useKeyboard";
+import { Video } from "../../types";
+import Spacer from "../Spacer";
 
 interface Props {
   video: null | Video;

@@ -1,18 +1,18 @@
-import RNFS from 'react-native-fs';
-import { PermissionsAndroid } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { useFavorite } from '../providers/Favorite';
-import { usePlaylist } from '../providers/Playlist';
-import { useSnackbar } from '../providers/Snackbar';
+import { useFavorite } from "../providers/Favorite";
+import { usePlaylist } from "../providers/Playlist";
+import { useSnackbar } from "../providers/Snackbar";
+import { useTranslation } from "react-i18next";
+import { PermissionsAndroid } from "react-native";
+import RNFS from "react-native-fs";
 
-const fileName = 'holoplay-backup.json';
+const fileName = "holoplay-backup.json";
 const path = `${RNFS.DownloadDirectoryPath}/${fileName}`;
 
 const useBackup = () => {
   const { state: favoriteState } = useFavorite();
   const { state: playlistState } = usePlaylist();
   const { t } = useTranslation();
-  const snackbar = useSnackbar()
+  const snackbar = useSnackbar();
 
   const backupData = async (): Promise<any> => {
     await requestWriteExternalStoragePermission();
@@ -25,15 +25,13 @@ const useBackup = () => {
       path,
       JSON.stringify({
         playlists: playlistState.playlists,
-        favorisPlaylist: favoriteState.favorisPlaylist
+        favorisPlaylist: favoriteState.favorisPlaylist,
       }),
-      'utf8'
+      "utf8"
     )
-      .then(() =>
-        snackbar.show(t('snackbar.dataExportSuccess'))
-      )
+      .then(() => snackbar.show(t("snackbar.dataExportSuccess")))
       .catch(() => {
-        snackbar.show(t('snackbar.dataExportError'));
+        snackbar.show(t("snackbar.dataExportError"));
       });
   };
 
@@ -41,22 +39,22 @@ const useBackup = () => {
     await requestWriteExternalStoragePermission();
 
     RNFS.readDir(RNFS.DownloadDirectoryPath)
-      .then(files => {
-        const backupFile = files.find(file => file.name === fileName);
-        return RNFS.readFile(backupFile.path, 'utf8');
+      .then((files) => {
+        const backupFile = files.find((file) => file.name === fileName);
+        return RNFS.readFile(backupFile.path, "utf8");
       })
-      .then(async data => {
+      .then(async (data) => {
         // await actions.importData(JSON.parse(data));
-        snackbar.show(t('snackbar.dataImportSuccess'));
+        snackbar.show(t("snackbar.dataImportSuccess"));
       })
       .catch(() => {
-        snackbar.show(t('snackbar.dataImportError'));
+        snackbar.show(t("snackbar.dataImportError"));
       });
   };
 
   return {
     backupData,
-    importData
+    importData,
   };
 };
 
@@ -70,7 +68,7 @@ export const requestWriteExternalStoragePermission = async () => {
       return Promise.resolve(PermissionsAndroid.RESULTS.GRANTED);
     }
 
-    return Promise.reject('Reject');
+    return Promise.reject("Reject");
   } catch (error) {
     console.logo(error);
   }

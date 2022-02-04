@@ -1,8 +1,8 @@
-import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import React from "react";
+import { ActivityIndicator, View } from "react-native";
 
 const LoadingScreen: React.FC<Props> = () => (
-  <View style={{ flex: 1, justifyContent: 'center' }}>
+  <View style={{ flex: 1, justifyContent: "center" }}>
     <ActivityIndicator size="large" />
   </View>
 );

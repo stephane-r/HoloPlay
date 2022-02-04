@@ -1,14 +1,20 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import AsyncStorage from "@react-native-community/async-storage";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 export const getCachedSearch = async () => {
   try {
     const [searchHistory] = await Promise.all([
-      AsyncStorage.getItem('searchHistory')
+      AsyncStorage.getItem("searchHistory"),
     ]);
 
     return {
-      history: JSON.parse(searchHistory) ?? []
+      history: JSON.parse(searchHistory) ?? [],
     };
   } catch (error) {
     console.log(error);
@@ -19,15 +25,15 @@ const SearchContext = createContext(null);
 
 export const SearchProvider = ({ children, data }) => {
   const [state, setState] = useState({
-    searchValue: '',
-    searchType: 'video',
+    searchValue: "",
+    searchType: "video",
     history: [],
-    ...data
+    ...data,
   });
 
   const setSearch = useCallback(
-    value => {
-      setState(prevState => ({ ...prevState, ...value }));
+    (value) => {
+      setState((prevState) => ({ ...prevState, ...value }));
     },
     [setState]
   );
@@ -43,7 +49,7 @@ export const useSearch = () => {
   const context = useContext(SearchContext);
 
   if (!context) {
-    throw new Error('useSearch must be used within a SearchProvider');
+    throw new Error("useSearch must be used within a SearchProvider");
   }
 
   const search = useMemo(
@@ -53,7 +59,7 @@ export const useSearch = () => {
 
         if (value) {
           history = [value, ...history.slice(0, 4)];
-          await AsyncStorage.setItem('searchHistory', JSON.stringify(history));
+          await AsyncStorage.setItem("searchHistory", JSON.stringify(history));
           context.setSearch({ searchValue: value, history });
         }
       },
@@ -62,7 +68,7 @@ export const useSearch = () => {
       },
       searchType: (searchType): void => {
         context.setSearch({ searchType });
-      }
+      },
     }),
     [context]
   );

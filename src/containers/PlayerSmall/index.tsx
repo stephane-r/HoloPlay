@@ -1,8 +1,9 @@
-import React, { memo, useCallback } from 'react';
-import { PlayerSmall } from '../../components/PlayerSmall';
-import { usePlayer } from '../../providers/Player';
+import React, { memo, useCallback } from "react";
 
-export const PlayerSmallContainer = memo(props => {
+import { PlayerSmall } from "../../components/PlayerSmall";
+import { usePlayer } from "../../providers/Player";
+
+export const PlayerSmallContainer = memo((props) => {
   const { state, player } = usePlayer();
 
   const handlePause = useCallback(() => {

@@ -1,13 +1,14 @@
-import React, { memo } from 'react';
-import { View, Dimensions, StyleSheet } from 'react-native';
-import { IconButton, Text } from 'react-native-paper';
-import SnapCarousel from 'react-native-snap-carousel';
-import { Playlist } from '../../types';
-import { useTranslation } from 'react-i18next';
-import { usePlaylist } from '../../providers/Playlist';
-import { Capsule, CapsuleTotalSongs } from '../Capsule';
-import { useCallback } from 'react';
-import { PlaylistActions } from '../CapsulePlaylist';
+import React, { memo } from "react";
+import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import { Dimensions, StyleSheet, View } from "react-native";
+import { IconButton, Text } from "react-native-paper";
+import SnapCarousel from "react-native-snap-carousel";
+
+import { usePlaylist } from "../../providers/Playlist";
+import { Playlist } from "../../types";
+import { Capsule, CapsuleTotalSongs } from "../Capsule";
+import { PlaylistActions } from "../CapsulePlaylist";
 
 interface CarouselPlayIconProps {
   onPress: () => void;
@@ -21,7 +22,7 @@ export const CarouselPlayIcon: React.FC<CarouselPlayIconProps> = memo(
         size={35}
         style={{
           width: 40,
-          marginRight: 16
+          marginRight: 16,
         }}
         onPress={onPress}
       />
@@ -38,7 +39,7 @@ export const setCardItem = (item: any): any => ({
   title: item?.title,
   picture:
     item?.videos[0]?.videoThumbnails[0]?.url ??
-    'https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png'
+    "https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png",
 });
 
 const CarouselItem: React.FC<CarouselItemProps> = memo(({ item, t }) => {
@@ -47,7 +48,7 @@ const CarouselItem: React.FC<CarouselItemProps> = memo(({ item, t }) => {
   const runPlaylist = useCallback(
     async (): Promise<void> =>
       // actions.loadVideo({ videoIndex: 0, setPlaylistFrom: item.videos }),
-    [item]
+      [item]
   );
 
   const handlePlay = useCallback(() => {
@@ -74,7 +75,7 @@ export const CarouselPlaylists: React.FC = memo(() => {
   const { t } = useTranslation();
   const { state } = usePlaylist();
 
-  const playlists = state.playlists.filter(p => p.title !== 'favoris');
+  const playlists = state.playlists.filter((p) => p.title !== "favoris");
 
   if (!playlists.length) {
     return null;
@@ -86,8 +87,8 @@ export const CarouselPlaylists: React.FC = memo(() => {
         data={playlists}
         firstItem={playlists.length - 1}
         layout="tinder"
-        itemWidth={Dimensions.get('window').width - 32}
-        sliderWidth={Dimensions.get('window').width - 32}
+        itemWidth={Dimensions.get("window").width - 32}
+        sliderWidth={Dimensions.get("window").width - 32}
         renderItem={({ item }) => <CarouselItem item={item} t={t} />}
       />
     </View>
@@ -96,6 +97,6 @@ export const CarouselPlaylists: React.FC = memo(() => {
 
 const styles = StyleSheet.create({
   itemContainer: {
-    paddingTop: 20
-  }
+    paddingTop: 20,
+  },
 });

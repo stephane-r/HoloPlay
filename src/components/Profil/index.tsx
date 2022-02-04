@@ -1,9 +1,10 @@
-import React, { memo, useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Title, Text, IconButton } from 'react-native-paper';
-import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
-import { useAppSettings } from '../../providers/App';
+import { useNavigation } from "@react-navigation/native";
+import React, { memo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+import { IconButton, Text, Title } from "react-native-paper";
+
+import { useAppSettings } from "../../providers/App";
 
 const Profil: React.FC = memo(() => {
   const { t } = useTranslation();
@@ -11,11 +12,11 @@ const Profil: React.FC = memo(() => {
   const { settings } = useAppSettings();
 
   const goToInvidiousInstancesScreen = useCallback(
-    () => navigation.navigate('InvidiousInstances'),
+    () => navigation.navigate("InvidiousInstances"),
     [navigation]
   );
   const goToSettingsScreen = useCallback(
-    () => navigation.navigate('Settings'),
+    () => navigation.navigate("Settings"),
     [navigation]
   );
 
@@ -24,10 +25,10 @@ const Profil: React.FC = memo(() => {
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Title style={styles.title}>
-            {t('profil.hey', { userName: settings.username })}
+            {t("profil.hey", { userName: settings.username })}
           </Title>
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: "row" }}>
           <IconButton
             icon="play-network"
             color="white"
@@ -44,7 +45,7 @@ const Profil: React.FC = memo(() => {
         </View>
       </View>
       <Text accessibilityStates={[]} style={styles.text}>
-        {t('profil.welcom')}
+        {t("profil.welcom")}
       </Text>
     </>
   );
@@ -52,20 +53,20 @@ const Profil: React.FC = memo(() => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
   textContainer: {
-    flex: 1
+    flex: 1,
   },
   title: {
-    color: 'white',
+    color: "white",
     fontSize: 35,
-    paddingTop: 5
+    paddingTop: 5,
   },
   text: {
-    color: 'white'
-  }
+    color: "white",
+  },
 });
 
 export default Profil;

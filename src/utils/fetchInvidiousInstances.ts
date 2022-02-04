@@ -1,7 +1,7 @@
-import { Instance } from '../types';
+import { Instance } from "../types";
 
 const fetchInvidiousInstances = (): Promise<Instance[]> =>
-  fetch('https://instances.invidio.us/instances.json')
+  fetch("https://instances.invidio.us/instances.json")
     .then((response) => response.json())
     .then((result) => {
       let instances = [];

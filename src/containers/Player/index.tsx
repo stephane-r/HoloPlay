@@ -1,9 +1,10 @@
-import React, { memo, useMemo } from 'react';
-import { Player } from '../../components/Player';
-import { usePlayer } from '../../providers/Player';
-import { usePlaylist } from '../../providers/Playlist';
+import React, { memo, useMemo } from "react";
 
-export const PlayerContainer = memo(props => {
+import { Player } from "../../components/Player";
+import { usePlayer } from "../../providers/Player";
+import { usePlaylist } from "../../providers/Playlist";
+
+export const PlayerContainer = memo((props) => {
   const { state: playlistState } = usePlaylist();
   const { state: playerState } = usePlayer();
 

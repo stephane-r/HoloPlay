@@ -1,17 +1,17 @@
-import React, { memo, useState, useCallback } from 'react';
-import { View } from 'react-native';
-import { useTheme } from 'react-native-paper';
-import Spacer from './Spacer';
-import { CarouselPlayIcon, setCardItem } from './Carousel';
-import { VideoList, VideoListDraggable } from './Video';
-import { DialogRemovePlaylist } from './Dialog/RemovePlaylist';
-import { PlaylistMenu } from './Playlist/Menu';
+import { useAppSettings } from "../providers/App";
+import { usePlayer } from "../providers/Player";
+import { usePlaylist } from "../providers/Playlist";
+import { Capsule, CapsuleTotalSongs } from "./Capsule";
+import { CarouselPlayIcon, setCardItem } from "./Carousel";
 // import { Playlist } from '../../types';
-import { DialogEditPlaylist } from './Dialog/EditPlaylist';
-import { usePlaylist } from '../providers/Playlist';
-import { Capsule, CapsuleTotalSongs } from './Capsule';
-import { usePlayer } from '../providers/Player';
-import { useAppSettings } from '../providers/App';
+import { DialogEditPlaylist } from "./Dialog/EditPlaylist";
+import { DialogRemovePlaylist } from "./Dialog/RemovePlaylist";
+import { PlaylistMenu } from "./Playlist/Menu";
+import Spacer from "./Spacer";
+import { VideoList, VideoListDraggable } from "./Video";
+import React, { memo, useCallback, useState } from "react";
+import { View } from "react-native";
+import { useTheme } from "react-native-paper";
 
 interface Props {
   totalSongs: number;
@@ -39,7 +39,7 @@ export const CapsulePlaylist: React.FC<Props> = memo(
         if (videoIndex !== null || videoIndex !== undefined) {
           await player.loadVideo({
             videoIndex,
-            setPlaylistFrom: playlist.videos
+            setPlaylistFrom: playlist.videos,
           });
         }
       },
@@ -50,7 +50,7 @@ export const CapsulePlaylist: React.FC<Props> = memo(
       (videoIndexId: string) => {
         playlistActions.removeVideo({
           videoIndexId,
-          playlistId: playlist.playlistId
+          playlistId: playlist.playlistId,
         });
       },
       [playlistActions, playlist]
@@ -96,11 +96,12 @@ export const PlaylistActions = ({ children }) => {
   return (
     <View
       style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginRight: -30
-      }}>
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        marginRight: -30,
+      }}
+    >
       {children}
     </View>
   );

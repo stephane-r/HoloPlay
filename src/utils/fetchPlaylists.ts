@@ -1,10 +1,10 @@
-import callApi from './callApi';
-import { Playlist } from '../types';
-import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from '../constants';
+import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from "../constants";
+import { Playlist } from "../types";
+import callApi from "./callApi";
 
 const fetchPlaylists = async (): Promise<Playlist[]> => {
   const playlists: Playlist[] = await callApi({
-    url: ApiRoutes.Playlists
+    url: ApiRoutes.Playlists,
   });
 
   if (playlists.error) {

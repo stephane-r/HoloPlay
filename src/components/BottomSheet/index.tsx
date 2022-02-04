@@ -1,15 +1,16 @@
-import React, { Component, useState, useEffect, PureComponent } from 'react';
+import React, { Component, PureComponent, useEffect, useState } from "react";
 import {
-  View,
-  TouchableOpacity,
+  Alert,
   Animated,
+  Dimensions,
   PanResponder,
   StyleSheet,
-  Dimensions,
-  Alert
-} from 'react-native';
-import PlayerContainer from '../../containers/Player';
-import { Text } from 'react-native-paper';
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Text } from "react-native-paper";
+
+import PlayerContainer from "../../containers/Player";
 
 class BottomSheet extends PureComponent {
   constructor(props) {
@@ -17,7 +18,7 @@ class BottomSheet extends PureComponent {
     this.state = {
       modalVisible: false,
       animatedHeight: new Animated.Value(0),
-      pan: new Animated.ValueXY()
+      pan: new Animated.ValueXY(),
     };
 
     this.createPanResponder(props);
@@ -29,7 +30,7 @@ class BottomSheet extends PureComponent {
       height,
       hasDragabbleIcon,
       backgroundColor,
-      dragIconColor
+      dragIconColor,
     } = this.props;
     const { animatedHeight, pan } = this.state;
     if (visible) {
@@ -37,20 +38,20 @@ class BottomSheet extends PureComponent {
       Animated.timing(animatedHeight, {
         toValue: height,
         duration: 300,
-        useNativeDriver: false
+        useNativeDriver: false,
       }).start();
     } else {
       Animated.timing(animatedHeight, {
         toValue: 0,
         duration: 400,
-        useNativeDriver: false
+        useNativeDriver: false,
       }).start(() => {
         pan.setValue({ x: 0, y: 0 });
         this.setState({
           modalVisible: visible,
-          animatedHeight: new Animated.Value(0)
+          animatedHeight: new Animated.Value(0),
         });
-        if (typeof closeFunction === 'function') closeFunction();
+        if (typeof closeFunction === "function") closeFunction();
       });
       this.props.onClose();
     }
@@ -78,7 +79,7 @@ class BottomSheet extends PureComponent {
         } else {
           Animated.spring(pan, { toValue: { x: 0, y: 0 } }).start();
         }
-      }
+      },
     });
   }
 
@@ -91,15 +92,11 @@ class BottomSheet extends PureComponent {
   }
 
   render() {
-    const {
-      children,
-      hasDraggableIcon,
-      backgroundColor,
-      dragIconColor
-    } = this.props;
+    const { children, hasDraggableIcon, backgroundColor, dragIconColor } =
+      this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
-      transform: pan.getTranslateTransform()
+      transform: pan.getTranslateTransform(),
     };
 
     return (
@@ -111,7 +108,8 @@ class BottomSheet extends PureComponent {
         />
         <Animated.View
           {...this.panResponder.panHandlers}
-          style={[panStyle, styles.container, { height: animatedHeight }]}>
+          style={[panStyle, styles.container, { height: animatedHeight }]}
+        >
           {children}
         </Animated.View>
       </View>
@@ -121,25 +119,25 @@ class BottomSheet extends PureComponent {
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: 'absolute',
-    width: '100%',
-    bottom: 0
+    position: "absolute",
+    width: "100%",
+    bottom: 0,
   },
   background: {
     flex: 1,
-    backgroundColor: 'transparent'
+    backgroundColor: "transparent",
   },
   container: {
-    backgroundColor: '#F3F3F3',
-    width: '100%',
+    backgroundColor: "#F3F3F3",
+    width: "100%",
     height: 0,
-    overflow: 'hidden'
+    overflow: "hidden",
   },
   draggableContainer: {
-    width: '100%',
-    alignItems: 'center',
-    backgroundColor: 'transparent'
-  }
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
 });
 
 export default BottomSheet;

@@ -1,46 +1,30 @@
-import React, { useState, useRef, useCallback, memo } from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
-import { Text, IconButton, ActivityIndicator } from 'react-native-paper';
-import Slider from '@react-native-community/slider';
-import Video from 'react-native-video';
-import MusicControl from 'react-native-music-control';
-import TimeFormat from 'hh-mm-ss';
-import LinearGradient from 'react-native-linear-gradient';
-import ViewPager from '@react-native-community/viewpager';
-import Spacer from '../Spacer';
-import useDownloadFile from '../../hooks/useDownloadFile';
-import hex2rgba from '../../utils/hex2rgba';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Dot } from '../Dot';
-import { useSnackbar } from '../../providers/Snackbar';
-import { usePlayer } from '../../providers/Player';
-import { ButtonFavorite } from '../Favoris/Button';
-import { useFavorite } from '../../providers/Favorite';
-import { VideoList } from '../Video';
+import Slider from "@react-native-community/slider";
+import ViewPager from "@react-native-community/viewpager";
+import TimeFormat from "hh-mm-ss";
+import React, { memo, useCallback, useRef, useState } from "react";
+import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import LinearGradient from "react-native-linear-gradient";
+import MusicControl from "react-native-music-control";
+import { ActivityIndicator, IconButton, Text } from "react-native-paper";
+import Video from "react-native-video";
 
-const color = '#ffffff';
+import useDownloadFile from "../../hooks/useDownloadFile";
+import { useFavorite } from "../../providers/Favorite";
+import { usePlayer } from "../../providers/Player";
+import { useSnackbar } from "../../providers/Snackbar";
+import hex2rgba from "../../utils/hex2rgba";
+import { Dot } from "../Dot";
+import { ButtonFavorite } from "../Favoris/Button";
+import Spacer from "../Spacer";
+import { VideoList } from "../Video";
+
+const color = "#ffffff";
 
 export const Player: React.FC = ({ background, isFirstVideo, isLastVideo }) => {
-  // useEffect(() => {
-  //   MusicControl.enableControl('play', true);
-  //   MusicControl.enableControl('pause', true);
-  //   MusicControl.enableControl('stop', false);
-  //   MusicControl.enableControl('nextTrack', true);
-  //   MusicControl.enableControl('previousTrack', true);
-  //   MusicControl.enableControl('changePlaybackPosition', true);
-  //   MusicControl.enableBackgroundMode(true);
-  //   MusicControl.on('play', playVideo);
-  //   MusicControl.on('pause', pauseVideo);
-  //   MusicControl.on('nextTrack', () => loadNextVideo());
-  //   MusicControl.on(
-  //     'previousTrack',
-  //     (): void => previousVideoIndex && loadPreviousVideo()
-  //   );
-  // }, []);
-
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
-      <PlayerPager />
+      {/* <PlayerPager /> */}
       <PlayerVideo isFirstVideo={isFirstVideo} isLastVideo={isLastVideo} />
       <Spacer height={30} />
     </View>
@@ -51,14 +35,14 @@ const PlayerPager = memo(() => {
   const pager = useRef(null);
   const {
     state: { video, background, playlist },
-    player
+    player,
   } = usePlayer();
 
   const handleLoadVideo = useCallback(
     async (videoIndex: number) => {
       await player.loadVideo({
         videoIndex,
-        setPlaylistFrom: playlist.videos
+        setPlaylistFrom: playlist.videos,
       });
     },
     [player, playlist.videos]
@@ -72,7 +56,8 @@ const PlayerPager = memo(() => {
         scrollEnabled={false}
         orientation="horizontal"
         transitionStyle="scroll"
-        ref={pager}>
+        ref={pager}
+      >
         <View style={styles.head}>
           <PlayerVideoDetail video={video} background={background} />
         </View>
@@ -97,7 +82,7 @@ const PlayerPagerDots = memo(({ pager }) => {
   const [page, setPage] = useState(0);
 
   const handlePage = useCallback(
-    index => {
+    (index) => {
       pager.current?.setPage(index);
       setPage(index);
     },
@@ -107,10 +92,11 @@ const PlayerPagerDots = memo(({ pager }) => {
   return (
     <View
       style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Dot isActive={page === 0} onPress={() => handlePage(0)} />
       <Dot isActive={page === 1} onPress={() => handlePage(1)} />
     </View>
@@ -124,18 +110,19 @@ const PlayerVideoDetail = memo(({ video, background }) => {
         <Image
           source={{ uri: video.thumbnail.url }}
           style={{
-            width: Dimensions.get('window').width,
-            height: video.thumbnail.height + 40
+            width: Dimensions.get("window").width,
+            height: video.thumbnail.height + 40,
           }}
         />
         <View
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: 0,
-            width: Dimensions.get('window').width
-          }}>
+            width: Dimensions.get("window").width,
+          }}
+        >
           <LinearGradient
-            colors={['rgba(255, 255, 255, 0)', hex2rgba(background, 1)]}
+            colors={["rgba(255, 255, 255, 0)", hex2rgba(background, 1)]}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
             style={{ height: 100 }}
@@ -166,10 +153,11 @@ const PlayerVideoDetail = memo(({ video, background }) => {
       <Text
         numberOfLines={2}
         style={{
-          textAlign: 'center',
+          textAlign: "center",
           color,
-          fontSize: 20
-        }}>
+          fontSize: 20,
+        }}
+      >
         {video.title}
       </Text>
       <Spacer height={10} />
@@ -185,16 +173,16 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
   const [repeat, setRepeat] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
 
-  MusicControl.enableControl('play', true);
-  MusicControl.enableControl('pause', true);
-  MusicControl.enableControl('stop', false);
-  MusicControl.enableControl('nextTrack', true);
-  MusicControl.enableControl('previousTrack', true);
+  MusicControl.enableControl("play", true);
+  MusicControl.enableControl("pause", true);
+  MusicControl.enableControl("stop", false);
+  MusicControl.enableControl("nextTrack", true);
+  MusicControl.enableControl("previousTrack", true);
   MusicControl.enableBackgroundMode(true);
-  MusicControl.on('play', handlePlay);
-  MusicControl.on('pause', handlePause);
-  MusicControl.on('nextTrack', () => handlePlayNextVideo());
-  MusicControl.on('previousTrack', (): void => handlePlayPreviousVideo());
+  MusicControl.on("play", handlePlay);
+  MusicControl.on("pause", handlePause);
+  MusicControl.on("nextTrack", () => handlePlayNextVideo());
+  MusicControl.on("previousTrack", (): void => handlePlayPreviousVideo());
 
   const handlePlayNextVideo = useCallback(() => {
     player.playNextVideo();
@@ -206,7 +194,7 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
 
   const handlePlay = useCallback(() => {
     MusicControl.updatePlayback({
-      state: MusicControl.STATE_PLAYING
+      state: MusicControl.STATE_PLAYING,
     });
     setPlay(true);
   }, [setPlay]);
@@ -214,7 +202,7 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
   const handlePause = useCallback(() => {
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PAUSED,
-      elapsedTime: currentTime
+      elapsedTime: currentTime,
     });
     setPlay(false);
   }, [setPlay, currentTime]);
@@ -271,7 +259,7 @@ const PlayerProgress = memo(
     paused,
     onPlayNextVideo,
     onPause,
-    onError
+    onError,
   }) => {
     const player = useRef(null);
     const snackbar = useSnackbar();
@@ -284,7 +272,7 @@ const PlayerProgress = memo(
 
         MusicControl.updatePlayback({
           state: MusicControl.STATE_PLAYING,
-          elapsedTime: Math.round(progress.currentTime)
+          elapsedTime: Math.round(progress.currentTime),
         });
       },
       [setLoading, setCurrentTime]
@@ -301,11 +289,11 @@ const PlayerProgress = memo(
         title,
         artwork: thumbnail.url,
         artist: author,
-        duration: lengthSeconds
+        duration: lengthSeconds,
       });
 
       MusicControl.updatePlayback({
-        state: MusicControl.STATE_BUFFERING
+        state: MusicControl.STATE_BUFFERING,
       });
     }, [video, loading, setLoading]);
 
@@ -318,7 +306,9 @@ const PlayerProgress = memo(
 
     const onVideoError = useCallback(
       (error): void => {
-        snackbar.show(error.error.errorException);
+        snackbar.show(
+          error.error.errorException || error.error.localizedFailureReason
+        );
         onError();
         setLoading(false);
       },
@@ -332,7 +322,7 @@ const PlayerProgress = memo(
         <Video
           ref={player}
           source={{
-            uri: video.uri
+            uri: video.uri,
           }}
           audioOnly={true}
           playInBackground={true}
@@ -347,10 +337,11 @@ const PlayerProgress = memo(
         {!video.liveNow && (
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              height: 58
-            }}>
+              flexDirection: "row",
+              justifyContent: "center",
+              height: 58,
+            }}
+          >
             <IconButton
               icon="rewind-30"
               onPress={() => player.current?.seek(currentTime - 30)}
@@ -368,7 +359,7 @@ const PlayerProgress = memo(
                 onPress={() =>
                   downloadVideo({
                     url: video.uri,
-                    fileName: video.title
+                    fileName: video.title,
                   })
                 }
               />
@@ -387,15 +378,15 @@ const PlayerProgress = memo(
             {currentTime
               ? TimeFormat.fromS(
                   currentTime,
-                  duration > 3600 ? 'hh:mm:ss' : 'mm:ss'
+                  duration > 3600 ? "hh:mm:ss" : "mm:ss"
                 )
-              : '00:00'}
+              : "00:00"}
           </Text>
           <View style={styles.progressBar}>
             <Slider
               value={currentTime}
               maximumValue={video.lengthSeconds}
-              onValueChange={value => player.current?.seek(Math.floor(value))}
+              onValueChange={(value) => player.current?.seek(Math.floor(value))}
               minimumTrackTintColor={color}
               thumbTintColor={color}
               thumbStyle={{ width: 15, height: 15 }}
@@ -425,19 +416,20 @@ const PlayerActions = memo(
     onRepeat,
     onPlayNextVideo,
     isFirstVideo,
-    isLastVideo
+    isLastVideo,
   }) => {
     return (
       <View
         style={{
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingHorizontal: 4
-        }}>
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingHorizontal: 4,
+        }}
+      >
         <IconButton
-          icon={repeat ? 'repeat-once' : 'repeat'}
+          icon={repeat ? "repeat-once" : "repeat"}
           size={25}
           color={color}
           onPress={onRepeat}
@@ -450,8 +442,8 @@ const PlayerActions = memo(
           disabled={isFirstVideo}
           size={25}
           style={{
-            backgroundColor: 'rgba(255, 255, 255, .3)',
-            marginLeft: 'auto'
+            backgroundColor: "rgba(255, 255, 255, .3)",
+            marginLeft: "auto",
           }}
         />
         {loading ? (
@@ -460,14 +452,14 @@ const PlayerActions = memo(
           </View>
         ) : (
           <IconButton
-            icon={paused ? 'arrow-right-drop-circle' : 'pause-circle'}
+            icon={paused ? "arrow-right-drop-circle" : "pause-circle"}
             onPress={() => (paused ? onPlay() : onPause())}
             color={color}
             style={{
               width: 80,
               height: 80,
               margin: 0,
-              marginHorizontal: 20
+              marginHorizontal: 20,
             }}
             size={80}
             animated
@@ -480,8 +472,8 @@ const PlayerActions = memo(
           disabled={isLastVideo}
           size={25}
           style={{
-            backgroundColor: 'rgba(255, 255, 255, .3)',
-            marginRight: 'auto'
+            backgroundColor: "rgba(255, 255, 255, .3)",
+            marginRight: "auto",
           }}
         />
         <PlayerFavorite />
@@ -492,10 +484,10 @@ const PlayerActions = memo(
 
 const PlayerFavorite = memo(() => {
   const {
-    state: { video }
+    state: { video },
   } = usePlayer();
   const {
-    state: { favorisPlaylist, favorisIds }
+    state: { favorisPlaylist, favorisIds },
   } = useFavorite();
 
   return (
@@ -510,41 +502,41 @@ const PlayerFavorite = memo(() => {
 
 const styles = StyleSheet.create({
   container: {
-    height: Dimensions.get('window').height
+    height: Dimensions.get("window").height,
   },
   head: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingHorizontal: 16,
-    flex: 1
+    flex: 1,
   },
   loader: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: 2
+    zIndex: 2,
   },
   content: {
-    alignItems: 'center'
+    alignItems: "center",
   },
   progress: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 15
+    paddingTop: 15,
   },
   progressBar: { flex: 1 },
   actionsContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   actionsAbsolute: {
-    position: 'absolute',
+    position: "absolute",
     top: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    borderRadius: 50
-  }
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    borderRadius: 50,
+  },
 });

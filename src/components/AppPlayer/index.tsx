@@ -1,9 +1,10 @@
-import React, { memo, useRef, useCallback, useMemo } from 'react';
-import { Animated, Dimensions } from 'react-native';
-import { PlayerContainer } from '../../containers/Player';
-import BottomSheet from '../BottomSheet';
-import { PlayerSmallContainer } from '../../containers/PlayerSmall';
-import Overlay from '../Overlay';
+import React, { memo, useCallback, useMemo, useRef } from "react";
+import { Animated, Dimensions } from "react-native";
+
+import { PlayerContainer } from "../../containers/Player";
+import { PlayerSmallContainer } from "../../containers/PlayerSmall";
+import BottomSheet from "../BottomSheet";
+import Overlay from "../Overlay";
 
 const AppPlayer: React.FC = memo(() => {
   const bottomSheet = useRef(null);
@@ -13,7 +14,7 @@ const AppPlayer: React.FC = memo(() => {
     Animated.timing(opacity, {
       toValue: 1,
       duration: 400,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start();
     bottomSheet.current.show();
   };
@@ -22,7 +23,7 @@ const AppPlayer: React.FC = memo(() => {
     Animated.timing(opacity, {
       toValue: 0,
       duration: 400,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start();
 
   return (
@@ -31,8 +32,9 @@ const AppPlayer: React.FC = memo(() => {
       <PlayerSmallContainer onPress={handleOpen} />
       <BottomSheet
         ref={bottomSheet}
-        height={Dimensions.get('window').height}
-        onClose={handleClose}>
+        height={Dimensions.get("window").height}
+        onClose={handleClose}
+      >
         <PlayerContainer onClose={() => bottomSheet.current.close()} />
       </BottomSheet>
     </>

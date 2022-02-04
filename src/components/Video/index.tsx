@@ -1,17 +1,18 @@
-import React, { memo, useCallback, useState } from 'react';
-import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import React, { memo, useCallback, useState } from "react";
+import { useEffect } from "react";
+import { StyleSheet, TouchableNativeFeedback, View } from "react-native";
+import DraggableFlatList from "react-native-draggable-flatlist";
 import {
-  Text,
-  IconButton,
+  ActivityIndicator,
   Divider,
-  ActivityIndicator
-} from 'react-native-paper';
-import DraggableFlatList from 'react-native-draggable-flatlist';
-import Spacer from '../Spacer';
-import { Video as VideoTypes } from '../../types';
-import { usePlayer } from '../../providers/Player';
-import { usePlaylist } from '../../providers/Playlist';
-import { useEffect } from 'react';
+  IconButton,
+  Text,
+} from "react-native-paper";
+
+import { usePlayer } from "../../providers/Player";
+import { usePlaylist } from "../../providers/Playlist";
+import { Video as VideoTypes } from "../../types";
+import Spacer from "../Spacer";
 
 interface Props {
   videos: VideoTypes[];
@@ -34,7 +35,7 @@ export const VideoListDraggable: React.FC<Props> = memo(
       setList(videosSorted);
       playlistActions.sortPlaylist({
         ...playlist,
-        videosSorted
+        videosSorted,
       });
     };
 
@@ -44,6 +45,7 @@ export const VideoListDraggable: React.FC<Props> = memo(
           data={list}
           renderItem={({ item, index, ...itemProps }) => (
             <Video
+              key={item.videoId}
               item={item}
               index={index}
               isLast={index + 1 === videos.length}
@@ -51,11 +53,11 @@ export const VideoListDraggable: React.FC<Props> = memo(
               {...props}
             />
           )}
-          keyExtractor={item => `draggable-item-${item.videoId}`}
+          keyExtractor={(item) => `draggable-item-${item.videoId}`}
           onDragEnd={({ data }) => handleDragEnd(data)}
           {...props}
         />
-        <View style={{ width: '100%' }}>
+        <View style={{ width: "100%" }}>
           <Spacer height={10} />
         </View>
       </>
@@ -74,7 +76,7 @@ export const VideoList: React.FC<Props> = memo(({ videos, ...props }) => {
           {...props}
         />
       ))}
-      <View style={{ width: '100%' }}>
+      <View style={{ width: "100%" }}>
         <Spacer height={10} />
       </View>
     </>
@@ -91,7 +93,7 @@ const Video = memo(
     color,
     isLast,
     isActive,
-    drag
+    drag,
   }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const { state: playerState } = usePlayer();
@@ -137,7 +139,7 @@ const Video = memo(
 
 const VideoDivider = memo(({ color }) => {
   return (
-    <View style={{ width: '100%', height: 1 }}>
+    <View style={{ width: "100%", height: 1 }}>
       <Divider style={color ? { backgroundColor: color } : {}} />
     </View>
   );
@@ -153,22 +155,22 @@ const VideoLoader = memo(({ color }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    alignItems: 'center'
+    width: "100%",
+    alignItems: "center",
   },
   title: {
-    width: '75%',
+    width: "75%",
     flex: 1,
-    paddingVertical: 8
+    paddingVertical: 8,
   },
   loader: {
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   line: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
   isActive: {
-    opacity: 0.2
-  }
+    opacity: 0.2,
+  },
 });

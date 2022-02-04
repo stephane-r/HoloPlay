@@ -1,8 +1,9 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import {AppVersion} from '../../components/Version';
-import { InstancesProvider } from '../../containers/InstanceList';
-import {LoginForm} from './form';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+
+import { AppVersion } from "../../components/Version";
+import { InstancesProvider } from "../../containers/InstanceList";
+import { LoginForm } from "./form";
 
 interface Props {
   setToken: () => void;
@@ -10,9 +11,9 @@ interface Props {
 
 const LoginScreen: React.FC<Props> = () => (
   <View style={styles.container}>
-    <View style={{ flex: 1, justifyContent: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center" }}>
       <InstancesProvider>
-      <LoginForm />
+        <LoginForm />
       </InstancesProvider>
     </View>
     <AppVersion />
@@ -22,9 +23,9 @@ const LoginScreen: React.FC<Props> = () => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 16
-  }
+    justifyContent: "center",
+    padding: 16,
+  },
 });
 
 export default LoginScreen;

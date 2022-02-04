@@ -1,5 +1,5 @@
-import { Linking } from 'react-native';
-import { useSnackbar } from '../providers/Snackbar';
+import { useSnackbar } from "../providers/Snackbar";
+import { Linking } from "react-native";
 
 interface UseLinkingHook {
   openUrl: (url: string) => Promise<void>;
@@ -19,7 +19,7 @@ const useLinking = (): UseLinkingHook => {
   };
 
   return {
-    openUrl
+    openUrl,
   };
 };
 

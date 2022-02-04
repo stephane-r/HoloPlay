@@ -1,6 +1,6 @@
-import RNFetchBlob from 'rn-fetch-blob';
-import slugify from './slugify';
-import { requestWriteExternalStoragePermission } from '../hooks/useBackup';
+import { requestWriteExternalStoragePermission } from "../hooks/useBackup";
+import slugify from "./slugify";
+import RNFetchBlob from "rn-fetch-blob";
 
 export interface DownloadFileParams {
   url: string;
@@ -20,10 +20,10 @@ const downloadFile = async ({
       useDownloadManager: true,
       title: fileName,
       path: `${dir}/${slugify(fileName)}.mp4`,
-      mime: 'video/mp4',
-      notification: true
-    }
-  }).fetch('GET', url);
+      mime: "video/mp4",
+      notification: true,
+    },
+  }).fetch("GET", url);
 };
 
 export default downloadFile;

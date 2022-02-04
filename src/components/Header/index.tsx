@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Title } from 'react-native-paper';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Title } from "react-native-paper";
 
 interface Props {
   title: string;
@@ -16,19 +16,19 @@ const Header: React.FC<Props> = ({ title, backgroundColor, children }) => (
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginHorizontal: -16,
     paddingHorizontal: 16,
     paddingTop: 24,
     paddingBottom: 80,
-    marginBottom: -60
+    marginBottom: -60,
   },
   title: {
     fontSize: 27,
-    color: 'white'
-  }
+    color: "white",
+  },
 });
 
 export default Header;

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import downloadFile, { DownloadFileParams } from '../utils/downloadFile';
-import { useSnackbar } from '../providers/Snackbar';
+import { useSnackbar } from "../providers/Snackbar";
+import downloadFile, { DownloadFileParams } from "../utils/downloadFile";
+import { useState } from "react";
 
 interface UseDownloadFileHook {
   loading: boolean;
@@ -25,7 +25,7 @@ const useDownloadFile = (): UseDownloadFileHook => {
 
   return {
     loading,
-    downloadVideo
+    downloadVideo,
   };
 };
 

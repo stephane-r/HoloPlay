@@ -1,11 +1,11 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 import React, {
   createContext,
   useCallback,
   useContext,
   useMemo,
-  useState
-} from 'react';
+  useState,
+} from "react";
 
 const DataContext = createContext(null);
 
@@ -15,12 +15,12 @@ export const DataProvider = ({ children, data }) => {
     popular: [],
     top: [],
     lastPlays: [],
-    ...data
+    ...data,
   });
 
   const setData = useCallback(
-    value => {
-      setState(prevState => ({ ...prevState, ...value }));
+    (value) => {
+      setState((prevState) => ({ ...prevState, ...value }));
     },
     [setState]
   );
@@ -34,13 +34,13 @@ export const useData = () => {
   const context = useContext(DataContext);
 
   if (!context) {
-    throw new Error('useData must be used within a DataProvider');
+    throw new Error("useData must be used within a DataProvider");
   }
 
   const data = useMemo(
     () => ({
       receiveData: ({ key, data: dataReceived }): void => {
-        if (key === 'popular' && !context.state.search) {
+        if (key === "popular" && !context.state.search) {
           return context.setData({ [key]: dataReceived, search: dataReceived });
         }
 
@@ -59,12 +59,12 @@ export const useData = () => {
 
         const lastPlaysUpdated = [video, ...lastPlays.slice(0, 9)];
         await AsyncStorage.setItem(
-          'lastPlays',
+          "lastPlays",
           JSON.stringify(lastPlaysUpdated)
         );
 
         context.setData({ lastPlays: lastPlaysUpdated });
-      }
+      },
     }),
     [context]
   );

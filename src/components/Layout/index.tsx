@@ -1,6 +1,6 @@
-import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import React from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { useTheme } from "react-native-paper";
 
 const Layout: React.FC = ({ children }) => {
   const { colors } = useTheme();
@@ -17,9 +17,9 @@ const Layout: React.FC = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 16
-  }
+    justifyContent: "center",
+    paddingHorizontal: 16,
+  },
 });
 
 export default Layout;
