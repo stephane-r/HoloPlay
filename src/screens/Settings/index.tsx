@@ -54,7 +54,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation, route, darkMode }) => {
   const toggleDialogApiInstance = () =>
     setShowDialogApiInstance(!showDialogApiInstance);
   const toggleDialogUsername = () => setShowDialogUsername(!showDialogUsername);
-  const toggleDialogErrorMoniroting = () =>
+  const toggleDialogErrorMonitoring = () =>
     setShowDialogErrorMonitoring(!showDialogErrorMonitoring);
   const toggleDialogLanguage = () => setShowDialogLanguage(!showDialogLanguage);
 
