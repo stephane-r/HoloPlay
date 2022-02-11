@@ -1,9 +1,9 @@
+import React, { memo, useCallback } from "react";
+import { StyleSheet, View } from "react-native";
+
 import { usePlayer } from "../providers/Player";
 import { Card, CardPlaceholder } from "./Card";
-import { ScrollView } from "./Card/ScrollList";
-import React, { memo, useCallback, useState } from "react";
-import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { HorizontalScrollView } from "./HorizontalScrollView";
 
 export const CardList: React.FC = memo(
   ({ display = "horizontal", ...props }) => {
@@ -71,7 +71,7 @@ const HorizontalList = memo(({ data, setPlaylistFrom }) => {
   const handlePress = useCallback((props) => player.loadVideo(props), [player]);
 
   return (
-    <ScrollView>
+    <HorizontalScrollView>
       {data.map((item, index) => (
         <View
           key={`${item.videoId}-${index}-${setPlaylistFrom}`}
@@ -83,13 +83,13 @@ const HorizontalList = memo(({ data, setPlaylistFrom }) => {
           />
         </View>
       ))}
-    </ScrollView>
+    </HorizontalScrollView>
   );
 });
 
 export const HorizontalListPlaceholder = memo(() => {
   return (
-    <ScrollView>
+    <HorizontalScrollView>
       <View style={{ width: 250, paddingTop: 16 }}>
         <CardPlaceholder />
       </View>
@@ -105,7 +105,7 @@ export const HorizontalListPlaceholder = memo(() => {
       <View style={{ width: 250, paddingTop: 16 }}>
         <CardPlaceholder />
       </View>
-    </ScrollView>
+    </HorizontalScrollView>
   );
 });
 

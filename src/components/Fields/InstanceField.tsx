@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
 
-import { useInvidiousInstances } from "../../containers/InstanceList";
+import { useInvidiousInstances } from "../../providers/Instances";
 
 export const InstanceField: React.FC = memo(({ value, onChange }) => {
   const { data } = useInvidiousInstances();

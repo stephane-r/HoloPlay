@@ -4,9 +4,9 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Divider, IconButton, Menu, Switch, Text } from "react-native-paper";
 import { useQuery } from "react-query";
 
-import { useAppSettings } from "../../providers/App";
-import { usePlaylist } from "../../providers/Playlist";
-import { useSnackbar } from "../../providers/Snackbar";
+import { useAppSettings } from "../providers/App";
+import { usePlaylist } from "../providers/Playlist";
+import { useSnackbar } from "../providers/Snackbar";
 
 interface Props {
   uri: string;

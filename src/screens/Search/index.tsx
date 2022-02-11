@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "react-native-paper";
 
 import { Header } from "../../components/Header";
-import Layout from "../../components/Layout";
+import { Layout } from "../../components/Layout";
 import { SearchbarAbsolute } from "../../components/Search/BarAbsolute";
 import { SearchResult } from "../../components/Search/Result";
 import { SearchPickerTypeContainer } from "../../containers/Search/PickerType";

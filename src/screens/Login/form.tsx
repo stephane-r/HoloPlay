@@ -8,10 +8,10 @@ import "react-native-get-random-values";
 import { Button, useTheme } from "react-native-paper";
 
 import { Spacer } from "../../components/Spacer";
-import { useInvidiousInstances } from "../../containers/InstanceList";
 import { APP_LANGUAGES } from "../../i18n";
 import { useAppSettings } from "../../providers/App";
 import { useFavorite } from "../../providers/Favorite";
+import { useInvidiousInstances } from "../../providers/Instances";
 
 export const LoginForm: React.FC = memo(() => {
   const { data } = useInvidiousInstances();

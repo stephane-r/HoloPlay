@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-import { useInvidiousInstances } from "../../containers/InstanceList";
-import stripTrailingSlash from "../../utils/stripTrailingSlash";
-import { Instance } from "../Instance";
+import { useInvidiousInstances } from "../providers/Instances";
+import stripTrailingSlash from "../utils/stripTrailingSlash";
+import { Instance } from "./Instance";
 
 const InstanceList: React.FC = memo(() => {
   const { t } = useTranslation();

@@ -1,6 +1,7 @@
-import Snackbar from "../components/Snackbar";
 import React, { useCallback, useContext, useMemo, useState } from "react";
 import { createContext } from "react";
+
+import { Snackbar } from "../components/Snackbar";
 
 const SnackbarContext = createContext(null);
 

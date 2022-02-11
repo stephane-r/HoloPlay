@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { Button, Dialog, Portal, Text, TextInput } from "react-native-paper";
 
 import { ApiRoutes } from "../../../constants";
-import { useInvidiousInstances } from "../../../containers/InstanceList";
 import { useAppSettings } from "../../../providers/App";
+import { useInvidiousInstances } from "../../../providers/Instances";
 import { usePlaylist } from "../../../providers/Playlist";
 import { useSnackbar } from "../../../providers/Snackbar";
 import callApi from "../../../utils/callApi";

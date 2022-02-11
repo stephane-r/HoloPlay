@@ -2,13 +2,13 @@ import React from "react";
 import { Dimensions } from "react-native";
 import { Snackbar as PaperSnackBar } from "react-native-paper";
 
-import { Snackbar as SnackbarType } from "../../types";
+import { Snackbar as SnackbarType } from "../types";
 
 interface Props {
   snackbar: SnackbarType;
 }
 
-const Snackbar: React.FC<Props> = ({ snackbar }) => {
+export const Snackbar: React.FC<Props> = ({ snackbar }) => {
   if (!snackbar) {
     return null;
   }
@@ -24,5 +24,3 @@ const Snackbar: React.FC<Props> = ({ snackbar }) => {
     </PaperSnackBar>
   );
 };
-
-export default Snackbar;

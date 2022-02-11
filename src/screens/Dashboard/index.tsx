@@ -6,8 +6,8 @@ import { Button, useTheme } from "react-native-paper";
 
 import { CarouselPlaylists } from "../../components/Carousel";
 import { LastPlays } from "../../components/LastPlays";
-import Layout from "../../components/Layout";
-import Profil from "../../components/Profil";
+import { Layout } from "../../components/Layout";
+import { Profil } from "../../components/Profil";
 import { SearchPopular } from "../../components/Search/Popular";
 import { Spacer } from "../../components/Spacer";
 import { usePlayer } from "../../providers/Player";

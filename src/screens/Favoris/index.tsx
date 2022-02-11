@@ -4,7 +4,7 @@ import { useTheme } from "react-native-paper";
 
 import { FavorisList } from "../../components/Favoris/List";
 import { Header } from "../../components/Header";
-import Layout from "../../components/Layout";
+import { Layout } from "../../components/Layout";
 
 const Favoris: React.FC = () => {
   const { colors } = useTheme();

@@ -7,5 +7,6 @@ export const ApiRoutes = {
   VideoIndexId: (playlistId: string, indexId: string) =>
     `playlists/${playlistId}/videos/${indexId}`,
 };
-
-export const FAVORIS_PLAYLIST_TITLE: string = "favoris";
+export const FAVORIS_PLAYLIST_TITLE = "favoris";
+export const PLAYLIST_PICTURE_PLACEHOLDER =
+  "https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png";

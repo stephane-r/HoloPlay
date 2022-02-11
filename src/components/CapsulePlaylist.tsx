@@ -6,12 +6,11 @@ import { useAppSettings } from "../providers/App";
 import { usePlayer } from "../providers/Player";
 import { usePlaylist } from "../providers/Playlist";
 import { Capsule, CapsuleTotalSongs } from "./Capsule";
-import { setCardItem } from "./Carousel";
-// import { Playlist } from '../../types';
+import { formatCardItem } from "./Carousel";
 import { DialogEditPlaylist } from "./Dialog/EditPlaylist";
 import { DialogRemovePlaylist } from "./Dialog/RemovePlaylist";
 import { IconButtonPlay } from "./IconButtonPlay";
-import { PlaylistMenu } from "./Playlist/Menu";
+import { PlaylistMenu } from "./PlaylistMenu";
 import { Spacer } from "./Spacer";
 import { VideoList, VideoListDraggable } from "./Video";
 
@@ -27,7 +26,7 @@ export const CapsulePlaylist: React.FC<Props> = memo(
     const { colors } = useTheme();
     const { settings } = useAppSettings();
 
-    const card = setCardItem(playlist);
+    const card = formatCardItem(playlist);
 
     const handlePress = useCallback(() => {
       if (playlist.videos.length === 0) {

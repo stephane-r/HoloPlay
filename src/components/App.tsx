@@ -14,40 +14,40 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import {
   QUICK_ACTION_FAVORIS,
   QUICK_ACTION_PLAYLISTS,
-} from "../../../config/quickAction";
+} from "../../config/quickAction";
 import {
   DASHBOARD_COLOR,
   FAVORIS_COLOR,
   PLAYLISTS_COLOR,
   darkTheme,
   defaultTheme,
-} from "../../../config/theme";
-import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from "../../constants";
-import { InstancesProvider } from "../../containers/InstanceList";
-import useUpdateRelease from "../../hooks/useUpdateRelease";
+} from "../../config/theme";
+import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from "../constants";
+import useUpdateRelease from "../hooks/useUpdateRelease";
 import {
   AppSettingsProvider,
   getCachedSettings,
   useAppSettings,
-} from "../../providers/App";
-import { DataProvider } from "../../providers/Data";
-import { FavoriteProvider } from "../../providers/Favorite";
-import { PlayerProvider } from "../../providers/Player";
-import { PlaylistProvider } from "../../providers/Playlist";
-import { SnackbarProvider } from "../../providers/Snackbar";
-import DashboardScreen from "../../screens/Dashboard";
-import FavorisScreen from "../../screens/Favoris";
-import InvidiousInstanceScreen from "../../screens/InvidiousInstances";
-import LoadingScreen from "../../screens/Loading";
-import LoginScreen from "../../screens/Login";
-import PlaylistsScreen from "../../screens/Playlists";
-import PrivacyPolicyScreen from "../../screens/PrivacyPolicy";
-import SearchScreen from "../../screens/Search";
-import SettingsScreen from "../../screens/Settings";
-import { Playlist, QuickAction } from "../../types";
-import callApi from "../../utils/callApi";
-import fetchPlaylists from "../../utils/fetchPlaylists";
-import { AppPlayer } from "../AppPlayer";
+} from "../providers/App";
+import { DataProvider } from "../providers/Data";
+import { FavoriteProvider } from "../providers/Favorite";
+import { InstancesProvider } from "../providers/Instances";
+import { PlayerProvider } from "../providers/Player";
+import { PlaylistProvider } from "../providers/Playlist";
+import { SnackbarProvider } from "../providers/Snackbar";
+import DashboardScreen from "../screens/Dashboard";
+import FavorisScreen from "../screens/Favoris";
+import InvidiousInstanceScreen from "../screens/InvidiousInstances";
+import LoadingScreen from "../screens/Loading";
+import LoginScreen from "../screens/Login";
+import PlaylistsScreen from "../screens/Playlists";
+import PrivacyPolicyScreen from "../screens/PrivacyPolicy";
+import SearchScreen from "../screens/Search";
+import SettingsScreen from "../screens/Settings";
+import { Playlist, QuickAction } from "../types";
+import callApi from "../utils/callApi";
+import fetchPlaylists from "../utils/fetchPlaylists";
+import { AppPlayer } from "./AppPlayer";
 
 // :troll:
 LogBox.ignoreAllLogs();

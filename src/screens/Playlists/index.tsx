@@ -3,8 +3,8 @@ import { IconButton, useTheme } from "react-native-paper";
 
 import DialogAddPlaylist from "../../components/Dialog/AddPlaylist";
 import { Header } from "../../components/Header";
-import Layout from "../../components/Layout";
-import { PlaylistList } from "../../components/Playlist/List";
+import { Layout } from "../../components/Layout";
+import { PlaylistList } from "../../components/PlaylistList";
 import { Spacer } from "../../components/Spacer";
 
 const PlaylistScreen: React.FC = () => {

@@ -9,22 +9,22 @@ import MusicControl from "react-native-music-control";
 import { ActivityIndicator, IconButton, Text } from "react-native-paper";
 import Video from "react-native-video";
 
-import useDownloadFile from "../../hooks/useDownloadFile";
-import { useFavorite } from "../../providers/Favorite";
-import { usePlayer } from "../../providers/Player";
-import { useSnackbar } from "../../providers/Snackbar";
-import hex2rgba from "../../utils/hex2rgba";
-import { Dot } from "../Dot";
-import { ButtonFavorite } from "../Favoris/Button";
-import { Spacer } from "../Spacer";
-import { VideoList } from "../Video";
+import useDownloadFile from "../hooks/useDownloadFile";
+import { useFavorite } from "../providers/Favorite";
+import { usePlayer } from "../providers/Player";
+import { useSnackbar } from "../providers/Snackbar";
+import hex2rgba from "../utils/hex2rgba";
+import { Dot } from "./Dot";
+import { ButtonFavorite } from "./Favoris/Button";
+import { Spacer } from "./Spacer";
+import { VideoList } from "./Video";
 
 const color = "#ffffff";
 
 export const Player: React.FC = ({ background, isFirstVideo, isLastVideo }) => {
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
-      {/* <PlayerPager /> */}
+      <PlayerPager />
       <PlayerVideo isFirstVideo={isFirstVideo} isLastVideo={isLastVideo} />
       <Spacer height={30} />
     </View>

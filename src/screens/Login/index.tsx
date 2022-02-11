@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions, ImageBackground, StyleSheet, View } from "react-native";
 
-import { AppVersion } from "../../components/Version";
+import { AppVersion } from "../../components/AppVersion";
 import { LoginForm } from "./form";
 
 const LoginScreen: React.FC = () => {

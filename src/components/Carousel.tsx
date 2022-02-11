@@ -1,35 +1,31 @@
 import React, { memo } from "react";
-import { useCallback } from "react";
-import { useTranslation } from "react-i18next";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { IconButton, Text } from "react-native-paper";
 import SnapCarousel from "react-native-snap-carousel";
 
-import { usePlayer } from "../../providers/Player";
-import { usePlaylist } from "../../providers/Playlist";
-import { Playlist } from "../../types";
-import { Capsule, CapsuleTotalSongs } from "../Capsule";
-import { ButtonPlayPlaylist, PlaylistActions } from "../CapsulePlaylist";
-import { IconButtonPlay } from "../IconButtonPlay";
+import { PLAYLIST_PICTURE_PLACEHOLDER } from "../constants";
+import { usePlaylist } from "../providers/Playlist";
+import { Playlist } from "../types";
+import { Capsule, CapsuleTotalSongs } from "./Capsule";
+import { ButtonPlayPlaylist, PlaylistActions } from "./CapsulePlaylist";
+
+export const formatCardItem = (
+  item: any
+): { title: string; picture: string } => ({
+  title: item?.title,
+  picture:
+    item?.videos[0]?.videoThumbnails[0]?.url ?? PLAYLIST_PICTURE_PLACEHOLDER,
+});
 
 interface CarouselItemProps {
   item: Playlist;
-  index: number;
 }
-
-export const setCardItem = (item: any): any => ({
-  title: item?.title,
-  picture:
-    item?.videos[0]?.videoThumbnails[0]?.url ??
-    "https://greeneyedmedia.com/wp-content/plugins/woocommerce/assets/images/placeholder.png",
-});
 
 const CarouselItem: React.FC<CarouselItemProps> = memo(({ item }) => {
   const videosCount = item.videos?.length ?? 0;
 
   return (
     <View style={styles.itemContainer}>
-      <Capsule data={setCardItem(item)}>
+      <Capsule data={formatCardItem(item)}>
         <CapsuleTotalSongs totalSongs={videosCount} />
         <PlaylistActions>
           <ButtonPlayPlaylist playlist={item} />
@@ -40,7 +36,6 @@ const CarouselItem: React.FC<CarouselItemProps> = memo(({ item }) => {
 });
 
 export const CarouselPlaylists: React.FC = memo(() => {
-  const { t } = useTranslation();
   const { state } = usePlaylist();
 
   const playlists = state.playlists.filter((p) => p.title !== "favoris");
@@ -50,7 +45,7 @@ export const CarouselPlaylists: React.FC = memo(() => {
   }
 
   return (
-    <View style={{ marginBottom: -60 }}>
+    <View style={styles.container}>
       <SnapCarousel
         data={playlists}
         firstItem={playlists.length - 1}
@@ -64,6 +59,9 @@ export const CarouselPlaylists: React.FC = memo(() => {
 });
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: -60,
+  },
   itemContainer: {
     paddingTop: 20,
   },

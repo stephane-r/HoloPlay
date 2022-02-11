@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { IconButton, Text, Title } from "react-native-paper";
 
-import { useAppSettings } from "../../providers/App";
+import { useAppSettings } from "../providers/App";
 
-const Profil: React.FC = memo(() => {
+export const Profil: React.FC = memo(() => {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { settings } = useAppSettings();
@@ -44,9 +44,7 @@ const Profil: React.FC = memo(() => {
           />
         </View>
       </View>
-      <Text accessibilityStates={[]} style={styles.text}>
-        {t("profil.welcom")}
-      </Text>
+      <Text style={styles.text}>{t("profil.welcom")}</Text>
     </>
   );
 });
@@ -68,5 +66,3 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-
-export default Profil;

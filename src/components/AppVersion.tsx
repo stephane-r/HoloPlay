@@ -3,9 +3,13 @@ import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { List, Text } from "react-native-paper";
 
-import { version } from "../../../package";
+import { version } from "../../package";
 
-export const AppVersion: React.FC = ({ listItemStyle }) => {
+interface Props {
+  listItemStyle?: boolean;
+}
+
+export const AppVersion: React.FC<Props> = ({ listItemStyle }) => {
   const { t } = useTranslation();
 
   if (listItemStyle) {

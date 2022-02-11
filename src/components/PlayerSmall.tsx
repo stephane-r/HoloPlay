@@ -8,8 +8,8 @@ import {
 import { useAnimation } from "react-native-animation-hooks";
 import { IconButton, Text } from "react-native-paper";
 
-import useKeyboard from "../../hooks/useKeyboard";
-import { Video as VideoType } from "../../types";
+import useKeyboard from "../hooks/useKeyboard";
+import { Video as VideoType } from "../types";
 
 interface Props {
   video: VideoType;

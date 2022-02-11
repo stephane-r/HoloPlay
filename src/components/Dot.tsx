@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { StyleSheet, TouchableNativeFeedback, View } from "react-native";
 
-import hex2rgba from "../../utils/hex2rgba";
+import hex2rgba from "../utils/hex2rgba";
 
 interface Props {
   isActive: boolean;
