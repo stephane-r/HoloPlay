@@ -5,7 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Appbar, useTheme } from "react-native-paper";
 
 import { DialogAddCustomInstance } from "../../components/Dialog/AddCustomInstance";
-import InstanceListContainer from "../../containers/InstanceList";
+import InstanceList from "../../components/InstanceList";
 
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 
@@ -31,7 +31,7 @@ const InvidiousInstanceScreen: React.FC<Props> = ({ navigation }) => {
             <Appbar.Content title={t("instance.title")} />
             <Appbar.Action icon="plus" onPress={() => setVisible(true)} />
           </Appbar>
-          <InstanceListContainer />
+          <InstanceList />
         </View>
       </ScrollView>
       <DialogAddCustomInstance

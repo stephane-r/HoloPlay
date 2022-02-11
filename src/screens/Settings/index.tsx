@@ -19,7 +19,7 @@ import {
   useTheme,
 } from "react-native-paper";
 
-import DialogEditToken from "../../components/Dialog/EditToken";
+import { DialogEditToken } from "../../components/Dialog/EditToken";
 import { DialogEditUsername } from "../../components/Dialog/EditUsername";
 import { Spacer } from "../../components/Spacer";
 import { AppVersion } from "../../components/Version";
@@ -196,7 +196,7 @@ const Token = memo(() => {
         onPress={toggleDialog}
       />
       <DialogEditToken
-        value={settings.token}
+        token={settings.token}
         visible={visible}
         onDismiss={toggleDialog}
       />

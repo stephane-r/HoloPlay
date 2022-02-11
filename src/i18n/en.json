@@ -1,188 +1,190 @@
 {
-  "translation": {
-    "common": {
-      "button": {
-        "done": "Done",
-        "cancel": "Cancel",
-        "add": "Add",
-        "close": "Close"
-      }
-    },
-    "navigation": {
-      "dashboard": "Dashboard",
-      "search": "Search",
-      "playlists": "Playlists",
-      "favoris": "Favoris"
-    },
-    "drawler": {
-      "title": "Navigation",
-      "createPlaylist": "Create new playlist",
-      "settings": "Settings",
-      "instances": "Invidious instances",
-      "darkMode": "Dark mode",
-      "version": "Version",
-      "updateAvailable": "Update available",
-      "privacyPolicy": "Privacy Policy"
-    },
-    "profil": {
-      "hey": "Hey {{userName}}",
-      "welcom": "Welcome home"
-    },
-    "search": {
-      "title": "Search",
-      "type": {
-        "video": "Video",
-        "playlist": "Playlist"
-      },
-      "popular": "Most popular",
-      "trending": "Trending",
-      "lastPlays": "Last plays",
-      "error": "No result. Maybe instance is down ? Try to change Invidious instance from settings screen.",
-      "errorApi": "Error. Maybe instance is down ? Try to change Invidious instance from settings screen.",
-      "empty": "No result with",
-      "emptyValue": "You can't search with empty value",
-      "buttonChangeInstance": "Change instance"
-    },
-    "playlists": {
-      "song": "song",
-      "canNotReOrder": "You cannot change order of a playlist by using an Invidious token."
-    },
-    "searchBar": {
-      "placeholder": "Search music"
-    },
-    "menu": {
-      "edit": "Edit",
-      "delete": "Delete"
-    },
-    "fab": {
-      "newPlaylist": "Add new playlist"
-    },
-    "player": {
-      "errorLoadVideo": "Error from Steam API. Loading next video"
-    },
-    "data": {
-      "empty": {
-        "playlist": "No playlist",
-        "favoris": "No favoris",
-        "favorisNotSet": "Your favoris playlist is not set.",
-        "favorisButtonSet": "Set Favoris playlist"
-      }
-    },
-    "settings": {
-      "title": "Settings",
-      "api": "API",
-      "invidiousInstance": "Invidious instance",
-      "buttonUpdateInvidiousInstance": "Change",
-      "token": "Token",
-      "tokenEmpty": "No token",
-      "application": "APPLICATION",
-      "username": "Username",
-      "monitoring": "Error and Performance Moniroting",
-      "enabled": "Enabled",
-      "disabled": "Disabled",
-      "language": "Language",
-      "data": "DATA",
-      "importExportText": "Export or import my playlists and my favoris",
-      "exportButton": "Export",
-      "importButton": "Import",
-      "darkMode": "Dark mode"
-    },
-    "instance": {
-      "title": "Invidious instances",
-      "loading": "Loading all Invidious instances...",
-      "use": "Use",
-      "test": "Test"
-    },
-    "privacyPolicy": {
-      "title": "Privacy Policy",
-      "intro1": "This privacy policy governs your use of the software application",
-      "intro2": "for mobile devices that was create by",
-      "dataTitle": "Data collected by me",
-      "dataText": "Myself and the application do not collect any personal information whatsoever.",
-      "emailTitle": "Email communication",
-      "emailText1": "If you contact me per email",
-      "emailText2": "i will exclusively use your contact data to process your inquiry.",
-      "crashReportingTitle": "Crash reporting tool (Sentry)",
-      "crashReportingText1": "This app uses an self hosted Sentry instance crash reporting library, disabled by default",
-      "crashReportingText2": "If the application crashes and you have activated crash reporting from the settings screen (and only if), Sentry collects data relating to the context : data relating to the application crash only.",
-      "permissionsTitle": "Why HoloPlay request write external storage permissions ?",
-      "permissionsText1": "HoloPlay will ask you for permission if you want to download music (to save it) as well as to generate a backup of your playlists from the settings screen.",
-      "permissionsText2": "These are the two cases where HoloPlay will ask you for this permission. The files will be saved in the Document folder of your device."
-    },
-    "login": {
-      "token": "Token",
-      "username": "Username (optional)",
-      "instance": "Instance",
-      "buttonSaveToken": "Save token",
-      "language": "Language",
-      "buttonSkip": "Skip"
-    },
-    "dialog": {
-      "addToPlaylist": {
-        "title": "Add to playlist",
-        "newPlaylist": "New playlist",
-        "text": "Select the playlist to which you want to add your music",
-        "text2": "Or create new playlist",
-        "selectPlaylist": "Select"
-      },
-      "createPlaylist": {
-        "titleAdd": "Create playlist",
-        "titleUpdate": "Update playlist",
-        "placeholder": "Playlist name"
-      },
-      "removePlaylist": {
-        "title": "Remove playlist {{name}} ?"
-      },
-      "editApiInstance": {
-        "title": "Edit Invidious instance"
-      },
-      "editToken": {
-        "title": "Edit Invidious token",
-        "emptyToken": "With an empty token, you will switch to logout mode"
-      },
-      "editUsername": {
-        "title": "Edit username"
-      },
-      "monitoring": {
-        "title": "Monitoring",
-        "text": "HoloPlay includes an error and performance monitoring tool that is disabled by default.",
-        "text1": "HoloPlay includes an error and performance monitoring tool that is disabled by default. No data is retrieved without your consent",
-        "text2": "By activating it, any errors will be sent to a self-hosted instance of Sentry",
-        "label": "Enable"
-      },
-      "editLanguage": {
-        "title": "Edit language"
-      },
-      "customInstance": {
-        "title": "Add Invidious instance",
-        "placeholder": "URL",
-        "example": "Example"
-      }
-    },
-    "snackbar": {
-      "updateLanguage": "Language updated",
-      "updateAvailable": "A new update is available",
-      "buttonUpdateAvailable": "Download",
-      "createPlaylist": "Playlist {{playlistName}} has been created",
-      "updatePlaylist": "Playlist {{playlistName}} has been updated",
-      "removePlaylist": "Playlist {{playlistName}} has been removed",
-      "canNotLoadVideo": "Can not load video",
-      "invidiousInstanceUpdated": "Invidious instance and playlist are updated",
-      "invidiousInstanceTokenUpdated": "Invidious instance updated. Consider changing your token",
-      "importData": "Your playlist and your favoris has been imported",
-      "usernameUpdated": "Username updated",
-      "monitoringSettingsUpdated": "Monitoring settings are updated",
-      "dataExportSuccess": "Your playlist and your favoris has been exported",
-      "dataExportError": "Error : your data can not been exported. Pleas check the app permission",
-      "dataImportSuccess": "Your playlist and your favoris has been imported",
-      "dataImportError": "Error : your data can not been imported. Pleas check the app permission",
-      "playlistFavorisCreateSuccess": "Favorite playlist has been created",
-      "addFavorisSuccess": "Add to favoris",
-      "removeFavorisSuccess": "Remove from favoris",
-      "addVideoToPlaylistSuccess": "Video added to playlist",
-      "removeVideoFromPlaylistSuccess": "Video removed from playlist",
-      "addCustomInstanceSuccess": "Invidious instance added",
-      "removeCustomInstanceSuccess": "Invidious instance removed"
+    "translation": {
+        "common": {
+            "button": {
+                "done": "Done",
+                "cancel": "Cancel",
+                "add": "Add",
+                "close": "Close",
+                "save": "Save",
+                "saveAndUse": "Save and use"
+            }
+        },
+        "navigation": {
+            "dashboard": "Dashboard",
+            "search": "Search",
+            "playlists": "Playlists",
+            "favoris": "Favoris"
+        },
+        "drawler": {
+            "title": "Navigation",
+            "createPlaylist": "Create new playlist",
+            "settings": "Settings",
+            "instances": "Invidious instances",
+            "darkMode": "Dark mode",
+            "version": "Version",
+            "updateAvailable": "Update available",
+            "privacyPolicy": "Privacy Policy"
+        },
+        "profil": {
+            "hey": "Hey {{userName}}",
+            "welcom": "Welcome home"
+        },
+        "search": {
+            "title": "Search",
+            "type": {
+                "video": "Video",
+                "playlist": "Playlist"
+            },
+            "popular": "Most popular",
+            "trending": "Trending",
+            "lastPlays": "Last plays",
+            "error": "No result. Maybe instance is down ? Try to change Invidious instance from settings screen.",
+            "errorApi": "Error. Maybe instance is down ? Try to change Invidious instance from settings screen.",
+            "empty": "No result with",
+            "emptyValue": "You can't search with empty value",
+            "buttonChangeInstance": "Change instance"
+        },
+        "playlists": {
+            "song": "song",
+            "canNotReOrder": "You cannot change order of a playlist by using an Invidious token."
+        },
+        "searchBar": {
+            "placeholder": "Search music"
+        },
+        "menu": {
+            "edit": "Edit",
+            "delete": "Delete"
+        },
+        "fab": {
+            "newPlaylist": "Add new playlist"
+        },
+        "player": {
+            "errorLoadVideo": "Error from Steam API. Loading next video"
+        },
+        "data": {
+            "empty": {
+                "playlist": "No playlist",
+                "favoris": "No favoris",
+                "favorisNotSet": "Your favoris playlist is not set.",
+                "favorisButtonSet": "Set Favoris playlist"
+            }
+        },
+        "settings": {
+            "title": "Settings",
+            "api": "API",
+            "invidiousInstance": "Invidious instance",
+            "buttonUpdateInvidiousInstance": "Change",
+            "token": "Token",
+            "tokenEmpty": "No token",
+            "application": "APPLICATION",
+            "username": "Username",
+            "monitoring": "Error and Performance Moniroting",
+            "enabled": "Enabled",
+            "disabled": "Disabled",
+            "language": "Language",
+            "data": "DATA",
+            "importExportText": "Export or import my playlists and my favoris",
+            "exportButton": "Export",
+            "importButton": "Import",
+            "darkMode": "Dark mode"
+        },
+        "instance": {
+            "title": "Invidious instances",
+            "loading": "Loading all Invidious instances...",
+            "use": "Use",
+            "test": "Test"
+        },
+        "privacyPolicy": {
+            "title": "Privacy Policy",
+            "intro1": "This privacy policy governs your use of the software application",
+            "intro2": "for mobile devices that was create by",
+            "dataTitle": "Data collected by me",
+            "dataText": "Myself and the application do not collect any personal information whatsoever.",
+            "emailTitle": "Email communication",
+            "emailText1": "If you contact me per email",
+            "emailText2": "i will exclusively use your contact data to process your inquiry.",
+            "crashReportingTitle": "Crash reporting tool (Sentry)",
+            "crashReportingText1": "This app uses an self hosted Sentry instance crash reporting library, disabled by default",
+            "crashReportingText2": "If the application crashes and you have activated crash reporting from the settings screen (and only if), Sentry collects data relating to the context : data relating to the application crash only.",
+            "permissionsTitle": "Why HoloPlay request write external storage permissions ?",
+            "permissionsText1": "HoloPlay will ask you for permission if you want to download music (to save it) as well as to generate a backup of your playlists from the settings screen.",
+            "permissionsText2": "These are the two cases where HoloPlay will ask you for this permission. The files will be saved in the Document folder of your device."
+        },
+        "login": {
+            "token": "Token",
+            "username": "Username (optional)",
+            "instance": "Instance",
+            "buttonSaveToken": "Save token",
+            "language": "Language",
+            "buttonStart": "Start"
+        },
+        "dialog": {
+            "addToPlaylist": {
+                "title": "Add to playlist",
+                "newPlaylist": "New playlist",
+                "text": "Select the playlist to which you want to add your music",
+                "text2": "Or create new playlist",
+                "selectPlaylist": "Select"
+            },
+            "createPlaylist": {
+                "titleAdd": "Create playlist",
+                "titleUpdate": "Update playlist",
+                "placeholder": "Playlist name"
+            },
+            "removePlaylist": {
+                "title": "Remove playlist {{name}} ?"
+            },
+            "editApiInstance": {
+                "title": "Edit Invidious instance"
+            },
+            "editToken": {
+                "title": "Edit Invidious token",
+                "emptyToken": "With an empty token, you will switch to logout mode"
+            },
+            "editUsername": {
+                "title": "Edit username"
+            },
+            "monitoring": {
+                "title": "Monitoring",
+                "text": "HoloPlay includes an error and performance monitoring tool that is disabled by default.",
+                "text1": "HoloPlay includes an error and performance monitoring tool that is disabled by default. No data is retrieved without your consent",
+                "text2": "By activating it, any errors will be sent to a self-hosted instance of Sentry",
+                "label": "Enable"
+            },
+            "editLanguage": {
+                "title": "Edit language"
+            },
+            "customInstance": {
+                "title": "Add Invidious instance",
+                "placeholder": "URL",
+                "example": "Example"
+            }
+        },
+        "snackbar": {
+            "updateLanguage": "Language updated",
+            "updateAvailable": "A new update is available",
+            "buttonUpdateAvailable": "Download",
+            "createPlaylist": "Playlist {{playlistName}} has been created",
+            "updatePlaylist": "Playlist {{playlistName}} has been updated",
+            "removePlaylist": "Playlist {{playlistName}} has been removed",
+            "canNotLoadVideo": "Can not load video",
+            "invidiousInstanceUpdated": "Invidious instance and playlist are updated",
+            "invidiousInstanceTokenUpdated": "Invidious instance updated. Consider changing your token",
+            "importData": "Your playlist and your favoris has been imported",
+            "usernameUpdated": "Username updated",
+            "monitoringSettingsUpdated": "Monitoring settings are updated",
+            "dataExportSuccess": "Your playlist and your favoris has been exported",
+            "dataExportError": "Error : your data can not been exported. Pleas check the app permission",
+            "dataImportSuccess": "Your playlist and your favoris has been imported",
+            "dataImportError": "Error : your data can not been imported. Pleas check the app permission",
+            "playlistFavorisCreateSuccess": "Favorite playlist has been created",
+            "addFavorisSuccess": "Add to favoris",
+            "removeFavorisSuccess": "Remove from favoris",
+            "addVideoToPlaylistSuccess": "Video added to playlist",
+            "removeVideoFromPlaylistSuccess": "Video removed from playlist",
+            "addCustomInstanceSuccess": "Invidious instance added",
+            "removeCustomInstanceSuccess": "Invidious instance removed"
+        }
     }
-  }
 }

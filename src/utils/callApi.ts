@@ -33,7 +33,7 @@ const callApi = async ({
   if (!JSON.parse(logoutMode) || customToken) {
     params.headers = {
       ...params.headers,
-      Authorization: `Bearer ${token || customToken}`,
+      Authorization: `Bearer ${customToken || token}`,
     };
   }
 

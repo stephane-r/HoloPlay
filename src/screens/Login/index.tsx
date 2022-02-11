@@ -1,24 +1,28 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Dimensions, ImageBackground, StyleSheet, View } from "react-native";
 
 import { AppVersion } from "../../components/Version";
-import { InstancesProvider } from "../../containers/InstanceList";
 import { LoginForm } from "./form";
 
-interface Props {
-  setToken: () => void;
-}
-
-const LoginScreen: React.FC<Props> = () => (
-  <View style={styles.container}>
-    <View style={{ flex: 1, justifyContent: "center" }}>
-      <InstancesProvider>
-        <LoginForm />
-      </InstancesProvider>
-    </View>
-    <AppVersion />
-  </View>
-);
+const LoginScreen: React.FC = () => {
+  return (
+    <ImageBackground
+      source={require("../../../docs/logo.png")}
+      style={{
+        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height,
+      }}
+      resizeMode="cover"
+    >
+      <View style={[styles.container, {}]}>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <LoginForm />
+        </View>
+        <AppVersion />
+      </View>
+    </ImageBackground>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

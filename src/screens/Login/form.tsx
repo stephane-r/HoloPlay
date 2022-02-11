@@ -1,37 +1,25 @@
 import { Picker } from "@react-native-community/picker";
 import { useNavigation } from "@react-navigation/native";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import "react-native-get-random-values";
-import { Button, TextInput, useTheme } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 
 import { Spacer } from "../../components/Spacer";
-import { FAVORIS_PLAYLIST_TITLE } from "../../constants";
 import { useInvidiousInstances } from "../../containers/InstanceList";
 import { APP_LANGUAGES } from "../../i18n";
 import { useAppSettings } from "../../providers/App";
 import { useFavorite } from "../../providers/Favorite";
-import { useSnackbar } from "../../providers/Snackbar";
-import fetchPlaylists from "../../utils/fetchPlaylists";
-import getLanguageName from "../../utils/getLanguageName";
-import stripTrailingSlash from "../../utils/stripTrailingSlash";
-import DashboardScreen from "../Dashboard";
 
 export const LoginForm: React.FC = memo(() => {
   const { data } = useInvidiousInstances();
-  const [isLoading, setIsLoading] = useState(false);
-  const [instance, setInstance] = useState(
-    data ? data[0].monitor.name || data[0].uri : null
-  );
-  const [token, setToken] = useState<null | string>(null);
-  const [username, setUsername] = useState<string>("User");
+  const [instance, setInstance] = useState(data ? data[0].uri : null);
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { settings, setSettings } = useAppSettings();
   const navigation = useNavigation();
-  const snackbar = useSnackbar();
   const { favorite: favoriteActions } = useFavorite();
 
   const handleChangeInstance = useCallback((value: string): void => {
@@ -42,31 +30,11 @@ export const LoginForm: React.FC = memo(() => {
     setSettings.language(lang);
   }, []);
 
-  const login = async () => {
-    if (!token || token === "") {
-      snackbar.show("You must enter a token");
-      return;
-    }
-
-    try {
-      // setIsLoading(true);
-      // await Promise.all([
-      //   actions.setInstance(instance),
-      //   AsyncStorage.setItem('token', token)
-      // ]);
-      // await fetchPlaylists();
-      // actions.setUsername(username);
-      // return onSuccess(token);
-    } catch (error) {
-      snackbar.show(error.message);
-    }
-  };
-
   const skipLogin = useCallback(async () => {
     await favoriteActions.init();
-    await setSettings.skipLogin({ instance, username });
+    await setSettings.skipLogin({ instance });
     navigation.navigate("App");
-  }, [instance, setIsLoading]);
+  }, [instance]);
 
   if (!data) {
     return null;
@@ -98,27 +66,9 @@ export const LoginForm: React.FC = memo(() => {
         </Picker>
       </View>
       <Spacer height={20} />
-      <TextInput
-        mode="outlined"
-        label={t("login.token")}
-        value={token as string}
-        onChangeText={setToken}
-      />
-      <Spacer height={20} />
-      <TextInput
-        mode="outlined"
-        label={t("login.username")}
-        value={username}
-        onChangeText={setUsername}
-      />
-      <Spacer height={20} />
-      <Button mode="contained" onPress={login} loading={isLoading}>
-        {t("login.buttonSaveToken")}
-      </Button>
-      <Spacer height={20} />
       <View style={{ justifyContent: "flex-end" }}>
         <Button mode="outlined" onPress={skipLogin}>
-          {t("login.buttonSkip")}
+          {t("login.buttonStart")}
         </Button>
       </View>
     </>

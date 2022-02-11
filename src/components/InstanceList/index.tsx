@@ -4,33 +4,23 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import { useInvidiousInstances } from "../../containers/InstanceList";
-import { CustomInstance } from "../../types";
 import stripTrailingSlash from "../../utils/stripTrailingSlash";
 import { Instance } from "../Instance";
 
-interface Props {
-  customInstances: CustomInstance[];
-}
-
-const InstanceList: React.FC<Props> = memo(() => {
+const InstanceList: React.FC = memo(() => {
   const { t } = useTranslation();
   const { data, custom } = useInvidiousInstances();
 
   if (!data) {
     return (
-      <View
-        style={{
-          paddingHorizontal: 20,
-          paddingVertical: 15,
-        }}
-      >
+      <View style={styles.containerLoading}>
         <Text>{t("instance.loading")}</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.content}>
+    <View style={styles.container}>
       <View>
         {[...custom, ...data].map(({ uri, isCustom }) => (
           <Instance
@@ -45,8 +35,12 @@ const InstanceList: React.FC<Props> = memo(() => {
 });
 
 const styles = StyleSheet.create({
-  content: {
+  container: {
     flexDirection: "column",
+  },
+  containerLoading: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
   },
 });
 

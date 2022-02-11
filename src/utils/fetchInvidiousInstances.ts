@@ -1,16 +1,17 @@
 import { Instance } from "../types";
 
-const fetchInvidiousInstances = (): Promise<Instance[]> =>
-  fetch("https://instances.invidio.us/instances.json")
-    .then((response) => response.json())
-    .then((result) => {
-      let instances = [];
+const INSTANCE_INVIDIOUS_URL = "https://instances.invidio.us/instances.json";
 
-      result.forEach((instance) => {
-        instances = [...instances, instance[1]];
-      });
+const fetchInvidiousInstances = async (): Promise<Instance[]> => {
+  const request = await fetch(INSTANCE_INVIDIOUS_URL);
+  const data = await request.json();
+  let instances: Instance[] = [];
 
-      return instances;
-    });
+  data.forEach((instance) => {
+    instances = [...instances, instance[1]];
+  });
+
+  return instances;
+};
 
 export default fetchInvidiousInstances;

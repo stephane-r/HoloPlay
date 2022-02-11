@@ -9,7 +9,6 @@ const InstanceContext = createContext(null);
 
 export const InstancesProvider = ({ children }) => {
   const { settings } = useAppSettings();
-
   const { data } = useQuery("invidious-instances", fetchInvidiousInstances);
 
   return (
@@ -26,11 +25,7 @@ export const useInvidiousInstances = () => {
 };
 
 const InstanceListContainer = () => {
-  return (
-    <InstancesProvider>
-      <InstanceList />
-    </InstancesProvider>
-  );
+  return <InstanceList />;
 };
 
 export default InstanceListContainer;

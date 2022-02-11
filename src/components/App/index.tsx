@@ -23,6 +23,7 @@ import {
   defaultTheme,
 } from "../../../config/theme";
 import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from "../../constants";
+import { InstancesProvider } from "../../containers/InstanceList";
 import useUpdateRelease from "../../hooks/useUpdateRelease";
 import {
   AppSettingsProvider,
@@ -99,35 +100,37 @@ const App: React.FC<Props> = () => {
           <FavoriteProvider data={favoriteData}>
             <DataProvider data={{ lastPlays: initialSettings.lastPlays }}>
               <PlayerProvider>
-                <PaperProvider>
-                  <NavigationContainer ref={navigation}>
-                    <Stack.Navigator
-                      headerMode="none"
-                      initialRouteName={
-                        initialSettings.skipLogin ? "App" : "Auth"
-                      }
-                    >
-                      <Stack.Screen
-                        name="App"
-                        component={AppScreen}
-                        initialParams={{ initialSettings }}
-                      />
-                      <Stack.Screen
-                        name="Settings"
-                        component={SettingsScreen}
-                      />
-                      <Stack.Screen
-                        name="InvidiousInstances"
-                        component={InvidiousInstanceScreen}
-                      />
-                      <Stack.Screen
-                        name="PrivacyPolicy"
-                        component={PrivacyPolicyScreen}
-                      />
-                      <Stack.Screen name="Auth" component={LoginScreen} />
-                    </Stack.Navigator>
-                  </NavigationContainer>
-                </PaperProvider>
+                <InstancesProvider>
+                  <PaperProvider>
+                    <NavigationContainer ref={navigation}>
+                      <Stack.Navigator
+                        headerMode="none"
+                        initialRouteName={
+                          initialSettings.skipLogin ? "App" : "Auth"
+                        }
+                      >
+                        <Stack.Screen
+                          name="App"
+                          component={AppScreen}
+                          initialParams={{ initialSettings }}
+                        />
+                        <Stack.Screen
+                          name="Settings"
+                          component={SettingsScreen}
+                        />
+                        <Stack.Screen
+                          name="InvidiousInstances"
+                          component={InvidiousInstanceScreen}
+                        />
+                        <Stack.Screen
+                          name="PrivacyPolicy"
+                          component={PrivacyPolicyScreen}
+                        />
+                        <Stack.Screen name="Auth" component={LoginScreen} />
+                      </Stack.Navigator>
+                    </NavigationContainer>
+                  </PaperProvider>
+                </InstancesProvider>
               </PlayerProvider>
             </DataProvider>
           </FavoriteProvider>

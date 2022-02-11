@@ -8,6 +8,10 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 
+import { ApiRoutes } from "../constants";
+import callApi from "../utils/callApi";
+import { usePlaylist } from "./Playlist";
+
 const AppSettingsContext = createContext(null);
 
 export const getCachedSettings = async () => {
@@ -25,6 +29,7 @@ export const getCachedSettings = async () => {
       language,
       lastPlays,
       customInstances,
+      instancesTokens,
     ] = await Promise.all([
       AsyncStorage.getItem("skipLogin"),
       AsyncStorage.getItem("darkMode"),
@@ -38,7 +43,10 @@ export const getCachedSettings = async () => {
       AsyncStorage.getItem("language"),
       AsyncStorage.getItem("lastPlays"),
       AsyncStorage.getItem("customInstances"),
+      AsyncStorage.getItem("instancesTokens"),
     ]);
+
+    console.log(instancesTokens);
 
     return {
       skipLogin: JSON.parse(skipLogin) ?? false,
@@ -54,6 +62,7 @@ export const getCachedSettings = async () => {
       language: language ?? "en",
       lastPlays: JSON.parse(lastPlays) ?? [],
       customInstances: JSON.parse(customInstances) ?? [],
+      instancesTokens: JSON.parse(instancesTokens) ?? {},
     };
   } catch (error) {
     console.log(error);
@@ -92,13 +101,12 @@ export const useAppSettings = () => {
 
   const setSettings = useMemo(
     () => ({
-      skipLogin: async ({ instance, username }): void => {
+      skipLogin: async ({ instance }): void => {
         await AsyncStorage.setItem("skipLogin", JSON.stringify(true));
 
         context.setAppSettings({
           instance,
           logoutMode: true,
-          username,
         });
       },
       darkMode: async (darkMode: Boolean): void => {
@@ -140,8 +148,57 @@ export const useAppSettings = () => {
         context.setAppSettings({ customInstances });
       },
       setInstance: async (instance: string) => {
+        alert(instance);
         await AsyncStorage.setItem("instance", JSON.stringify(instance));
         context.setAppSettings({ instance });
+      },
+      removeToken: async (token: string, instance: string) => {
+        const instancesTokens = context.state.instancesTokens;
+        const theInstance = instancesTokens[instance];
+
+        const test = theInstance.filter((t: string) => t !== token);
+
+        instancesTokens[instance] = test;
+
+        if (test.length === 0) {
+          delete instancesTokens[instance];
+        }
+
+        await AsyncStorage.setItem(
+          "instancesTokens",
+          JSON.stringify(instancesTokens)
+        );
+        context.setAppSettings({ instancesTokens });
+      },
+      setToken: async (token: string, instance: string) => {
+        await callApi({
+          url: ApiRoutes.Preferences,
+          customToken: token,
+        });
+
+        const instancesTokens = {
+          ...context.state.instancesTokens,
+          [instance]: [
+            ...(context.state.instancesTokens[instance] ?? []),
+            token,
+          ],
+        };
+
+        await Promise.all([
+          AsyncStorage.setItem(
+            "instancesTokens",
+            JSON.stringify(instancesTokens)
+          ),
+          AsyncStorage.setItem("token", token),
+        ]);
+        context.setAppSettings({ token, instance, instancesTokens });
+      },
+      useToken: async (token: string, instance: string) => {
+        await Promise.all([
+          AsyncStorage.setItem("token", token),
+          AsyncStorage.setItem("instance", instance),
+        ]);
+        context.setAppSettings({ token, instance });
       },
     }),
     [context]
