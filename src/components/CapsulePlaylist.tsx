@@ -3,8 +3,8 @@ import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 
 import { useAppSettings } from "../providers/App";
-import { usePlayer } from "../providers/Player";
 import { usePlaylist } from "../providers/Playlist";
+import { useVideo } from "../providers/Video";
 import { Capsule, CapsuleTotalSongs } from "./Capsule";
 import { formatCardItem } from "./Carousel";
 import { DialogEditPlaylist } from "./Dialog/EditPlaylist";
@@ -22,7 +22,7 @@ export const CapsulePlaylist: React.FC<Props> = memo(
   ({ totalSongs, playlist }) => {
     const [videoListVisible, setVideoListVisible] = useState(false);
     const { playlist: playlistActions } = usePlaylist();
-    const { player } = usePlayer();
+    const { video } = useVideo();
     const { colors } = useTheme();
     const { settings } = useAppSettings();
 
@@ -38,13 +38,13 @@ export const CapsulePlaylist: React.FC<Props> = memo(
     const handleLoadVideo = useCallback(
       async (videoIndex: number) => {
         if (videoIndex !== null || videoIndex !== undefined) {
-          await player.loadVideo({
+          await video.loadVideo({
             videoIndex,
             setPlaylistFrom: playlist.videos,
           });
         }
       },
-      [player, playlist.videos]
+      [video, playlist.videos]
     );
 
     const handleRemoveVideo = useCallback(
@@ -141,11 +141,11 @@ const PlaylistMenuContainer = memo(({ playlist }) => {
 
 export const ButtonPlayPlaylist = memo(({ playlist }) => {
   const [disabled, setDisabled] = useState(false);
-  const { player } = usePlayer();
+  const { video } = useVideo();
+
   const handlePress = async () => {
-    alert("test");
     setDisabled(true);
-    await player.loadVideo({
+    await video.loadVideo({
       videoIndex: 0,
       setPlaylistFrom: playlist.videos,
     });

@@ -1,38 +1,35 @@
 import React, { memo, useMemo } from "react";
 
 import { Player } from "../../components/Player";
-import { usePlayer } from "../../providers/Player";
 import { usePlaylist } from "../../providers/Playlist";
+import { useVideo } from "../../providers/Video";
 
 export const PlayerContainer = memo((props) => {
   const { state: playlistState } = usePlaylist();
-  const { state: playerState } = usePlayer();
+  const { state: videoState } = useVideo();
 
   const playlistCount = useMemo(
     () => playlistState.playlist && playlistState.playlist.length,
     [playlistState.playlist]
   );
   const nextVideoIndex = useMemo(
-    () => (playlistCount > 1 ? playerState.videoIndex + 1 : null),
-    [playerState, playlistCount]
+    () => (playlistCount > 1 ? videoState.videoIndex + 1 : null),
+    [videoState, playlistCount]
   );
-  const isFirstVideo = useMemo(
-    () => playerState.videoIndex === 0,
-    [playerState]
-  );
+  const isFirstVideo = useMemo(() => videoState.videoIndex === 0, [videoState]);
   const isLastVideo = useMemo(
     () => nextVideoIndex === playlistCount,
     [nextVideoIndex, playlistCount]
   );
 
-  if (!playerState.video) {
+  if (!videoState.video) {
     return null;
   }
 
   return (
     <Player
       {...props}
-      background={playerState.background}
+      background={videoState.background}
       isLastVideo={isLastVideo}
       isFirstVideo={isFirstVideo}
     />

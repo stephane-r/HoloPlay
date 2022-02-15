@@ -11,8 +11,9 @@ import Video from "react-native-video";
 
 import useDownloadFile from "../hooks/useDownloadFile";
 import { useFavorite } from "../providers/Favorite";
-import { usePlayer } from "../providers/Player";
+import { usePlayerTest } from "../providers/Player";
 import { useSnackbar } from "../providers/Snackbar";
+import { useVideo } from "../providers/Video";
 import hex2rgba from "../utils/hex2rgba";
 import { Dot } from "./Dot";
 import { ButtonFavorite } from "./Favoris/Button";
@@ -21,22 +22,27 @@ import { VideoList } from "./Video";
 
 const color = "#ffffff";
 
-export const Player: React.FC = ({ background, isFirstVideo, isLastVideo }) => {
+export const Player: React.FC = ({
+  background,
+  isFirstVideo,
+  isLastVideo,
+  onClose,
+}) => {
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
-      <PlayerPager />
+      <PlayerPager onClose={onClose} />
       <PlayerVideo isFirstVideo={isFirstVideo} isLastVideo={isLastVideo} />
       <Spacer height={30} />
     </View>
   );
 };
 
-const PlayerPager = memo(() => {
+const PlayerPager = memo(({ onClose }) => {
   const pager = useRef(null);
   const {
     state: { video, background, playlist },
     player,
-  } = usePlayer();
+  } = useVideo();
 
   const handleLoadVideo = useCallback(
     async (videoIndex: number) => {
@@ -59,7 +65,11 @@ const PlayerPager = memo(() => {
         ref={pager}
       >
         <View style={styles.head}>
-          <PlayerVideoDetail video={video} background={background} />
+          <PlayerVideoDetail
+            video={video}
+            background={background}
+            onClose={onClose}
+          />
         </View>
         <View style={{ paddingHorizontal: 20 }}>
           <ScrollView keyboardShouldPersistTaps="always">
@@ -103,7 +113,7 @@ const PlayerPagerDots = memo(({ pager }) => {
   );
 });
 
-const PlayerVideoDetail = memo(({ video, background }) => {
+const PlayerVideoDetail = memo(({ video, background, onClose }) => {
   return (
     <>
       <View>
@@ -133,17 +143,7 @@ const PlayerVideoDetail = memo(({ video, background }) => {
             icon="chevron-down"
             color="white"
             style={{ margin: 0 }}
-            // onPress={() => setTimeout(() => onClose(), 200)}
-            size={28}
-            animated
-          />
-        </View>
-        <View style={[styles.actionsAbsolute, { right: 15 }]}>
-          <IconButton
-            icon="plus"
-            color="white"
-            style={{ margin: 0 }}
-            // onPress={() => actions.setVideoDialogAddVideoToPlaylist(video)}
+            onPress={() => setTimeout(() => onClose(), 200)}
             size={28}
             animated
           />
@@ -167,11 +167,9 @@ const PlayerVideoDetail = memo(({ video, background }) => {
 });
 
 const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
-  const { state, player } = usePlayer();
+  const { state, video } = useVideo();
+  const test = usePlayerTest();
   const [loading, setLoading] = useState(false);
-  const [play, setPlay] = useState(true);
-  const [repeat, setRepeat] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
 
   MusicControl.enableControl("play", true);
   MusicControl.enableControl("pause", true);
@@ -185,46 +183,47 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
   MusicControl.on("previousTrack", (): void => handlePlayPreviousVideo());
 
   const handlePlayNextVideo = useCallback(() => {
-    player.playNextVideo();
-  }, [player]);
+    video.playNextVideo();
+  }, [video]);
 
   const handlePlayPreviousVideo = useCallback(() => {
-    player.playPreviousVideo();
-  }, [player]);
+    video.playPreviousVideo();
+  }, [video]);
 
   const handlePlay = useCallback(() => {
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PLAYING,
     });
-    setPlay(true);
-  }, [setPlay]);
+    test.player.pause();
+  }, [test]);
 
   const handlePause = useCallback(() => {
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PAUSED,
-      elapsedTime: currentTime,
+      elapsedTime: test.state.currentTime,
     });
-    setPlay(false);
-  }, [setPlay, currentTime]);
+    test.player.pause();
+  }, [test]);
 
   const handleRepeat = useCallback(() => {
-    setRepeat(!repeat);
-  }, [setRepeat, repeat]);
+    test.player.repeat();
+  }, [test]);
 
   const handleError = useCallback(() => {
-    player.stop();
-  }, [player]);
+    // TODO: rename method
+    video.stop();
+  }, [video]);
 
   return (
     <>
       <PlayerProgress
         {...state}
-        paused={!play}
-        repeat={repeat}
+        paused={!test.state.play}
+        repeat={test.state.repeat}
         loading={loading}
         setLoading={setLoading}
-        setCurrentTime={setCurrentTime}
-        currentTime={currentTime}
+        setCurrentTime={test.player.setCurrentTime}
+        currentTime={test.state.currentTime}
         onPlayNextVideo={handlePlayNextVideo}
         onPause={handlePause}
         onError={handleError}
@@ -232,8 +231,8 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
       <Spacer height={25} />
       <PlayerActions
         {...state}
-        paused={!play}
-        repeat={repeat}
+        paused={!test.state.play}
+        repeat={test.state.repeat}
         loading={loading}
         setLoading={setLoading}
         onPlayNextVideo={handlePlayNextVideo}
@@ -485,7 +484,7 @@ const PlayerActions = memo(
 const PlayerFavorite = memo(() => {
   const {
     state: { video },
-  } = usePlayer();
+  } = useVideo();
   const {
     state: { favorisPlaylist, favorisIds },
   } = useFavorite();

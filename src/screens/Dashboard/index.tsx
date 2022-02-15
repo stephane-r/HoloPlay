@@ -10,8 +10,8 @@ import { Layout } from "../../components/Layout";
 import { Profil } from "../../components/Profil";
 import { SearchPopular } from "../../components/Search/Popular";
 import { Spacer } from "../../components/Spacer";
-import { usePlayer } from "../../providers/Player";
 import { usePlaylist } from "../../providers/Playlist";
+import { useVideo } from "../../providers/Video";
 
 const DashboardScreen: React.FC = memo(() => {
   const { colors } = useTheme();
@@ -53,7 +53,7 @@ const DashboardScreen: React.FC = memo(() => {
 });
 
 const ScreenFooterMarge = memo(() => {
-  const { state } = usePlayer();
+  const { state } = useVideo();
 
   if (!state.video) {
     return null;

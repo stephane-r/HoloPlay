@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 
-import { usePlayer } from "../providers/Player";
+import { useVideo } from "../providers/Video";
 import { Card, CardPlaceholder } from "./Card";
 import { HorizontalScrollView } from "./HorizontalScrollView";
 
@@ -19,9 +19,9 @@ export const CardList: React.FC = memo(
 );
 
 const GridList = memo(({ data, setPlaylistFrom }) => {
-  const { player } = usePlayer();
+  const { video } = useVideo();
 
-  const handlePress = useCallback((props) => player.loadVideo(props), [player]);
+  const handlePress = useCallback((props) => video.loadVideo(props), [video]);
 
   return (
     <View style={styles.list}>
@@ -66,9 +66,9 @@ export const GridListPlaceholder = memo(() => {
 });
 
 const HorizontalList = memo(({ data, setPlaylistFrom }) => {
-  const { player } = usePlayer();
+  const { video } = useVideo();
 
-  const handlePress = useCallback((props) => player.loadVideo(props), [player]);
+  const handlePress = useCallback((props) => video.loadVideo(props), [video]);
 
   return (
     <HorizontalScrollView>

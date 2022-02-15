@@ -9,8 +9,8 @@ import {
   Text,
 } from "react-native-paper";
 
-import { usePlayer } from "../providers/Player";
 import { usePlaylist } from "../providers/Playlist";
+import { useVideo } from "../providers/Video";
 import { Video as VideoTypes } from "../types";
 import { Spacer } from "./Spacer";
 
@@ -96,9 +96,9 @@ const Video = memo(
     drag,
   }) => {
     const [loading, setLoading] = useState<boolean>(false);
-    const { state: playerState } = usePlayer();
+    const { state: videoState } = useVideo();
 
-    const isPlaying = playerState.video?.videoId === item.videoId;
+    const isPlaying = videoState.video?.videoId === item.videoId;
 
     const handlePress = useCallback(async (): Promise<any> => {
       setLoading(true);

@@ -45,11 +45,9 @@ export const PlayerSmall: React.FC<Props> = memo(
           >
             <IconButton
               icon={"chevron-up"}
-              onPress={onPress}
               style={[styles.icon]}
               color={color}
               size={30}
-              animated
             />
             <View style={styles.content}>
               <Text numberOfLines={1} style={{ color, textAlign: "center" }}>

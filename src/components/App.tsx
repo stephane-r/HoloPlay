@@ -32,9 +32,9 @@ import {
 import { DataProvider } from "../providers/Data";
 import { FavoriteProvider } from "../providers/Favorite";
 import { InstancesProvider } from "../providers/Instances";
-import { PlayerProvider } from "../providers/Player";
 import { PlaylistProvider } from "../providers/Playlist";
 import { SnackbarProvider } from "../providers/Snackbar";
+import { VideoProvider } from "../providers/Video";
 import DashboardScreen from "../screens/Dashboard";
 import FavorisScreen from "../screens/Favoris";
 import InvidiousInstanceScreen from "../screens/InvidiousInstances";
@@ -99,7 +99,7 @@ const App: React.FC<Props> = () => {
         <PlaylistProvider data={playlistData}>
           <FavoriteProvider data={favoriteData}>
             <DataProvider data={{ lastPlays: initialSettings.lastPlays }}>
-              <PlayerProvider>
+              <VideoProvider>
                 <InstancesProvider>
                   <PaperProvider>
                     <NavigationContainer ref={navigation}>
@@ -131,7 +131,7 @@ const App: React.FC<Props> = () => {
                     </NavigationContainer>
                   </PaperProvider>
                 </InstancesProvider>
-              </PlayerProvider>
+              </VideoProvider>
             </DataProvider>
           </FavoriteProvider>
         </PlaylistProvider>
