@@ -148,9 +148,15 @@ export const useAppSettings = () => {
         context.setAppSettings({ customInstances });
       },
       setInstance: async (instance: string) => {
-        alert(instance);
-        await AsyncStorage.setItem("instance", JSON.stringify(instance));
-        context.setAppSettings({ instance });
+        const token = context.state.instancesTokens[instance];
+        await Promise.all([
+          AsyncStorage.setItem("instance", JSON.stringify(instance)),
+          AsyncStorage.setItem("token", JSON.stringify(token)),
+        ]);
+        context.setAppSettings({
+          instance,
+          token: Array.isArray(token) ? token[0] : null,
+        });
       },
       removeToken: async (token: string, instance: string) => {
         const instancesTokens = context.state.instancesTokens;

@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import config from "react-native-config";
 import semverCompare from "semver-compare";
 
 import { version } from "../../package";
 import { useSnackbar } from "../providers/Snackbar";
 import downloadApk from "../utils/downloadApk";
-import fetchHopRelease from "../utils/fetchGithubAppVersion";
+import { fetchGithubRelease } from "../utils/fetchGithubAppVersion";
 
 interface UseUpdateReleaseHook {
   updateAvailable: boolean;
@@ -15,6 +16,7 @@ interface UseUpdateReleaseHook {
 const useUpdateRelease = (
   showSnackbar: boolean = false
 ): UseUpdateReleaseHook => {
+  const { t } = useTranslation();
   const [url, setUrl] = useState<null | string>(null);
   const [fileName, setFileName] = useState<null | string>(null);
   const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
@@ -25,7 +27,7 @@ const useUpdateRelease = (
       config.GITHUB_RELEASE === "true" ||
       process.env.NODE_ENV === "development"
     ) {
-      fetchHopRelease().then(({ tagName, browserDownloadUrl }) => {
+      fetchGithubRelease().then(({ tagName, browserDownloadUrl }) => {
         if (semverCompare(tagName, version) === 1) {
           setUrl(browserDownloadUrl);
           setFileName(`holoplay-${tagName}.apk`);
@@ -37,16 +39,14 @@ const useUpdateRelease = (
         }
       });
     }
-  });
+  }, []);
 
-  const handleDownloadFile = async () => {
-    snackbar.show("Download have started");
-    downloadApk(url, fileName, () => {
-      snackbar.show(
-        "New apk has been download ! Go to your download folder and run apk file"
-      );
+  const handleDownloadFile = useCallback(async () => {
+    snackbar.show(t("snackbar.downloadApkStart"));
+    return downloadApk(url as string, fileName as string, () => {
+      snackbar.show(t("snackbar.downloadApkEnd"));
     });
-  };
+  }, [snackbar, url, fileName]);
 
   const showUpdateIsAvailable = () => {
     setTimeout(

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Portal, Button, Dialog, TextInput } from 'react-native-paper';
-import { Playlist } from '../../../types';
-import { useTranslation } from 'react-i18next';
-import { usePlaylist } from '../../../providers/Playlist';
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Button, Dialog, Portal, TextInput } from "react-native-paper";
+
+import { usePlaylist } from "../../../providers/Playlist";
+import { Playlist } from "../../../types";
 
 interface Props {
   toggleDialog: (value: null | Playlist) => void;
@@ -11,8 +12,8 @@ interface Props {
 }
 
 export const playlistProps = {
-  title: '',
-  privacy: 'public'
+  title: "",
+  privacy: "public",
 };
 
 const DialogAddPlaylist: React.FC<Props> = ({
@@ -38,7 +39,7 @@ const DialogAddPlaylist: React.FC<Props> = ({
     setLoading(true);
 
     if (playlist.playlistId) {
-      return alert('TODO');
+      return alert("TODO");
       // return updatePlaylist(playlist, closeDialog);
     }
 
@@ -59,26 +60,27 @@ const DialogAddPlaylist: React.FC<Props> = ({
         <Dialog.Title>
           {t(
             playlist?.playlistId
-              ? 'dialog.createPlaylist.titleUpdate'
-              : 'dialog.createPlaylist.titleAdd'
+              ? "dialog.createPlaylist.titleUpdate"
+              : "dialog.createPlaylist.titleAdd"
           )}
         </Dialog.Title>
         <Dialog.Content>
           <TextInput
             accessibilityStates={[]}
             mode="outlined"
-            label={t('dialog.createPlaylist.placeholder')}
+            label={t("dialog.createPlaylist.placeholder")}
             value={playlist.title}
             onChangeText={setPlaylistName}
           />
         </Dialog.Content>
         <Dialog.Actions>
-          <Button onPress={closeDialog}>{t('common.button.cancel')}</Button>
+          <Button onPress={closeDialog}>{t("common.button.cancel")}</Button>
           <Button
             onPress={submit}
             loading={loading}
-            disabled={playlist.title === ''}>
-            {t('common.button.done')}
+            disabled={playlist.title === ""}
+          >
+            {t("common.button.done")}
           </Button>
         </Dialog.Actions>
       </Dialog>

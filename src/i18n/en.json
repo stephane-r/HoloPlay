@@ -164,6 +164,8 @@
         "snackbar": {
             "updateLanguage": "Language updated",
             "updateAvailable": "A new update is available",
+            "downloadApkStart": "Download start",
+            "downloadApkEnd": "Download end",
             "buttonUpdateAvailable": "Download",
             "createPlaylist": "Playlist {{playlistName}} has been created",
             "updatePlaylist": "Playlist {{playlistName}} has been updated",

@@ -1,9 +1,10 @@
-import { useFavorite } from "../providers/Favorite";
-import { usePlaylist } from "../providers/Playlist";
-import { useSnackbar } from "../providers/Snackbar";
 import { useTranslation } from "react-i18next";
 import { PermissionsAndroid } from "react-native";
 import RNFS from "react-native-fs";
+
+import { useFavorite } from "../providers/Favorite";
+import { usePlaylist } from "../providers/Playlist";
+import { useSnackbar } from "../providers/Snackbar";
 
 const fileName = "holoplay-backup.json";
 const path = `${RNFS.DownloadDirectoryPath}/${fileName}`;
@@ -60,17 +61,17 @@ const useBackup = () => {
 
 export const requestWriteExternalStoragePermission = async () => {
   try {
-    const test = await PermissionsAndroid.request(
+    const permission = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
     );
 
-    if (test === PermissionsAndroid.RESULTS.GRANTED) {
+    if (permission === PermissionsAndroid.RESULTS.GRANTED) {
       return Promise.resolve(PermissionsAndroid.RESULTS.GRANTED);
     }
 
     return Promise.reject("Reject");
   } catch (error) {
-    console.logo(error);
+    console.log(error);
   }
 };
 

@@ -8,7 +8,7 @@ const { android } = RNFetchBlob;
 const downloadApk = async (
   url: string,
   fileName: string,
-  callback: void
+  callback: () => void
 ): Promise<void> => {
   await requestWriteExternalStoragePermission();
 

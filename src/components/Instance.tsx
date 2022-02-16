@@ -135,23 +135,33 @@ export const Instance: React.FC<Props> = memo(({ uri, isCustom }) => {
         >
           {Object.entries(settings.instancesTokens[uri]).map(([, value]) => (
             <View
-              style={{ height: 28, flexDirection: "row", alignItems: "center" }}
+              style={{
+                height: 28,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
             >
               <View style={{ flex: 1, paddingRight: 16 }}>
                 <Text numberOfLines={1}>{value}</Text>
               </View>
-              <IconButton
-                icon="plus"
-                style={{ marginRight: 0 }}
-                disabled={settings.token === value}
-                onPress={() => handleUseToken(value)}
-              />
-              <IconButton
-                icon="minus"
-                style={{ marginRight: 0 }}
-                disabled={settings.token === value}
-                onPress={() => handleRemoveToken(value)}
-              />
+              {settings.token === value ? (
+                <Text>Current</Text>
+              ) : (
+                <>
+                  <IconButton
+                    icon="plus"
+                    style={{ marginRight: 0 }}
+                    disabled={settings.token === value}
+                    onPress={() => handleUseToken(value)}
+                  />
+                  <IconButton
+                    icon="minus"
+                    style={{ marginRight: 0 }}
+                    disabled={settings.token === value}
+                    onPress={() => handleRemoveToken(value)}
+                  />
+                </>
+              )}
             </View>
           ))}
         </View>

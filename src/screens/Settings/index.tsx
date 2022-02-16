@@ -343,7 +343,6 @@ const DarkMode = memo(() => {
 
 const Version = memo(() => {
   const { t } = useTranslation();
-  const { settings, setSettings } = useAppSettings();
   const { updateAvailable, downloadApk } = useUpdateRelease();
 
   return (
