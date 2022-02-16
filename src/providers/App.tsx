@@ -9,6 +9,7 @@ import React, {
 import { useTranslation } from "react-i18next";
 
 import { ApiRoutes } from "../constants";
+import useUpdateRelease from "../hooks/useUpdateRelease";
 import callApi from "../utils/callApi";
 import { usePlaylist } from "./Playlist";
 
@@ -46,8 +47,6 @@ export const getCachedSettings = async () => {
       AsyncStorage.getItem("instancesTokens"),
     ]);
 
-    console.log(instancesTokens);
-
     return {
       skipLogin: JSON.parse(skipLogin) ?? false,
       instance: instance?.replace(/"/g, ""),
@@ -71,6 +70,7 @@ export const getCachedSettings = async () => {
 
 export const AppSettingsProvider = ({ children, data }) => {
   const [state, setState] = useState(data);
+  useUpdateRelease(true);
 
   const setAppSettings = useCallback(
     (value) => {

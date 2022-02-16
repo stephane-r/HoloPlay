@@ -1,14 +1,15 @@
-import { requestWriteExternalStoragePermission } from "../hooks/useBackup";
 import RNFS from "react-native-fs";
 import RNFetchBlob from "rn-fetch-blob";
 
+import { requestWriteExternalStoragePermission } from "../hooks/useBackup";
+
 const { android } = RNFetchBlob;
 
-const downloadApk = async (url: string, fileName: string): Promise<void> => {
-  // actions.setSnackbar({
-  //   message: 'Download have started'
-  // });
-
+const downloadApk = async (
+  url: string,
+  fileName: string,
+  callback: void
+): Promise<void> => {
   await requestWriteExternalStoragePermission();
 
   return RNFetchBlob.config({
@@ -23,9 +24,7 @@ const downloadApk = async (url: string, fileName: string): Promise<void> => {
   })
     .fetch("GET", url)
     .then((res) => {
-      // actions.setSnackbar({
-      //   message: `New apk has been download ! Go to your download folder and run apk file`
-      // });
+      callback();
       android.actionViewIntent(
         res.path(),
         "application/vnd.android.package-archive"

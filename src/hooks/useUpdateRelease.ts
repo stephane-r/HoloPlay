@@ -1,9 +1,11 @@
-import { version } from "../../package";
-import downloadApk from "../utils/downloadApk";
-import fetchHopRelease from "../utils/fetchGithubAppVersion";
 import { useEffect, useState } from "react";
 import config from "react-native-config";
 import semverCompare from "semver-compare";
+
+import { version } from "../../package";
+import { useSnackbar } from "../providers/Snackbar";
+import downloadApk from "../utils/downloadApk";
+import fetchHopRelease from "../utils/fetchGithubAppVersion";
 
 interface UseUpdateReleaseHook {
   updateAvailable: boolean;
@@ -16,9 +18,13 @@ const useUpdateRelease = (
   const [url, setUrl] = useState<null | string>(null);
   const [fileName, setFileName] = useState<null | string>(null);
   const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
+  const snackbar = useSnackbar();
 
   useEffect(() => {
-    if (config.GITHUB_RELEASE === "true") {
+    if (
+      config.GITHUB_RELEASE === "true" ||
+      process.env.NODE_ENV === "development"
+    ) {
       fetchHopRelease().then(({ tagName, browserDownloadUrl }) => {
         if (semverCompare(tagName, version) === 1) {
           setUrl(browserDownloadUrl);
@@ -33,23 +39,31 @@ const useUpdateRelease = (
     }
   });
 
+  const handleDownloadFile = async () => {
+    snackbar.show("Download have started");
+    downloadApk(url, fileName, () => {
+      snackbar.show(
+        "New apk has been download ! Go to your download folder and run apk file"
+      );
+    });
+  };
+
   const showUpdateIsAvailable = () => {
-    // setTimeout(
-    //   () =>
-    //     actions.setSnackbar({
-    //       message: 'A new update is available',
-    //       action: {
-    //         label: 'Download',
-    //         onPress: () => downloadApk(url, fileName)
-    //       }
-    //     }),
-    //   1000
-    // );
+    setTimeout(
+      () =>
+        snackbar.show("A new update is available", {
+          action: {
+            label: "Download",
+            onPress: handleDownloadFile,
+          },
+        }),
+      1000
+    );
   };
 
   return {
     updateAvailable,
-    downloadApk: () => downloadApk(url, fileName),
+    downloadApk: handleDownloadFile,
   };
 };
 export default useUpdateRelease;

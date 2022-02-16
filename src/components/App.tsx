@@ -23,7 +23,6 @@ import {
   defaultTheme,
 } from "../../config/theme";
 import { ApiRoutes, FAVORIS_PLAYLIST_TITLE } from "../constants";
-import useUpdateRelease from "../hooks/useUpdateRelease";
 import {
   AppSettingsProvider,
   getCachedSettings,
@@ -62,8 +61,6 @@ interface Props {
 const App: React.FC<Props> = () => {
   const navigation = useRef(null);
   const [initialSettings, setInitialSettings] = useState(null);
-
-  useUpdateRelease(true);
 
   useEffect(() => {
     getCachedSettings().then((data) => {

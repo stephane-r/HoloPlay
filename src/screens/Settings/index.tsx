@@ -24,6 +24,7 @@ import { DialogEditToken } from "../../components/Dialog/EditToken";
 import { DialogEditUsername } from "../../components/Dialog/EditUsername";
 import { Spacer } from "../../components/Spacer";
 import useBackup from "../../hooks/useBackup";
+import useUpdateRelease from "../../hooks/useUpdateRelease";
 import { APP_LANGUAGES } from "../../i18n";
 import { useAppSettings } from "../../providers/App";
 import { useSnackbar } from "../../providers/Snackbar";
@@ -73,7 +74,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           <DarkMode />
           <Divider />
           <View>
-            <AppVersion listItemStyle />
+            <Version />
           </View>
           <Divider />
         </View>
@@ -335,6 +336,32 @@ const DarkMode = memo(() => {
         }}
       >
         <Switch value={darkMode} onValueChange={() => toggleDarkMode()} />
+      </View>
+    </View>
+  );
+});
+
+const Version = memo(() => {
+  const { t } = useTranslation();
+  const { settings, setSettings } = useAppSettings();
+  const { updateAvailable, downloadApk } = useUpdateRelease();
+
+  return (
+    <View style={{ flexDirection: "row", paddingRight: 16 }}>
+      <View style={{ flex: 1 }}>
+        <AppVersion listItemStyle />
+      </View>
+      <View
+        style={{
+          alignItems: "flex-end",
+          justifyContent: "center",
+        }}
+      >
+        {updateAvailable ? (
+          <Button mode="contained" onPress={downloadApk}>
+            {t("snackbar.buttonUpdateAvailable")}
+          </Button>
+        ) : null}
       </View>
     </View>
   );
