@@ -2,6 +2,8 @@ import Slider from "@react-native-community/slider";
 import ViewPager from "@react-native-community/viewpager";
 import TimeFormat from "hh-mm-ss";
 import React, { memo, useCallback, useRef, useState } from "react";
+import { useEffect } from "react";
+import { useMemo } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import LinearGradient from "react-native-linear-gradient";
@@ -10,6 +12,7 @@ import { ActivityIndicator, IconButton, Text } from "react-native-paper";
 import Video from "react-native-video";
 
 import useDownloadFile from "../hooks/useDownloadFile";
+import { useAppSettings } from "../providers/App";
 import { useFavorite } from "../providers/Favorite";
 import { usePlayerTest } from "../providers/Player";
 import { useSnackbar } from "../providers/Snackbar";
@@ -194,13 +197,13 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PLAYING,
     });
-    test.player.pause();
+    test.player.play();
   }, [test]);
 
   const handlePause = useCallback(() => {
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PAUSED,
-      elapsedTime: test.state.currentTime,
+      elapsedTime: test.state.currentTime ?? 0,
     });
     test.player.pause();
   }, [test]);
@@ -210,7 +213,6 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
   }, [test]);
 
   const handleError = useCallback(() => {
-    // TODO: rename method
     video.stop();
   }, [video]);
 
@@ -224,6 +226,7 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
         setLoading={setLoading}
         setCurrentTime={test.player.setCurrentTime}
         currentTime={test.state.currentTime}
+        play={handlePlay}
         onPlayNextVideo={handlePlayNextVideo}
         onPause={handlePause}
         onError={handleError}
@@ -255,6 +258,7 @@ const PlayerProgress = memo(
     setCurrentTime,
     video,
     repeat,
+    play,
     paused,
     onPlayNextVideo,
     onPause,
@@ -262,7 +266,10 @@ const PlayerProgress = memo(
   }) => {
     const player = useRef(null);
     const snackbar = useSnackbar();
+    const { settings } = useAppSettings();
     const { loading: downloadLoading, downloadVideo } = useDownloadFile();
+
+    const autoPlay = useMemo(() => settings.autoPlay, [settings.autoPlay]);
 
     const onProgress = useCallback(
       (progress): void => {
@@ -297,6 +304,10 @@ const PlayerProgress = memo(
     }, [video, loading, setLoading]);
 
     const onEnd = useCallback((): void => {
+      if (!autoPlay && !repeat) {
+        return onPause();
+      }
+
       if (!repeat) {
         setLoading(true);
         onPlayNextVideo();
@@ -313,6 +324,12 @@ const PlayerProgress = memo(
       },
       [snackbar, setLoading]
     );
+
+    useEffect(() => {
+      if (video && paused) {
+        play();
+      }
+    }, [video]);
 
     const duration = video.lengthSeconds;
 

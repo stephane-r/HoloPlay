@@ -31,6 +31,7 @@ export const getCachedSettings = async () => {
       lastPlays,
       customInstances,
       instancesTokens,
+      autoPlay,
     ] = await Promise.all([
       AsyncStorage.getItem("skipLogin"),
       AsyncStorage.getItem("darkMode"),
@@ -45,6 +46,7 @@ export const getCachedSettings = async () => {
       AsyncStorage.getItem("lastPlays"),
       AsyncStorage.getItem("customInstances"),
       AsyncStorage.getItem("instancesTokens"),
+      AsyncStorage.getItem("autoPlay"),
     ]);
 
     return {
@@ -62,6 +64,7 @@ export const getCachedSettings = async () => {
       lastPlays: JSON.parse(lastPlays) ?? [],
       customInstances: JSON.parse(customInstances) ?? [],
       instancesTokens: JSON.parse(instancesTokens) ?? {},
+      autoPlay: JSON.parse(autoPlay) ?? true,
     };
   } catch (error) {
     console.log(error);
@@ -205,6 +208,10 @@ export const useAppSettings = () => {
           AsyncStorage.setItem("instance", instance),
         ]);
         context.setAppSettings({ token, instance });
+      },
+      setAutoPlay: async (autoPlay: Boolean): void => {
+        await AsyncStorage.setItem("autoPlay", JSON.stringify(autoPlay));
+        context.setAppSettings({ autoPlay });
       },
     }),
     [context]

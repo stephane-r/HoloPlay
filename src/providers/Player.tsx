@@ -39,6 +39,9 @@ export const usePlayerTest = () => {
 
   const player = useMemo(
     () => ({
+      play: (): void => {
+        context.setPlayer({ play: true });
+      },
       pause: (): void => {
         context.setPlayer({ play: !context.state.play });
       },

@@ -87,7 +87,10 @@
             "importExportText": "Export or import my playlists and my favoris",
             "exportButton": "Export",
             "importButton": "Import",
-            "darkMode": "Dark mode"
+            "darkMode": "Dark mode",
+            "player": "PLAYER",
+            "autoPlay": "Autoplay",
+            "autoPlayText": "Run next video when current video is finished"
         },
         "instance": {
             "title": "Invidious instances",

@@ -85,7 +85,10 @@
             "importExportText": "Exporter ou importer mes playlists et mes favoris",
             "exportButton": "Expoter",
             "importButton": "Importer",
-            "darkMode": "Mode sombre"
+            "darkMode": "Mode sombre",
+            "player": "PLAYER",
+            "autoPlay": "Auto-play",
+            "autoPlayText": "Lancer la vidéo automatiquement lorsqu'une musique est terminée"
         },
         "instance": {
             "title": "Instances Invidious",

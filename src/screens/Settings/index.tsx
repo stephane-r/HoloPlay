@@ -77,6 +77,11 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             <Version />
           </View>
           <Divider />
+          <Subheading style={styles.subheading}>
+            {t("settings.player")}
+          </Subheading>
+          <AutoPlay />
+          <Divider />
         </View>
         <View style={styles.content}>
           <Subheading style={styles.subheading}>
@@ -336,6 +341,37 @@ const DarkMode = memo(() => {
         }}
       >
         <Switch value={darkMode} onValueChange={() => toggleDarkMode()} />
+      </View>
+    </View>
+  );
+});
+
+const AutoPlay = memo(() => {
+  const { t } = useTranslation();
+  const { settings, setSettings } = useAppSettings();
+  const [autoPlay, setAutoPlay] = useState(settings.autoPlay);
+
+  const toggleAutoPlay = useCallback(() => {
+    setAutoPlay(!autoPlay);
+    setSettings.setAutoPlay(!autoPlay);
+  }, [setAutoPlay, autoPlay, setSettings]);
+
+  return (
+    <View style={{ flexDirection: "row", paddingRight: 16 }}>
+      <View style={{ flex: 1 }}>
+        <List.Item
+          title={t("settings.autoPlay")}
+          description={t("settings.autoPlayText")}
+          onPress={() => toggleAutoPlay()}
+        />
+      </View>
+      <View
+        style={{
+          alignItems: "flex-end",
+          justifyContent: "center",
+        }}
+      >
+        <Switch value={autoPlay} onValueChange={() => toggleAutoPlay()} />
       </View>
     </View>
   );
