@@ -67,7 +67,7 @@ export const LoginForm: React.FC = memo(() => {
       </View>
       <Spacer height={20} />
       <View style={{ justifyContent: "flex-end" }}>
-        <Button mode="outlined" onPress={skipLogin}>
+        <Button mode="contained" onPress={skipLogin}>
           {t("login.buttonStart")}
         </Button>
       </View>

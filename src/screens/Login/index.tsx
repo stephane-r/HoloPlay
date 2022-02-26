@@ -1,26 +1,31 @@
 import React from "react";
-import { Dimensions, ImageBackground, StyleSheet, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  View,
+} from "react-native";
+import { useTheme } from "react-native-paper";
 
 import { AppVersion } from "../../components/AppVersion";
 import { LoginForm } from "./form";
 
 const LoginScreen: React.FC = () => {
+  const { colors } = useTheme();
   return (
-    <ImageBackground
-      source={require("../../../docs/logo.png")}
-      style={{
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height,
-      }}
-      resizeMode="cover"
-    >
-      <View style={[styles.container, {}]}>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <LoginForm />
+    <View style={[styles.container, { backgroundColor: colors.surface }]}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <View style={{ alignItems: "center", marginBottom: 60 }}>
+          <Image
+            source={require("../../../docs/logo.png")}
+            style={{ width: 126, height: 126 }}
+          />
         </View>
-        <AppVersion />
+        <LoginForm />
       </View>
-    </ImageBackground>
+      <AppVersion />
+    </View>
   );
 };
 
