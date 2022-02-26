@@ -106,6 +106,7 @@ export const useAppSettings = () => {
     () => ({
       skipLogin: async ({ instance }): void => {
         await AsyncStorage.setItem("skipLogin", JSON.stringify(true));
+        await AsyncStorage.setItem("instance", JSON.stringify(instance));
 
         context.setAppSettings({
           instance,
@@ -152,13 +153,19 @@ export const useAppSettings = () => {
       },
       setInstance: async (instance: string) => {
         const token = context.state.instancesTokens[instance];
-        await Promise.all([
-          AsyncStorage.setItem("instance", JSON.stringify(instance)),
-          AsyncStorage.setItem("token", JSON.stringify(token)),
-        ]);
+        if (token) {
+          await Promise.all([
+            AsyncStorage.setItem("instance", JSON.stringify(instance)),
+            AsyncStorage.setItem("token", JSON.stringify(token)),
+          ]);
+          context.setAppSettings({
+            instance,
+            token: Array.isArray(token) ? token[0] : null,
+          });
+        }
+        await AsyncStorage.setItem("instance", JSON.stringify(instance));
         context.setAppSettings({
           instance,
-          token: Array.isArray(token) ? token[0] : null,
         });
       },
       removeToken: async (token: string, instance: string) => {
