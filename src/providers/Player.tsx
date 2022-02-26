@@ -9,9 +9,9 @@ import React, {
 } from "react";
 import { Animated, Dimensions } from "react-native";
 
-const TestContext = createContext(null);
+const PlayerContext = createContext(null);
 
-export const PlayerProviderTest = ({ children }) => {
+export const PlayerProvider = ({ children }) => {
   const [state, setState] = useState({
     play: true,
     repeat: false,
@@ -27,14 +27,16 @@ export const PlayerProviderTest = ({ children }) => {
 
   const value = useMemo(() => ({ state, setPlayer }), [state, setPlayer]);
 
-  return <TestContext.Provider value={value}>{children}</TestContext.Provider>;
+  return (
+    <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
+  );
 };
 
-export const usePlayerTest = () => {
-  const context = useContext(TestContext);
+export const usePlayer = () => {
+  const context = useContext(PlayerContext);
 
   if (!context) {
-    throw new Error("useVideo must be used within a PlayerProviderTest");
+    throw new Error("useVideo must be used within a PlayerProvider");
   }
 
   const player = useMemo(

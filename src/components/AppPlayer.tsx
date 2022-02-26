@@ -11,7 +11,7 @@ import { Animated, Dimensions } from "react-native";
 
 import { PlayerContainer } from "../containers/Player";
 import { PlayerSmallContainer } from "../containers/PlayerSmall";
-import { PlayerProviderTest, usePlayerTest } from "../providers/Player";
+import { PlayerProvider, usePlayer } from "../providers/Player";
 import { BottomSheet } from "./BottomSheet";
 import { Overlay } from "./Overlay";
 
@@ -36,7 +36,7 @@ export const AppPlayer: React.FC = memo(() => {
     }).start();
 
   return (
-    <PlayerProviderTest>
+    <PlayerProvider>
       <Overlay opacity={opacity} />
       <PlayerSmallContainer onPress={handleOpen} />
       <BottomSheet
@@ -46,6 +46,6 @@ export const AppPlayer: React.FC = memo(() => {
       >
         <PlayerContainer onClose={() => bottomSheet.current.close()} />
       </BottomSheet>
-    </PlayerProviderTest>
+    </PlayerProvider>
   );
 });

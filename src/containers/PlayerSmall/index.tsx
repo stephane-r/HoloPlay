@@ -1,27 +1,27 @@
 import React, { memo, useCallback } from "react";
 
 import { PlayerSmall } from "../../components/PlayerSmall";
-import { usePlayerTest } from "../../providers/Player";
+import { usePlayer } from "../../providers/Player";
 import { useVideo } from "../../providers/Video";
 
 export const PlayerSmallContainer = memo((props) => {
-  const { state } = useVideo();
-  const test = usePlayerTest();
+  const { state: videoState } = useVideo();
+  const { player, state: playerState } = usePlayer();
 
   const handlePause = useCallback(() => {
-    test.player.pause();
-  }, [test]);
+    player.pause();
+  }, [player]);
 
-  if (!state.video) {
+  if (!videoState.video) {
     return null;
   }
 
   return (
     <PlayerSmall
       {...props}
-      video={state.video}
-      background={state.background}
-      paused={!test.state.play}
+      video={videoState.video}
+      background={videoState.background}
+      paused={!playerState.play}
       onPause={handlePause}
     />
   );

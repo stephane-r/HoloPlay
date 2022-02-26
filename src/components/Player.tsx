@@ -14,7 +14,7 @@ import Video from "react-native-video";
 import useDownloadFile from "../hooks/useDownloadFile";
 import { useAppSettings } from "../providers/App";
 import { useFavorite } from "../providers/Favorite";
-import { usePlayerTest } from "../providers/Player";
+import { usePlayer } from "../providers/Player";
 import { useSnackbar } from "../providers/Snackbar";
 import { useVideo } from "../providers/Video";
 import hex2rgba from "../utils/hex2rgba";
@@ -171,7 +171,7 @@ const PlayerVideoDetail = memo(({ video, background, onClose }) => {
 
 const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
   const { state, video } = useVideo();
-  const test = usePlayerTest();
+  const { state: playerState, player } = usePlayer();
   const [loading, setLoading] = useState(false);
 
   MusicControl.enableControl("play", true);
@@ -197,20 +197,20 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PLAYING,
     });
-    test.player.play();
-  }, [test]);
+    player.play();
+  }, [player]);
 
   const handlePause = useCallback(() => {
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PAUSED,
-      elapsedTime: test.state.currentTime ?? 0,
+      elapsedTime: playerState.currentTime ?? 0,
     });
-    test.player.pause();
-  }, [test]);
+    player.pause();
+  }, [player]);
 
   const handleRepeat = useCallback(() => {
-    test.player.repeat();
-  }, [test]);
+    player.repeat();
+  }, [player]);
 
   const handleError = useCallback(() => {
     video.stop();
@@ -220,12 +220,12 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
     <>
       <PlayerProgress
         {...state}
-        paused={!test.state.play}
-        repeat={test.state.repeat}
+        paused={!playerState.play}
+        repeat={playerState.repeat}
         loading={loading}
         setLoading={setLoading}
-        setCurrentTime={test.player.setCurrentTime}
-        currentTime={test.state.currentTime}
+        setCurrentTime={player.setCurrentTime}
+        currentTime={playerState.currentTime}
         play={handlePlay}
         onPlayNextVideo={handlePlayNextVideo}
         onPause={handlePause}
@@ -234,8 +234,8 @@ const PlayerVideo = memo(({ isFirstVideo, isLastVideo }) => {
       <Spacer height={25} />
       <PlayerActions
         {...state}
-        paused={!test.state.play}
-        repeat={test.state.repeat}
+        paused={!playerState.play}
+        repeat={playerState.repeat}
         loading={loading}
         setLoading={setLoading}
         onPlayNextVideo={handlePlayNextVideo}
