@@ -1,3 +1,9 @@
+<h2>🚨 Warning</h2>
+<p>This repository is DEPRECATED and not maintained anymore.<p>
+<p>An new app is available : <a href="https://github.com/stephane-r/holoplay-pwa">HoloPlay in PWA</a>, work on iOS, Android (PWA, with background sound !) and Desktop</p>
+    
+<hr>
+
 <p align="center"><img src="./docs/logo.png" width="150" /></p>
 <h2 align="center">HoloPlay</h2>
 <p align="center" style="margin: 10px 0;"><a href="https://f-droid.org/fr/packages/com.holoplay"><img height="70" src="https://f-droid.org/wiki/images/0/06/F-Droid-button_get-it-on.png"></a></p>
