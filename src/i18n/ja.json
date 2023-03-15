@@ -1,0 +1,188 @@
+{
+  "translation": {
+    "common": {
+      "button": {
+        "done": "完了",
+        "cancel": "キャンセル",
+        "add": "追加",
+        "close": "閉じる"
+      }
+    },
+    "navigation": {
+      "dashboard": "ダッシュボード",
+      "search": "検索",
+      "playlists": "再生リスト",
+      "favoris": "お気に入り"
+    },
+    "drawler": {
+      "title": "ナビ",
+      "createPlaylist": "再生リストを作成",
+      "settings": "設定",
+      "instances": "Invidious インスタンス",
+      "darkMode": "ダークモード",
+      "version": "バージョン",
+      "updateAvailable": "最新版あり",
+      "privacyPolicy": "個人情報保護方針"
+    },
+    "profil": {
+      "hey": "やあ {{userName}}",
+      "welcom": "ホームにようこそ"
+    },
+    "search": {
+      "title": "検索",
+      "type": {
+        "video": "動画",
+        "playlist": "再生リスト"
+      },
+      "popular": "人気",
+      "trending": "急上昇",
+      "lastPlays": "最近の再生履歴",
+      "error": "結果なし。インスタンスが停止している可能性もあります。設定からInvidiousのインスタンスを変更してみてください。",
+      "errorApi": "エラー。インスタンスが停止している可能性もあります。設定からInvidiousのインスタンスを変更してみてください。",
+      "empty": "検索結果なし: ",
+      "emptyValue": "空の値では検索できません",
+      "buttonChangeInstance": "インスタンスを変更"
+    },
+    "playlists": {
+      "song": "曲",
+      "canNotReOrder": "Invidiousトークンを使って再生リストの順番の変更はできません。."
+    },
+    "searchBar": {
+      "placeholder": "音楽を検索"
+    },
+    "menu": {
+      "edit": "編集",
+      "delete": "削除"
+    },
+    "fab": {
+      "newPlaylist": "再生リストを追加"
+    },
+    "player": {
+      "errorLoadVideo": "Steam API のエラー。次の動画を読み込み中"
+    },
+    "data": {
+      "empty": {
+        "playlist": "再生リストなし",
+        "favoris": "お気に入りなし",
+        "favorisNotSet": "お気に入り再生リストが設定されていません。",
+        "favorisButtonSet": "お気に入り再生リストを設定"
+      }
+    },
+    "settings": {
+      "title": "設定",
+      "api": "API",
+      "invidiousInstance": "Invidious インスタンス",
+      "buttonUpdateInvidiousInstance": "変更",
+      "token": "トークン",
+      "tokenEmpty": "トークンなし",
+      "application": "アプリケーション",
+      "username": "ユーザー名",
+      "monitoring": "エラーと性能の監視",
+      "enabled": "有効化",
+      "disabled": "無効化",
+      "language": "言語",
+      "data": "データ",
+      "importExportText": "私の再生リスト/お気に入りをエクスポート/インポート",
+      "exportButton": "エクスポート",
+      "importButton": "インポート",
+      "darkMode": "ダークモード"
+    },
+    "instance": {
+      "title": "Invidious インスタンス",
+      "loading": "すべての Invidious インスタンスの読み込み...",
+      "use": "使用",
+      "test": "テスト"
+    },
+    "privacyPolicy": {
+      "title": "個人情報保護方針",
+      "intro1": "This privacy policy governs your use of the software application",
+      "intro2": "for mobile devices that was create by",
+      "dataTitle": "私が収集するデータ",
+      "dataText": "私と本アプリはいかなる個人情報も収集しません。",
+      "emailTitle": "メールのやり取り",
+      "emailText1": "あなたがメールで私に問い合わせた場合",
+      "emailText2": "あなたの問い合わせを扱う目的でのみ収集されたデータを使用します。",
+      "crashReportingTitle": "機能停止の報告ツール (Sentry)",
+      "crashReportingText1": "本アプリはセルフホスト型の Sentry インスタンスによる機能停止の報告ライブラリを使います。初期設定では無効です",
+      "crashReportingText2": "本アプリが機能停止し、設定から機能停止の報告機能を有効化（またはその時に使用）したら、Sentry は背景の関連データを収集します : データは本アプリの機能停止にのみ関連しています。",
+      "permissionsTitle": "HoloPlay はなぜ外部領域への書き込み権限を要求しますか ?",
+      "permissionsText1": "HoloPlay は音楽をダウンロード（保存）、また設定から再生リストのバックアップを作成する際に、許可を求めます。",
+      "permissionsText2": "HoloPlay はこの2つの場合に許可を求めます。ファイルは端末の Document フォルダに保存されます。"
+    },
+    "login": {
+      "token": "トークン",
+      "username": "ユーザー名 (任意)",
+      "instance": "インスタンス",
+      "buttonSaveToken": "トークンを保存",
+      "language": "言語",
+      "buttonSkip": "スキップ"
+    },
+    "dialog": {
+      "addToPlaylist": {
+        "title": "再生リストに追加",
+        "newPlaylist": "新しい再生リスト",
+        "text": "音楽を追加したい再生リストを選択",
+        "text2": "または新しい再生リストを作衛",
+        "selectPlaylist": "選択"
+      },
+      "createPlaylist": {
+        "titleAdd": "再生リストを作成",
+        "titleUpdate": "再生リストの更新",
+        "placeholder": "再生リスト名"
+      },
+      "removePlaylist": {
+        "title": "この再生リストを削除しますか:: {{playlistName}}"
+      },
+      "editApiInstance": {
+        "title": "Invidious のインスタンスを編集"
+      },
+      "editToken": {
+        "title": "Invidious のトークンを編集",
+        "emptyToken": "トークンが空なら、ログアウトモードに切り替わります"
+      },
+      "editUsername": {
+        "title": "ユーザー名を編集"
+      },
+      "monitoring": {
+        "title": "監視機能",
+        "text": "HoloPlay には初期設定でｈ無効化されている、エラーと性能を監視するツールが含まれています。",
+        "text1": "HoloPlay には初期設定では無効化されている、エラーと性能を監視するツールが含まれています。同意なくデータの取得は行いません",
+        "text2": "有効化すると、すべてのエラーはセルフホストされた Sentry のインスタンスに送信されます",
+        "label": "有効化"
+      },
+      "editLanguage": {
+        "title": "言語を編集"
+      },
+      "customInstance": {
+        "title": "Invidious のインスタンスを追加",
+        "placeholder": "URL",
+        "example": "例"
+      }
+    },
+    "snackbar": {
+      "updateLanguage": "言語を更新しました",
+      "updateAvailable": "最新版があります",
+      "buttonUpdateAvailable": "ダウンロード",
+      "createPlaylist": "再生リストを作成しました: {{playlistName}}",
+      "updatePlaylist": "再生リストを更新しました: {{playlistName}}",
+      "removePlaylist": "再生リストを削除しました: {{playlistName}}",
+      "canNotLoadVideo": "動画を読み込めません",
+      "invidiousInstanceUpdated": "Invidious のインスタンスと再生リストを更新しました",
+      "invidiousInstanceTokenUpdated": "Invidious のインスタンスを更新しました。トークンの更新をお考え下さい",
+      "importData": "再生リストとお気に入りをインポートしました",
+      "usernameUpdated": "ユーザー名を更新",
+      "monitoringSettingsUpdated": "監視設定を更新しました",
+      "dataExportSuccess": "再生リストとお気に入りをエクスポートしました",
+      "dataExportError": "エラー: データのエクスポート不可。アプリの権限をご確認ください。",
+      "dataImportSuccess": "再生リストとお気に入りをインポートしました",
+      "dataImportError": "エラー: データのインポート不可。アプリの権限をご確認ください。",
+      "playlistFavorisCreateSuccess": "お気に入り再生リストが作成されました",
+      "addFavorisSuccess": "お気に入りに追加しました",
+      "removeFavorisSuccess": "お気に入りから削除しました",
+      "addVideoToPlaylistSuccess": "再生リストに追加しました:{{videoName}}",
+      "removeVideoFromPlaylistSuccess": "再生リストから削除しました: {{videoName}}",
+      "addCustomInstanceSuccess": "Invidious インスタンスを追加しました",
+      "removeCustomInstanceSuccess": "Invidious インスタンスを削除しました"
+    }
+  }
+}
